@@ -14,14 +14,8 @@ import pandas as pd
 
 from M_Createur_Rapport_PDF import create_pdf_template
 
-import sys
-sys.path.append('C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Scripts/')
-
 
 from M_Manipulation_Donnees_Materiaux_2 import get_grandeur_T_quelconque, get_donnees_grandeur_fonction_T
-D_Material_Properties = 'C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Base de donnees materiaux/Material Properties/'
-
-
 
 
 # Fonctions pour le calcul des élongations pour notamment tracer le diagramme des efforts
@@ -342,7 +336,7 @@ with mat_bolt_col1 :
     bolt_data_to_print = st.selectbox("Grandeur à afficher", ["Module d'Young", "Masse volumique", "Coefficient de dilatation thermique moyen"], label_visibility="collapsed")
     
     # On récupère le fichier des données matériaux du matériau choisi, et on le converti en liste
-    F_Bolt_Material_Properties = D_Material_Properties + materiau_bolt + '.csv'
+    F_Bolt_Material_Properties = materiau_bolt + '.csv'
     L_Bolt_Material_Properties = traduire_fichier_to_liste(F_Bolt_Material_Properties)
     
 with mat_bolt_col2 :    
@@ -508,7 +502,7 @@ with press_col2:
 
 L_Ea = []
 for i in range(0, len(materiau_piece)) :
-    F_Assembly_Part_Material_Properties = D_Material_Properties + materiau_piece[i] + '.csv'
+    F_Assembly_Part_Material_Properties = materiau_piece[i] + '.csv'
     L_Assembly_Part_Material_Properties = traduire_fichier_to_liste(F_Assembly_Part_Material_Properties)
     Ea = float(get_grandeur_T_quelconque('E', L_Assembly_Part_Material_Properties, float(T0)))
     L_Ea.append(Ea)
@@ -748,7 +742,7 @@ else :
 
     with st.expander("Détails des résultats") :
         st.dataframe(df_results_without_thq)
-        st.image("C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/Interpretation Diagramme F0.png", caption = "Interprétation du diagramme de chargement", use_column_width = True)
+        st.image("Pictures/Interpretation Diagramme F0.png", caption = "Interprétation du diagramme de chargement", use_column_width = True)
     
     # saut de ligne
     st.write("\n")

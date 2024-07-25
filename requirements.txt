@@ -1,6 +1,6 @@
 streamlit
-matplotlib.pyplot 
+matplotlib
 numpy
-plotly.graph_objects 
+plotly
 pandas
 sys

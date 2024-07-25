@@ -161,7 +161,7 @@ st.write("- prendre en compte un éventuel chargement thermique sur le comportem
 st.write("Les calculs réalisés sur ce logiciel sont basés sur les recommandations du § A6.2000 du code de dimensionnement RCC-MRx. Ces calculs reposent sur la méthode dite « méthode simplifiée ressort ». Celle-ci consiste à assimiler la liaison boulonnée à l'ensemble de 2 ressorts associés en parallèle, l'un ayant la rigidité $K_a$ des pièces assemblées, l'autre la rigidité $K_b$ de l'élément de serrage. (voir $ A6.2420)")
     
 with st.expander("RAPPELS DE VOCABULAIRE") :
-    st.image('Pictures/vocabulaire assemblage boulonné.png', caption="Assemblage boulonné", use_column_width=True)
+    st.image('vocabulaire assemblage boulonné.png', caption="Assemblage boulonné", use_column_width=True)
 
 
 # saut de ligne

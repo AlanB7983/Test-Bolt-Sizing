@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import plotly.graph_objects as go
 import pandas as pd
+import os
 
 from M_Createur_Rapport_PDF import create_pdf_template
 
@@ -159,9 +160,23 @@ st.write("- déterminer les déformations subies par les pièces assemblées et 
 st.write("- prendre en compte un éventuel chargement thermique sur le comportement de la liaison boulonnée")
 
 st.write("Les calculs réalisés sur ce logiciel sont basés sur les recommandations du § A6.2000 du code de dimensionnement RCC-MRx. Ces calculs reposent sur la méthode dite « méthode simplifiée ressort ». Celle-ci consiste à assimiler la liaison boulonnée à l'ensemble de 2 ressorts associés en parallèle, l'un ayant la rigidité $K_a$ des pièces assemblées, l'autre la rigidité $K_b$ de l'élément de serrage. (voir $ A6.2420)")
-    
+
+
+# Chemin relatif de l'image
+image_path = 'Pictures/vocabulaire assemblage boulonné.png'
+
 with st.expander("RAPPELS DE VOCABULAIRE") :
-    st.image('vocabulaire_assemblage_boulonné.png', caption="Assemblage boulonné", use_column_width=True)
+    # Vérifiez si le fichier existe
+    if os.path.exists(image_path):
+        st.image(image_path, caption='Vocabulaire Assemblage Boulonné')
+    else:
+        st.error(f"L'image '{image_path}' n'a pas été trouvée.")
+        # Affichez les fichiers disponibles pour le diagnostic
+        st.write("Fichiers disponibles :")
+        st.write(os.listdir('.'))
+        st.write("Fichiers dans 'Pictures' :")
+        st.write(os.listdir('Pictures'))
+    # st.image('vocabulaire_assemblage_boulonné.png', caption="Assemblage boulonné", use_column_width=True)
 
 
 # saut de ligne

@@ -110,7 +110,7 @@ def traduire_fichier_to_liste(name) :
 
 
 # Configuration du titre de la page et du logo
-st.set_page_config(page_title="G-MET Bolt", page_icon="C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/G-MET-Bolts-Logo-Grand-Detoure.ico")
+st.set_page_config(page_title="G-MET Bolt", page_icon="Pictures/G-MET-Bolts-Logo-Grand-Detoure.ico")
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Variables
@@ -133,7 +133,7 @@ st.write("Les vidéos ci-dessous permettent d'illustrer le mécanisme dans le ca
 
 
 # Chemin vers la vidéo locale
-video_eff_normal = open('C:/Users/alanb/Downloads/RPReplay_Final1717588648.MOV', 'rb')
+# video_eff_normal = open('C:/Users/alanb/Downloads/RPReplay_Final1717588648.MOV', 'rb')
 # video_eff_tranch = open('C:/Users/alanb/Downloads/video_cisaillement.MOV', 'rb')
 
 # video_bytes_eff_normal = video_eff_normal.read()
@@ -148,7 +148,8 @@ video_url = f"https://youtu.be/XLzTB4KLCxU?i=4t1fLmZBP0D7VOnl={start_time}s"
 with st.expander("ILLUSTRATION DU PRINCIPE DE FONCTONNEMENT D'UNE LIAISON BOULONNÉE PRÉCONTRAINTE.") :
     choix_video = st.radio("", ("Cas d'un effort extérieur normal", "Cas d'un effort extérieur tranchant"), horizontal=True)
     if choix_video == "Cas d'un effort extérieur normal" :
-        st.video(video_eff_normal.read())
+        st.write("In developpement")
+        # st.video(video_eff_normal.read())
     else :
         st.video(video_url)
     
@@ -160,7 +161,7 @@ st.write("- prendre en compte un éventuel chargement thermique sur le comportem
 st.write("Les calculs réalisés sur ce logiciel sont basés sur les recommandations du § A6.2000 du code de dimensionnement RCC-MRx. Ces calculs reposent sur la méthode dite « méthode simplifiée ressort ». Celle-ci consiste à assimiler la liaison boulonnée à l'ensemble de 2 ressorts associés en parallèle, l'un ayant la rigidité $K_a$ des pièces assemblées, l'autre la rigidité $K_b$ de l'élément de serrage. (voir $ A6.2420)")
     
 with st.expander("RAPPELS DE VOCABULAIRE") :
-    st.image("C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/vocabulaire assemblage boulonné.png", caption="Assemblage boulonné", use_column_width=True)
+    st.image("Pictures/vocabulaire assemblage boulonné.png", caption="Assemblage boulonné", use_column_width=True)
 
 
 # saut de ligne
@@ -202,7 +203,7 @@ if selection == "Vis" :
         Le = st.text_input("$L_{e} [mm]$ :", placeholder = "0.0")
         
     with col3:
-        st.image("C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/Vis_Dimensions.png", use_column_width=True)
+        st.image("Pictures/Vis_Dimensions.png", use_column_width=True)
     
     d = float(d)
     p = float(p)
@@ -247,7 +248,7 @@ elif selection == "Boulon" :
 
         
     with col3:
-        st.image("C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/Boulon_Dimensions.png", use_column_width=True)
+        st.image("Pictures/Boulon_Dimensions.png", use_column_width=True)
     
     d = float(d)
     p = float(p)
@@ -273,7 +274,7 @@ elif selection == "Goujon" :
         Dp = st.text_input("$D_p [mm]$ :", placeholder = "0.0")
         
     with col3:
-        st.image("C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/Goujon_Dimensions.png", use_column_width=True)
+        st.image("Pictures/Goujon_Dimensions.png", use_column_width=True)
     
     d = float(d)
     p = float(p)
@@ -302,7 +303,7 @@ elif selection == "Lacet" :
         Dp = st.text_input("$D_p [mm]$ :", placeholder = "0.0")
         
     with col3:
-        st.image("C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/Lacet_Dimensions.png", use_column_width=True)
+        st.image("Pictures/Lacet_Dimensions.png", use_column_width=True)
     
     d = float(d)
     p = float(p)
@@ -477,7 +478,7 @@ with st.expander("Détails sur les données géométriques à saisir") :
     with De_col1 :
         st.write("*D'après le § A6.2850 du RCC MRx, $D_e$ est le diamètre du plus grand cercle pouvant être inscrit dans le plan des pièces assemblées, sans qu'il y ait interférence avec un cercle homologue d'un élément de serrage voisin, ni intersection avec l'un quelconque des bords libres des pièces à assembler.*")
     with De_col2 :
-        st.image("C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/Definition de De.png", caption="", use_column_width=True)
+        st.image("Pictures/Definition de De.png", caption="", use_column_width=True)
 
 
 # saut de ligne
@@ -675,7 +676,7 @@ with st.expander("Détails sur le calcul de la valeur de $\Lambda$") :
     with lmbda_col1:
         st.write("- $\zeta$ le facteur correctif pour tenir compte d'une application du chargement de l'intérieur de la matière et non de la peau, comme explicité sur la figure ci-contre.")
     with lmbda_col2:
-        st.image("C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/Detail_Calcul_Lambda.png", caption="", use_column_width=True)
+        st.image("Pictures/Detail_Calcul_Lambda.png", caption="", use_column_width=True)
 
 # saut de ligne
 st.write("\n")
@@ -1392,14 +1393,14 @@ else :
                 st.write("La diminution de la contraction des pièces assemblées due à $N_e$ est ")
                 st.write("$d_{a,N_e}$ = " + str(round(float(F0/Ka)-DeltaLaNe, 3)) + " $mm$, soit de " + str(round(((float(F0/Ka)-DeltaLaNe)/float(F0/Ka))*100, 2)) + " %")
                 
-                st.image("C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/Interprétation diagramme de chargement - traction - T0.png", caption = "Interprétation du diagramme de chargement", use_column_width = True)
+                st.image("Pictures/Interprétation diagramme de chargement - traction - T0.png", caption = "Interprétation du diagramme de chargement", use_column_width = True)
             else :
                 st.write("La diminution de l'élongation de l'élément de serrage due à $N_e$ est ")
                 st.write("$d_{b,N_e}$ = " + str(round(float(F0/Kb)-DeltaLbNe, 3)) + " $mm$, soit de " + str(round(((float(F0/Kb)-DeltaLbNe)/float(F0/Kb))*100, 2)) + " %")
                 st.write("L'augmentation de la contraction des pièces assemblées due à $N_e$ est ")
                 st.write("$d_{a,N_e}$ = " + str(round(DeltaLaNe-float(F0/Ka), 3)) + " $mm$, soit de " + str(round(((DeltaLaNe-float(F0/Ka))/DeltaLaNe)*100, 2)) + " %")
                 
-                st.image("C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/Interprétation diagramme de chargement - compression- T0.png", caption = "Interprétation du diagramme de chargement", use_column_width = True)
+                st.image("Pictures/Interprétation diagramme de chargement - compression- T0.png", caption = "Interprétation du diagramme de chargement", use_column_width = True)
 
         
 
@@ -1445,7 +1446,7 @@ if st.button("Générer Rapport"):
 
     bolt_type = selection
     if bolt_type == 'Vis' :
-        image_bolt_type_path = "C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/Vis_Dimensions.png"
+        image_bolt_type_path = "Pictures/Vis_Dimensions.png"
         
     pdf = create_pdf_template("Test Rapport.pdf", bolt_type, df_bolt_geom_data, image_bolt_type_path, materiau_bolt, df_assembly_part_data, F0, T0, checked_thq, Tb, Ta, df_thermal_property_assembly_parts, round(Lambda, 3), Nedecollement, L_Data_thq, df_results, forces_evol_graph_path, diagramme_chargement_graph_path)
     

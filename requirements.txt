@@ -3,7 +3,4 @@ matplotlib.pyplot
 numpy
 plotly.graph_objects 
 pandas
-create_pdf_template
 sys
-get_grandeur_T_quelconque
-get_donnees_grandeur_fonction_T

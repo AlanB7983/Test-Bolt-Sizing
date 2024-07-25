@@ -203,7 +203,7 @@ if selection == "Vis" :
         Le = st.text_input("$L_{e} [mm]$ :", placeholder = "0.0")
         
     with col3:
-        st.image("Pictures/Vis_Dimensions.png", use_column_width=True)
+        st.image("/Pictures/Vis_Dimensions.png", use_column_width=True)
     
     d = float(d)
     p = float(p)

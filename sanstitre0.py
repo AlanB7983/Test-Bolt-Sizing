@@ -163,7 +163,7 @@ st.write("Les calculs réalisés sur ce logiciel sont basés sur les recommandat
 
 
 # Chemin relatif de l'image
-image_path = 'Pictures/vocabulaire assemblage boulonné.png'
+image_path = 'Pictures/vocabulaire_assemblage_boulonne.png'
 
 with st.expander("RAPPELS DE VOCABULAIRE") :
     # Vérifiez si le fichier existe

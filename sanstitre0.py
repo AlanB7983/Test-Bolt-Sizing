@@ -219,9 +219,21 @@ if selection == "Vis" :
         
     with col3:
         st.image("Pictures/Vis_Dimensions.png", use_column_width=True)
+
+
+    if d and p:
+        try:
+            d = float(d)
+            p = float(p)
+            st.write(f"Valeurs converties : {d} et {p}")
+        except ValueError:
+            st.error("Les entrées doivent être des nombres valides.")
+    else:
+        st.info("Veuillez entrer des valeurs dans les champs ci-dessus.")
+
     
-    d = float(d)
-    p = float(p)
+    #d = float(d)
+    #p = float(p)
     ll = float(ll)
     ln = float(ln)
     a = float(a)

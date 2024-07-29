@@ -220,7 +220,7 @@ if selection == "Vis" :
     with col3:
         st.image("Pictures/Vis_Dimensions.png", use_column_width=True)
 
-
+    """
     if d and p and ll and ln and a and Dp and De and Le :
         try:
             d = float(d)
@@ -237,16 +237,16 @@ if selection == "Vis" :
             st.error("Les entrées doivent être des nombres valides.")
     else:
         st.info("Veuillez entrer des valeurs dans les champs ci-dessus.")
-
+    """
     
-    #d = float(d)
-    #p = float(p)
-    #ll = float(ll)
-    #ln = float(ln)
-    #a = float(a)
-    #Dp = float(Dp)
-    #De = float(De)
-    #Le = float(Le)
+    d = float(d)
+    p = float(p)
+    ll = float(ll)
+    ln = float(ln)
+    a = float(a)
+    Dp = float(Dp)
+    De = float(De)
+    Le = float(Le)
     lb = ll + ln + Le
     
     L_Designation = ["Diamètre nominal", "Pas", "Longueur du fût lisse", "Longueur du filetage non en prise \n avec les pièces assemblées",

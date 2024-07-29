@@ -465,9 +465,11 @@ but_col1, but_col2, but_col3 = st.columns([1,1,4])
 with but_col1:
     # Bouton pour ajouter les données au DataFrame
     if st.button('Ajouter', use_container_width = True):
-        nombre_lignes = st.session_state.test_data.shape[0]
-        num_piece = 'Pièce assemblée n°' + str(int(nombre_lignes)+1)
-        new_data = {'Numéro de la pièce assemblée' : num_piece, 'Longueur [mm]' : Longueur, 'Matériau' : materiau}
+        #nombre_lignes = st.session_state.test_data.shape[0]
+        #num_piece = 'Pièce assemblée n°' + str(int(nombre_lignes)+1)
+        #new_data = {'Numéro de la pièce assemblée' : num_piece, 'Longueur [mm]' : Longueur, 'Matériau' : materiau}
+        st.write("type(Longueur) = ", type(Longueur))
+        new_data = {'Numéro de la pièce assemblée' : 1, 'Longueur [mm]' : 2.0, 'Matériau' : materiau}
         st.session_state.test_data = st.session_state.test_data.append(new_data, ignore_index=True)
 with but_col2:
     if st.button('Effacer', use_container_width = True):

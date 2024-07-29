@@ -112,7 +112,7 @@ def traduire_fichier_to_liste(name) :
 
 # Configuration du titre de la page et du logo
 st.set_page_config(page_title="G-MET Bolt", page_icon="Pictures/G-MET-Bolts-Logo-Grand-Detoure.ico")
-st.set_option('deprecation.showPyplotGlobalUse', False)
+# st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Variables
 liste_material = ["304L SS", "316L SS", "660 SS", "Acier Classe 6-8", "Alloy 718"]

@@ -1547,7 +1547,7 @@ if st.button("Générer Rapport"):
     )
     """
     
-    Proposer le téléchargement
+    # Proposer le téléchargement
     with open(pdf_buffer, "rb") as pdf_file:
         pdf_bytes = pdf_file.read()
         st.download_button(

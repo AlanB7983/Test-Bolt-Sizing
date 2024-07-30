@@ -1026,7 +1026,12 @@ if checked_thq :
             
             # Afficher le graphique dans Streamlit
             st.plotly_chart(fig2)
-            fig2.write_image("Evolution des efforts avec thq.png", scale=4)
+
+            # Sauvegarder le graphe en tant qu'image
+            save_path = "Temp/Evolution des efforts avec thq.png"
+            save_dir = os.path.dirname(save_path)
+            
+            fig2.write_image(save_path, scale=4)
             
             
             
@@ -1138,11 +1143,15 @@ if checked_thq :
                 borderwidth=1,  # Largeur de la bordure de la légende
             ),
         )
-            
+
+        # Afficher le grahique dans Streamlit
         st.plotly_chart(fig3)
         
         # Sauvegarder le graphe en tant qu'image
-        fig3.write_image("Diagramme de chargement avec thq.png", scale=4)
+        save_path = "Temp/Diagramme de chargement avec thq.png"
+        save_dir = os.path.dirname(save_path)
+        
+        fig3.write_image(save_path, scale=4)
         
         
         

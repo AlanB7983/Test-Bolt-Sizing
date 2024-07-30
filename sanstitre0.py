@@ -1528,6 +1528,15 @@ if st.button("Générer Rapport"):
         
     pdf = create_pdf_template("Test Rapport.pdf", bolt_type, df_bolt_geom_data, image_bolt_type_path, materiau_bolt, df_assembly_part_data, F0, T0, checked_thq, Tb, Ta, df_thermal_property_assembly_parts, round(Lambda, 3), Nedecollement, L_Data_thq, df_results, forces_evol_graph_path, diagramme_chargement_graph_path)
     
+    
     st.success("PDF exporté avec succès")
+    
+# Bouton de téléchargement
+st.download_button(
+    label="Télécharger le rapport PDF",
+    data=pdf,
+    file_name="rapport.pdf",
+    mime="application/pdf"
+)
     
 

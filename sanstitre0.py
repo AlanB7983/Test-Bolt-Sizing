@@ -1531,31 +1531,18 @@ if st.button("Générer Rapport"):
     
     st.success("PDF exporté avec succès")
 
-    # Vérifier où le fichier est enregistré
-    # if os.path.exists(pdf):
-    #     st.success(f"Fichier enregistré à: {os.path.abspath(pdf)}")
-    # else:
-    #     st.error("Erreur lors de l'enregistrement du fichier PDF.")
-
-    """
+    
     # Proposer le téléchargement
+    file_name = st.text_input("Nom du fichier PDF", placeholder="Rapport.pdf")
     st.download_button(
         label="Télécharger le rapport PDF",
         data=pdf_buffer,
-        file_name="Rapport.pdf",
+        file_name = file_name,
         mime="application/pdf"
     )
-    """
     
-    # Proposer le téléchargement
-    with open(pdf_buffer, "rb") as pdf_file:
-        pdf_bytes = pdf_file.read()
-        st.download_button(
-            label="Télécharger le rapport PDF",
-            data=pdf_bytes,
-            file_name="Rapport.pdf",
-            mime="application/pdf"
-        )
+    
+
     
     
 

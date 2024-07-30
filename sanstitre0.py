@@ -448,7 +448,6 @@ st.write("\n")
 # =============================================================================
 
 st.write("- ##### *Données liées aux pièces assemblées*")
-#st.warning("dans le cas des vis et des goujons, la longueur $l_{a3}$ doit être prise égale à $0.4d$ !")
 
 # Initialiser le DataFrame vide
 if 'test_data' not in st.session_state:
@@ -468,13 +467,16 @@ with but_col1:
         nombre_lignes = st.session_state.test_data.shape[0]
         num_piece = 'Pièce assemblée n°' + str(int(nombre_lignes)+1)
         new_data = {'Numéro de la pièce assemblée' : num_piece, 'Longueur [mm]' : float(Longueur), 'Matériau' : materiau}
-        st.session_state.test_data = st.session_state.test_data.append(new_data)
+        st.write("nombre de lignes : ", nombre_lignes)
+        st.write("numéro pièce : ", num_piece)
+        st.write("new data : ", new_data)
+        # st.session_state.test_data = st.session_state.test_data.append(new_data, ignore_index=True)
 with but_col2:
     if st.button('Effacer', use_container_width = True):
         st.session_state.test_data = pd.DataFrame(columns=['Numéro de la pièce assemblée', 'Longueur [mm]', 'Matériau'])
 
 # Afficher les données sous forme de tableau
-# st.dataframe(st.session_state.test_data)
+st.dataframe(st.session_state.test_data)
 
 longueur_piece = st.session_state.test_data['Longueur [mm]'].tolist()
 materiau_piece = st.session_state.test_data['Matériau'].tolist()

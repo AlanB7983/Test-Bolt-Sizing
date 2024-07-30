@@ -907,9 +907,9 @@ if checked_thq :
             save_dir = os.path.dirname(save_path)
 
             # Vérifiez si le répertoire existe, sinon, créez-le
-            if not os.path.exists(save_dir):
-                st.info("Dossier Temp crée avec succès.")
-                os.makedirs(save_dir)
+            # if not os.path.exists(save_dir):
+            #     st.info("Dossier Temp crée avec succès.")
+            #     os.makedirs(save_dir)
 
 
             # Exportation de l'image

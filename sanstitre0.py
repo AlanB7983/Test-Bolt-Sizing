@@ -905,7 +905,7 @@ if checked_thq :
 
             
             # Sauvegarder le graphe en tant qu'image
-            save_path = "Temp/Evolution des efforts avec thq.png"
+            save_path = "Evolution des efforts avec thq.png"
             save_dir = os.path.dirname(save_path)
 
             # Vérifiez si le répertoire existe, sinon, créez-le

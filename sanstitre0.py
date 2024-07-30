@@ -1538,7 +1538,7 @@ if st.button("Générer Rapport"):
         label="Télécharger le rapport PDF",
         data=pdf_buffer,
         file_name = file_name,
-        mime="application/pdf"
+        mime="application/pdf" # utilisé pour spécifier le type de fichier que l'utilisateur peut télécharger. Ici, application/pdf signifie qu'il s'agit d'un document pdf
     )
     
     

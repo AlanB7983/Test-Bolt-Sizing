@@ -15,12 +15,12 @@ import pandas as pd
 from PIL import Image as PILImage
 
 
-def create_pdf_template(output_path, bolt_type, df_geom_data, image_bolt_type_path, bolt_material, df_assembly_part_data, F0, T0, check_thq, Tb, Ta, df_thermal_property_assembly_parts, Lambda, Nedecollement, L_Data_thq, df_results_with_thq, forces_evol_thq_graph_path, diagramme_chargement_thq_graph_path):
+def create_pdf_template(bolt_type, df_geom_data, image_bolt_type_path, bolt_material, df_assembly_part_data, F0, T0, check_thq, Tb, Ta, df_thermal_property_assembly_parts, Lambda, Nedecollement, L_Data_thq, df_results_with_thq, forces_evol_thq_graph_path, diagramme_chargement_thq_graph_path):
     buffer = BytesIO()
     
     
     # Configuration du document
-    doc = SimpleDocTemplate(output_path, pagesize=letter)
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
     elements = []
     page_width = letter[0] # Largeur de la page
 

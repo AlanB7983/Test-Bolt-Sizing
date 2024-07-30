@@ -1537,6 +1537,7 @@ if st.button("Générer Rapport"):
     # else:
     #     st.error("Erreur lors de l'enregistrement du fichier PDF.")
 
+    """
     # Proposer le téléchargement
     st.download_button(
         label="Télécharger le rapport PDF",
@@ -1544,17 +1545,17 @@ if st.button("Générer Rapport"):
         file_name="Rapport.pdf",
         mime="application/pdf"
     )
-
+    """
     
-    # Proposer le téléchargement
-    # with open(pdf, "rb") as pdf_file:
-    #     pdf_bytes = pdf_file.read()
-    #     st.download_button(
-    #         label="Télécharger le rapport PDF",
-    #         data=pdf_bytes,
-    #         file_name="Rapport.pdf",
-    #         mime="application/pdf"
-    #     )
+    Proposer le téléchargement
+    with open(pdf_buffer, "rb") as pdf_file:
+        pdf_bytes = pdf_file.read()
+        st.download_button(
+            label="Télécharger le rapport PDF",
+            data=pdf_bytes,
+            file_name="Rapport.pdf",
+            mime="application/pdf"
+        )
     
     
 

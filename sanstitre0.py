@@ -467,10 +467,10 @@ with but_col1:
         nombre_lignes = st.session_state.test_data.shape[0]
         num_piece = 'Pièce assemblée n°' + str(int(nombre_lignes)+1)
         new_data = {'Numéro de la pièce assemblée' : num_piece, 'Longueur [mm]' : float(Longueur), 'Matériau' : materiau}
-        st.write("nombre de lignes : ", nombre_lignes)
-        st.write("numéro pièce : ", num_piece)
-        st.write("new data : ", new_data)
-        # st.session_state.test_data = st.session_state.test_data.append(new_data, ignore_index=True)
+        # st.write("nombre de lignes : ", nombre_lignes)
+        # st.write("numéro pièce : ", num_piece)
+        # st.write("new data : ", new_data)
+        st.session_state.test_data.append(new_data, ignore_index=True)
 with but_col2:
     if st.button('Effacer', use_container_width = True):
         st.session_state.test_data = pd.DataFrame(columns=['Numéro de la pièce assemblée', 'Longueur [mm]', 'Matériau'])

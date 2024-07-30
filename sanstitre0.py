@@ -1531,6 +1531,12 @@ if st.button("Générer Rapport"):
     
     st.success("PDF exporté avec succès")
 
+    # Vérifier où le fichier est enregistré
+    if os.path.exists(pdf_path):
+        st.success(f"Fichier enregistré à: {os.path.abspath(pdf_path)}")
+    else:
+        st.error("Erreur lors de l'enregistrement du fichier PDF.")
+
     
     # Proposer le téléchargement
     with open(pdf, "rb") as pdf_file:

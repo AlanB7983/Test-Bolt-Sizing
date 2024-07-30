@@ -820,7 +820,9 @@ with onglet_col2 :
 
 
         
-
+# =============================================================================
+# SI LA THMERIQUE EST ACTIVEE
+# =============================================================================
 if checked_thq :        
         
     # Si l'utilisateur choisie l'onglet "Evolution des efforts"
@@ -913,13 +915,13 @@ if checked_thq :
 
 
             # Exportation de l'image
-            try:
-                fig2.write_image(save_path, scale=4)
-                st.info("Image saved successfully.")
-            except Exception as e:
-                st.info(f"Error saving image: {e}")
+            # try:
+            #     fig2.write_image(save_path, scale=4)
+            #     st.info("Image saved successfully.")
+            # except Exception as e:
+            #     st.info(f"Error saving image: {e}")
             
-            # fig2.write_image(save_dir, scale=4)
+            fig2.write_image(save_path, scale=4)
             
             
             

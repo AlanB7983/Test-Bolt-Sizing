@@ -1526,27 +1526,35 @@ if st.button("Générer Rapport"):
     if bolt_type == 'Vis' :
         image_bolt_type_path = "Pictures/Vis_Dimensions.png"
         
-    pdf = create_pdf_template(bolt_type, df_bolt_geom_data, image_bolt_type_path, materiau_bolt, df_assembly_part_data, F0, T0, checked_thq, Tb, Ta, df_thermal_property_assembly_parts, round(Lambda, 3), Nedecollement, L_Data_thq, df_results, forces_evol_graph_path, diagramme_chargement_graph_path)
+    pdf_buffer = create_pdf_template(bolt_type, df_bolt_geom_data, image_bolt_type_path, materiau_bolt, df_assembly_part_data, F0, T0, checked_thq, Tb, Ta, df_thermal_property_assembly_parts, round(Lambda, 3), Nedecollement, L_Data_thq, df_results, forces_evol_graph_path, diagramme_chargement_graph_path)
     
     
     st.success("PDF exporté avec succès")
 
     # Vérifier où le fichier est enregistré
-    if os.path.exists(pdf):
-        st.success(f"Fichier enregistré à: {os.path.abspath(pdf)}")
-    else:
-        st.error("Erreur lors de l'enregistrement du fichier PDF.")
+    # if os.path.exists(pdf):
+    #     st.success(f"Fichier enregistré à: {os.path.abspath(pdf)}")
+    # else:
+    #     st.error("Erreur lors de l'enregistrement du fichier PDF.")
+
+    # Proposer le téléchargement
+    st.download_button(
+        label="Télécharger le rapport PDF",
+        data=pdf_buffer,
+        file_name="Rapport.pdf",
+        mime="application/pdf"
+    )
 
     
     # Proposer le téléchargement
-    with open(pdf, "rb") as pdf_file:
-        pdf_bytes = pdf_file.read()
-        st.download_button(
-            label="Télécharger le rapport PDF",
-            data=pdf_bytes,
-            file_name="Rapport.pdf",
-            mime="application/pdf"
-        )
+    # with open(pdf, "rb") as pdf_file:
+    #     pdf_bytes = pdf_file.read()
+    #     st.download_button(
+    #         label="Télécharger le rapport PDF",
+    #         data=pdf_bytes,
+    #         file_name="Rapport.pdf",
+    #         mime="application/pdf"
+    #     )
     
     
 

@@ -371,7 +371,7 @@ with mat_bolt_col1 :
     bolt_data_to_print = st.selectbox("Grandeur à afficher", ["Module d'Young", "Masse volumique", "Coefficient de dilatation thermique moyen"], label_visibility="collapsed")
     
     # On récupère le fichier des données matériaux du matériau choisi, et on le converti en liste
-    F_Bolt_Material_Properties = materiau_bolt + '.csv'
+    F_Bolt_Material_Properties = "Material_Properties/" + materiau_bolt + '.csv'
     L_Bolt_Material_Properties = traduire_fichier_to_liste(F_Bolt_Material_Properties)
     
 with mat_bolt_col2 :    
@@ -537,7 +537,7 @@ with press_col2:
 
 L_Ea = []
 for i in range(0, len(materiau_piece)) :
-    F_Assembly_Part_Material_Properties = materiau_piece[i] + '.csv'
+    F_Assembly_Part_Material_Properties = "Material_Properties/" + materiau_piece[i] + '.csv'
     L_Assembly_Part_Material_Properties = traduire_fichier_to_liste(F_Assembly_Part_Material_Properties)
     Ea = float(get_grandeur_T_quelconque('E', L_Assembly_Part_Material_Properties, float(T0)))
     L_Ea.append(Ea)
@@ -606,8 +606,8 @@ if checked_thq :
     
     L_Eaprime = []
     for i in range(0, len(materiau_piece)) :
-        F_Assembly_Part_Material_Properties = D_Material_Properties + materiau_piece[i] + '.csv'
-        L_Assembly_Part_Material_Properties = traduire_fichier_to_liste(F_Assembly_Part_Material_Properties)
+        # F_Assembly_Part_Material_Properties = "Material_Properties/" + materiau_piece[i] + '.csv'
+        # L_Assembly_Part_Material_Properties = traduire_fichier_to_liste(F_Assembly_Part_Material_Properties)
         Eaprime = float(get_grandeur_T_quelconque('E', L_Assembly_Part_Material_Properties, float(Ta)))
         L_Eaprime.append(Eaprime)
 
@@ -638,8 +638,8 @@ if checked_thq :
     alpha_b = float(get_grandeur_T_quelconque('Alpha_m', L_Bolt_Material_Properties, float(Tb)))*10**(-6) #coefficient de dilatation moyen de l'élément de serrage
     L_alpha_a = [] # Liste contenant l'ensemble des valeurs de alpha_a pour chacunes des pièces assemblées
     for i in range(0, len(materiau_piece)) :
-        F_Assembly_Part_Material_Properties = D_Material_Properties + materiau_piece[i] + '.csv'
-        L_Assembly_Part_Material_Properties = traduire_fichier_to_liste(F_Assembly_Part_Material_Properties)
+        # F_Assembly_Part_Material_Properties = D_Material_Properties + materiau_piece[i] + '.csv'
+        # L_Assembly_Part_Material_Properties = traduire_fichier_to_liste(F_Assembly_Part_Material_Properties)
         alpha_a = float(get_grandeur_T_quelconque('Alpha_m', L_Assembly_Part_Material_Properties, float(Ta)))*10**(-6)
         L_alpha_a.append(alpha_a)
 

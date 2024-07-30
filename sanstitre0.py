@@ -900,9 +900,24 @@ if checked_thq :
             
             # Afficher le graphique dans Streamlit
             st.plotly_chart(fig2)
+
             
             # Sauvegarder le graphe en tant qu'image
-            fig2.write_image("Evolution des efforts avec thq.png", scale=4)
+            save_dir = os.path.dirname("Temp/Evolution des efforts avec thq.png")
+
+            # Vérifiez si le répertoire existe, sinon, créez-le
+            if not os.path.exists(save_dir):
+                os.makedirs(save_dir)
+
+
+            # Exportation de l'image
+            try:
+                fig2.write_image(save_path, scale=4)
+                print("Image saved successfully.")
+            except Exception as e:
+                print(f"Error saving image: {e}")
+            
+            # fig2.write_image(save_dir, scale=4)
             
             
             

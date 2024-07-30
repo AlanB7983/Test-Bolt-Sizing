@@ -60,23 +60,15 @@ def get_donnees_grandeur_fonction_T(L_Fichier, Grandeur) :
     """
     
     L_Grandeur = []
-    print("L_Fichier", L_Fichier)
     # On trouve le numéro de la colonne correspondant à la grandeur renseignée par l'utilisateur
     i = 0
     while L_Fichier[0][i] != Grandeur and i < len(L_Fichier[0]) :
-        print("Grandeur : " + Grandeur)
-        print("L_Fichier[0][i] : " + str(L_Fichier[0][i]))
         i = i + 1
         num_colonne = i
-        print(L_Fichier[0][i] != Grandeur)
-        print(i < len(L_Fichier[0]))
     
-    print("num colonne = " + str(num_colonne))
     # On récupère la valeur de la température et de la grandeur correspondante
     i = 1 # On commence à 1 car on ne veut que les valeurs et pas le nom de la grandeur
     while L_Fichier[i][num_colonne] != '' and i < len(L_Fichier)-1 :
-        print("i =", i)
-        print("L_Grandeur", L_Grandeur)
         L_Grandeur.append([L_Fichier[i][0], L_Fichier[i][num_colonne]])
         i = i + 1
       

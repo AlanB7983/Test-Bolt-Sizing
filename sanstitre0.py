@@ -542,11 +542,8 @@ with press_col2:
 L_Ea = []
 for i in range(0, len(materiau_piece)) :
     F_Assembly_Part_Material_Properties = "Material_Properties/" + materiau_piece[i] + '.csv'
-    st.write("F_Assembly_Part_Material_Properties :", F_Assembly_Part_Material_Properties)
-    
     L_Assembly_Part_Material_Properties = traduire_fichier_to_liste(F_Assembly_Part_Material_Properties)
-    st.write("L_Assembly_Part_Material_Properties :", L_Assembly_Part_Material_Properties)
-    
+    st.write(help(get_grandeur_T_quelconque))
     Ea = float(get_grandeur_T_quelconque('E', L_Assembly_Part_Material_Properties, float(T0)))
     L_Ea.append(Ea)
 

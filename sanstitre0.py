@@ -1533,14 +1533,14 @@ if st.button("Générer Rapport"):
 
     
     # Proposer le téléchargement
-        with open(pdf, "rb") as pdf_file:
-            pdf_bytes = pdf_file.read()
-            st.download_button(
-                label="Télécharger le rapport PDF",
-                data=pdf_bytes,
-                file_name="Rapport.pdf",
-                mime="application/pdf"
-            )
+    with open(pdf, "rb") as pdf_file:
+        pdf_bytes = pdf_file.read()
+        st.download_button(
+            label="Télécharger le rapport PDF",
+            data=pdf_bytes,
+            file_name="Rapport.pdf",
+            mime="application/pdf"
+        )
     
     
 

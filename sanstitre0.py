@@ -541,9 +541,20 @@ with press_col2:
 
 L_Ea = []
 for i in range(0, len(materiau_piece)) :
+    st.write(materiau_piece[i])
     F_Assembly_Part_Material_Properties = "Material_Properties/" + materiau_piece[i] + '.csv'
     L_Assembly_Part_Material_Properties = traduire_fichier_to_liste(F_Assembly_Part_Material_Properties)
-    st.write("test : ", get_grandeur_T_quelconque("E", "Material_Properties/660 SS.csv", 20.0))
+
+    # On trouve le numéro de la colonne correspondant à la grandeur renseignée par l'utilisateur
+    j = 0
+    while L_Assembly_Part_Material_Properties[0][j] != "E" and j < len(L_Assembly_Part_Material_Properties[0]) :
+        st.write("j = ", j)
+        st.write("L_Assembly_Part_Material_Properties[0][j] : ", L_Assembly_Part_Material_Properties[0][j])
+        st.write("len(L_Assembly_Part_Material_Properties[0]) : ", len(L_Assembly_Part_Material_Properties[0]))
+        j = j + 1
+        num_colonne = j
+
+    
     Ea = float(get_grandeur_T_quelconque('E', L_Assembly_Part_Material_Properties, float(T0)))
     L_Ea.append(Ea)
 

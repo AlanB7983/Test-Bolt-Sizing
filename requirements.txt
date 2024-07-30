@@ -4,3 +4,4 @@ numpy
 plotly
 pandas
 reportlab
+kaleido

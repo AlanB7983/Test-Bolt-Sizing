@@ -1491,7 +1491,7 @@ if st.button("Générer Rapport"):
         
         df_results = df_results_with_thq
         
-        forces_evol_graph_path = "Evolution des efforts avec thq.png"
+        forces_evol_graph_path = "Temp/Evolution des efforts avec thq.png"
         diagramme_chargement_graph_path = "Diagramme de chargement avec thq.png"
     
     else :
@@ -1513,7 +1513,7 @@ if st.button("Générer Rapport"):
     if bolt_type == 'Vis' :
         image_bolt_type_path = "Pictures/Vis_Dimensions.png"
         
-    pdf = create_pdf_template("Test Rapport.pdf", bolt_type, df_bolt_geom_data, image_bolt_type_path, materiau_bolt, df_assembly_part_data, F0, T0, checked_thq, Tb, Ta, df_thermal_property_assembly_parts, round(Lambda, 3), Nedecollement, L_Data_thq, df_results, forces_evol_graph_path, diagramme_chargement_graph_path)
+    pdf = create_pdf_template("Bureau/Test Rapport.pdf", bolt_type, df_bolt_geom_data, image_bolt_type_path, materiau_bolt, df_assembly_part_data, F0, T0, checked_thq, Tb, Ta, df_thermal_property_assembly_parts, round(Lambda, 3), Nedecollement, L_Data_thq, df_results, forces_evol_graph_path, diagramme_chargement_graph_path)
     
     st.success("PDF exporté avec succès")
     

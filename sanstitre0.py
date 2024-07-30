@@ -833,7 +833,7 @@ if checked_thq :
         if not checked_compression_2 :
             
             # On prépare le graphique
-            Ne = np.linspace(0, 2*int(F0), 100)
+            Ne = np.linspace(0, 2*int(float(F0)), 100)
             Ne = Ne.tolist()
             Nb = []
             Na = []
@@ -931,7 +931,7 @@ if checked_thq :
         #Si on prend en compte la compression
         else :
             # On prépare le graphique
-            Ne = np.linspace(-2*int(F0), 2*int(F0), 100)
+            Ne = np.linspace(-2*int(float(F0)), 2*int(float(F0)), 100)
             Ne = Ne.tolist()
             Nb = []
             Na = []
@@ -1144,7 +1144,7 @@ else :
         if not checked_compression_2 :
 
                 # On prépare le graphe
-            Ne = np.linspace(0, 2*int(F0), 100)
+            Ne = np.linspace(0, 2*int(float(F0)), 100)
             Ne = Ne.tolist()
             Nb = []
             Na = []
@@ -1229,7 +1229,7 @@ else :
         #Si on prend en compte la compression
         else :
             # On prépare le graphe
-            Ne = np.linspace(-2*int(F0), 2*int(F0), 200)
+            Ne = np.linspace(-2*int(float(F0)), 2*int(float(F0)), 200)
             Ne = Ne.tolist()
             Nb = []
             Na = []

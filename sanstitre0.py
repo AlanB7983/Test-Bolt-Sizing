@@ -1531,12 +1531,5 @@ if st.button("Générer Rapport"):
     
     st.success("PDF exporté avec succès")
     
-# Bouton de téléchargement
-st.download_button(
-    label="Télécharger le rapport PDF",
-    data=pdf,
-    file_name="rapport.pdf",
-    mime="application/pdf"
-)
     
 

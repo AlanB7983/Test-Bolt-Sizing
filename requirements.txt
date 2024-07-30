@@ -5,3 +5,4 @@ plotly
 pandas
 reportlab
 kaleido
+pip install -U kaleido

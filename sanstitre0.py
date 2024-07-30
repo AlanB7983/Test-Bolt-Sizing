@@ -1504,8 +1504,8 @@ if st.button("Générer Rapport"):
         
         df_results = df_results_with_thq
         
-        forces_evol_graph_path = "Evolution des efforts avec thq.png"
-        diagramme_chargement_graph_path = "Diagramme de chargement avec thq.png"
+        forces_evol_graph_path = "Temp/Evolution des efforts avec thq.png"
+        diagramme_chargement_graph_path = "Temp/Diagramme de chargement avec thq.png"
     
     else :
         Tb = T0
@@ -1515,9 +1515,9 @@ if st.button("Générer Rapport"):
         
         df_results = df_results_without_thq
         
-        forces_evol_graph_path = "Evolution des efforts sans thq.png"
+        forces_evol_graph_path = "Temp/Evolution des efforts sans thq.png"
         
-        diagramme_chargement_graph_path = "Diagramme de chargement sans thq.png"
+        diagramme_chargement_graph_path = "Temp/Diagramme de chargement sans thq.png"
         
         
 

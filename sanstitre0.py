@@ -903,19 +903,19 @@ if checked_thq :
 
             
             # Sauvegarder le graphe en tant qu'image
-            save_dir = os.path.dirname("Temp/Evolution des efforts avec thq.png")
+            save_dir = os.path.dirname("Evolution des efforts avec thq.png")
 
             # Vérifiez si le répertoire existe, sinon, créez-le
-            if not os.path.exists(save_dir):
-                os.makedirs(save_dir)
+            # if not os.path.exists(save_dir):
+            #     os.makedirs(save_dir)
 
 
             # Exportation de l'image
             try:
                 fig2.write_image(save_path, scale=4)
-                print("Image saved successfully.")
+                st.info("Image saved successfully.")
             except Exception as e:
-                print(f"Error saving image: {e}")
+                st.info(f"Error saving image: {e}")
             
             # fig2.write_image(save_dir, scale=4)
             
@@ -1491,7 +1491,7 @@ if st.button("Générer Rapport"):
         
         df_results = df_results_with_thq
         
-        forces_evol_graph_path = "Temp/Evolution des efforts avec thq.png"
+        forces_evol_graph_path = "Evolution des efforts avec thq.png"
         diagramme_chargement_graph_path = "Diagramme de chargement avec thq.png"
     
     else :

@@ -53,7 +53,7 @@ elif st.session_state.active_page == "Dimensionnement selon le SDC-IC" :
     page_SDCIC()
 
 elif st.session_state.active_page == "Dimensionnement selon le RCC-MRx" :
-    page_RCCMRX()
+    page_RCCMRx()
 
 
 

@@ -23,6 +23,7 @@ from M_Manipulation_Donnees_Materiaux_2 import get_grandeur_T_quelconque, get_do
 def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selection, F0_selection, selection2, L_Donnees_Geo_Boulonnerie_Full, F0, ft, fv) :    
     
     # L_Donnees_Geo_Boulonnerie_Full = L_Valeur + [d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 
+    st.write("T_Results_Ansys", T_Results_Ansys)
     
     # On construit le tableau de résultats Ansys bilan #
     T_Results_Ansys_PL = T_Results_Ansys

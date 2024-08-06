@@ -156,7 +156,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
     ######
     
     if Study_Case == "B1_A" or Study_Case == "B1_C" : 
-        st.write("calculer_contraintes : Cas B1_A ou B1_C")
+        # st.write("calculer_contraintes : Cas B1_A ou B1_C")
         
         nom_contrainte_1 = "Contrainte equivalente fictive moyenne"
         contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl))
@@ -195,7 +195,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         
         
     if Study_Case == "B1_D" :
-        st.write("calculer_contraintes : Cas B1_D")
+        # st.write("calculer_contraintes : Cas B1_D")
         
         nom_contrainte_1 = "Contrainte equivalente moyenne"
         contrainte_1 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
@@ -219,7 +219,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
     ######
     
     if Study_Case == "B2_A" :
-        st.write("calculer_contraintes : Cas B2_A")
+        # st.write("calculer_contraintes : Cas B2_A")
         
         nom_contrainte_1 = "Contrainte equivalente moyenne (chargements mecaniques)"
         contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl))
@@ -249,11 +249,11 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         
         
     if Study_Case == "B2_C" :
-        st.write("calculer_contraintes : Cas B2_C")
+        # st.write("calculer_contraintes : Cas B2_C")
         
         #Resistance Normale
         if Sumin_T < 700 :
-            st.write("Résistance Normale")
+            # st.write("Résistance Normale")
             
             nom_contrainte_1 = "Contrainte equivalente moyenne (chargements mecaniques)"
             contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl))
@@ -265,7 +265,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
             
         #Haute Résistance
         else :
-            st.write("Haute Résistance")
+            # st.write("Haute Résistance")
             
             nom_contrainte_1 = "Contrainte equivalente moyenne (chargements mecaniques)"
             contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl))
@@ -295,7 +295,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
     
     
     if Study_Case == "B2_D" :
-        st.write("calculer_contraintes : Cas B2_D")
+        # st.write("calculer_contraintes : Cas B2_D")
         
         nom_contrainte_1 = "Contrainte equivalente moyenne (chargements mecaniques)"
         contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl))
@@ -312,7 +312,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
     ######
     
     if Study_Case == "B3_A" :
-        st.write("calculer_contraintes : Cas B3_A")
+        # st.write("calculer_contraintes : Cas B3_A")
         
         acier_aust = True # A compléter
         
@@ -340,7 +340,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         
         
     if Study_Case == "B3_C" :
-        st.write("calculer_contraintes : Cas B3_C")
+        # st.write("calculer_contraintes : Cas B3_C")
         
         nom_contrainte_1 = "Contrainte due aux efforts de traction"
         contrainte_1 = calculate_sigma_N(NbAL, d3)
@@ -367,7 +367,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         
         
     if Study_Case == "B3_D" :
-        st.write("calculer_contraintes : Cas B3_D")
+        # st.write("calculer_contraintes : Cas B3_D")
         
         nom_contrainte_1 = "Contrainte due aux efforts de traction"
         contrainte_1 = calculate_sigma_N(NbAL, d3)
@@ -409,7 +409,7 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
     ######
     
     if Study_Case == "B1_A" or Study_Case == "B1_C" : 
-        st.write("calculer_criteres : Cas B1_A ou B1_C")
+        # st.write("calculer_criteres : Cas B1_A ou B1_C")
         critere_1 = SmB_T
         critere_2 = 2*SmB_T
         critere_3 = 3*SmB_T
@@ -425,7 +425,7 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
         L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_5, critere_6, critere_7, critere_8, critere_9, critere_10, critere_11]
     
     if Study_Case == "B1_D" : 
-        st.write("calculer_criteres : Cas B1_D")
+        # st.write("calculer_criteres : Cas B1_D")
         critere_1 = min(Symin_T, 0.7*Sumin_T)
         critere_2 = Sumin_T
         critere_3 = min(0.6*Symin_T, 0.42*Sumin_T)
@@ -440,7 +440,7 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
     ######
     
     if Study_Case == "B2_A" : 
-        st.write("calculer_criteres : Cas B2_A")
+        # st.write("calculer_criteres : Cas B2_A")
         critere_1 = SmB_T
         critere_2 = min(0.9*Symin_T, 0.67*Sumin_T)
         critere_3 = 1.33*min(0.9*Symin_T, 0.67*Sumin_T)
@@ -453,7 +453,7 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
         L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_5, critere_6, critere_7, critere_8]
             
     if Study_Case == "B2_C" : 
-        st.write("calculer_criteres : Cas B2_C")
+        # st.write("calculer_criteres : Cas B2_C")
         #Resistance Normale
         if Sumin_T < 700 :
             critere_1 = 1.5*SmB_T
@@ -475,7 +475,7 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
             L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_5, critere_6, critere_7, critere_8]
     
     if Study_Case == "B2_D" : 
-        st.write("calculer_criteres : Cas B2_D")
+        # st.write("calculer_criteres : Cas B2_D")
         #Resistance Normale
         if Sumin_T < 700 :
             critere_1 = min(2.4*SmB_T, 0.7*Sumin_T)
@@ -497,7 +497,7 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
     ######
     
     if Study_Case == "B3_A" : 
-        st.write("calculer_criteres : Cas B3_A")
+        # st.write("calculer_criteres : Cas B3_A")
         
         acier_aust = True
         
@@ -517,7 +517,7 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
         
         
     if Study_Case == "B3_C" : 
-        st.write("calculer_criteres : Cas B3_C")
+        # st.write("calculer_criteres : Cas B3_C")
         if acier_aust == False :
             critere_1 = min(1.25*0.5*Sumin_T, Symin_T)
             critere_2 = min(1.25*5*Sumin_T/24, Symin_T)
@@ -533,7 +533,7 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
 
     
     if Study_Case == "B3_D" : 
-        st.write("calculer_criteres : Cas B3_D")
+        # st.write("calculer_criteres : Cas B3_D")
         critere_1 = min(Symin_T, 0.7*Sumin_T)
         critere_2 = min(0.6*Symin_T, 0.42*Sumin_T)
         critere_3 = 1
@@ -1156,6 +1156,8 @@ def page_RCCMRx() :
         
         # On met une valeur arbitraire pour L pour que la fonction calculer_criteres ait toutes ses données d'entrée
         L = 0.0
+
+
     
     # On récupère les propriétés méca 
     
@@ -1164,9 +1166,6 @@ def page_RCCMRx() :
     Sm_T = float(get_grandeur_T_quelconque('Sm', L_Bolt_Material_Properties, float(Tb)))
     SmB_T = float(get_grandeur_T_quelconque('SmB_non_etanche', L_Bolt_Material_Properties, float(Tb)))
     
-    # L_Nom_full = []
-    # L_contraintes_full = []
-    # L_criteres_full = []
     L_marge_full = []
     
     st.write("T_Results_Ansys_Bilan : ", T_Results_Ansys_Bilan)
@@ -1179,13 +1178,9 @@ def page_RCCMRx() :
         
         L_Bilan_Boulon_i = calculer_marges_all_results(L_contraintes, L_Criteres)
 
-        #L_Nom_full.append("Boulon " + str(i+1))
-        #L_contraintes_full.append(L_contraintes)
-        #L_criteres_full.append(L_Criteres)
         L_marge_full.append(L_Bilan_Boulon_i)
         
     
-    # st.write(L_bilan)
     num_boulon = st.number_input("Numéro du boulo, dont on veut afficher les résultats", 0, int(len(T_Results_Ansys)))
     
     L_Result_Boulon_i = L_marge_full[num_boulon]

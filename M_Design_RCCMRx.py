@@ -49,19 +49,12 @@ def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selecti
         Dm = float(L_Donnees_Geo_Boulonnerie_Full[-3])
         d2 = float(L_Donnees_Geo_Boulonnerie_Full[-7])
         
-        st.write("p = ", p)
-        st.write("Dm = ", Dm)
-        st.write("d2 = ", d2)
-        st.write("fv = ", fv)
-        st.write("ft = ", ft)
         
         #######################################
         # GESTION DE LA REPRISE PAR ADHERENCE #
         #######################################
         
         #mu_contact = 0.25
-        
-
         
         Cr = F0*(0.16*p + 0.583*fv*d2)
         Ct = F0*0.5*ft*Dm
@@ -1231,7 +1224,30 @@ def page_RCCMRx() :
         L_Bilan_Boulon_i = calculer_marges_all_results(L_contraintes, L_Criteres)
 
         L_marge_full.append(L_Bilan_Boulon_i)
-        
+
+
+
+    # Affichage d'un tableau avec une partie des données d'entrée
+    # L_Donnees_Geo_Boulonnerie_Full = L_Valeur + [d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 
+    
+    L_Designation_full = L_Designation + ["d1", "d2", "d3", "D", "L_prime", "Dm", "aprime", "Dp_prime"]
+    L_Symbole_full = L_Symbole + ["d1", "d2", "d3", "D", "L_prime", "Dm", "aprime", "Dp_prime"]
+    L_Unite_full = L_Unite + ["mm", "mm", "mm", "mm", "mm", "mm", "mm", "mm"]
+    
+    # Création d'un dictionnaire
+    D_bolt_geom_data_full = {
+        'Désignation' : L_Designation_full,
+        'Symbole' : L_Symbole_full,
+        'Valeur' : L_Donnees_Geo_Boulonnerie_Full,
+        'Unité' : L_Unite_full
+        }
+    
+    # Création du DataFrame pandas à partir du dictionnaire
+    df_bolt_geom_data_full = pd.DataFrame(D_bolt_geom_data_full)
+    st.write(df_bolt_geom_data_full)
+
+
+    
     
     num_boulon = st.number_input("Numéro du boulo, dont on veut afficher les résultats", 0, int(len(T_Results_Ansys)))
     

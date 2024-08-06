@@ -1167,7 +1167,7 @@ def page_RCCMRx() :
     # L_criteres_full = []
     L_marge_full = []
     
-    
+    st.write("T_Results_Ansys_Bilan : ", T_Results_Ansys_Bilan)
     for i in range (0, len(T_Results_Ansys_Bilan)) :
         st.write("T_Results_Ansys_Bilan[i] : ", T_Results_Ansys_Bilan[i])
         

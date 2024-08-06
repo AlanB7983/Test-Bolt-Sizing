@@ -1170,14 +1170,14 @@ def page_RCCMRx() :
     
     st.write("T_Results_Ansys_Bilan : ", T_Results_Ansys_Bilan)
     for i in range (0, len(T_Results_Ansys_Bilan)) :
-        st.write("T_Results_Ansys_Bilan[i] : ", T_Results_Ansys_Bilan[i])
+        # st.write("T_Results_Ansys_Bilan[i] : ", T_Results_Ansys_Bilan[i])
         
         L_contraintes = calculer_contraintes(T_Results_Ansys_Bilan[i], L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, Sumin_T, Symin_T)
         
         L_Criteres = calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L)
         
         L_Bilan_Boulon_i = calculer_marges_all_results(L_contraintes, L_Criteres)
-        st.write(L_Bilan_Boulon_i)
+
         #L_Nom_full.append("Boulon " + str(i+1))
         #L_contraintes_full.append(L_contraintes)
         #L_criteres_full.append(L_Criteres)
@@ -1185,8 +1185,8 @@ def page_RCCMRx() :
         
     
     # st.write(L_bilan)
-    # num_boulon = st.number_input("Numéro du boulo, dont on veut afficher les résultats", 0, int(len(T_Results_Ansys)))
+    num_boulon = st.number_input("Numéro du boulo, dont on veut afficher les résultats", 0, int(len(T_Results_Ansys)))
     
-    # L_Result_Boulon_i = L_marge_full[0]
-    # df_bilan = pd.DataFrame(L_Bilan_Boulon_i)
-    # st.write(df_bilan)    
+    L_Result_Boulon_i = L_marge_full[num_boulon]
+    df_bilan = pd.DataFrame(L_Bilan_Boulon_i)
+    st.write(df_bilan)    

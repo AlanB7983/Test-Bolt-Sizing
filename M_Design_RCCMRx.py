@@ -20,7 +20,7 @@ from M_Manipulation_Donnees_Materiaux_2 import get_grandeur_T_quelconque, get_do
 
 
 
-def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selection, F0_selection, selection2, L_Donnees_Geo_Boulonnerie_Full, F0, ft, fv) :    
+def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selection, F0_selection, selection2, L_Donnees_Geo_Boulonnerie_Full, F0, ft, fv, Lambda) :    
     
     # L_Donnees_Geo_Boulonnerie_Full = L_Valeur + [d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 
     st.write("T_Results_Ansys", T_Results_Ansys)
@@ -84,7 +84,7 @@ def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selecti
             #On parcourt le tableau bilan, on ajoute F0 à NbAL, on met T à 0, on ajoute Cr et Ct et F0 dans le tableau
             for i in range(0, len(T_Results_Ansys_Bilan)) :
                 if F0_selection == "oui" :
-                    T_Results_Ansys_Bilan[i][2] = F0
+                    T_Results_Ansys_Bilan[i][2] = T_Results_Ansys_Bilan[i][1] + Lambda*F0
                 T_Results_Ansys_Bilan[i][3] = 0.0
                 T_Results_Ansys_Bilan[i][4] = 0.0
                 T_Results_Ansys_Bilan[i][7] = Cr
@@ -95,7 +95,7 @@ def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selecti
             #On ajoute seulement la valeur de F0 et de Cr et Ct
             for i in range(0, len(T_Results_Ansys_Bilan)) :
                 if F0_selection == "oui" :
-                    T_Results_Ansys_Bilan[i][2] = F0
+                    T_Results_Ansys_Bilan[i][2] = T_Results_Ansys_Bilan[i][1] + Lambda*F0
                 T_Results_Ansys_Bilan[i][7] = Cr
                 T_Results_Ansys_Bilan[i][8] = Ct
                 T_Results_Ansys_Bilan[i][9] = F0
@@ -1148,7 +1148,7 @@ def page_RCCMRx() :
         
     
         # Traitement des résultats Ansys
-        T_Results_Ansys_Bilan = traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selection, F0_selection, selection2, L_Donnees_Geo_Boulonnerie_Full, F0, ft, fv)
+        T_Results_Ansys_Bilan = traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selection, F0_selection, selection2, L_Donnees_Geo_Boulonnerie_Full, F0, ft, fv, Lambda)
         
         # On met une valeur arbitraire pour e pour que la fonction calculer_contraintes ait toutes ses données d'entrée
         e = 0.0

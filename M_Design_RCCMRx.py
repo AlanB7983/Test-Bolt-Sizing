@@ -133,19 +133,19 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
     
     #Données géométriques boulonnerie
 
-    #[d, p, dl, ln, a, H, Dp, Le, De, B, C, d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 
+    #[d, p, dl, a, H, Dp, Le, B, C, d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 
     d = L_Donnees_Geo_Boulonnerie_Full[0]
     p = L_Donnees_Geo_Boulonnerie_Full[1]
-    H = L_Donnees_Geo_Boulonnerie_Full[5]
-    Le = L_Donnees_Geo_Boulonnerie_Full[7]
+    H = L_Donnees_Geo_Boulonnerie_Full[4]
+    Le = L_Donnees_Geo_Boulonnerie_Full[6]
     dl = L_Donnees_Geo_Boulonnerie_Full[2]
-    d1 = L_Donnees_Geo_Boulonnerie_Full[11]
-    d2 = L_Donnees_Geo_Boulonnerie_Full[12]
-    d3 = L_Donnees_Geo_Boulonnerie_Full[13]
-    D = L_Donnees_Geo_Boulonnerie_Full[14]
-    L_prime = L_Donnees_Geo_Boulonnerie_Full[15]
-    a_prime = L_Donnees_Geo_Boulonnerie_Full[17]
-    Dp_prime = L_Donnees_Geo_Boulonnerie_Full[18]
+    d1 = L_Donnees_Geo_Boulonnerie_Full[9]
+    d2 = L_Donnees_Geo_Boulonnerie_Full[10]
+    d3 = L_Donnees_Geo_Boulonnerie_Full[11]
+    D = L_Donnees_Geo_Boulonnerie_Full[12]
+    L_prime = L_Donnees_Geo_Boulonnerie_Full[13]
+    a_prime = L_Donnees_Geo_Boulonnerie_Full[15]
+    Dp_prime = L_Donnees_Geo_Boulonnerie_Full[16]
     
     L_Contraintes = []
     
@@ -691,7 +691,6 @@ def page_RCCMRx() :
             d = st.text_input("$d [mm]$ :", placeholder = "0.0")
             p = st.text_input("$p [mm]$ :", placeholder = "0.0")
             dl = st.text_input("$d_{l} [mm]$ :", placeholder = "0.0")
-            ln = st.text_input("$l_{n} [mm]$ :", placeholder = "0.0")
             a = st.text_input("$a [mm]$ :", placeholder = "0.0")
             H = st.text_input("$H [mm]$ :", placeholder = "0.0")
     
@@ -699,7 +698,6 @@ def page_RCCMRx() :
             
         with col2:
             Dp = st.text_input("$D_p [mm]$ :", placeholder = "0.0")
-            De = st.text_input("$D_e [mm]$ :", placeholder = "0.0")
             Le = st.text_input("$L_{e} [mm]$ :", placeholder = "0.0")
             B = st.text_input("$B [mm]$", placeholder = "0.0")
             C = st.text_input("$C [mm]$", placeholder = "0.0")
@@ -711,21 +709,18 @@ def page_RCCMRx() :
         d = float(d)
         p = float(p)
         dl = float(dl)
-        ln = float(ln)
         a = float(a)
         H = float(H)
         Dp = float(Dp)
-        De = float(De)
         Le = float(Le)
-        #lb = ll + ln + Le
         B = float(B)
         C = float(C)
         
-        L_Designation = ["Diamètre nominal", "Pas", "Diamètre du fût lisse", "Longueur du filetage non en prise \n avec les pièces assemblées",
-                         "Diamètre sur le plat de la tête", "Hauteur de la tête", "Diamètre de perçage", "Longueur d'engagement des filets \n en prise", "Etendue des pièces assemblées autour \n de l'axe de l'élément de serrage",
+        L_Designation = ["Diamètre nominal", "Pas", "Diamètre du fût lisse",
+                         "Diamètre sur le plat de la tête", "Hauteur de la tête", "Diamètre de perçage", "Longueur d'engagement des filets \n en prise",
                          "Diamètre intérieur de la rondelle", "Epaisseur de la rondelle"]
-        L_Symbole = ["d", "p", "dl", "ln", "a", "H", "Dp", "Le", "De", "B", "C"]
-        L_Valeur = [d, p, dl, ln, a, H, Dp, Le, De, B, C]
+        L_Symbole = ["d", "p", "dl", "a", "H", "Dp", "Le", "B", "C"]
+        L_Valeur = [d, p, dl, a, H, Dp, Le, B, C]
         L_Unite = ["[mm]"]*len(L_Valeur)
         
         # Création d'un dictionnaire

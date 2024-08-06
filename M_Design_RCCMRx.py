@@ -886,8 +886,10 @@ def page_RCCMRx() :
         st.write("\n")
         st.write("###### Grandeur à afficher")
         bolt_data_to_print = st.selectbox("Grandeur à afficher", ["Module d'Young", "Masse volumique", "Coefficient de dilatation thermique moyen"], label_visibility="collapsed")
-        
-        Tb = st.text_input("Température de calcul $T_b$, en °C :", placeholder = "0.0")
+
+        st.write("\n")
+        st.write("###### Température de calcul $T_b$, en °C")
+        Tb = st.text_input("Température de calcul $T_b$, en °C :", placeholder = "0.0", label_visibility="collapsed")
         Tb = float(Tb)
         
         

@@ -1001,7 +1001,7 @@ def page_RCCMRx() :
     with but_col1:
         # Bouton pour ajouter les données au DataFrame
         if st.button('Ajouter', use_container_width = True):
-            F_Assembly_Part_Material_Properties = D_Material_Properties + materiau + '.csv'
+            F_Assembly_Part_Material_Properties = "Material_Properties/" + materiau + '.csv'
             L_Assembly_Part_Material_Properties = traduire_fichier_to_liste(F_Assembly_Part_Material_Properties)
             Sm_piece_assemblee = float(get_grandeur_T_quelconque('Sm', L_Assembly_Part_Material_Properties, float(T_piece_assemblee)))
             new_data = pd.DataFrame({'Matériau': [materiau], 'Température [°C]' : [float(T_piece_assemblee)], 'Sm [MPa]': [Sm_piece_assemblee]})

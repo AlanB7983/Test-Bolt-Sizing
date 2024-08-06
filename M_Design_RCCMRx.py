@@ -680,9 +680,9 @@ def page_RCCMRx() :
     selection = st.radio("", ("Vis", "Boulon", "Goujon", "Lacet"), horizontal=True)
     st.write("") # Saut de ligne
     
-    st.subheader("Données géométriques à $T_0$")
+    st.subheader("Données liées à l'élément de serrage")
     
-    st.write("- ##### *Données liées à l'élément de serrage*")
+    st.write("- ##### *Données géométriques*")
 
     check_rondelle = st.checkbox("Présence d'une rondelle")
     
@@ -875,7 +875,10 @@ def page_RCCMRx() :
     Dm = round(Dm, 2)    
     
     L_Donnees_Geo_Boulonnerie_Full = L_Valeur + [d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 
+
+
     
+    st.write("- ##### *Données matériau*")
     
     mat_bolt_col1, mat_bolt_col2 = st.columns([1, 2])
     with mat_bolt_col1 :
@@ -894,7 +897,7 @@ def page_RCCMRx() :
         bolt_data_to_print = st.selectbox("Grandeur à afficher", ["Module d'Young", "Masse volumique", "Coefficient de dilatation thermique moyen"], label_visibility="collapsed")
 
         st.write("\n")
-        st.write("###### Température de calcul(en °C)")
+        st.write("###### Température de calcul (en °C)")
         Tb = st.text_input("Température de calcul $T_b$, en °C :", placeholder = "0.0", label_visibility="collapsed")
         Tb = float(Tb)
         
@@ -975,18 +978,26 @@ def page_RCCMRx() :
                                                          
     # saut de ligne
     st.write("\n")
+
     
     
-    
+    st.subheader("Données liées aux pièces assemblées")
+
+    st.write("- ##### *Données matériaux*")
+
+    st.write("En cours de développement")
+    # saut de ligne
+    st.write("\n")
     
     
     
     # ===================================
     # Saisie du fichier de résultat Ansys
     # ===================================
+    st.subheader("Fichier de résultats ANSYS")
     
     # Bouton pour uploader un fichier CSV
-    uploaded_file = st.file_uploader("Sélection du fichier de résultat ANSYS au format CSV", type="csv")
+    uploaded_file = st.file_uploader("Sélection du fichier de résultat ANSYS au format CSV", type="csv", label_visibility="collapsed")
     
     if uploaded_file is not None:
         # Lire le fichier CSV
@@ -999,7 +1010,8 @@ def page_RCCMRx() :
         T_Results_Ansys = df.values.tolist()
     
     else:
-        st.write("Veuillez uploader un fichier CSV.")
+        # st.write("Veuillez uploader un fichier CSV.")
+        st.write(" ")
     
     # Pour afficher un message une fois le fichier lu
     if uploaded_file is not None:
@@ -1015,10 +1027,13 @@ def page_RCCMRx() :
     
     
     
+    st.subheader("Conditions de calcul")
     
     # =======================================
     # Saisie de la fonction de la boulonnerie
     # =======================================
+
+    st.write("- ##### *Fonction de l'élément de serrage*")
     
     fct_bolt_col_1, fct_bolt_col_2 = st.columns([1, 1])
     with fct_bolt_col_1 :
@@ -1036,7 +1051,7 @@ def page_RCCMRx() :
     # Sélection du niveau de critère
     # ==============================
     
-    st.subheader("Niveau critère") #Sous-Partie
+    st.write("- ##### *Niveau de critère*") #Sous-Partie
     critere_selection = st.radio("", ("A", "C", "D"), horizontal=True, label_visibility="collapsed")
     
     
@@ -1046,6 +1061,7 @@ def page_RCCMRx() :
     # ===================================================================
     # Saisie des données complémentaires en fonction des données d'entrée
     # ===================================================================
+    st.write("- ##### *Données complémentaires*")
     
     # Détermination du cas d'étude
     if check_preload and check_etancheite :

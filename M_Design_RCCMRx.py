@@ -985,7 +985,40 @@ def page_RCCMRx() :
 
     st.write("- ##### *Données matériaux*")
 
-    st.write("En cours de développement")
+
+    # Initialiser le DataFrame vide
+    if 'test_data' not in st.session_state:
+        st.session_state.test_data = pd.DataFrame(columns=['Matériau', 'Température [°C]', 'Sm [MPa]'])
+    
+    # Saisies utilisateur pour ajouter des données
+    saisie_col1, saisie_col2 = st.columns([1, 1])
+    with saisie_col1 :
+        materiau = st.selectbox('Matériau', liste_material)
+    with saisie_col2 :
+        T_piece_assemblee = st.text_input('Température [°C]', placeholder = 0.0)
+    
+    but_col1, but_col2, but_col3 = st.columns([1,1,4])
+    with but_col1:
+        # Bouton pour ajouter les données au DataFrame
+        if st.button('Ajouter', use_container_width = True):
+            F_Assembly_Part_Material_Properties = D_Material_Properties + materiau + '.csv'
+            L_Assembly_Part_Material_Properties = traduire_fichier_to_liste(F_Assembly_Part_Material_Properties)
+            Sm_piece_assemblee = float(get_grandeur_T_quelconque('Sm', L_Assembly_Part_Material_Properties, float(T_piece_assemblee)))
+            new_data = pd.DataFrame({'Matériau': [materiau], 'Température [°C]' : [float(T_piece_assemblee)], 'Sm [MPa]': [Sm_piece_assemblee]})
+            st.session_state.test_data = pd.concat([st.session_state.test_data, new_data], ignore_index=True)
+    with but_col2:
+        if st.button('Effacer', use_container_width = True):
+            st.session_state.test_data = pd.DataFrame(columns=['Matériau', 'Température [°C]', 'Sm [MPa]'])
+    
+    # Afficher les données sous forme de tableau
+    st.dataframe(st.session_state.test_data)
+    
+    
+    materiau_piece = st.session_state.test_data['Matériau'].tolist()
+    L_Sm = st.session_state.test_data['Sm [MPa]'].tolist()
+    # Sm_T = float(min(L_Sm))
+    
+    
     # saut de ligne
     st.write("\n")
     

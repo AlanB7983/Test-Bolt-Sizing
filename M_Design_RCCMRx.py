@@ -683,6 +683,8 @@ def page_RCCMRx() :
     st.subheader("Données géométriques à $T_0$")
     
     st.write("- ##### *Données liées à l'élément de serrage*")
+
+    check_rondelle = st.checkbox("Présence d'une rondelle")
     
     col1, col2, col3 = st.columns([1, 1, 3])
     
@@ -699,8 +701,12 @@ def page_RCCMRx() :
         with col2:
             Dp = st.text_input("$D_p [mm]$ :", placeholder = "0.0")
             Le = st.text_input("$L_{e} [mm]$ :", placeholder = "0.0")
-            B = st.text_input("$B [mm]$", placeholder = "0.0")
-            C = st.text_input("$C [mm]$", placeholder = "0.0")
+            if check_rondelle :
+                B = st.text_input("$B [mm]$", placeholder = "0.0")
+                C = st.text_input("$C [mm]$", placeholder = "0.0")
+            else : # On met une valeur nulle par défaut pour que le code puisse utiliser les fonctions suivantes (float()) et savoir qu'il n'y a pas de rondelles (cf calcul de Dm) 
+                B = 0.0
+                C = 0.0
             
         with col3:
             st.image("Pictures/Vis_Dimensions.png", use_column_width=True)
@@ -888,7 +894,7 @@ def page_RCCMRx() :
         bolt_data_to_print = st.selectbox("Grandeur à afficher", ["Module d'Young", "Masse volumique", "Coefficient de dilatation thermique moyen"], label_visibility="collapsed")
 
         st.write("\n")
-        st.write("###### Température de calcul $T_b$, en °C")
+        st.write("###### Température de calcul(en °C)")
         Tb = st.text_input("Température de calcul $T_b$, en °C :", placeholder = "0.0", label_visibility="collapsed")
         Tb = float(Tb)
         

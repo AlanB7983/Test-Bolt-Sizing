@@ -1106,6 +1106,7 @@ def page_RCCMRx() :
     else :
         st.write("Valeur du coefficient de rigidité")
         Lambda = st.text_input("$\Lambda [-]$ :", placeholder = "0.0")
+        Lambda = float(Lambda)
         
         # saut de ligne
         st.write("\n")

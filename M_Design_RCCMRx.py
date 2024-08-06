@@ -32,7 +32,7 @@ def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selecti
     #T_Results_Ansys_Bilan = | Nom Boulon | NbPL | NbAL | TbPL | TbAL | MbPL | MbAL | Cr | Ct | F0 |
     T_Results_Ansys_Bilan = []
     
-    for i in range(1, len(T_Results_Ansys_PL)) : #On ne prend pas en compte la première ligne d'entete
+    for i in range(0, len(T_Results_Ansys_PL)) : #On ne prend pas en compte la première ligne d'entete
         ligne = [T_Results_Ansys_PL[i][0],                                         #Nom Boulon
                  float(T_Results_Ansys_PL[i][1]), float(T_Results_Ansys_AL[i][1]), #NbPL, NbAL
                  float(T_Results_Ansys_PL[i][3]), float(T_Results_Ansys_AL[i][3]), #TbPL, TbAL

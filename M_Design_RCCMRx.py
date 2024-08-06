@@ -1184,8 +1184,8 @@ def page_RCCMRx() :
         
     
     # st.write(L_bilan)
-    num_boulon = st.number_input("Numéro du boulo, dont on veut afficher les résultats", 0, int(len(T_Results_Ansys)))
+    # num_boulon = st.number_input("Numéro du boulo, dont on veut afficher les résultats", 0, int(len(T_Results_Ansys)))
     
-    L_Result_Boulon_i = L_marge_full[num_boulon]
+    L_Result_Boulon_i = L_marge_full[0]
     df_bilan = pd.DataFrame(L_Result_Boulon_i)
     st.write(df_bilan)    

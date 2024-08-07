@@ -659,7 +659,7 @@ def traduire_fichier_to_liste(name) :
 def page_RCCMRx() :
 
     # Variables
-    liste_material = ["304L SS", "316L SS", "660 SS", "Acier Classe 6-8", "Alloy 718"]
+    liste_material = ["304L SS", "316L SS", "660 SS", "Acier Classe 6-8", "Alloy 718", "316L"]
       
     
     # =============================================================================

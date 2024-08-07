@@ -697,6 +697,10 @@ def page_RCCMRx() :
             if check_rondelle :
                 B = st.text_input("$B [mm]$", placeholder = "0.0")
                 C = st.text_input("$C [mm]$", placeholder = "0.0")
+
+                B = float(B) if B else 0.0
+                C = float(C) if C else 0.0
+        
             else : # On met une valeur nulle par défaut pour que le code puisse utiliser les fonctions suivantes (float()) et savoir qu'il n'y a pas de rondelles (cf calcul de Dm) 
                 B = 0.0
                 C = 0.0
@@ -705,15 +709,14 @@ def page_RCCMRx() :
             st.image("Pictures/Vis_Dimensions.png", use_column_width=True)
         
         
-        d = float(d)
-        p = float(p)
-        dl = float(dl)
-        a = float(a)
-        H = float(H)
-        Dp = float(Dp)
-        Le = float(Le)
-        B = float(B)
-        C = float(C)
+        d = float(d) if d else 1.0
+        p = float(p) if p else 1.0
+        dl = float(dl) if dl else 1.0
+        a = float(a) if a else 1.0
+        H = float(H) if H else 1.0
+        Dp = float(Dp) if Dp else 1.0
+        Le = float(Le) if Le else 1.0
+        
         
         L_Designation = ["Diamètre nominal", "Pas", "Diamètre du fût lisse",
                          "Diamètre sur le plat de la tête", "Hauteur de la tête", "Diamètre de perçage", "Longueur d'engagement des filets \n en prise",

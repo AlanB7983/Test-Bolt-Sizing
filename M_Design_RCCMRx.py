@@ -145,6 +145,8 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
     
     if B == 0.0 :
         rondelle = False
+    else :
+        rondelle = True
     
     ######
     # B1 #

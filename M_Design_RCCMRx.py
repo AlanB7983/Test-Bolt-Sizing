@@ -1142,7 +1142,7 @@ def page_RCCMRx() :
         st.write("\n")
         
         st.write("Epaisseur de la pièce.")
-        L = st.text_input("$e [mm]$ :", placeholder = "0.0")
+        e = st.text_input("$e [mm]$ :", placeholder = "0.0")
         
         # Traitement des résultats Ansys
         # T_Results_Ansys_Bilan = traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selection, F0_selection, selection1, L_Donnees_Geo_Boulonnerie_Full, F0, ft, fv)
@@ -1151,14 +1151,26 @@ def page_RCCMRx() :
     else :
         st.write("Valeur du coefficient de rigidité")
         Lambda = st.text_input("$\Lambda [-]$ :", placeholder = "0.0")
-        Lambda = float(Lambda)
+        if Lambda : # Vérifier si la valeur n'est pas vide avant de la convertir en float
+            try :
+                Lambda = float(Lambda)
+            except ValueError :
+                st.write("")
+        #else :
+        #    st.write("")
+        
         
         # saut de ligne
         st.write("\n")
         
         st.write("Valeur du coefficient de frottement sous tête ou sous écrou.")
-        ft = st.text_input("$f_t [-]$ :", placeholder = "0.0")  
-        ft = float(ft)
+        ft = st.text_input("$f_t [-]$ :", placeholder = "0.0") 
+        if ft :
+            try :
+                ft = float(ft)
+            except ValueError :
+                st.write("")
+
         
         # saut de ligne
         st.write("\n")

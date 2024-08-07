@@ -99,10 +99,10 @@ def calculate_tau_th(Nb, Mb, d2, L_prime) :
     return tau_th
 
 #Tau_h
-def calculate_tau_h(Nb, Mb, Ct, d1, H) :
+def calculate_tau_h(Nb, Mb, Ct, d1, dl, H) :
     tau_h_N = calculate_tau_h_N(Nb, d1, H)
-    tau_h_M = calculate_tau_h_M(Mb, d1, H)
-    tau_Ct = calculate_tau_Ct(Ct, d1)
+    tau_h_M = calculate_tau_h_M(Mb, dl, H)
+    tau_Ct = calculate_tau_Ct(Ct, dl)
     tau_h = ((tau_h_N + tau_h_M)**2 + tau_Ct**2)**0.5
     return tau_h
 

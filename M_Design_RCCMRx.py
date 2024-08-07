@@ -62,7 +62,7 @@ def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selecti
         Cr = round(Cr, 2)
         Ct = round(Ct, 2)
         st.write("Cr = ", Cr)
-        st.write("Ct = ", Crt)
+        st.write("Ct = ", Ct)
          
         st.write("F0_selection :", F0_selection)
         if adherence_selection == 'tester avec les données saisies' :

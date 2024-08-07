@@ -77,7 +77,7 @@ def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selecti
             #On parcourt le tableau bilan, on ajoute F0 à NbAL, on met T à 0, on ajoute Cr et Ct et F0 dans le tableau
             for i in range(0, len(T_Results_Ansys_Bilan)) :
                 if F0_selection == "non" :
-                    T_Results_Ansys_Bilan[i][2] = T_Results_Ansys_Bilan[i][1] + Lambda*F0
+                    T_Results_Ansys_Bilan[i][2] = Lambda*T_Results_Ansys_Bilan[i][1] + F0
                 T_Results_Ansys_Bilan[i][3] = 0.0
                 T_Results_Ansys_Bilan[i][4] = 0.0
                 T_Results_Ansys_Bilan[i][7] = Cr
@@ -88,7 +88,7 @@ def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selecti
             #On ajoute seulement la valeur de F0 et de Cr et Ct
             for i in range(0, len(T_Results_Ansys_Bilan)) :
                 if F0_selection == "non" :
-                    T_Results_Ansys_Bilan[i][2] = T_Results_Ansys_Bilan[i][1] + Lambda*F0
+                    T_Results_Ansys_Bilan[i][2] = Lambda*T_Results_Ansys_Bilan[i][1] + F0
                 T_Results_Ansys_Bilan[i][7] = Cr
                 T_Results_Ansys_Bilan[i][8] = Ct
                 T_Results_Ansys_Bilan[i][9] = F0

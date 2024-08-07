@@ -31,7 +31,7 @@ def calculate_tau_th_N(Nb, d2, L_prime) :
     return tau_th_N
 
 def calculate_tau_th_M(Mb, d2, L_prime) :
-    tau_th_M = 2*Mb/(np.pi*L_prime*d2**2)
+    tau_th_M = 8*Mb/(np.pi*L_prime*d2**2)
     return tau_th_M
 
 def calculate_tau_T(T, d3) :

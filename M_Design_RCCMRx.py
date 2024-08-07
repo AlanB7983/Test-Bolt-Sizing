@@ -157,6 +157,9 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl))
         nom_contrainte_2 = "Contrainte equivalente moyenne"
         contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
+        st.write("N = ", NbAL)
+        st.write("T = ", TbAL)
+        st.write("dn = ", min(d3, dl))
         nom_contrainte_3 = "Contrainte equivalente maximale"
         contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
         nom_contrainte_4 = "Contrainte de cisaillement fictive dans les filets de la vis"

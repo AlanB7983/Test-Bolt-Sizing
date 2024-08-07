@@ -157,6 +157,8 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
         nom_contrainte_4 = "Contrainte de cisaillement fictive dans les filets de la vis"
         contrainte_4 = calculate_tau_th(NbPL, MbPL, d2, L_prime)
+        nom_contrainte_4bis = "Contrainte de cisaillement fictive dans les filets de la pièce"
+        contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
         nom_contrainte_5 = "Contrainte de cisaillement fictive dans la tete de la vis"
         contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, H)
         nom_contrainte_6 = "Pression de contact fictive sur les filets"
@@ -165,6 +167,8 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         contrainte_7 = calculate_p_h(NbPL, MbPL, a_prime, Dp_prime)
         nom_contrainte_8 = "Contrainte de cisaillement dans les filets de la vis"
         contrainte_8 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
+        nom_contrainte_8bis = "Contrainte de cisaillement dans les filets de la pièce"
+        contrainte_8bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
         nom_contrainte_9 = "Contrainte de cisaillement dans la tete de la vis"
         contrainte_9 = calculate_tau_h(NbAL, MbAL, Ct, d1, H)
         nom_contrainte_10 = "Pression de contact sur les filets"
@@ -176,10 +180,12 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         L_Contraintes.append([nom_contrainte_2, contrainte_2])
         L_Contraintes.append([nom_contrainte_3, contrainte_3])
         L_Contraintes.append([nom_contrainte_4, contrainte_4])
+        L_Contraintes.append([nom_contrainte_4bis, contrainte_4bis])
         L_Contraintes.append([nom_contrainte_5, contrainte_5])
         L_Contraintes.append([nom_contrainte_6, contrainte_6])
         L_Contraintes.append([nom_contrainte_7, contrainte_7])
         L_Contraintes.append([nom_contrainte_8, contrainte_8])
+        L_Contraintes.append([nom_contrainte_8bis, contrainte_8bis])
         L_Contraintes.append([nom_contrainte_9, contrainte_9])
         L_Contraintes.append([nom_contrainte_10, contrainte_10])
         L_Contraintes.append([nom_contrainte_11, contrainte_11])
@@ -404,16 +410,18 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
         critere_1 = SmB_T
         critere_2 = 2*SmB_T
         critere_3 = 3*SmB_T
-        critere_4 = min(0.6*SmB_T, 0.3*Sm_T)
+        critere_4 = 0.6*SmB_T
+        critere_4bis = 0.3*Sm_T
         critere_5 = 0.6*SmB_T
         critere_6 = 0.5*Symin_T
         critere_7 = 0.5*Symin_T
-        critere_8 = min(1.2*SmB_T, 0.6*Sm_T)
+        critere_8 = 1.2*SmB_T
+        critere_8bis = 0.6*Sm_T
         critere_9 = 1.2*SmB_T
         critere_10 = Symin_T
         critere_11 = Symin_T
         
-        L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_5, critere_6, critere_7, critere_8, critere_9, critere_10, critere_11]
+        L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_4bis, critere_5, critere_6, critere_7, critere_8, critere_8bis, critere_9, critere_10, critere_11]
     
     if Study_Case == "B1_D" : 
         # st.write("calculer_criteres : Cas B1_D")

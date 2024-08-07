@@ -144,7 +144,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
     L_Contraintes = []
     
     if B == 0.0 :
-        check_rondelle = False
+        rondelle = False
     
     ######
     # B1 #
@@ -169,7 +169,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         contrainte_6 = calculate_p_th(NbPL, MbPL, p, d, D, Le)
         nom_contrainte_7 = "Pression de contact fictive sur la tete de la vis"
         
-        if check_rondelle == False : #S'il n'y a pas de rondelle
+        if rondelle == False : #S'il n'y a pas de rondelle
             contrainte_7 = calculate_p_h(NbPL, MbPL, a, Dp)
         else : #S'il y a une rondelle
             contrainte_7 = max(calculate_p_h(NbPL, MbPL, a, B), calculate_p_h(NbPL, MbPL, a_prime, Dp_prime))
@@ -184,7 +184,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         contrainte_10 = calculate_p_th(NbAL, MbAL, p, d, D, Le)
         nom_contrainte_11 = "Pression de contact sur la tete de la vis"
 
-        if check_rondelle == False : #S'il n'y a pas de rondelle
+        if rondelle == False : #S'il n'y a pas de rondelle
             contrainte_11 = calculate_p_h(NbAL, MbAL, a, Dp)
         else:
             contrainte_11 = max(calculate_p_h(NbAL, MbAL, a, B), calculate_p_h(NbAL, MbAL, a_prime, Dp_prime))

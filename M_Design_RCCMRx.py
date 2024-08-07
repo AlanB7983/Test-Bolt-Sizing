@@ -1012,7 +1012,7 @@ def page_RCCMRx() :
     
     materiau_piece = st.session_state.test_data['Matériau'].tolist()
     L_Sm = st.session_state.test_data['Sm [MPa]'].tolist()
-    # Sm_T = float(min(L_Sm))
+    Sm_T = float(min(L_Sm))
     
     
     # saut de ligne
@@ -1223,7 +1223,7 @@ def page_RCCMRx() :
     
     Sumin_T = float(get_grandeur_T_quelconque('Su.min', L_Bolt_Material_Properties, float(Tb)))
     Symin_T = float(get_grandeur_T_quelconque('Sy.min', L_Bolt_Material_Properties, float(Tb)))
-    Sm_T = float(get_grandeur_T_quelconque('Sm', L_Bolt_Material_Properties, float(Tb)))
+    # Sm_T = float(get_grandeur_T_quelconque('Sm', L_Bolt_Material_Properties, float(Tb)))
     SmB_T = float(get_grandeur_T_quelconque('SmB_non_etanche', L_Bolt_Material_Properties, float(Tb)))
     
     L_marge_full = []

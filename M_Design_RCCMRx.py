@@ -160,7 +160,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         nom_contrainte_4bis = "Contrainte de cisaillement fictive dans les filets de la pièce"
         contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
         nom_contrainte_5 = "Contrainte de cisaillement fictive dans la tete de la vis"
-        contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, H)
+        contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, dl, H)
         nom_contrainte_6 = "Pression de contact fictive sur les filets"
         contrainte_6 = calculate_p_th(NbPL, MbPL, p, d, D, Le)
         nom_contrainte_7 = "Pression de contact fictive sur la tete de la vis"
@@ -170,7 +170,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         nom_contrainte_8bis = "Contrainte de cisaillement dans les filets de la pièce"
         contrainte_8bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
         nom_contrainte_9 = "Contrainte de cisaillement dans la tete de la vis"
-        contrainte_9 = calculate_tau_h(NbAL, MbAL, Ct, d1, H)
+        contrainte_9 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
         nom_contrainte_10 = "Pression de contact sur les filets"
         contrainte_10 = calculate_p_th(NbAL, MbAL, p, d, D, Le)
         nom_contrainte_11 = "Pression de contact sur la tete de la vis"
@@ -201,7 +201,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         nom_contrainte_3 = "Contrainte de cisaillement dans les filets de la vis"
         contrainte_3 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
         nom_contrainte_4 = "Contrainte de cisaillement dans la tete de la vis"
-        contrainte_4 = calculate_tau_h(NbAL, MbAL, Ct, d1, H)
+        contrainte_4 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
         
         L_Contraintes.append([nom_contrainte_1, contrainte_1])
         L_Contraintes.append([nom_contrainte_2, contrainte_2])
@@ -227,11 +227,11 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         nom_contrainte_4 = "Contrainte de cisaillement dans les filets de la vis (chargements mecaniques)"
         contrainte_4 = calculate_tau_th(NbPL, MbPL, d2, L_prime)
         nom_contrainte_5 = "Contrainte de cisaillement dans la tete de la vis (chargements mecaniques)"
-        contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, H)
+        contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, dl, H)
         nom_contrainte_6 = "Contrainte de cisaillement dans les filets de la vis"
         contrainte_6 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
         nom_contrainte_7 = "Contrainte de cisaillement dans la tete de la vis"
-        contrainte_7 = calculate_tau_h(NbAL, MbAL, Ct, d1, H)
+        contrainte_7 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
         nom_contrainte_8 = "Pression de contact sur la tete de la vis"
         contrainte_8 = calculate_p_h(NbAL, MbAL, a_prime, Dp_prime)
         
@@ -273,11 +273,11 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
             nom_contrainte_4 = "Contrainte de cisaillement dans les filets de la vis (chargements mecaniques)"
             contrainte_4 = calculate_tau_th(NbPL, MbPL, d2, L_prime)
             nom_contrainte_5 = "Contrainte de cisaillement dans la tete de la vis (chargements mecaniques)"
-            contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, H)
+            contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, dl, H)
             nom_contrainte_6 = "Contrainte de cisaillement dans les filets de la vis"
             contrainte_6 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
             nom_contrainte_7 = "Contrainte de cisaillement dans la tete de la vis"
-            contrainte_7 = calculate_tau_h(NbAL, MbAL, Ct, d1, H)
+            contrainte_7 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
             nom_contrainte_8 = "Pression de contact sur la tete de la vis"
             contrainte_8 = calculate_p_h(NbAL, MbAL, a_prime, Dp_prime)
             

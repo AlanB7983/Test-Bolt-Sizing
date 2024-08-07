@@ -714,7 +714,7 @@ def page_RCCMRx() :
         dl = float(dl) if dl else 1.0
         a = float(a) if a else 1.0
         H = float(H) if H else 1.0
-        Dp = float(Dp) if Dp else 1.0
+        Dp = float(Dp) if Dp else 2.0
         Le = float(Le) if Le else 1.0
         
         

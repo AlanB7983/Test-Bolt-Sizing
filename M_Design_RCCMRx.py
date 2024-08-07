@@ -109,7 +109,7 @@ def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selecti
 
 
 
-def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, Sumin_T, Symin_T) :
+def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, Sumin_T, SyminB_T) :
     #On récupère les données dans des variables
     
     #Efforts
@@ -361,12 +361,12 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         
         nom_contrainte_3 = "Sollicitations traction + cisaillement combinees"
         if acier_aust == False :
-            critere_1 = min(1.25*0.5*Sumin_T, Symin_T)
-            critere_2 = min(1.25*5*Sumin_T/24, Symin_T)
+            critere_1 = min(1.25*0.5*Sumin_T, SyminB_T)
+            critere_2 = min(1.25*5*Sumin_T/24, SyminB_T)
         
         else :
-            critere_1 = min(1.25*0.3*Sumin_T, Symin_T)
-            critere_2 = min(1.25*Sumin_T/8, Symin_T)
+            critere_1 = min(1.25*0.3*Sumin_T, SyminB_T)
+            critere_2 = min(1.25*Sumin_T/8, SyminB_T)
         contrainte_3 = (contrainte_1**2)/(critere_1**2) + (contrainte_2**2)/(critere_2**2)
         
         nom_contrainte_4 = "Pression laterale"
@@ -411,7 +411,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
 
 
 
-def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
+def calculer_criteres(d, SyminB_T, SyminP_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
     
     L_Criteres = []
 
@@ -428,22 +428,23 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
         critere_4 = 0.6*SmB_T
         critere_4bis = 0.3*Sm_T
         critere_5 = 0.6*SmB_T
-        critere_6 = 0.5*Symin_T
-        critere_7 = 0.5*Symin_T
+        critere_6 = 0.5*min(SyminB_T, SyminP_T)
+        critere_7 = 0.5*min(SyminB_T, SyminP_T)
         critere_8 = 1.2*SmB_T
         critere_8bis = 0.6*Sm_T
         critere_9 = 1.2*SmB_T
-        critere_10 = Symin_T
-        critere_11 = Symin_T
+        critere_10 = min(SyminB_T, SyminP_T)
+        critere_11 = min(SyminB_T, SyminP_T)
         
         L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_4bis, critere_5, critere_6, critere_7, critere_8, critere_8bis, critere_9, critere_10, critere_11]
     
     if Study_Case == "B1_D" : 
         # st.write("calculer_criteres : Cas B1_D")
-        critere_1 = min(Symin_T, 0.7*Sumin_T)
+        critere_1 = min(SyminB_T, 0.7*Sumin_T)
         critere_2 = Sumin_T
-        critere_3 = min(0.6*Symin_T, 0.42*Sumin_T)
-        critere_4 = min(0.6*Symin_T, 0.42*Sumin_T)
+        critere_3 = min(0.6*SyminB_T, 0.42*Sumin_T)
+        critere_4 = min(0.6*SyminB_T, 0.42*Sumin_T)
+        critere_4bis = min(0.6*SyminP_T, 0.42*Sumin_T)
         
         L_Criteres = [critere_1, critere_2, critere_3, critere_4]
 
@@ -456,13 +457,13 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
     if Study_Case == "B2_A" : 
         # st.write("calculer_criteres : Cas B2_A")
         critere_1 = SmB_T
-        critere_2 = min(0.9*Symin_T, 0.67*Sumin_T)
-        critere_3 = 1.33*min(0.9*Symin_T, 0.67*Sumin_T)
+        critere_2 = min(0.9*SyminB_T, 0.67*Sumin_T)
+        critere_3 = 1.33*min(0.9*SyminB_T, 0.67*Sumin_T)
         critere_4 = 0.6*SmB_T
         critere_5 = 0.6*SmB_T
-        critere_6 = 0.6*Symin_T
-        critere_7 = 0.6*Symin_T
-        critere_8 = 2.7*Symin_T
+        critere_6 = 0.6*SyminB_T
+        critere_7 = 0.6*SyminB_T
+        critere_8 = 2.7*min(SyminB_T, SyminP_T)
         
         L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_5, critere_6, critere_7, critere_8]
             
@@ -478,13 +479,13 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
         #Haute Résistance
         else :
             critere_1 = SmB_T
-            critere_2 = min(0.9*Symin_T, 0.67*Sumin_T)
-            critere_3 = 1.33*min(0.9*Symin_T, 0.67*Sumin_T)
+            critere_2 = min(0.9*SyminB_T, 0.67*Sumin_T)
+            critere_3 = 1.33*min(0.9*SyminB_T, 0.67*Sumin_T)
             critere_4 = 0.6*SmB_T
             critere_5 = 0.6*SmB_T
-            critere_6 = 0.6*Symin_T
-            critere_7 = 0.6*Symin_T
-            critere_8 = 2.7*Symin_T
+            critere_6 = 0.6*SyminB_T
+            critere_7 = 0.6*SyminB_T
+            critere_8 = 2.7*SyminB_T
             
             L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_5, critere_6, critere_7, critere_8]
     
@@ -533,12 +534,12 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
     if Study_Case == "B3_C" : 
         # st.write("calculer_criteres : Cas B3_C")
         if acier_aust == False :
-            critere_1 = min(1.25*0.5*Sumin_T, Symin_T)
-            critere_2 = min(1.25*5*Sumin_T/24, Symin_T)
+            critere_1 = min(1.25*0.5*Sumin_T, SyminB_T)
+            critere_2 = min(1.25*5*Sumin_T/24, SyminB_T)
         
         else :
-            critere_1 = min(1.25*0.3*Sumin_T, Symin_T)
-            critere_2 = min(1.25*Sumin_T/8, Symin_T)
+            critere_1 = min(1.25*0.3*Sumin_T, SyminB_T)
+            critere_2 = min(1.25*Sumin_T/8, SyminB_T)
         
         critere_3 = 1
         critere_4 = min(L*Sumin_T/(2*d), 1.5*Sumin_T)
@@ -548,8 +549,8 @@ def calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
     
     if Study_Case == "B3_D" : 
         # st.write("calculer_criteres : Cas B3_D")
-        critere_1 = min(Symin_T, 0.7*Sumin_T)
-        critere_2 = min(0.6*Symin_T, 0.42*Sumin_T)
+        critere_1 = min(SyminB_T, 0.7*Sumin_T)
+        critere_2 = min(0.6*SyminB_T, 0.42*Sumin_T)
         critere_3 = 1
         
         L_Criteres = [critere_1, critere_2, critere_3]
@@ -1008,7 +1009,7 @@ def page_RCCMRx() :
 
     # Initialiser le DataFrame vide
     if 'test_data' not in st.session_state:
-        st.session_state.test_data = pd.DataFrame(columns=['Matériau', 'Température [°C]', 'Sm [MPa]'])
+        st.session_state.test_data = pd.DataFrame(columns=['Matériau', 'Température [°C]', 'Sm [MPa]', 'Symin [MPa]'])
     
     # Saisies utilisateur pour ajouter des données
     saisie_col1, saisie_col2 = st.columns([1, 1])
@@ -1024,11 +1025,12 @@ def page_RCCMRx() :
             F_Assembly_Part_Material_Properties = "Material_Properties/" + materiau + '.csv'
             L_Assembly_Part_Material_Properties = traduire_fichier_to_liste(F_Assembly_Part_Material_Properties)
             Sm_piece_assemblee = float(get_grandeur_T_quelconque('Sm', L_Assembly_Part_Material_Properties, float(T_piece_assemblee)))
-            new_data = pd.DataFrame({'Matériau': [materiau], 'Température [°C]' : [float(T_piece_assemblee)], 'Sm [MPa]': [Sm_piece_assemblee]})
+            Symin_piece_assemblee = float(get_grandeur_T_quelconque('Sy.min', L_Assembly_Part_Material_Properties, float(T_piece_assemblee)))
+            new_data = pd.DataFrame({'Matériau': [materiau], 'Température [°C]' : [float(T_piece_assemblee)], 'Sm [MPa]': [Sm_piece_assemblee], 'Symin [MPa]' : [Symin_piece_assemblee]})
             st.session_state.test_data = pd.concat([st.session_state.test_data, new_data], ignore_index=True)
     with but_col2:
         if st.button('Effacer', use_container_width = True):
-            st.session_state.test_data = pd.DataFrame(columns=['Matériau', 'Température [°C]', 'Sm [MPa]'])
+            st.session_state.test_data = pd.DataFrame(columns=['Matériau', 'Température [°C]', 'Sm [MPa]', 'Symin [MPa]'])
     
     # Afficher les données sous forme de tableau
     st.dataframe(st.session_state.test_data)
@@ -1037,7 +1039,9 @@ def page_RCCMRx() :
     materiau_piece = st.session_state.test_data['Matériau'].tolist()
     L_Sm = st.session_state.test_data['Sm [MPa]'].tolist()
     Sm_T = float(min(L_Sm))
-    
+
+    L_SyminP = st.session_state.test_data['Symin [MPa]'].tolist()
+    SyminP_T = float(min(L_SyminP))
     
     # saut de ligne
     st.write("\n")
@@ -1246,8 +1250,7 @@ def page_RCCMRx() :
     # On récupère les propriétés méca 
     
     Sumin_T = float(get_grandeur_T_quelconque('Su.min', L_Bolt_Material_Properties, float(Tb)))
-    Symin_T = float(get_grandeur_T_quelconque('Sy.min', L_Bolt_Material_Properties, float(Tb)))
-    # Sm_T = float(get_grandeur_T_quelconque('Sm', L_Bolt_Material_Properties, float(Tb)))
+    SyminB_T = float(get_grandeur_T_quelconque('Sy.min', L_Bolt_Material_Properties, float(Tb)))
     SmB_T = float(get_grandeur_T_quelconque('SmB_non_etanche', L_Bolt_Material_Properties, float(Tb)))
     
     L_marge_full = []
@@ -1256,9 +1259,9 @@ def page_RCCMRx() :
     for i in range (0, len(T_Results_Ansys_Bilan)) :
         # st.write("T_Results_Ansys_Bilan[i] : ", T_Results_Ansys_Bilan[i])
         
-        L_contraintes = calculer_contraintes(T_Results_Ansys_Bilan[i], L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, Sumin_T, Symin_T)
+        L_contraintes = calculer_contraintes(T_Results_Ansys_Bilan[i], L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, Sumin_T, SyminB_T)
         
-        L_Criteres = calculer_criteres(d, Symin_T, Sumin_T, Sm_T, SmB_T, Study_Case, L)
+        L_Criteres = calculer_criteres(d, SyminB_T, SyminP_T, Sumin_T, Sm_T, SmB_T, Study_Case, L)
         
         L_Bilan_Boulon_i = calculer_marges_all_results(L_contraintes, L_Criteres)
 

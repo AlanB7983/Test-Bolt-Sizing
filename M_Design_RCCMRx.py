@@ -895,7 +895,7 @@ def page_RCCMRx() :
         st.write("\n")
         st.write("###### Température de calcul (en °C)")
         Tb = st.text_input("Température de calcul $T_b$, en °C :", placeholder = "0.0", label_visibility="collapsed")
-        Tb = float(Tb)
+        Tb = float(Tb) if Tb else 20.0
         
         
         

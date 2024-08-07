@@ -59,7 +59,7 @@ def calculate_p_th_N(Nb, p, d, D, Le) :
     return p_th_N
 
 def calculate_p_th_M(Mb, p, d, D, Le) :
-    p_th_M = 96*Mb*p/(np.pi*(d - D)*((d + D)**2 + 2*d**2)*Le)
+    p_th_M = 16*Mb*p/(np.pi*(d - D)*(D**2 + d**2)*Le)
     return p_th_M
 
 def calculate_p_h_N(Nb, a, Dp) :
@@ -67,7 +67,7 @@ def calculate_p_h_N(Nb, a, Dp) :
     return p_h_N
 
 def calculate_p_h_M(Mb, a, Dp) :
-    p_h_M = 96*Mb/(np.pi*(a - Dp)*((a + Dp)**2 + 2*a**2))
+    p_h_M = 16*Mb/(np.pi*(a - Dp)*(Dp**2 + a**2))
     return p_h_M
 
 

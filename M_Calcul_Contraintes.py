@@ -46,8 +46,8 @@ def calculate_tau_h_N(Nb, d1, H) :
     tau_h_N = abs(Nb)/(np.pi*d1*H)
     return tau_h_N
 
-def calculate_tau_h_M(Mb, d1, H) :
-    tau_h_M = Mb/(np.pi*H*d1**2)
+def calculate_tau_h_M(Mb, dl, H) :
+    tau_h_M = Mb/(np.pi*H*dl**2)
     return tau_h_M
 
 def calculate_tau_Ct(Ct, d1) :

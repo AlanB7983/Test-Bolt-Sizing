@@ -124,23 +124,27 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
     
     #Données géométriques boulonnerie
 
-    #[d, p, dl, a, H, Dp, Le, B, C, d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 
+    #[d, p, dl, a, H, Dp, Le, B, C, A, d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 
     d = L_Donnees_Geo_Boulonnerie_Full[0]
     p = L_Donnees_Geo_Boulonnerie_Full[1]
     H = L_Donnees_Geo_Boulonnerie_Full[4]
     Le = L_Donnees_Geo_Boulonnerie_Full[6]
     dl = L_Donnees_Geo_Boulonnerie_Full[2]
-    d1 = L_Donnees_Geo_Boulonnerie_Full[9]
-    d2 = L_Donnees_Geo_Boulonnerie_Full[10]
-    d3 = L_Donnees_Geo_Boulonnerie_Full[11]
-    D = L_Donnees_Geo_Boulonnerie_Full[12]
-    L_prime = L_Donnees_Geo_Boulonnerie_Full[13]
-    a_prime = L_Donnees_Geo_Boulonnerie_Full[15]
-    Dp_prime = L_Donnees_Geo_Boulonnerie_Full[16]
+    d1 = L_Donnees_Geo_Boulonnerie_Full[10]
+    d2 = L_Donnees_Geo_Boulonnerie_Full[11]
+    d3 = L_Donnees_Geo_Boulonnerie_Full[12]
+    D = L_Donnees_Geo_Boulonnerie_Full[13]
+    L_prime = L_Donnees_Geo_Boulonnerie_Full[14]
+    a_prime = L_Donnees_Geo_Boulonnerie_Full[16]
+    Dp_prime = L_Donnees_Geo_Boulonnerie_Full[17]
+    B = L_Donnees_Geo_Boulonnerie_Full[7]
+    a = L_Donnees_Geo_Boulonnerie_Full[3]
+    Dp = L_Donnees_Geo_Boulonnerie_Full[5]
     
     L_Contraintes = []
     
-    
+    if B == 0.0 :
+        check_rondelle = False
     
     ######
     # B1 #
@@ -164,7 +168,12 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         nom_contrainte_6 = "Pression de contact fictive sur les filets"
         contrainte_6 = calculate_p_th(NbPL, MbPL, p, d, D, Le)
         nom_contrainte_7 = "Pression de contact fictive sur la tete de la vis"
-        contrainte_7 = calculate_p_h(NbPL, MbPL, a_prime, Dp_prime)
+        
+        if check_rondelle == False : #S'il n'y a pas de rondelle
+            contrainte_7 = calculate_p_h(NbPL, MbPL, a, Dp)
+        else : #S'il y a une rondelle
+            contrainte_7 = max(calculate_p_h(NbPL, MbPL, a, B), calculate_p_h(NbPL, MbPL, a_prime, Dp_prime))
+            
         nom_contrainte_8 = "Contrainte de cisaillement dans les filets de la vis"
         contrainte_8 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
         nom_contrainte_8bis = "Contrainte de cisaillement dans les filets de la pièce"
@@ -174,8 +183,12 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         nom_contrainte_10 = "Pression de contact sur les filets"
         contrainte_10 = calculate_p_th(NbAL, MbAL, p, d, D, Le)
         nom_contrainte_11 = "Pression de contact sur la tete de la vis"
-        contrainte_11 = calculate_p_h(NbAL, MbAL, a_prime, Dp_prime)
-        
+
+        if check_rondelle == False : #S'il n'y a pas de rondelle
+            contrainte_11 = calculate_p_h(NbAL, MbAL, a, Dp)
+        else:
+            contrainte_11 = max(calculate_p_h(NbAL, MbAL, a, B), calculate_p_h(NbAL, MbAL, a_prime, Dp_prime))
+            
         L_Contraintes.append([nom_contrainte_1, contrainte_1])
         L_Contraintes.append([nom_contrainte_2, contrainte_2])
         L_Contraintes.append([nom_contrainte_3, contrainte_3])
@@ -703,13 +716,16 @@ def page_RCCMRx() :
             if check_rondelle :
                 B = st.text_input("$B [mm]$", placeholder = "0.0")
                 C = st.text_input("$C [mm]$", placeholder = "0.0")
+                A = st.text_input("$A [mm]$", placeholder = "0.0")
 
                 B = float(B) if B else 0.0
                 C = float(C) if C else 0.0
+                A = float(A) if A else 0.0
         
             else : # On met une valeur nulle par défaut pour que le code puisse utiliser les fonctions suivantes (float()) et savoir qu'il n'y a pas de rondelles (cf calcul de Dm) 
                 B = 0.0
                 C = 0.0
+                A = 0.0
             
         with col3:
             st.image("Pictures/Vis_Dimensions.png", use_column_width=True)
@@ -726,9 +742,9 @@ def page_RCCMRx() :
         
         L_Designation = ["Diamètre nominal", "Pas", "Diamètre du fût lisse",
                          "Diamètre sur le plat de la tête", "Hauteur de la tête", "Diamètre de perçage", "Longueur d'engagement des filets \n en prise",
-                         "Diamètre intérieur de la rondelle", "Epaisseur de la rondelle"]
-        L_Symbole = ["d", "p", "dl", "a", "H", "Dp", "Le", "B", "C"]
-        L_Valeur = [d, p, dl, a, H, Dp, Le, B, C]
+                         "Diamètre intérieur de la rondelle", "Epaisseur de la rondelle", "Diamètre extérieur de la rondelle"]
+        L_Symbole = ["d", "p", "dl", "a", "H", "Dp", "Le", "B", "C", "A"]
+        L_Valeur = [d, p, dl, a, H, Dp, Le, B, C, A]
         L_Unite = ["[mm]"]*len(L_Valeur)
         
         # Création d'un dictionnaire
@@ -871,7 +887,7 @@ def page_RCCMRx() :
         Dp_prime = Dp #Pour le calcul de p_h et p_th
     else :
         Dm = (2/3)*(a**3 - B**3)/(a**2 - B**2)
-        a_prime = a + 2*C #Pour le calcul de p_h et p_th
+        a_prime = min(a + 2*C, A) #Pour le calcul de p_h et p_th
         Dp_prime = max(Dp, B) #Pour le calcul de p_h et p_th
     
     Dm = round(Dm, 2)    

@@ -225,35 +225,15 @@ def page_Modelisation_Presserage() :
           Le = st.text_input("$L_{e} [mm]$ :", placeholder = "0.0")
           
       with col3:
-          st.image("Pictures/Vis_Dimensions.png", use_column_width=True)
-  
-      
-      # if d and p and ll and ln and a and Dp and De and Le :
-      #     try:
-      #         d = float(d)
-      #         p = float(p)
-      #         ll = float(ll)
-      #         ln = float(ln)
-      #         a = float(a)
-      #         Dp = float(Dp)
-      #         De = float(De)
-      #         Le = float(Le)
-      #         # st.write(f"Valeurs converties : {d} et {p}")
-      #         st.write("Valeurs converties")
-      #     except ValueError:
-      #         st.error("Les entrées doivent être des nombres valides.")
-      # else:
-      #     st.info("Veuillez entrer des valeurs dans les champs ci-dessus.")
-      
-      
-      d = float(d)
-      p = float(p)
-      ll = float(ll)
-      ln = float(ln)
-      a = float(a)
-      Dp = float(Dp)
-      De = float(De)
-      Le = float(Le)
+          st.image("Pictures/Vis_Dimensions.png", use_column_width=True)      
+      d = float(d) if d else : 1.0
+      p = float(p) if p else : 1.0
+      ll = float(ll) if ll else : 1.0
+      ln = float(ln) if ln else : 1.0
+      a = float(a) if a else : 1.0
+      Dp = float(Dp) if Dp else : 2.0
+      De = float(De) if De else : 1.0
+      Le = float(Le) if Le else : 1.0
       lb = ll + ln + Le
       
       L_Designation = ["Diamètre nominal", "Pas", "Longueur du fût lisse", "Longueur du filetage non en prise \n avec les pièces assemblées",
@@ -291,13 +271,13 @@ def page_Modelisation_Presserage() :
       with col3:
           st.image("Pictures/Boulon_Dimensions.png", use_column_width=True)
       
-      d = float(d)
-      p = float(p)
-      ln1 = float(ln1)
-      ln2 = float(ln2)
-      a = float(a)
-      Dp = float(Dp)
-      De = float(De)
+      d = float(d) if d else : 1.0
+      p = float(p) if p else : 1.0
+      ln1 = float(ln1) if ln1 else : 1.0
+      ln2 = float(ln2) if ln2 else : 1.0
+      a = float(a) if a else : 1.0
+      Dp = float(Dp) if Dp else : 1.0
+      De = float(De) if De else : 1.0
       lb = ln1 + ln2
   
   elif selection == "Goujon" :
@@ -317,15 +297,15 @@ def page_Modelisation_Presserage() :
       with col3:
           st.image("Pictures/Goujon_Dimensions.png", use_column_width=True)
       
-      d = float(d)
-      p = float(p)
-      ln1 = float(ln1)
-      ll = float(ll)
-      ln2 = float(ln2)
-      a = float(a)
-      Dp = float(Dp)
-      De = float(De)
-      dl = float(dl)
+      d = float(d) if d else : 1.0
+      p = float(p) if p else : 1.0
+      ln1 = float(ln1) if ln1 else : 1.0
+      ll = float(ll) if ll else : 1.0
+      ln2 = float(ln2) if ln2 else : 1.0
+      a = float(a) if a else : 1.0
+      Dp = float(Dp) if Dp else : 1.0
+      De = float(De) if De else : 1.0
+      dl = float(dl) if dl else : 1.0
       lb = ln1 + ln2 + ll + Le
       
   
@@ -346,15 +326,15 @@ def page_Modelisation_Presserage() :
       with col3:
           st.image("Pictures/Lacet_Dimensions.png", use_column_width=True)
       
-      d = float(d)
-      p = float(p)
-      ln1 = float(ln1)
-      ll = float(ll)
-      ln2 = float(ln2)
-      a = float(a)
-      Dp = float(Dp)
-      De = float(De)
-      dl = float(dl)
+      d = float(d) if d else : 1.0
+      p = float(p) if p else : 1.0
+      ln1 = float(ln1) if ln1 else : 1.0
+      ll = float(ll) if ll else : 1.0
+      ln2 = float(ln2) if ln2 else : 1.0
+      a = float(a) if a else : 1.0
+      Dp = float(Dp) if Dp else : 1.0
+      De = float(De) if De else : 1.0
+      dl = float(dl) if dl else : 1.0
       lb = ln1 + ln2 + ll + Le
   
       
@@ -540,8 +520,10 @@ def page_Modelisation_Presserage() :
   press_col1, press_col2 = st.columns([1, 1])
   with press_col1:
       F0 = st.text_input("Donner la valeur du présserrage initial $F_0$ en N :", placeholder = "10000.0")
+      F0 = float(F0) if F0 else 10000.0
   with press_col2:
       T0 = st.text_input("Donner la température initiale $T_0$ en °C à laquelle le présserrage a été effectué :", placeholder = "20.0")
+      T0 = float(T0) if T0 else 20.0
       
   
   

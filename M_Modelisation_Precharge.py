@@ -560,23 +560,28 @@ def page_Modelisation_Presserage() :
       Kb = (np.pi*Eb/4)/((0.8*d/(dn**2))+(ln1/(dn**2))+(ln2/(dn**2))+(ll/(dn**2)))
       
   # Calcul de Ka
-  denom = 1.0
+  denom = 0.0
   for i in range(0, len(materiau_piece)) :
       denom = denom + longueur_piece[i]/L_Ea[i]
       
-  # st.write("denom = ", denom)
-  if float(De) <= float(a) :
-      cas = 'cas 1'
-      Ka = (np.pi/4)*(De**2 - Dp**2)/denom
-      
-  elif float(De) > float(a) and float(De) <= 3*float(a) :
-      cas = 'cas 2'
-      Ka = (np.pi/4)*((a**2 - Dp**2)+0.5*((De/a)-1)*((a*L/5)+(L**2)/100))/(denom)
-      
+  if denom == 0.0 :
+      st.warning("Les données géométriques des pièces assemblées n'ont pas été saisies.")
+      Ka = 1.0
+
   else :
-      cas = 'cas 3'
-      Ka = (np.pi/4)*((a+(L/10))**2 - Dp**2)/(denom)
-  
+
+      if float(De) <= float(a) :
+          cas = 'cas 1'
+          Ka = (np.pi/4)*(De**2 - Dp**2)/denom
+          
+      elif float(De) > float(a) and float(De) <= 3*float(a) :
+          cas = 'cas 2'
+          Ka = (np.pi/4)*((a**2 - Dp**2)+0.5*((De/a)-1)*((a*L/5)+(L**2)/100))/(denom)
+          
+      else :
+          cas = 'cas 3'
+          Ka = (np.pi/4)*((a+(L/10))**2 - Dp**2)/(denom)
+      
   
   
   

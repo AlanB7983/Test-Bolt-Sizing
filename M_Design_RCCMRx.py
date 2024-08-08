@@ -1185,13 +1185,15 @@ def page_RCCMRx() :
         st.write("\n")
         
         st.write("Entraxe ou distance de l'axe des éléments de serrage au bord de la pièce assemblée dans la direction de l'effort.")
-        L = st.text_input("$L [mm]$ :", placeholder = "0.0")    
+        L = st.text_input("$L [mm]$ :", placeholder = "0.0")   
+        L = float(L) if L else 1.0
         
         # saut de ligne
         st.write("\n")
         
         st.write("Epaisseur de la pièce.")
         e = st.text_input("$e [mm]$ :", placeholder = "0.0")
+        e = float(e) if e else 1.0
         
         # Traitement des résultats Ansys
         # T_Results_Ansys_Bilan = traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selection, F0_selection, selection1, L_Donnees_Geo_Boulonnerie_Full, F0, ft, fv)
@@ -1226,14 +1228,14 @@ def page_RCCMRx() :
         
         st.write("Valeur du coefficient de frottement entre filet en prise.")
         fv = st.text_input("$f_v [-]$ :", placeholder = "0.0")
-        fv = float(fv)
+        fv = float(fv) if fv else 0.15
         
         # saut de ligne
         st.write("\n")
         
         st.write("Valeur de l'effort de précontrainte à la température $T$.")
         F0 = st.text_input("$F_0 [N]$ :", placeholder = "0.0")
-        F0 = float(F0)
+        F0 = float(F0) if F0 else 0.0
         
         # saut de ligne
         st.write("\n")

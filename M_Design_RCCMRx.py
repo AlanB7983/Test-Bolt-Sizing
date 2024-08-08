@@ -1009,7 +1009,7 @@ def page_RCCMRx() :
 
     # On les affiches dans un dataframe
     T_Bolt_Data = [['Matériau', 'Température [°C]', 'Sm [MPa]', 'Symin [MPa]', 'Sumin [MPa]'], [materiau_bolt, float(Tb), SmB_T, SyminB_T, Sumin_T]]
-    df_Bolt_Material_Data = pd.DataFrame(T_Bolt_Data)
+    df_Bolt_Material_Data = pd.DataFrame(T_Bolt_Data[1:], columns=T_Bolt_Data[0])
     st.write(df_Bolt_Material_Data)
                                                          
     # saut de ligne
@@ -1305,5 +1305,5 @@ def page_RCCMRx() :
     num_boulon = st.number_input("Numéro du boulo, dont on veut afficher les résultats", 1, int(len(T_Results_Ansys)))
     
     L_Result_Boulon_i = L_marge_full[num_boulon-1]
-    df_bilan = pd.DataFrame(L_Bilan_Boulon_i)
+    df_bilan = pd.DataFrame(L_Result_Boulon_i[1:], columns=L_Result_Boulon_i[0])
     st.write(df_bilan)    

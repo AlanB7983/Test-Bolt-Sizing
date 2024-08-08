@@ -230,7 +230,7 @@ def page_Modelisation_Presserage() :
       p = float(p) if p else 1.0
       ll = float(ll) if ll else 1.0
       ln = float(ln) if ln else 1.0
-      a = float(a) if a else 1.0
+      a = float(a) if a else 30.0
       Dp = float(Dp) if Dp else 2.0
       De = float(De) if De else 10.0
       Le = float(Le) if Le else 1.0
@@ -275,7 +275,7 @@ def page_Modelisation_Presserage() :
       p = float(p) if p else 1.0
       ln1 = float(ln1) if ln1 else 1.0
       ln2 = float(ln2) if ln2 else 1.0
-      a = float(a) if a else 1.0
+      a = float(a) if a else 30.0
       Dp = float(Dp) if Dp else 2.0
       De = float(De) if De else 10.0
       lb = ln1 + ln2
@@ -302,7 +302,7 @@ def page_Modelisation_Presserage() :
       ln1 = float(ln1) if ln1 else 1.0
       ll = float(ll) if ll else 1.0
       ln2 = float(ln2) if ln2 else 1.0
-      a = float(a) if a else 1.0
+      a = float(a) if a else 30.0
       Dp = float(Dp) if Dp else 2.0
       De = float(De) if De else 10.0
       dl = float(dl) if dl else 1.0
@@ -331,7 +331,7 @@ def page_Modelisation_Presserage() :
       ln1 = float(ln1) if ln1 else 1.0
       ll = float(ll) if ll else 1.0
       ln2 = float(ln2) if ln2 else 1.0
-      a = float(a) if a else 1.0
+      a = float(a) if a else 30.0
       Dp = float(Dp) if Dp else 2.0
       De = float(De) if De else 10.0
       dl = float(dl) if dl else 1.0

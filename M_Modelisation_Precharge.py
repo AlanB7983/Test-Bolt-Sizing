@@ -232,7 +232,7 @@ def page_Modelisation_Presserage() :
       ln = float(ln) if ln else 1.0
       a = float(a) if a else 1.0
       Dp = float(Dp) if Dp else 2.0
-      De = float(De) if De else 1.0
+      De = float(De) if De else 10.0
       Le = float(Le) if Le else 1.0
       lb = ll + ln + Le
       
@@ -277,7 +277,7 @@ def page_Modelisation_Presserage() :
       ln2 = float(ln2) if ln2 else 1.0
       a = float(a) if a else 1.0
       Dp = float(Dp) if Dp else 2.0
-      De = float(De) if De else 1.0
+      De = float(De) if De else 10.0
       lb = ln1 + ln2
   
   elif selection == "Goujon" :
@@ -304,7 +304,7 @@ def page_Modelisation_Presserage() :
       ln2 = float(ln2) if ln2 else 1.0
       a = float(a) if a else 1.0
       Dp = float(Dp) if Dp else 2.0
-      De = float(De) if De else 1.0
+      De = float(De) if De else 10.0
       dl = float(dl) if dl else 1.0
       lb = ln1 + ln2 + ll + Le
       
@@ -333,7 +333,7 @@ def page_Modelisation_Presserage() :
       ln2 = float(ln2) if ln2 else 1.0
       a = float(a) if a else 1.0
       Dp = float(Dp) if Dp else 2.0
-      De = float(De) if De else 1.0
+      De = float(De) if De else 10.0
       dl = float(dl) if dl else 1.0
       lb = ln1 + ln2 + ll + Le
   

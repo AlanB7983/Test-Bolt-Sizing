@@ -1088,6 +1088,9 @@ def page_RCCMRx() :
     # Pour afficher un message une fois le fichier lu
     if uploaded_file is not None:
         st.success('Fichier téléchargé et lu avec succès !')
+
+    else : 
+        st.warning("Aucun fichier téléchargé.")
     
     # saut de ligne
     st.write("\n")

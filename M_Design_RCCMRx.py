@@ -774,29 +774,36 @@ def page_RCCMRx() :
         with col2: 
             a = st.text_input("$a [mm]$ :", placeholder = "0.0")
             Dp = st.text_input("$D_p [mm]$ :", placeholder = "0.0")
-            B = st.text_input("$B [mm]$", placeholder = "0.0")
-            C = st.text_input("$C [mm]$", placeholder = "0.0")
+            if check_rondelle :
+                B = st.text_input("$B [mm]$", placeholder = "0.0")
+                C = st.text_input("$C [mm]$", placeholder = "0.0")
+                A = st.text_input("$A [mm]$", placeholder = "0.0")
+
+                B = float(B) if B else 0.0
+                C = float(C) if C else 0.0
+                A = float(A) if A else 0.0
+        
+            else : # On met une valeur nulle par défaut pour que le code puisse utiliser les fonctions suivantes (float()) et savoir qu'il n'y a pas de rondelles (cf calcul de Dm) 
+                B = 0.0
+                C = 0.0
+                A = 0.0
     
             
         with col3:
             st.image("Pictures/Boulon_Dimensions.png", use_column_width=True)
         
-        d = float(d)
-        p = float(p)
-        ln1 = float(ln1)
-        ln2 = float(ln2)
-        a = float(a)
-        Dp = float(Dp)
-        De = float(De)
-        lb = ln1 + ln2
-        B = float(B)
-        C = float(C)
+        d = float(d) if d else 1.0
+        p = float(p) if p else 1.0
+        ln1 = float(ln1) if ln1 else 1.0
+        ln2 = float(ln2) if ln2 else 1.0
+        a = float(a) if a else 1.0
+        Dp = float(Dp) if Dp else 2.0
         
         L_Designation = ["Diamètre nominal", "Pas", "Longueur du filetage non en prise \n avec les pièces assemblées 1", "Longueur du filetage non en prise \n avec les pièces assemblées 2",
-                         "Diamètre sur le plat de la tête", "Diamètre de perçage", "Etendue des pièces assemblées autour \n de l'axe de l'élément de serrage",
-                         "Diamètre intérieur de la rondelle", "Epaisseur de la rondelle"]
-        L_Symbole = ["d", "p", "ln1", "ln2", "a", "Dp", "De", "B", "C"]
-        L_Valeur = [d, p, ln1, ln2, a, Dp, De, B, C]
+                         "Diamètre sur le plat de la tête", "Diamètre de perçage",
+                         "Diamètre intérieur de la rondelle", "Epaisseur de la rondelle", "Diamètre extérieur de la rondelle"]
+        L_Symbole = ["d", "p", "ln1", "ln2", "a", "Dp", "B", "C", "A"]
+        L_Valeur = [d, p, ln1, ln2, a, Dp, B, C, A]
         L_Unite = ["[mm]"]*len(L_Valeur)
         
         # Création d'un dictionnaire
@@ -993,9 +1000,17 @@ def page_RCCMRx() :
     
         # Afficher le graphique dans Streamlit
         st.plotly_chart(fig_bolt_material_property, use_container_width=True)
+
     
-    
-    
+    # On récupère les propriétés méca 
+    Sumin_T = float(get_grandeur_T_quelconque('Su.min', L_Bolt_Material_Properties, float(Tb)))
+    SyminB_T = float(get_grandeur_T_quelconque('Sy.min', L_Bolt_Material_Properties, float(Tb)))
+    SmB_T = float(get_grandeur_T_quelconque('SmB_non_etanche', L_Bolt_Material_Properties, float(Tb)))
+
+    # On les affiches dans un dataframe
+    T_Bolt_Data = [['Matériau', 'Température [°C]', 'Sm [MPa]', 'Symin [MPa]', 'Sumin [MPa]'], [materiau_bolt, float(Tb), SmB_T, SyminB_T, Sumin_T]]
+    df_Bolt_Material_Data = pd.DataFrame(T_Bolt_Data)
+    st.write(df_Bolt_Material_Data)
                                                          
     # saut de ligne
     st.write("\n")
@@ -1247,11 +1262,7 @@ def page_RCCMRx() :
 
 
     
-    # On récupère les propriétés méca 
-    
-    Sumin_T = float(get_grandeur_T_quelconque('Su.min', L_Bolt_Material_Properties, float(Tb)))
-    SyminB_T = float(get_grandeur_T_quelconque('Sy.min', L_Bolt_Material_Properties, float(Tb)))
-    SmB_T = float(get_grandeur_T_quelconque('SmB_non_etanche', L_Bolt_Material_Properties, float(Tb)))
+
     
     L_marge_full = []
     
@@ -1291,8 +1302,8 @@ def page_RCCMRx() :
 
     
     
-    num_boulon = st.number_input("Numéro du boulo, dont on veut afficher les résultats", 0, int(len(T_Results_Ansys)))
+    num_boulon = st.number_input("Numéro du boulo, dont on veut afficher les résultats", 1, int(len(T_Results_Ansys)))
     
-    L_Result_Boulon_i = L_marge_full[num_boulon]
+    L_Result_Boulon_i = L_marge_full[num_boulon-1]
     df_bilan = pd.DataFrame(L_Bilan_Boulon_i)
     st.write(df_bilan)    

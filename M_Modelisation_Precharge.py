@@ -226,14 +226,14 @@ def page_Modelisation_Presserage() :
           
       with col3:
           st.image("Pictures/Vis_Dimensions.png", use_column_width=True)      
-      d = float(d) if d else : 1.0
-      p = float(p) if p else : 1.0
-      ll = float(ll) if ll else : 1.0
-      ln = float(ln) if ln else : 1.0
-      a = float(a) if a else : 1.0
-      Dp = float(Dp) if Dp else : 2.0
-      De = float(De) if De else : 1.0
-      Le = float(Le) if Le else : 1.0
+      d = float(d) if d else 1.0
+      p = float(p) if p else 1.0
+      ll = float(ll) if ll else 1.0
+      ln = float(ln) if ln else 1.0
+      a = float(a) if a else 1.0
+      Dp = float(Dp) if Dp else 2.0
+      De = float(De) if De else 1.0
+      Le = float(Le) if Le else 1.0
       lb = ll + ln + Le
       
       L_Designation = ["Diamètre nominal", "Pas", "Longueur du fût lisse", "Longueur du filetage non en prise \n avec les pièces assemblées",
@@ -271,13 +271,13 @@ def page_Modelisation_Presserage() :
       with col3:
           st.image("Pictures/Boulon_Dimensions.png", use_column_width=True)
       
-      d = float(d) if d else : 1.0
-      p = float(p) if p else : 1.0
-      ln1 = float(ln1) if ln1 else : 1.0
-      ln2 = float(ln2) if ln2 else : 1.0
-      a = float(a) if a else : 1.0
-      Dp = float(Dp) if Dp else : 1.0
-      De = float(De) if De else : 1.0
+      d = float(d) if d else 1.0
+      p = float(p) if p else 1.0
+      ln1 = float(ln1) if ln1 else 1.0
+      ln2 = float(ln2) if ln2 else 1.0
+      a = float(a) if a else 1.0
+      Dp = float(Dp) if Dp else 1.0
+      De = float(De) if De else 1.0
       lb = ln1 + ln2
   
   elif selection == "Goujon" :
@@ -297,15 +297,15 @@ def page_Modelisation_Presserage() :
       with col3:
           st.image("Pictures/Goujon_Dimensions.png", use_column_width=True)
       
-      d = float(d) if d else : 1.0
-      p = float(p) if p else : 1.0
-      ln1 = float(ln1) if ln1 else : 1.0
-      ll = float(ll) if ll else : 1.0
-      ln2 = float(ln2) if ln2 else : 1.0
-      a = float(a) if a else : 1.0
-      Dp = float(Dp) if Dp else : 1.0
-      De = float(De) if De else : 1.0
-      dl = float(dl) if dl else : 1.0
+      d = float(d) if d else 1.0
+      p = float(p) if p else 1.0
+      ln1 = float(ln1) if ln1 else 1.0
+      ll = float(ll) if ll else 1.0
+      ln2 = float(ln2) if ln2 else 1.0
+      a = float(a) if a else 1.0
+      Dp = float(Dp) if Dp else 1.0
+      De = float(De) if De else 1.0
+      dl = float(dl) if dl else 1.0
       lb = ln1 + ln2 + ll + Le
       
   
@@ -326,15 +326,15 @@ def page_Modelisation_Presserage() :
       with col3:
           st.image("Pictures/Lacet_Dimensions.png", use_column_width=True)
       
-      d = float(d) if d else : 1.0
-      p = float(p) if p else : 1.0
-      ln1 = float(ln1) if ln1 else : 1.0
-      ll = float(ll) if ll else : 1.0
-      ln2 = float(ln2) if ln2 else : 1.0
-      a = float(a) if a else : 1.0
-      Dp = float(Dp) if Dp else : 1.0
-      De = float(De) if De else : 1.0
-      dl = float(dl) if dl else : 1.0
+      d = float(d) if d else 1.0
+      p = float(p) if p else 1.0
+      ln1 = float(ln1) if ln1 else 1.0
+      ll = float(ll) if ll else 1.0
+      ln2 = float(ln2) if ln2 else 1.0
+      a = float(a) if a else 1.0
+      Dp = float(Dp) if Dp else 1.0
+      De = float(De) if De else 1.0
+      dl = float(dl) if dl else 1.0
       lb = ln1 + ln2 + ll + Le
   
       

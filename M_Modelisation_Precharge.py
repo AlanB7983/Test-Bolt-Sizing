@@ -560,7 +560,7 @@ def page_Modelisation_Presserage() :
       Kb = (np.pi*Eb/4)/((0.8*d/(dn**2))+(ln1/(dn**2))+(ln2/(dn**2))+(ll/(dn**2)))
       
   # Calcul de Ka
-  denom = 0.0
+  denom = 1.0
   for i in range(0, len(materiau_piece)) :
       denom = denom + longueur_piece[i]/L_Ea[i]
       

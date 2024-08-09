@@ -699,7 +699,13 @@ def page_RCCMRx() :
     
     st.write("- ##### *Données géométriques*")
 
-    check_rondelle = st.checkbox("Présence d'une rondelle")
+    # On fait demande à l'utilisateur de renseigner s'il y a une rondelle et ou un écrou
+    col_rondelle, col_ecrou, col_rondelle_ecrou_vide = st.columns([1, 1, 1]) # On utilise des colonnes pour afficher les cases à cocher l'une à coté de l'autre
+    with col_rondelle :
+        check_rondelle = st.checkbox("Présence d'une rondelle")
+
+    with col_ecrou :
+        check_ecrou = st.checkbox("Présence d'un écrou")
     
     col1, col2, col3 = st.columns([1, 1, 3])
     

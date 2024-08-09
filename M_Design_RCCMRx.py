@@ -167,8 +167,9 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
             contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
             nom_contrainte_4 = "Contrainte de cisaillement fictive dans les filets de la vis" #(tau_th_v)f ou (tau_f_v)f
             contrainte_4 = calculate_tau_th(NbPL, MbPL, d2, L_prime)
-            nom_contrainte_4bis = "Contrainte de cisaillement fictive dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
-            contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
+            if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
+                nom_contrainte_4bis = "Contrainte de cisaillement fictive dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
+                contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
             nom_contrainte_5 = "Contrainte de cisaillement fictive dans la tete de la vis" #(tau_t)f 
             contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, dl, H)
             nom_contrainte_6 = "Pression de contact fictive sur les filets" #(p_th)f ou (p_f)f
@@ -189,8 +190,9 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
                 
             nom_contrainte_8 = "Contrainte de cisaillement dans les filets de la vis" #tau_th_v ou tau_f_v
             contrainte_8 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
-            nom_contrainte_8bis = "Contrainte de cisaillement dans les filets de la pièce" #tau_th_p ou tau_f_p
-            contrainte_8bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
+            if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
+                nom_contrainte_8bis = "Contrainte de cisaillement dans les filets de la pièce" #tau_th_p ou tau_f_p
+                contrainte_8bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
             nom_contrainte_9 = "Contrainte de cisaillement dans la tete de la vis" #tau_t
             contrainte_9 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
             nom_contrainte_10 = "Pression de contact sur les filets" #p_th ou p_f
@@ -213,12 +215,14 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
             L_Contraintes.append([nom_contrainte_2, contrainte_2])
             L_Contraintes.append([nom_contrainte_3, contrainte_3])
             L_Contraintes.append([nom_contrainte_4, contrainte_4])
-            L_Contraintes.append([nom_contrainte_4bis, contrainte_4bis])
+            if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
+                L_Contraintes.append([nom_contrainte_4bis, contrainte_4bis])
             L_Contraintes.append([nom_contrainte_5, contrainte_5])
             L_Contraintes.append([nom_contrainte_6, contrainte_6])
             L_Contraintes.append([nom_contrainte_7, contrainte_7])
             L_Contraintes.append([nom_contrainte_8, contrainte_8])
-            L_Contraintes.append([nom_contrainte_8bis, contrainte_8bis])
+            if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
+                L_Contraintes.append([nom_contrainte_8bis, contrainte_8bis])
             L_Contraintes.append([nom_contrainte_9, contrainte_9])
             L_Contraintes.append([nom_contrainte_10, contrainte_10])
             L_Contraintes.append([nom_contrainte_11, contrainte_11])
@@ -338,29 +342,50 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
     if Study_Case == "B2_A" :
         # st.write("calculer_contraintes : Cas B2_A")
         
-        nom_contrainte_1 = "Contrainte equivalente moyenne (chargements mecaniques)"
+        nom_contrainte_1 = "Contrainte equivalente moyenne (chargements mecaniques)" #(sigma_m)f
         contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl))
-        nom_contrainte_2 = "Contrainte equivalente moyenne"
+        nom_contrainte_2 = "Contrainte equivalente moyenne" # sigma_m
         contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
-        nom_contrainte_3 = "Contrainte equivalente maximale"
+        nom_contrainte_3 = "Contrainte equivalente maximale" # sigma_m+b
         contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
-        nom_contrainte_4 = "Contrainte de cisaillement dans les filets de la vis (chargements mecaniques)"
+        nom_contrainte_4 = "Contrainte de cisaillement dans les filets de la vis (chargements mecaniques)" #(tau_th_v)f ou (tau_f_v)f
         contrainte_4 = calculate_tau_th(NbPL, MbPL, d2, L_prime)
-        nom_contrainte_5 = "Contrainte de cisaillement dans la tete de la vis (chargements mecaniques)"
+        if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
+            nom_contrainte_4bis = "Contrainte de cisaillement dans les filets de la pièce (chargements mecaniques)" #(tau_th_p)f ou (tau_f_p)f
+            contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
+        nom_contrainte_5 = "Contrainte de cisaillement dans la tete de la vis (chargements mecaniques)" #(tau_h)f ou (tau_t)f
         contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, dl, H)
         nom_contrainte_6 = "Contrainte de cisaillement dans les filets de la vis"
         contrainte_6 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
+        if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
+            nom_contrainte_6bis = "Contrainte de cisaillement dans les filets de la pièce"
+            contrainte_6bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
         nom_contrainte_7 = "Contrainte de cisaillement dans la tete de la vis"
         contrainte_7 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
         nom_contrainte_8 = "Pression de contact sur la tete de la vis"
-        contrainte_8 = calculate_p_h(NbAL, MbAL, a_prime, Dp_prime)
+        if rondelle == False : #S'il n'y a pas de rondelle
+            st.write("contrainte, cas 3.3")
+            contrainte_8 = calculate_p_h(NbAL, MbAL, a, Dp)
+        else : #S'il y a une rondelle
+            st.write("contrainte, cas 3.4")
+            if SyminP_T > SyminB_T :
+                st.write("contrainte, cas 3.4.1")
+                contrainte_8 = calculate_p_h(NbAL, MbAL, a, B)
+            else :
+                st.write("contrainte, cas 3.4.2")
+                contrainte_8 = calculate_p_h(NbAL, MbAL, a_prime, Dp_prime)
+                
         
         L_Contraintes.append([nom_contrainte_1, contrainte_1])
         L_Contraintes.append([nom_contrainte_2, contrainte_2])
         L_Contraintes.append([nom_contrainte_3, contrainte_3])
         L_Contraintes.append([nom_contrainte_4, contrainte_4])
+        if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
+            L_Contraintes.append([nom_contrainte_4bis, contrainte_4bis])
         L_Contraintes.append([nom_contrainte_5, contrainte_5])
         L_Contraintes.append([nom_contrainte_6, contrainte_6])
+        if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
+            L_Contraintes.append([nom_contrainte_6bis, contrainte_6bis])
         L_Contraintes.append([nom_contrainte_7, contrainte_7])
         L_Contraintes.append([nom_contrainte_8, contrainte_8])
         
@@ -537,17 +562,22 @@ def calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, St
             critere_2 = 2*SmB_T                                 #sigma_m
             critere_3 = 3*SmB_T                                 #sigma_m+b
             critere_4 = 0.6*SmB_T                               #(tau_th_v)f ou (tau_f_v)f
-            critere_4bis = 0.3*Sm_T                             #(tau_th_p)f ou (tau_f_p)f
             critere_5 = 0.6*SmB_T                               #(tau_t)f 
             critere_6 = 0.5*min(SyminB_T, SyminP_T)             #(p_th)f ou (p_f)f
             critere_7 = 0.5*min(SyminB_T, SyminP_T)             #(p_t)f
             critere_8 = 1.2*SmB_T                               #tau_th_v ou tau_f_v
-            critere_8bis = 0.6*Sm_T                             #tau_th_p ou tau_f_p
             critere_9 = 1.2*SmB_T                               #tau_t
             critere_10 = min(SyminB_T, SyminP_T)                #p_th ou p_f
             critere_11 = min(SyminB_T, SyminP_T)                #p_t
-            
-            L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_4bis, critere_5, critere_6, critere_7, critere_8, critere_8bis, critere_9, critere_10, critere_11]
+
+            if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
+                st.write("critère, cas 1.1")
+                critere_4bis = 0.3*Sm_T                         #(tau_th_p)f ou (tau_f_p)f
+                critere_8bis = 0.6*Sm_T                         #tau_th_p ou tau_f_p
+                L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_4bis, critere_5, critere_6, critere_7, critere_8, critere_8bis, critere_9, critere_10, critere_11]
+            else :
+                st.write("critère, cas 1.2")
+                L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_5, critere_6, critere_7, critere_8, critere_9, critere_10, critere_11]
 
         else : # h >= 0.8*d
             st.write("critere, cas 2")
@@ -614,16 +644,23 @@ def calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, St
     
     if Study_Case == "B2_A" : 
         # st.write("calculer_criteres : Cas B2_A")
-        critere_1 = SmB_T
-        critere_2 = min(0.9*SyminB_T, 0.67*SuminB_T)
-        critere_3 = 1.33*min(0.9*SyminB_T, 0.67*SuminB_T)
-        critere_4 = 0.6*SmB_T
-        critere_5 = 0.6*SmB_T
-        critere_6 = 0.6*SyminB_T
-        critere_7 = 0.6*SyminB_T
-        critere_8 = 2.7*min(SyminB_T, SyminP_T)
+        critere_1 = SmB_T                                         # (sigma_m)f
+        critere_2 = min(0.9*SyminB_T, 0.67*SuminB_T)              # sigma_m
+        critere_3 = 1.33*min(0.9*SyminB_T, 0.67*SuminB_T)         # sigma_m+b
+        critere_4 = 0.6*SmB_T                                     #(tau_th_v)f ou (tau_f_v)f
+        critere_5 = 0.6*SmB_T                                     #(tau_h)f ou (tau_t)f
+        critere_6 = 0.6*SyminB_T                                  #tau_th_v ou tau_f_v
+        critere_7 = 0.6*SyminB_T                                  #tau_h ou tau_t
+        critere_8 = 2.7*min(SyminB_T, SyminP_T)                   #p_t
         
-        L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_5, critere_6, critere_7, critere_8]
+        if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
+            critere_4bis = 0.3*Sm                                 #(tau_th_p)f ou (tau_f_p)f
+            critere_6bis = 0.6*SyminP_T                           #tau_th_p ou tau_f_p
+
+        if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
+            L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_4bis, critere_5, critere_6, critere_6bis, critere_7, critere_8]
+        else :
+            L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_5, critere_6, critere_7, critere_8]
             
     if Study_Case == "B2_C" : 
         # st.write("calculer_criteres : Cas B2_C")

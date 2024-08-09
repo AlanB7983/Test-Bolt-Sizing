@@ -109,7 +109,7 @@ def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selecti
 
 
 
-def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, Sumin_T, SyminB_T) :
+def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, h, Sumin_T, SyminB_T, SyminP_T, type_boulonnerie) :
     #On récupère les données dans des variables
     
     #Efforts
@@ -154,74 +154,179 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
     
     if Study_Case == "B1_A" or Study_Case == "B1_C" : 
         # st.write("calculer_contraintes : Cas B1_A ou B1_C")
-        
-        nom_contrainte_1 = "Contrainte equivalente fictive moyenne"
-        contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl))
-        nom_contrainte_2 = "Contrainte equivalente moyenne"
-        contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
-        nom_contrainte_3 = "Contrainte equivalente maximale"
-        contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
-        nom_contrainte_4 = "Contrainte de cisaillement fictive dans les filets de la vis"
-        contrainte_4 = calculate_tau_th(NbPL, MbPL, d2, L_prime)
-        nom_contrainte_4bis = "Contrainte de cisaillement fictive dans les filets de la pièce"
-        contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
-        nom_contrainte_5 = "Contrainte de cisaillement fictive dans la tete de la vis"
-        contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, dl, H)
-        nom_contrainte_6 = "Pression de contact fictive sur les filets"
-        contrainte_6 = calculate_p_th(NbPL, MbPL, p, d, D, Le)
-        nom_contrainte_7 = "Pression de contact fictive sur la tete de la vis"
-        
-        if rondelle == False : #S'il n'y a pas de rondelle
-            contrainte_7 = calculate_p_h(NbPL, MbPL, a, Dp)
-        else : #S'il y a une rondelle
-            contrainte_7 = max(calculate_p_h(NbPL, MbPL, a, B), calculate_p_h(NbPL, MbPL, a_prime, Dp_prime))
+        st.write("h = ", h)
+        st.write("0.8xd = ", 0.8*d)
+        st.write("h < 0.8*d", h < 0.8*d)
+        if h < 0.8*d : # h = 0.0 (ie: pas d'écrou) est compris dans ce cas. Il n'y a pas d'écrou, on vérifie tous les critères
+            st.write("contrainte, cas 1")
+            nom_contrainte_1 = "Contrainte equivalente fictive moyenne" #(sigma_m)f
+            contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl)) 
+            nom_contrainte_2 = "Contrainte equivalente moyenne" #sigma_m
+            contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
+            nom_contrainte_3 = "Contrainte equivalente maximale" #sigma_m+b
+            contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
+            nom_contrainte_4 = "Contrainte de cisaillement fictive dans les filets de la vis" #(tau_th_v)f ou (tau_f_v)f
+            contrainte_4 = calculate_tau_th(NbPL, MbPL, d2, L_prime)
+            nom_contrainte_4bis = "Contrainte de cisaillement fictive dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
+            contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
+            nom_contrainte_5 = "Contrainte de cisaillement fictive dans la tete de la vis" #(tau_t)f 
+            contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, dl, H)
+            nom_contrainte_6 = "Pression de contact fictive sur les filets" #(p_th)f ou (p_f)f
+            contrainte_6 = calculate_p_th(NbPL, MbPL, p, d, D, Le)
+            nom_contrainte_7 = "Pression de contact fictive sur la tete de la vis" # (p_t)f 
             
-        nom_contrainte_8 = "Contrainte de cisaillement dans les filets de la vis"
-        contrainte_8 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
-        nom_contrainte_8bis = "Contrainte de cisaillement dans les filets de la pièce"
-        contrainte_8bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
-        nom_contrainte_9 = "Contrainte de cisaillement dans la tete de la vis"
-        contrainte_9 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
-        nom_contrainte_10 = "Pression de contact sur les filets"
-        contrainte_10 = calculate_p_th(NbAL, MbAL, p, d, D, Le)
-        nom_contrainte_11 = "Pression de contact sur la tete de la vis"
+            if rondelle == False : #S'il n'y a pas de rondelle
+                st.write("contrainte, cas 1.1")
+                contrainte_7 = calculate_p_h(NbPL, MbPL, a, Dp) 
+            else : #S'il y a une rondelle
+                st.write("contrainte, cas 1.2")
+                if SyminP_T > SyminB_T :
+                    st.write("contrainte, cas 1.2.1")
+                    contrainte_7 = calculate_p_h(NbPL, MbPL, a, B)
+                else :
+                    st.write("contrainte, cas 1.2.2")
+                    contrainte_7 = calculate_p_h(NbPL, MbPL, a_prime, Dp_prime)
+                
+            nom_contrainte_8 = "Contrainte de cisaillement dans les filets de la vis" #tau_th_v ou tau_f_v
+            contrainte_8 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
+            nom_contrainte_8bis = "Contrainte de cisaillement dans les filets de la pièce" #tau_th_p ou tau_f_p
+            contrainte_8bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
+            nom_contrainte_9 = "Contrainte de cisaillement dans la tete de la vis" #tau_t
+            contrainte_9 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
+            nom_contrainte_10 = "Pression de contact sur les filets" #p_th ou p_f
+            contrainte_10 = calculate_p_th(NbAL, MbAL, p, d, D, Le)
+            nom_contrainte_11 = "Pression de contact sur la tete de la vis" #p_t
+    
+            if rondelle == False : #S'il n'y a pas de rondelle
+                st.write("contrainte, cas 1.3")
+                contrainte_11 = calculate_p_h(NbAL, MbAL, a, Dp)
+            else : #S'il y a une rondelle
+                st.write("contrainte, cas 1.4")
+                if SyminP_T > SyminB_T :
+                    st.write("contrainte, cas 1.4.1")
+                    contrainte_11 = calculate_p_h(NbAL, MbAL, a, B)
+                else :
+                    st.write("contrainte, cas 1.4.2")
+                    contrainte_11 = calculate_p_h(NbAL, MbAL, a_prime, Dp_prime)
+                
+            L_Contraintes.append([nom_contrainte_1, contrainte_1])
+            L_Contraintes.append([nom_contrainte_2, contrainte_2])
+            L_Contraintes.append([nom_contrainte_3, contrainte_3])
+            L_Contraintes.append([nom_contrainte_4, contrainte_4])
+            L_Contraintes.append([nom_contrainte_4bis, contrainte_4bis])
+            L_Contraintes.append([nom_contrainte_5, contrainte_5])
+            L_Contraintes.append([nom_contrainte_6, contrainte_6])
+            L_Contraintes.append([nom_contrainte_7, contrainte_7])
+            L_Contraintes.append([nom_contrainte_8, contrainte_8])
+            L_Contraintes.append([nom_contrainte_8bis, contrainte_8bis])
+            L_Contraintes.append([nom_contrainte_9, contrainte_9])
+            L_Contraintes.append([nom_contrainte_10, contrainte_10])
+            L_Contraintes.append([nom_contrainte_11, contrainte_11])
+        
+        else : # h >= 0.8*d
+            st.write("critere, cas 2")
+            if type_boulonnerie == 'Boulon' or type_boulonnerie == 'Lacet' :
+                st.write("critère, cas 2.1")
+                nom_contrainte_1 = "Contrainte equivalente fictive moyenne" #(sigma_m)f
+                contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl)) 
+                nom_contrainte_2 = "Contrainte equivalente moyenne" #sigma_m
+                contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
+                nom_contrainte_3 = "Contrainte equivalente maximale" #sigma_m+b
+                contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
+                
+                L_Contraintes.append([nom_contrainte_1, contrainte_1])
+                L_Contraintes.append([nom_contrainte_2, contrainte_2])
+                L_Contraintes.append([nom_contrainte_3, contrainte_3])
+                
+            else : # si c'est une vis ou un goujon
+                st.write("critère, cas 2.2")
+                if SyminP_T < SyminB_T :
+                    st.write("critère, cas 2.2.1")
+                    nom_contrainte_1 = "Contrainte equivalente fictive moyenne" #(sigma_m)f
+                    contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl)) 
+                    nom_contrainte_2 = "Contrainte equivalente moyenne" #sigma_m
+                    contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
+                    nom_contrainte_3 = "Contrainte equivalente maximale" #sigma_m+b
+                    contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
+                    nom_contrainte_4bis = "Contrainte de cisaillement fictive dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
+                    contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
+                    nom_contrainte_8bis = "Contrainte de cisaillement dans les filets de la pièce" #tau_th_p ou tau_f_p
+                    contrainte_8bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
+                    
+                    L_Contraintes.append([nom_contrainte_1, contrainte_1])
+                    L_Contraintes.append([nom_contrainte_2, contrainte_2])
+                    L_Contraintes.append([nom_contrainte_3, contrainte_3])
+                    L_Contraintes.append([nom_contrainte_4bis, contrainte_4bis])
+                    L_Contraintes.append([nom_contrainte_8bis, contrainte_8bis])
+                    
+                else : # SyminP_T >= SyminB_T
+                    st.write("critère, cas 2.2.2")
+                    st.write("Le = ", Le)
+                    st.write("0.8xd = ", 0.8*d)
+                    st.write("Le >= 0.8*d", Le >= 0.8*d)
+                    if Le >= 0.8*d :
+                        st.write("critère, cas 2.2.2.1")
+                        nom_contrainte_1 = "Contrainte equivalente fictive moyenne" #(sigma_m)f
+                        contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl)) 
+                        nom_contrainte_2 = "Contrainte equivalente moyenne" #sigma_m
+                        contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
+                        nom_contrainte_3 = "Contrainte equivalente maximale" #sigma_m+b
+                        contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
+                        
+                        L_Contraintes.append([nom_contrainte_1, contrainte_1])
+                        L_Contraintes.append([nom_contrainte_2, contrainte_2])
+                        L_Contraintes.append([nom_contrainte_3, contrainte_3])
+                        
+                    else : # Le < 0.8*d
+                        st.write("critère, cas 2.2.2.2")
+                        nom_contrainte_1 = "Contrainte equivalente fictive moyenne" #(sigma_m)f
+                        contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl)) 
+                        nom_contrainte_2 = "Contrainte equivalente moyenne" #sigma_m
+                        contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
+                        nom_contrainte_3 = "Contrainte equivalente maximale" #sigma_m+b
+                        contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
+                        nom_contrainte_4 = "Contrainte de cisaillement fictive dans les filets de la vis" #(tau_th_v)f ou (tau_f_v)f
+                        contrainte_4 = calculate_tau_th(NbPL, MbPL, d2, L_prime)
+                        nom_contrainte_4bis = "Contrainte de cisaillement fictive dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
+                        contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
+                        nom_contrainte_8 = "Contrainte de cisaillement dans les filets de la vis" #tau_th_v ou tau_f_v
+                        contrainte_8 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
+                        nom_contrainte_8bis = "Contrainte de cisaillement dans les filets de la pièce" #tau_th_p ou tau_f_p
+                        contrainte_8bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
+                        
+                        L_Contraintes.append([nom_contrainte_1, contrainte_1])
+                        L_Contraintes.append([nom_contrainte_2, contrainte_2])
+                        L_Contraintes.append([nom_contrainte_3, contrainte_3])
+                        L_Contraintes.append([nom_contrainte_4, contrainte_4])
+                        L_Contraintes.append([nom_contrainte_4bis, contrainte_4bis])
+                        L_Contraintes.append([nom_contrainte_8, contrainte_8])
+                        L_Contraintes.append([nom_contrainte_8bis, contrainte_8bis])
 
-        if rondelle == False : #S'il n'y a pas de rondelle
-            contrainte_11 = calculate_p_h(NbAL, MbAL, a, Dp)
-        else:
-            contrainte_11 = max(calculate_p_h(NbAL, MbAL, a, B), calculate_p_h(NbAL, MbAL, a_prime, Dp_prime))
             
+            
+            
+            
+            
+            
+    if Study_Case == "B1_D" :
+        # st.write("calculer_contraintes : Cas B1_D")
+        
+        nom_contrainte_1 = "Contrainte equivalente moyenne" #sigma_m
+        contrainte_1 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
+        nom_contrainte_2 = "Contrainte equivalente maximale" #sigma_m+b
+        contrainte_2 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
+        nom_contrainte_3 = "Contrainte de cisaillement dans les filets de la vis"  #tau_th_v ou tau_f_v
+        contrainte_3 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
+        nom_contrainte_4 = "Contrainte de cisaillement dans la tete de la vis"#tau_t
+        contrainte_4 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
+        nom_contrainte_4bis = "Contrainte de cisaillement dans les filets de la pièce" #tau_th_p ou tau_f_p
+        contrainte_4bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
+        
         L_Contraintes.append([nom_contrainte_1, contrainte_1])
         L_Contraintes.append([nom_contrainte_2, contrainte_2])
         L_Contraintes.append([nom_contrainte_3, contrainte_3])
         L_Contraintes.append([nom_contrainte_4, contrainte_4])
         L_Contraintes.append([nom_contrainte_4bis, contrainte_4bis])
-        L_Contraintes.append([nom_contrainte_5, contrainte_5])
-        L_Contraintes.append([nom_contrainte_6, contrainte_6])
-        L_Contraintes.append([nom_contrainte_7, contrainte_7])
-        L_Contraintes.append([nom_contrainte_8, contrainte_8])
-        L_Contraintes.append([nom_contrainte_8bis, contrainte_8bis])
-        L_Contraintes.append([nom_contrainte_9, contrainte_9])
-        L_Contraintes.append([nom_contrainte_10, contrainte_10])
-        L_Contraintes.append([nom_contrainte_11, contrainte_11])
-        
-        
-    if Study_Case == "B1_D" :
-        # st.write("calculer_contraintes : Cas B1_D")
-        
-        nom_contrainte_1 = "Contrainte equivalente moyenne"
-        contrainte_1 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
-        nom_contrainte_2 = "Contrainte equivalente maximale"
-        contrainte_2 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
-        nom_contrainte_3 = "Contrainte de cisaillement dans les filets de la vis"
-        contrainte_3 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
-        nom_contrainte_4 = "Contrainte de cisaillement dans la tete de la vis"
-        contrainte_4 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
-        
-        L_Contraintes.append([nom_contrainte_1, contrainte_1])
-        L_Contraintes.append([nom_contrainte_2, contrainte_2])
-        L_Contraintes.append([nom_contrainte_3, contrainte_3])
-        L_Contraintes.append([nom_contrainte_4, contrainte_4])
     
             
     
@@ -411,7 +516,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
 
 
 
-def calculer_criteres(d, SyminB_T, SyminP_T, Sumin_T, Sm_T, SmB_T, Study_Case, L) :
+def calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, Study_Case, h, L, Le, type_boulonnerie) :
     
     L_Criteres = []
 
@@ -419,34 +524,87 @@ def calculer_criteres(d, SyminB_T, SyminP_T, Sumin_T, Sm_T, SmB_T, Study_Case, L
     ######
     # B1 #
     ######
-    
+
+    # Si le critère est A ou C
     if Study_Case == "B1_A" or Study_Case == "B1_C" : 
         # st.write("calculer_criteres : Cas B1_A ou B1_C")
-        critere_1 = SmB_T
-        critere_2 = 2*SmB_T
-        critere_3 = 3*SmB_T
-        critere_4 = 0.6*SmB_T
-        critere_4bis = 0.3*Sm_T
-        critere_5 = 0.6*SmB_T
-        critere_6 = 0.5*min(SyminB_T, SyminP_T)
-        critere_7 = 0.5*min(SyminB_T, SyminP_T)
-        critere_8 = 1.2*SmB_T
-        critere_8bis = 0.6*Sm_T
-        critere_9 = 1.2*SmB_T
-        critere_10 = min(SyminB_T, SyminP_T)
-        critere_11 = min(SyminB_T, SyminP_T)
+        st.write("h = ", h)
+        st.write("0.8xd = ", 0.8*d)
+        st.write("h < 0.8*d", h < 0.8*d)
+        if h < 0.8*d : # h = 0.0 (ie: pas d'écrou) est compris dans ce cas. Il n'y a pas d'écrou, on vérifie tous les critères
+            st.write("critère, cas 1")
+            critere_1 = SmB_T                                   #(sigma_m)f
+            critere_2 = 2*SmB_T                                 #sigma_m
+            critere_3 = 3*SmB_T                                 #sigma_m+b
+            critere_4 = 0.6*SmB_T                               #(tau_th_v)f ou (tau_f_v)f
+            critere_4bis = 0.3*Sm_T                             #(tau_th_p)f ou (tau_f_p)f
+            critere_5 = 0.6*SmB_T                               #(tau_t)f 
+            critere_6 = 0.5*min(SyminB_T, SyminP_T)             #(p_th)f ou (p_f)f
+            critere_7 = 0.5*min(SyminB_T, SyminP_T)             #(p_t)f
+            critere_8 = 1.2*SmB_T                               #tau_th_v ou tau_f_v
+            critere_8bis = 0.6*Sm_T                             #tau_th_p ou tau_f_p
+            critere_9 = 1.2*SmB_T                               #tau_t
+            critere_10 = min(SyminB_T, SyminP_T)                #p_th ou p_f
+            critere_11 = min(SyminB_T, SyminP_T)                #p_t
+            
+            L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_4bis, critere_5, critere_6, critere_7, critere_8, critere_8bis, critere_9, critere_10, critere_11]
+
+        else : # h >= 0.8*d
+            st.write("critere, cas 2")
+            if type_boulonnerie == 'Boulon' or type_boulonnerie == 'Lacet' :
+                st.write("critère, cas 2.1")
+                critere_1 = SmB_T                                   #(sigma_m)f
+                critere_2 = 2*SmB_T                                 #sigma_m
+                critere_3 = 3*SmB_T                                 #sigma_m+b
+
+                L_Criteres = [critere_1, critere_2, critere_3]
+
+            else : # si c'est une vis ou un goujon
+                st.write("critère, cas 2.2")
+                if SyminP_T < SyminB_T :
+                    st.write("critère, cas 2.2.1")
+                    critere_1 = SmB_T                                   #(sigma_m)f
+                    critere_2 = 2*SmB_T                                 #sigma_m
+                    critere_3 = 3*SmB_T                                 #sigma_m+b
+                    critere_4bis = 0.3*Sm_T                             #(tau_th_p)f ou (tau_f_p)f
+                    critere_8bis = 0.6*Sm_T                             #tau_th_p ou tau_f_p
+
+                    L_Criteres = [critere_1, critere_2, critere_3, critere_4bis, critere_8bis]
+                    
+                else : # SyminP_T >= SyminB_T
+                    st.write("critère, cas 2.2.2")
+                    st.write("Le = ", Le)
+                    st.write("0.8xd = ", 0.8*d)
+                    st.write("Le >= 0.8*d", Le >= 0.8*d)
+                    if Le >= 0.8*d :
+                        st.write("critère, cas 2.2.2.1")
+                        critere_1 = SmB_T                                   #(sigma_m)f
+                        critere_2 = 2*SmB_T                                 #sigma_m
+                        critere_3 = 3*SmB_T                                 #sigma_m+b
         
-        L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_4bis, critere_5, critere_6, critere_7, critere_8, critere_8bis, critere_9, critere_10, critere_11]
-    
+                        L_Criteres = [critere_1, critere_2, critere_3]
+                        
+                    else : # Le < 0.8*d
+                        st.write("critère, cas 2.2.2.2")
+                        critere_1 = SmB_T                                   #(sigma_m)f
+                        critere_2 = 2*SmB_T                                 #sigma_m
+                        critere_3 = 3*SmB_T                                 #sigma_m+b
+                        critere_4 = 0.6*SmB_T                               #(tau_th_v)f ou (tau_f_v)f
+                        critere_4bis = 0.3*Sm_T                             #(tau_th_p)f ou (tau_f_p)f
+                        critere_8 = 1.2*SmB_T                               #tau_th_v ou tau_f_v
+                        critere_8bis = 0.6*Sm_T                             #tau_th_p ou tau_f_p
+                    
+                
+                
     if Study_Case == "B1_D" : 
         # st.write("calculer_criteres : Cas B1_D")
-        critere_1 = min(SyminB_T, 0.7*Sumin_T)
-        critere_2 = Sumin_T
-        critere_3 = min(0.6*SyminB_T, 0.42*Sumin_T)
-        critere_4 = min(0.6*SyminB_T, 0.42*Sumin_T)
-        critere_4bis = min(0.6*SyminP_T, 0.42*Sumin_T)
+        critere_1 = min(SyminB_T, 0.7*SuminB_T)
+        critere_2 = SuminB_T
+        critere_3 = min(0.6*SyminB_T, 0.42*SuminB_T)
+        critere_4 = min(0.6*SyminB_T, 0.42*SuminB_T)
+        critere_4bis = min(0.6*SyminP_T, 0.42*SuminP_T)
         
-        L_Criteres = [critere_1, critere_2, critere_3, critere_4]
+        L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_4bis]
 
 
     
@@ -457,8 +615,8 @@ def calculer_criteres(d, SyminB_T, SyminP_T, Sumin_T, Sm_T, SmB_T, Study_Case, L
     if Study_Case == "B2_A" : 
         # st.write("calculer_criteres : Cas B2_A")
         critere_1 = SmB_T
-        critere_2 = min(0.9*SyminB_T, 0.67*Sumin_T)
-        critere_3 = 1.33*min(0.9*SyminB_T, 0.67*Sumin_T)
+        critere_2 = min(0.9*SyminB_T, 0.67*SuminB_T)
+        critere_3 = 1.33*min(0.9*SyminB_T, 0.67*SuminB_T)
         critere_4 = 0.6*SmB_T
         critere_5 = 0.6*SmB_T
         critere_6 = 0.6*SyminB_T
@@ -470,7 +628,7 @@ def calculer_criteres(d, SyminB_T, SyminP_T, Sumin_T, Sm_T, SmB_T, Study_Case, L
     if Study_Case == "B2_C" : 
         # st.write("calculer_criteres : Cas B2_C")
         #Resistance Normale
-        if Sumin_T < 700 :
+        if SuminB_T < 700 :
             critere_1 = 1.5*SmB_T
             critere_2 = 2.25*SmB_T
             
@@ -479,8 +637,8 @@ def calculer_criteres(d, SyminB_T, SyminP_T, Sumin_T, Sm_T, SmB_T, Study_Case, L
         #Haute Résistance
         else :
             critere_1 = SmB_T
-            critere_2 = min(0.9*SyminB_T, 0.67*Sumin_T)
-            critere_3 = 1.33*min(0.9*SyminB_T, 0.67*Sumin_T)
+            critere_2 = min(0.9*SyminB_T, 0.67*SuminB_T)
+            critere_3 = 1.33*min(0.9*SyminB_T, 0.67*SuminB_T)
             critere_4 = 0.6*SmB_T
             critere_5 = 0.6*SmB_T
             critere_6 = 0.6*SyminB_T
@@ -492,9 +650,9 @@ def calculer_criteres(d, SyminB_T, SyminP_T, Sumin_T, Sm_T, SmB_T, Study_Case, L
     if Study_Case == "B2_D" : 
         # st.write("calculer_criteres : Cas B2_D")
         #Resistance Normale
-        if Sumin_T < 700 :
-            critere_1 = min(2.4*SmB_T, 0.7*Sumin_T)
-            critere_2 = 1.5*min(2.4*SmB_T, 0.7*Sumin_T)
+        if SuminB_T < 700 :
+            critere_1 = min(2.4*SmB_T, 0.7*SuminB_T)
+            critere_2 = 1.5*min(2.4*SmB_T, 0.7*SuminB_T)
             
             L_Criteres = [critere_1, critere_2]
         
@@ -518,15 +676,15 @@ def calculer_criteres(d, SyminB_T, SyminP_T, Sumin_T, Sm_T, SmB_T, Study_Case, L
         
 
         if acier_aust == False :
-            critere_1 = 0.5*Sumin_T
-            critere_2 = 5*Sumin_T/24
+            critere_1 = 0.5*SuminB_T
+            critere_2 = 5*SuminB_T/24
         
         else :
-            critere_1 = 0.3*Sumin_T
-            critere_2 = Sumin_T/8
+            critere_1 = 0.3*SuminB_T
+            critere_2 = SuminB_T/8
         
         critere_3 = 1
-        critere_4 = min(L*Sumin_T/(2*d), 1.5*Sumin_T)
+        critere_4 = min(L*SuminB_T/(2*d), 1.5*SuminB_T)
     
         L_Criteres = [critere_1, critere_2, critere_3, critere_4]
         
@@ -534,30 +692,30 @@ def calculer_criteres(d, SyminB_T, SyminP_T, Sumin_T, Sm_T, SmB_T, Study_Case, L
     if Study_Case == "B3_C" : 
         # st.write("calculer_criteres : Cas B3_C")
         if acier_aust == False :
-            critere_1 = min(1.25*0.5*Sumin_T, SyminB_T)
-            critere_2 = min(1.25*5*Sumin_T/24, SyminB_T)
+            critere_1 = min(1.25*0.5*SuminB_T, SyminB_T)
+            critere_2 = min(1.25*5*SuminB_T/24, SyminB_T)
         
         else :
-            critere_1 = min(1.25*0.3*Sumin_T, SyminB_T)
-            critere_2 = min(1.25*Sumin_T/8, SyminB_T)
+            critere_1 = min(1.25*0.3*SuminB_T, SyminB_T)
+            critere_2 = min(1.25*SuminB_T/8, SyminB_T)
         
         critere_3 = 1
-        critere_4 = min(L*Sumin_T/(2*d), 1.5*Sumin_T)
+        critere_4 = min(L*SuminB_T/(2*d), 1.5*SuminB_T)
     
         L_Criteres = [critere_1, critere_2, critere_3, critere_4]
 
     
     if Study_Case == "B3_D" : 
         # st.write("calculer_criteres : Cas B3_D")
-        critere_1 = min(SyminB_T, 0.7*Sumin_T)
-        critere_2 = min(0.6*SyminB_T, 0.42*Sumin_T)
+        critere_1 = min(SyminB_T, 0.7*SuminB_T)
+        critere_2 = min(0.6*SyminB_T, 0.42*SuminB_T)
         critere_3 = 1
         
         L_Criteres = [critere_1, critere_2, critere_3]
                       
         #Haute Normale
-        if Sumin_T > 700 :
-            critere_4 = Sumin_T
+        if SuminB_T > 700 :
+            critere_4 = SuminB_T
             
             L_Criteres.append(critere_4)
     
@@ -692,7 +850,7 @@ def page_RCCMRx() :
     
     st.subheader("Type d'élément de serrage") #Sous-Partie
     
-    selection = st.radio("", ("Vis", "Boulon", "Goujon", "Lacet"), horizontal=True)
+    type_boulonnerie = st.radio("", ("Vis", "Boulon", "Goujon", "Lacet"), horizontal=True)
     st.write("") # Saut de ligne
     
     st.subheader("Données liées à l'élément de serrage")
@@ -709,7 +867,7 @@ def page_RCCMRx() :
     
     col1, col2, col3 = st.columns([1, 1, 3])
     
-    if selection == "Vis" :
+    if type_boulonnerie == "Vis" :
         with col1:
             d = st.text_input("$d [mm]$ :", placeholder = "0.0")
             p = st.text_input("$p [mm]$ :", placeholder = "0.0")
@@ -773,7 +931,7 @@ def page_RCCMRx() :
         df_bolt_geom_data = pd.DataFrame(D_bolt_geom_data)
     
         
-    elif selection == "Boulon" :
+    elif type_boulonnerie == "Boulon" :
         with col1:
             d = st.text_input("$d [mm]$ :", placeholder = "0.0")
             p = st.text_input("$p [mm]$ :", placeholder = "0.0")
@@ -828,7 +986,7 @@ def page_RCCMRx() :
         # Création du DataFrame pandas à partir du dictionnaire
         df_bolt_geom_data = pd.DataFrame(D_bolt_geom_data)
     
-    elif selection == "Goujon" :
+    elif type_boulonnerie == "Goujon" :
         with col1:
             d = st.text_input("$d [mm]$ :", placeholder = "0.0")
             p = st.text_input("$p [mm]$ :", placeholder = "0.0")
@@ -861,7 +1019,7 @@ def page_RCCMRx() :
         # lb = ln1 + ln2 + ll + Le
         
     
-    elif selection == "Lacet" :
+    elif type_boulonnerie == "Lacet" :
         with col1:
             d = st.text_input("$d [mm]$ :", placeholder = "0.0")
             p = st.text_input("$p [mm]$ :", placeholder = "0.0")
@@ -1290,9 +1448,9 @@ def page_RCCMRx() :
     for i in range (0, len(T_Results_Ansys_Bilan)) :
         # st.write("T_Results_Ansys_Bilan[i] : ", T_Results_Ansys_Bilan[i])
         
-        L_contraintes = calculer_contraintes(T_Results_Ansys_Bilan[i], L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, Sumin_T, SyminB_T)
+        L_contraintes = calculer_contraintes(T_Results_Ansys_Bilan[i], L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, h, Sumin_T, SyminB_T, SyminP_T, type_boulonnerie)
         
-        L_Criteres = calculer_criteres(d, SyminB_T, SyminP_T, Sumin_T, Sm_T, SmB_T, Study_Case, L)
+        L_Criteres = calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, Study_Case, h, L, Le, type_boulonnerie)
         
         L_Bilan_Boulon_i = calculer_marges_all_results(L_contraintes, L_Criteres)
 

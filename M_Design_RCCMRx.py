@@ -729,12 +729,17 @@ def page_RCCMRx() :
 
                 B = float(B) if B else 0.0
                 C = float(C) if C else 0.0
-                A = float(A) if A else 0.0
-        
+                A = float(A) if A else 0.0        
             else : # On met une valeur nulle par défaut pour que le code puisse utiliser les fonctions suivantes (float()) et savoir qu'il n'y a pas de rondelles (cf calcul de Dm) 
                 B = 0.0
                 C = 0.0
                 A = 0.0
+
+            if check_ecrou :
+                h = st.text_input("$h [mm]$", placeholder = "0.0")
+                h = float(h) if h else 0.0
+            else :
+                h = 0.0
             
         with col3:
             st.image("Pictures/Vis_Dimensions.png", use_column_width=True)

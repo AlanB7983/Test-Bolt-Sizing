@@ -1172,12 +1172,12 @@ def page_RCCMRx() :
 
     
     # On récupère les propriétés méca 
-    Sumin_T = float(get_grandeur_T_quelconque('Su.min', L_Bolt_Material_Properties, float(Tb)))
+    SuminB_T = float(get_grandeur_T_quelconque('Su.min', L_Bolt_Material_Properties, float(Tb)))
     SyminB_T = float(get_grandeur_T_quelconque('Sy.min', L_Bolt_Material_Properties, float(Tb)))
     SmB_T = float(get_grandeur_T_quelconque('SmB_non_etanche', L_Bolt_Material_Properties, float(Tb)))
 
     # On les affiches dans un dataframe
-    T_Bolt_Data = [['Matériau', 'Température [°C]', 'Sm [MPa]', 'Symin [MPa]', 'Sumin [MPa]'], [materiau_bolt, float(Tb), SmB_T, SyminB_T, Sumin_T]]
+    T_Bolt_Data = [['Matériau', 'Température [°C]', 'Sm [MPa]', 'Symin [MPa]', 'Sumin [MPa]'], [materiau_bolt, float(Tb), SmB_T, SyminB_T, SuminB_T]]
     df_Bolt_Material_Data = pd.DataFrame(T_Bolt_Data[1:], columns=T_Bolt_Data[0])
     st.write(df_Bolt_Material_Data)
                                                          
@@ -1448,7 +1448,7 @@ def page_RCCMRx() :
     for i in range (0, len(T_Results_Ansys_Bilan)) :
         # st.write("T_Results_Ansys_Bilan[i] : ", T_Results_Ansys_Bilan[i])
         
-        L_contraintes = calculer_contraintes(T_Results_Ansys_Bilan[i], L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, h, Sumin_T, SyminB_T, SyminP_T, type_boulonnerie)
+        L_contraintes = calculer_contraintes(T_Results_Ansys_Bilan[i], L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, h, SuminB_T, SyminB_T, SyminP_T, type_boulonnerie)
         
         L_Criteres = calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, Study_Case, h, L, Le, type_boulonnerie)
         

@@ -551,7 +551,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         nom_contrainte_2 = "Contrainte de cisaillement"
         contrainte_2 = calculate_tau_T(TbAL, d3)
         
-        nom_contrainte_3 = "Sollicitations traction + cisaillement combinees":
+        nom_contrainte_3 = "Sollicitations traction + cisaillement combinees"
         critere_1 = min(SyminB_T, 0.7*SuminB_T)
         critere_2 = min(0.6*SyminB_T, 0.42*Sumin_T)
  

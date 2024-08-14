@@ -943,7 +943,6 @@ def page_RCCMRx() :
     
     col1, col2, col3 = st.columns([1, 1, 3])
     
-    if type_boulonnerie == "Vis" :
     with col1:
         d = st.text_input("$d [mm]$ :", placeholder = "0.0")
         p = st.text_input("$p [mm]$ :", placeholder = "0.0")

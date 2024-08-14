@@ -109,7 +109,7 @@ def traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selecti
 
 
 
-def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, h, Sumin_T, SyminB_T, SyminP_T, type_boulonnerie) :
+def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, h, Sumin_T, SyminB_T, SyminP_T, type_boulonnerie, B_acier_aust) :
     #On récupère les données dans des variables
     
     #Efforts
@@ -486,8 +486,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
     
     if Study_Case == "B3_A" :
         # st.write("calculer_contraintes : Cas B3_A")
-        
-        acier_aust = True # A compléter
+        st.write("contrainte, cas 7")
         
         nom_contrainte_1 = "Contrainte due aux efforts de traction"
         contrainte_1 = calculate_sigma_N(NbAL, d3)
@@ -495,10 +494,12 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         contrainte_2 = calculate_tau_T(TbAL, d3)
         
         nom_contrainte_3 = "Sollicitations traction + cisaillement combinees"
-        if acier_aust == True :
+        if B_acier_aust == True :
+            st.write("contrainte, cas 6.1")
             critere_1 = 0.3*Sumin_T
             critere_2 = Sumin_T/8
         else :
+            st.write("contrainte, cas 6.2")
             critere_1 = 0.5*Sumin_T
             critere_2 = 5*Sumin_T/24
         contrainte_3 = (contrainte_1**2)/(critere_1**2) + (contrainte_2**2)/(critere_2**2)
@@ -514,18 +515,20 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         
     if Study_Case == "B3_C" :
         # st.write("calculer_contraintes : Cas B3_C")
-        
+        st.write("contrainte, cas 7")
         nom_contrainte_1 = "Contrainte due aux efforts de traction"
         contrainte_1 = calculate_sigma_N(NbAL, d3)
         nom_contrainte_2 = "Contrainte de cisaillement"
         contrainte_2 = calculate_tau_T(TbAL, d3)
         
         nom_contrainte_3 = "Sollicitations traction + cisaillement combinees"
-        if acier_aust == False :
+        if B_acier_aust == False :
+            st.write("contrainte, cas 7.1")
             critere_1 = min(1.25*0.5*Sumin_T, SyminB_T)
             critere_2 = min(1.25*5*Sumin_T/24, SyminB_T)
         
         else :
+            st.write("contrainte, cas 7.2")
             critere_1 = min(1.25*0.3*Sumin_T, SyminB_T)
             critere_2 = min(1.25*Sumin_T/8, SyminB_T)
         contrainte_3 = (contrainte_1**2)/(critere_1**2) + (contrainte_2**2)/(critere_2**2)
@@ -541,19 +544,17 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         
     if Study_Case == "B3_D" :
         # st.write("calculer_contraintes : Cas B3_D")
+        st.write("contrainte, cas 8")
         
         nom_contrainte_1 = "Contrainte due aux efforts de traction"
         contrainte_1 = calculate_sigma_N(NbAL, d3)
         nom_contrainte_2 = "Contrainte de cisaillement"
         contrainte_2 = calculate_tau_T(TbAL, d3)
         
-        nom_contrainte_3 = "Sollicitations traction + cisaillement combinees"
-        if acier_aust == True :
-            critere_1 = 0.3*Sumin_T
-            critere_2 = Sumin_T/8
-        else :
-            critere_1 = 0.5*Sumin_T
-            critere_2 = 5*Sumin_T/24
+        nom_contrainte_3 = "Sollicitations traction + cisaillement combinees":
+        critere_1 = min(SyminB_T, 0.7*SuminB_T)
+        critere_2 = min(0.6*SyminB_T, 0.42*Sumin_T)
+ 
         contrainte_3 = (contrainte_1**2)/(critere_1**2) + (contrainte_2**2)/(critere_2**2)
         
         L_Contraintes.append([nom_contrainte_1, contrainte_1])
@@ -561,6 +562,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         L_Contraintes.append([nom_contrainte_3, contrainte_3])
         
         if Sumin_T > 700 :
+            st.write("contrainte, cas 8.1")
             nom_contrainte_4 = "Contrainte due aux efforts de traction et aux moments de flexion"
             contrainte_4 = calculate_sigma_N(NbAL, d3) + calculate_sigma_M(MbAL, d3)
             
@@ -572,7 +574,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
 
 
 
-def calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, Study_Case, h, L, Le, type_boulonnerie) :
+def calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, Study_Case, h, L, Le, type_boulonnerie, B_acier_aust) :
     
     L_Criteres = []
 
@@ -749,10 +751,7 @@ def calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, St
     if Study_Case == "B3_A" : 
         # st.write("calculer_criteres : Cas B3_A")
         
-        acier_aust = True
-        
-
-        if acier_aust == False :
+        if B_acier_aust == False :
             critere_1 = 0.5*SuminB_T
             critere_2 = 5*SuminB_T/24
         
@@ -761,14 +760,14 @@ def calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, St
             critere_2 = SuminB_T/8
         
         critere_3 = 1
-        critere_4 = min(L*SuminB_T/(2*d), 1.5*SuminB_T)
+        critere_4 = min(L*SuminP_T/(2*d), 1.5*SuminP_T)
     
         L_Criteres = [critere_1, critere_2, critere_3, critere_4]
         
         
     if Study_Case == "B3_C" : 
         # st.write("calculer_criteres : Cas B3_C")
-        if acier_aust == False :
+        if B_acier_aust == False :
             critere_1 = min(1.25*0.5*SuminB_T, SyminB_T)
             critere_2 = min(1.25*5*SuminB_T/24, SyminB_T)
         
@@ -777,7 +776,7 @@ def calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, St
             critere_2 = min(1.25*SuminB_T/8, SyminB_T)
         
         critere_3 = 1
-        critere_4 = min(L*SuminB_T/(2*d), 1.5*SuminB_T)
+        critere_4 = min(min(L*SuminP_T/(2*d), 1.5*SuminP_T), SyminP_T)
     
         L_Criteres = [critere_1, critere_2, critere_3, critere_4]
 
@@ -1524,10 +1523,12 @@ def page_RCCMRx() :
     st.write("T_Results_Ansys_Bilan : ", T_Results_Ansys_Bilan)
     for i in range (0, len(T_Results_Ansys_Bilan)) :
         # st.write("T_Results_Ansys_Bilan[i] : ", T_Results_Ansys_Bilan[i])
+
+        B_acier_aust = True # A compléter
         
-        L_contraintes = calculer_contraintes(T_Results_Ansys_Bilan[i], L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, h, SuminB_T, SyminB_T, SyminP_T, type_boulonnerie)
+        L_contraintes = calculer_contraintes(T_Results_Ansys_Bilan[i], L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, h, SuminB_T, SyminB_T, SyminP_T, type_boulonnerie, B_acier_aust)
         
-        L_Criteres = calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, Study_Case, h, L, Le, type_boulonnerie)
+        L_Criteres = calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, Study_Case, h, L, Le, type_boulonnerie, B_acier_aust)
         
         L_Bilan_Boulon_i = calculer_marges_all_results(L_contraintes, L_Criteres)
 

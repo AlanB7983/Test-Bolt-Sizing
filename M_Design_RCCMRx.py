@@ -944,189 +944,74 @@ def page_RCCMRx() :
     col1, col2, col3 = st.columns([1, 1, 3])
     
     if type_boulonnerie == "Vis" :
-        with col1:
-            d = st.text_input("$d [mm]$ :", placeholder = "0.0")
-            p = st.text_input("$p [mm]$ :", placeholder = "0.0")
-            dl = st.text_input("$d_{l} [mm]$ :", placeholder = "0.0")
-            a = st.text_input("$a [mm]$ :", placeholder = "0.0")
-            H = st.text_input("$H [mm]$ :", placeholder = "0.0")
-    
-    
-            
-        with col2:
-            Dp = st.text_input("$D_p [mm]$ :", placeholder = "0.0")
-            Le = st.text_input("$L_{e} [mm]$ :", placeholder = "0.0")
-            if check_rondelle :
-                B = st.text_input("$B [mm]$", placeholder = "0.0")
-                C = st.text_input("$C [mm]$", placeholder = "0.0")
-                A = st.text_input("$A [mm]$", placeholder = "0.0")
+    with col1:
+        d = st.text_input("$d [mm]$ :", placeholder = "0.0")
+        p = st.text_input("$p [mm]$ :", placeholder = "0.0")
+        dl = st.text_input("$d_{l} [mm]$ :", placeholder = "0.0")
+        a = st.text_input("$a [mm]$ :", placeholder = "0.0")
+        H = st.text_input("$H [mm]$ :", placeholder = "0.0")
 
-                B = float(B) if B else 0.0
-                C = float(C) if C else 0.0
-                A = float(A) if A else 0.0        
-            else : # On met une valeur nulle par défaut pour que le code puisse utiliser les fonctions suivantes (float()) et savoir qu'il n'y a pas de rondelles (cf calcul de Dm) 
-                B = 0.0
-                C = 0.0
-                A = 0.0
 
-            if check_ecrou :
-                h = st.text_input("$h [mm]$", placeholder = "0.0")
-                h = float(h) if h else 0.0
-            else :
-                h = 0.0
-            
-        with col3:
+        
+    with col2:
+        Dp = st.text_input("$D_p [mm]$ :", placeholder = "0.0")
+        Le = st.text_input("$L_{e} [mm]$ :", placeholder = "0.0")
+        if check_rondelle :
+            B = st.text_input("$B [mm]$", placeholder = "0.0")
+            C = st.text_input("$C [mm]$", placeholder = "0.0")
+            A = st.text_input("$A [mm]$", placeholder = "0.0")
+
+            B = float(B) if B else 0.0
+            C = float(C) if C else 0.0
+            A = float(A) if A else 0.0        
+        else : # On met une valeur nulle par défaut pour que le code puisse utiliser les fonctions suivantes (float()) et savoir qu'il n'y a pas de rondelles (cf calcul de Dm) 
+            B = 0.0
+            C = 0.0
+            A = 0.0
+
+        if check_ecrou :
+            h = st.text_input("$h [mm]$", placeholder = "0.0")
+            h = float(h) if h else 0.0
+        else :
+            h = 0.0
+        
+    with col3:
+        if type_boulonnerie == "Vis" :
             st.image("Pictures/Vis_Dimensions.png", use_column_width=True)
-        
-        
-        d = float(d) if d else 1.0
-        p = float(p) if p else 1.0
-        dl = float(dl) if dl else 1.0
-        a = float(a) if a else 1.0
-        H = float(H) if H else 1.0
-        Dp = float(Dp) if Dp else 2.0
-        Le = float(Le) if Le else 1.0
-        
-        
-        L_Designation = ["Diamètre nominal", "Pas", "Diamètre du fût lisse",
-                         "Diamètre sur le plat de la tête", "Hauteur de la tête", "Diamètre de perçage", "Longueur d'engagement des filets \n en prise",
-                         "Diamètre intérieur de la rondelle", "Epaisseur de la rondelle", "Diamètre extérieur de la rondelle"]
-        L_Symbole = ["d", "p", "dl", "a", "H", "Dp", "Le", "B", "C", "A"]
-        L_Valeur = [d, p, dl, a, H, Dp, Le, B, C, A]
-        L_Unite = ["[mm]"]*len(L_Valeur)
-        
-        # Création d'un dictionnaire
-        D_bolt_geom_data = {
-            'Désignation' : L_Designation,
-            'Symbole' : L_Symbole,
-            'Valeur' : L_Valeur,
-            'Unité' : L_Unite
-            }
-        
-        # Création du DataFrame pandas à partir du dictionnaire
-        df_bolt_geom_data = pd.DataFrame(D_bolt_geom_data)
-    
-        
-    elif type_boulonnerie == "Boulon" :
-        with col1:
-            d = st.text_input("$d [mm]$ :", placeholder = "0.0")
-            p = st.text_input("$p [mm]$ :", placeholder = "0.0")
-            ln1 = st.text_input("$l_{n1} [mm]$ :", placeholder = "0.0")
-            ln2 = st.text_input("$l_{n2} [mm]$ :", placeholder = "0.0")
-            De = st.text_input("$D_e [mm]$ :", placeholder = "0.0")
-    
-    
-        with col2: 
-            a = st.text_input("$a [mm]$ :", placeholder = "0.0")
-            Dp = st.text_input("$D_p [mm]$ :", placeholder = "0.0")
-            if check_rondelle :
-                B = st.text_input("$B [mm]$", placeholder = "0.0")
-                C = st.text_input("$C [mm]$", placeholder = "0.0")
-                A = st.text_input("$A [mm]$", placeholder = "0.0")
-
-                B = float(B) if B else 0.0
-                C = float(C) if C else 0.0
-                A = float(A) if A else 0.0
-        
-            else : # On met une valeur nulle par défaut pour que le code puisse utiliser les fonctions suivantes (float()) et savoir qu'il n'y a pas de rondelles (cf calcul de Dm) 
-                B = 0.0
-                C = 0.0
-                A = 0.0
-    
-            
-        with col3:
+        elif type_boulonnerie == "Boulon" :
             st.image("Pictures/Boulon_Dimensions.png", use_column_width=True)
-        
-        d = float(d) if d else 1.0
-        p = float(p) if p else 1.0
-        ln1 = float(ln1) if ln1 else 1.0
-        ln2 = float(ln2) if ln2 else 1.0
-        a = float(a) if a else 1.0
-        Dp = float(Dp) if Dp else 2.0
-        
-        L_Designation = ["Diamètre nominal", "Pas", "Longueur du filetage non en prise \n avec les pièces assemblées 1", "Longueur du filetage non en prise \n avec les pièces assemblées 2",
-                         "Diamètre sur le plat de la tête", "Diamètre de perçage",
-                         "Diamètre intérieur de la rondelle", "Epaisseur de la rondelle", "Diamètre extérieur de la rondelle"]
-        L_Symbole = ["d", "p", "ln1", "ln2", "a", "Dp", "B", "C", "A"]
-        L_Valeur = [d, p, ln1, ln2, a, Dp, B, C, A]
-        L_Unite = ["[mm]"]*len(L_Valeur)
-        
-        # Création d'un dictionnaire
-        D_bolt_geom_data = {
-            'Désignation' : L_Designation,
-            'Symbole' : L_Symbole,
-            'Valeur' : L_Valeur,
-            'Unité' : L_Unite
-            }
-        
-        # Création du DataFrame pandas à partir du dictionnaire
-        df_bolt_geom_data = pd.DataFrame(D_bolt_geom_data)
-    
-    elif type_boulonnerie == "Goujon" :
-        with col1:
-            d = st.text_input("$d [mm]$ :", placeholder = "0.0")
-            p = st.text_input("$p [mm]$ :", placeholder = "0.0")
-            ln1 = st.text_input("$l_{n1} [mm]$ :", placeholder = "0.0")
-            ll = st.text_input("$l_{l} [mm]$ :", placeholder = "0.0")
-            ln2 = st.text_input("$l_{n2} [mm]$ :", placeholder = "0.0")
-            dl = st.text_input("$d_l [mm]$ :", placeholder = "0.0")
-    
-        with col2: 
-            De = st.text_input("$D_e [mm]$ :", placeholder = "0.0")
-            a = st.text_input("$a [mm]$ :", placeholder = "0.0")
-            Dp = st.text_input("$D_p [mm]$ :", placeholder = "0.0")
-            B = st.text_input("$B [mm]$", placeholder = "0.0")
-            C = st.text_input("$C [mm]$", placeholder = "0.0")
-            
-        with col3:
+        elif type_boulonnerie == "Goujon" :
             st.image("Pictures/Goujon_Dimensions.png", use_column_width=True)
-        
-        d = float(d)
-        p = float(p)
-        ln1 = float(ln1)
-        ll = float(ll)
-        ln2 = float(ln2)
-        a = float(a)
-        Dp = float(Dp)
-        De = float(De)
-        dl = float(dl)
-        B = float(B)
-        C = float(C)
-        # lb = ln1 + ln2 + ll + Le
-        
-    
-    elif type_boulonnerie == "Lacet" :
-        with col1:
-            d = st.text_input("$d [mm]$ :", placeholder = "0.0")
-            p = st.text_input("$p [mm]$ :", placeholder = "0.0")
-            ln1 = st.text_input("$l_{n1} [mm]$ :", placeholder = "0.0")
-            ll = st.text_input("$l_{l} [mm]$ :", placeholder = "0.0")
-            ln2 = st.text_input("$l_{n2} [mm]$ :", placeholder = "0.0")
-            dl = st.text_input("$d_l [mm]$ :", placeholder = "0.0")
-    
-        with col2: 
-            De = st.text_input("$D_e [mm]$ :", placeholder = "0.0")
-            a = st.text_input("$a [mm]$ :", placeholder = "0.0")
-            Dp = st.text_input("$D_p [mm]$ :", placeholder = "0.0")
-            B = st.text_input("$B [mm]$", placeholder = "0.0")
-            C = st.text_input("$C [mm]$", placeholder = "0.0")
-            
-        with col3:
+        elif type_boulonnerie == "Lacet" :
             st.image("Pictures/Lacet_Dimensions.png", use_column_width=True)
         
-        d = float(d)
-        p = float(p)
-        ln1 = float(ln1)
-        ll = float(ll)
-        ln2 = float(ln2)
-        a = float(a)
-        Dp = float(Dp)
-        De = float(De)
-        dl = float(dl)
-        B = float(B)
-        C = float(C)
+    d = float(d) if d else 1.0
+    p = float(p) if p else 1.0
+    dl = float(dl) if dl else 1.0
+    a = float(a) if a else 1.0
+    H = float(H) if H else 1.0
+    Dp = float(Dp) if Dp else 2.0
+    Le = float(Le) if Le else 1.0
     
     
+    L_Designation = ["Diamètre nominal", "Pas", "Diamètre du fût lisse",
+                     "Diamètre sur le plat de la tête", "Hauteur de la tête", "Diamètre de perçage", "Longueur d'engagement des filets \n en prise",
+                     "Diamètre intérieur de la rondelle", "Epaisseur de la rondelle", "Diamètre extérieur de la rondelle"]
+    L_Symbole = ["d", "p", "dl", "a", "H", "Dp", "Le", "B", "C", "A"]
+    L_Valeur = [d, p, dl, a, H, Dp, Le, B, C, A]
+    L_Unite = ["[mm]"]*len(L_Valeur)
+    
+    # Création d'un dictionnaire
+    D_bolt_geom_data = {
+        'Désignation' : L_Designation,
+        'Symbole' : L_Symbole,
+        'Valeur' : L_Valeur,
+        'Unité' : L_Unite
+        }
+    
+    # Création du DataFrame pandas à partir du dictionnaire
+    df_bolt_geom_data = pd.DataFrame(D_bolt_geom_data)
+
         
     # Calcul des dimensions intermédiaires
     #D'après le paragraphe A6.2400 du RCC-MRx

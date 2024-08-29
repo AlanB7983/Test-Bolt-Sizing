@@ -1505,6 +1505,9 @@ def page_RCCMRx() :
     st.write(df_bilan)    
 
     """
+    # On récupère les données des pièces assemblées sous forme d'un tableau DataFrame
+    df_assembly_part_data = st.session_state.test_data 
+    
     # On crée le rapport pdf
     pdf_buffer = create_rapport_pdf_rccmrx()
     st.success("PDF exporté avec succès")

@@ -1469,8 +1469,7 @@ def page_RCCMRx() :
 
         L_marge_full.append(L_Bilan_Boulon_i)
 
-    st.write(type(L_marge_full))
-    st.write(L_marge_full[0])
+
 
     # Affichage d'un tableau avec une partie des données d'entrée
     # L_Donnees_Geo_Boulonnerie_Full = L_Valeur + [d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 
@@ -1516,7 +1515,7 @@ def page_RCCMRx() :
     # On crée le rapport pdf
     pdf_buffer = create_rapport_pdf_rccmrx(type_boulonnerie, df_bolt_geom_data_full, df_Bolt_Material_Data, B_acier_aust, df_assembly_part_data, Study_Case, Lambda, 
                               ft, fv, F0, F0_selection, adherence_selection, selection1, selection2, d, h, Le, SyminP_T, SyminB_T, L, e, T_Results_Ansys_Bilan,
-                              critere_selection, L_marge_full)
+                              critere_selection, L_Result_Boulon_i)
     st.success("PDF exporté avec succès")
     
     # Proposer le téléchargement

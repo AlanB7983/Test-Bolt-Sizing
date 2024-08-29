@@ -816,7 +816,7 @@ def calculer_marge(valeur, critere):
 
     """
     
-    marge = 100*(critere - valeur)/critere
+    marge = 100*(float(critere) - float(valeur))/float(critere)
     
     return marge
 

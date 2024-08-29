@@ -1469,7 +1469,8 @@ def page_RCCMRx() :
 
         L_marge_full.append(L_Bilan_Boulon_i)
 
-
+    st.write(type(L_marge_full))
+    st.write(L_marge_full[0])
 
     # Affichage d'un tableau avec une partie des données d'entrée
     # L_Donnees_Geo_Boulonnerie_Full = L_Valeur + [d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 

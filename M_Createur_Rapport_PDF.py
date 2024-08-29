@@ -519,7 +519,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                                ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
                                ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
                                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
-    elements.append(table_bolt_geom_data)
+    elements.append(table_bolt_material_data)
     legend = Paragraph("Tableau 2 : Données matériau liées à l'élément de serrage", legend_style)
     elements.append(legend)
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
@@ -566,7 +566,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     
     
-    """
+    
     # =============================================================================
     #     Hypothèses de calcul
     # =============================================================================
@@ -705,7 +705,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
         
 
-    
+    """
     # =============================================================================
     #     Bilan des efforts sollicitant la liaison boulonnée
     # =============================================================================

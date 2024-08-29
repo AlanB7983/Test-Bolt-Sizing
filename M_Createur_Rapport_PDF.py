@@ -398,7 +398,6 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                               ft, fv, F0, F0_selection, adherence_selection, selection1, selection2, d, h, Le, SyminP_T, SyminB_T, L, e, T_Results_Ansys_Bilan,
                               critere_selection, L_marge_full) :
     
-    
     buffer = BytesIO()
     
     
@@ -646,7 +645,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
     
     # Cas B2
-    elif 'B2' in Study_Case :
+    if 'B2' in Study_Case :
         text = Paragraph("La liaison boulonnée est précontrainte mais n’assure pas une fonction d’étanchéité. Elle entre donc dans la catégorie B2 et le dimensionnement se fait conformément au jeu de règles correspondant (RB 3281, RB 3284 et RB 3285). Le fluage ainsi que l’irradiation de la liaison sont négligés.", normal_style)
         elements.append(text)
         text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
@@ -685,35 +684,31 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         
     
     # Cas B3
-    else :
+    if 'B3' in Study_Case :
         text = Paragraph("La liaison boulonnée n’est pas précontrainte et a simplement une fonction de support. Elle entre donc dans la catégorie B3 et le dimensionnement se fait conformément au jeu de règles correspondant (RB 3281 et RB 3286). Le fluage ainsi que l’irradiation de la liaison sont négligés, d’autant plus qu’ils sont incompatibles avec cette catégorie de boulonnerie.", normal_style)
         elements.append(text)
         text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
         elements.append(text)
         text = Paragraph("  - L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort, &L; : " + str(L), normal_style)
         elements.append(text)
-        text = Paragraph("  - -	L’épaisseur de la pièce assemblée, &e; : " + str(e), normal_style)
+        text = Paragraph("  - L’épaisseur de la pièce assemblée, &e; : " + str(e), normal_style)
         elements.append(text)
 
-        
-        
         if selection2 :
             text = Paragraph("Enfin, l’élément de serrage subit un moment de flexion par effet levier dû à une flexion locale des pièces assemblées.", normal_style)
             elements.append(text)
         else :
-            text = Paragraph("Enfin, l’élément de serrage ne subit pas de moment de flexion par effet levier dû à une flexion locale des pièces assemblées. ", normal_style)
+            text = Paragraph("Enfin, l’élément de serrage ne subit pas de moment de flexion par effet levier dû à une flexion locale des pièces assemblées.", normal_style)
             elements.append(text)
         
         elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
         
-        
-        
-        
-        
+
     
     # =============================================================================
     #     Bilan des efforts sollicitant la liaison boulonnée
     # =============================================================================
+                                  
     subsubtitle_4 = Paragraph("Bilan des efforts sollicitant la liaison boulonnée", subtitle3_style)
     elements.append(subsubtitle_4)
     
@@ -803,4 +798,5 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
     
     buffer.seek(0)
+                                  
     return buffer

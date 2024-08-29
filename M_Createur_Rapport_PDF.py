@@ -744,6 +744,9 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
 # =============================================================================
 #     Critères à vérifier
 # =============================================================================
+    # Saut de page
+    elements.append(PageBreak())
+                                  
     subtitle_2 = Paragraph("CRITERES A VERIFIER", subtitle2_style)
     elements.append(subtitle_2)
     elements.append(Spacer(1, 8))  # Ajouter un espace après le texte
@@ -759,7 +762,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
         
         
-    """        
+            
 # =============================================================================
 #     RESULTATS
 # =============================================================================
@@ -774,7 +777,8 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
     text = Paragraph("L’évaluation des contraintes subies par la liaison boulonnée et des critères dimensionnants permet d’obtenir pour chacun des éléments de serrage les valeurs et marges suivantes", normal_style)
     elements.append(text)
-    
+
+    """
     tableau_bilan_marge = Table(L_marge_full)
     tableau_bilan_marge.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
                                ('FONTSIZE', (0, 0), (-1, -1), 8),

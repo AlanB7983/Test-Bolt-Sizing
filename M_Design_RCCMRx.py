@@ -1508,12 +1508,14 @@ def page_RCCMRx() :
     df_bilan = pd.DataFrame(L_Result_Boulon_i[1:], columns=L_Result_Boulon_i[0])
     st.write(df_bilan)    
 
-    """
+    
     # On récupère les données des pièces assemblées sous forme d'un tableau DataFrame
     df_assembly_part_data = st.session_state.test_data 
     
     # On crée le rapport pdf
-    pdf_buffer = create_rapport_pdf_rccmrx()
+    pdf_buffer = create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Material_Data, B_acier_aust, df_assembly_part_data, Study_Case, Lambda, 
+                              ft, fv, F0, F0_selection, adherence_selection, selection1, selection2, d, h, Le, SyminP_T, SyminB_T, L, e, T_Results_Ansys_Bilan,
+                              critere_selection, L_marge_full)
     st.success("PDF exporté avec succès")
     
     # Proposer le téléchargement
@@ -1524,4 +1526,4 @@ def page_RCCMRx() :
       file_name = file_name,
       mime="application/pdf" # utilisé pour spécifier le type de fichier que l'utilisateur peut télécharger. Ici, application/pdf signifie qu'il s'agit d'un document pdf
     )
-    """
+    

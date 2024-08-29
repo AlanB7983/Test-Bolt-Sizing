@@ -394,54 +394,413 @@ def create_pdf_template(bolt_type, df_geom_data, image_bolt_type_path, bolt_mate
 
 
 
-
-
-# Exemple d'utilisation
-# d = 16.0
-# p = 2.0
-# ll = 0.0
-# ln = 16.4
-# a = 20.8
-# Dp = 17.5
-# De = 70.0
-# Le = 8.0
-# lb = ll + ln + Le
-
-# L_Designation = ["Diamètre nominal", "Pas", "Longueur du fût lisse", "Longueur du filetage non en prise \n avec les pièces assemblées",
-#                  "Diamètre sur le plat de la tête", "Diamètre de perçage", "Longueur d'engagement des filets \n en prise", "Etendue des pièces assemblées autour \n de l'axe de l'élément de serrage"]
-# L_Symbole = ["d", "p", "l_l", "l_n", "a", "D_p", "L_e", "D_e"]
-# L_Valeur = [d, p, ll, ln, a, Dp, Le, De]
-# L_Unite = ["[mm]"]*len(L_Valeur)
-
-# # Création d'un dictionnaire
-# D_geom_data = {
-#     'Désignation' : L_Designation,
-#     'Symbole' : L_Symbole,
-#     'Valeur' : L_Valeur,
-#     'Unité' : L_Unite
-#     }
-
-# # Création du DataFrame pandas à partir du dictionnaire
-# df_geom_data = pd.DataFrame(D_geom_data)
+def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Material_Data, B_acier_aust, df_assembly_part_data, Study_Case, Lambda, 
+                              ft, fv, F0, F0_selection, adherence_selection, selection1, selection2, d, h, Le, SyminP_T, SyminB_T, L, e, T_Results_Ansys_Bilan,
+                              critere_selection, L_marge_full) :
     
-# bolt_type = 'Vis'
-# image_path = "C:/Users/alanb/OneDrive/Documents/AUTOMATISATION/Post-Traitement Boulonnerie/G-MET Bolts V1/Pictures/Boulon_Dimensions.png"
-# bolt_material = "660 SS"
+    
+    buffer = BytesIO()
+    
+    
+    # Configuration du document
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
+    elements = []
+    page_width = letter[0] # Largeur de la page
 
-# L_Num_Piece = ["Pièce assemblée n°1", "Pièce assemblée n°2"]
-# L_Longueur = [16.4, 6.4]
-# L_Materiau = ["304L SS", "Alloy 718"]
+    # Styles de texte
+    styles = getSampleStyleSheet()
+    title_style = styles['Title']
+    subtitle2_style = styles['Heading2']
+    subtitle3_style = styles['Heading3']
+    subtitle4_style = styles['Heading4']
+    
 
-# D_assembly_part_geom_data = {
-#     "Numéro de la pièce assemblée" : L_Num_Piece,
-#     "Longueur [mm]" : L_Longueur,
-#     "Matériau" : L_Materiau
-#     }
+    normal_style = ParagraphStyle(
+        'BodyTextCustom',
+        parent=styles['BodyText'],
+        fontSize = 9  # Set the desired font size
+    )
+    
+    # Legend
+    legend_style = ParagraphStyle(
+        'Legend',
+        parent=styles['Normal'],
+        fontSize=8,
+        textColor=colors.black,
+        spaceBefore=6,
+        alignment=1, # Centrer la légende
+        fontName='Helvetica-Oblique'  # Italics
+    )
 
-# df_assembly_part_data = pd.DataFrame(D_assembly_part_geom_data)
+    # Ajout du titre
+    title = Paragraph("ANNEXE : DIMENSIONNEMENT DE LA BOULONNERIE", title_style)
+    elements.append(title)
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le titre
+    
+    
+    
+# =============================================================================
+#     CODE
+# =============================================================================
+    
+    subtitle_0 = Paragraph("CODE DE DIMENSIONNEMENT", subtitle2_style)
+    elements.append(subtitle_0)
+    
+    text = Paragraph("Le code de dimensionnement utilisé pour cette étude est le RCC-MRx, selon les règles du RB 3280 pour l’évaluation des critères et de l’Annexe 6 pour le calcul des différentes contraintes. Les paragraphes correspondant aux équations utilisées seront précisés entre parenthèses. Il conviendra de s’y référer pour plus de détail.")
+    elements.append(text)
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+    
+    
+# =============================================================================
+#     SAISIE DES DONNEES D'ENTREE
+# =============================================================================
+    
+    subtitle_1 = Paragraph("DONNÉES D'ENTRÉE", subtitle2_style)
+    elements.append(subtitle_1)
+    
+    
+    # =============================================================================
+    #     Elément de serrage 
+    # =============================================================================
 
-# T0 = 20.0
-# F0 = 57184
-# check_thq = True
+    subsubtitle_1 = Paragraph("Elément de serrage", subtitle3_style)
+    elements.append(subsubtitle_1)
+    
+    # Type d'élément de serrage
+    subsubsubtitle_1 = Paragraph("- Type d'élément de serrage", subtitle4_style)
+    elements.append(subsubsubtitle_1)
 
-# create_pdf_template("template.pdf", bolt_type, df_geom_data, image_path, bolt_material, df_assembly_part_data, F0, T0, check_thq)
+    text = Paragraph("L'élément de serrage étudié est un/une " + str(bolt_type) + " et est supposé normalisé", normal_style)
+    elements.append(text)
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+    
+    # Données géométriques
+    subsubsubtitle_2 = Paragraph("- Données géométriques", subtitle4_style)
+    elements.append(subsubsubtitle_2)
+    
+    text = Paragraph("Les données géométriques de cet élément de serrage utilisées pour les calculs de dimensionnement sont résumées dans le Tableau 1 suivant.", normal_style)
+    elements.append(text)
+    # Convertir le DataFrame en une liste de listes
+    bolt_geom_data = [df_bolt_geom_data_full.columns.tolist()] + df_bolt_geom_data_full.values.tolist()
+    # col_widths = [145, 37, 35, 30] # Définition de la largeur des colonnes du tableau
+    table_bolt_geom_data = Table(bolt_geom_data)
+    table_bolt_geom_data.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+                               ('FONTSIZE', (0, 0), (-1, -1), 8),
+                               ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                               ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                               ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                               ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+                               # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                               ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                               ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                               ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
+                               ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+    
+    elements.append(table_bolt_geom_data)
+    legend = Paragraph("Tableau 1 : Données géométriques liées liées à l'élément de serrage", legend_style)
+    elements.append(legend)
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+    
+    
+    # Matériau
+    subsubsubtitle_3 = Paragraph("- Matériau", subtitle4_style)
+    elements.append(subsubsubtitle_3)
+    text = Paragraph("L'élément de serrage étudié est en " + str() + ". Les propriétés mécaniques utilisées, évaluées selon la température de calcul, sont présentées dans le Tableau 2 suivant.", normal_style)
+    elements.append(text)
+    bolt_material_data = [df_Bolt_Material_Data.columns.tolist()] + df_Bolt_Material_Data.values.tolist()
+    table_bolt_material_data = Table(bolt_material_data)
+    table_bolt_geom_data.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+                               ('FONTSIZE', (0, 0), (-1, -1), 8),
+                               ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                               ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                               ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                               ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+                               # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                               ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                               ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                               ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
+                               ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+    elements.append(table_bolt_geom_data)
+    legend = Paragraph("Tableau 2 : Données matériau liées à l'élément de serrage", legend_style)
+    elements.append(legend)
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+    
+    # Acier austhénitique
+    if B_acier_aust :
+        text = Paragraph("Il s'agit d'un acier austhénitique", normal_style)
+        elements.append(text)
+    else :
+        text = Paragraph("Il ne s'agit pas d'un acier austhénitique", normal_style)
+        elements.append(text)
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+    
+    
+    
+    # =============================================================================
+    #     Pièces assemblées
+    # =============================================================================
+    
+    subsubtitle_2 = Paragraph("Pièces assemblées", subtitle3_style)
+    elements.append(subsubtitle_2)
+    
+    text = Paragraph("Les données liées aux pièces assemblées (matériaux et températures) sont présentées dans le Tableau 3 ci-dessous.", normal_style)
+    elements.append(text)
+    elements.append(Spacer(1, 4))  # Ajouter un espace après le sous sous titre
+    
+    
+    assembly_part_data = [df_assembly_part_data.columns.tolist()] + df_assembly_part_data.values.tolist()    
+    table_assembly_part_data = Table(assembly_part_data)
+    table_assembly_part_data.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+                               ('FONTSIZE', (0, 0), (-1, -1), 8),
+                               ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                               ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                               ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                               ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+                               # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                               ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                               ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                               ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
+                               ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+    elements.append(table_assembly_part_data)
+    legend = Paragraph("Tableau 3 : Données liées aux pièces assemblées", legend_style)
+    elements.append(legend)
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+    
+    
+    
+    # =============================================================================
+    #     Hypothèses de calcul
+    # =============================================================================
+    subsubtitle_3 = Paragraph("Hypothèses de calcul", subtitle3_style)
+    elements.append(subsubtitle_3)
+    
+    # Cas B1
+    if 'B1' in Study_Case :
+        text = Paragraph("La liaison boulonnée est précontrainte et assure une fonction d’étanchéité. Elle entre donc dans la catégorie B1 et le dimensionnement se fait conformément au jeu de règles correspondant (RB 3281, RB 3282 et RB 3283). Le fluage ainsi que l’irradiation de la liaison sont négligés.", normal_style)
+        elements.append(text)
+        text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
+        elements.append(text)
+        text = Paragraph("  - Le coefficient de rigidité, &Lambda; : " + str(Lambda), normal_style)
+        elements.append(text)
+        text = Paragraph("  - Le coefficient de frottement sous tête ou sous écrou, &f'; : " + str(ft), normal_style)
+        elements.append(text)
+        text = Paragraph("  - Le coefficient de frottement enrte les filets en prise, &f; : " + str(fv), normal_style)
+        elements.append(text)
+        text = Paragraph("  - L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N", normal_style)
+        elements.append(text)
+        
+        if F0_selection :
+            text = Paragraph("Cet effort de précontrainte est pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
+            elements.append(text)
+        else : 
+            text = Paragraph("Cet effort de précontrainte n’est pas pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
+            elements.append(text)
+        
+        if adherence_selection :
+            text = Paragraph("On suppose que les efforts extérieurs sont repris par adhérence.", normal_style)
+            elements.append(text)
+        else :
+            text = Paragraph("On suppose que les efforts extérieurs ne sont pas repris par adhérence.", normal_style)
+            elements.append(text)
+        
+        if selection1 :
+            text = Paragraph("De plus, l’élément de serrage subit un moment de flexion par effet levier dû à une flexion locale des pièces assemblées.", normal_style)
+            elements.append(text)
+        else :
+            text = Paragraph("De plus, l’élément de serrage ne subit pas de moment de flexion par effet levier dû à une flexion locale des pièces assemblées. ", normal_style)
+            elements.append(text)
+        
+    
+        text = Paragraph("Enfin, les conditions de l’étude permettent d’obtenir les inégalités suivantes nécessaires pour la détermination des critères à évaluer.", normal_style)
+        elements.append(text)
+        h = float(h)
+        d = float(d)
+        Le = float(Le)
+        SyminP_T = float(SyminP_T)
+        SyminB_T = float(SyminB_T)
+        
+        if h >= 0.8*d :
+            text = Paragraph("h >= 0,8d", normal_style)
+            elements.append(text)
+        else :
+            text = Paragraph("h < 0,8d", normal_style)
+            elements.append(text)
+            
+        if Le >= 0.8*d :
+            text = Paragraph("L<sub>e</sub> >= 0,8d", normal_style)
+            elements.append(text)
+        else :
+            text = Paragraph("L<sub>e</sub> < 0,8d", normal_style)
+            elements.append(text)
+            
+        if SyminP_T >= SyminB_T :
+            text = Paragraph("R<sub>p0,2p</sub> >= R<sub>p0,2b</sub>", normal_style)
+            elements.append(text)
+        else :
+            text = Paragraph("R<sub>p0,2p</sub> < R<sub>p0,2b</sub>", normal_style)
+            elements.append(text)
+            
+    
+        elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+    
+    
+    
+    # Cas B2
+    elif 'B2' in Study_Case :
+        text = Paragraph("La liaison boulonnée est précontrainte mais n’assure pas une fonction d’étanchéité. Elle entre donc dans la catégorie B2 et le dimensionnement se fait conformément au jeu de règles correspondant (RB 3281, RB 3284 et RB 3285). Le fluage ainsi que l’irradiation de la liaison sont négligés.", normal_style)
+        elements.append(text)
+        text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
+        elements.append(text)
+        text = Paragraph("  - Le coefficient de rigidité, &Lambda; : " + str(Lambda), normal_style)
+        elements.append(text)
+        text = Paragraph("  - Le coefficient de frottement sous tête ou sous écrou, &f'; : " + str(ft), normal_style)
+        elements.append(text)
+        text = Paragraph("  - Le coefficient de frottement enrte les filets en prise, &f; : " + str(fv), normal_style)
+        elements.append(text)
+        text = Paragraph("  - L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N", normal_style)
+        elements.append(text)
+        
+        if F0_selection :
+            text = Paragraph("Cet effort de précontrainte est pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
+            elements.append(text)
+        else : 
+            text = Paragraph("Cet effort de précontrainte n’est pas pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
+            elements.append(text)
+        
+        if adherence_selection :
+            text = Paragraph("On suppose que les efforts extérieurs sont repris par adhérence.", normal_style)
+            elements.append(text)
+        else :
+            text = Paragraph("On suppose que les efforts extérieurs ne sont pas repris par adhérence.", normal_style)
+            elements.append(text)
+        
+        if selection1 :
+            text = Paragraph("De plus, l’élément de serrage subit un moment de flexion par effet levier dû à une flexion locale des pièces assemblées.", normal_style)
+            elements.append(text)
+        else :
+            text = Paragraph("De plus, l’élément de serrage ne subit pas de moment de flexion par effet levier dû à une flexion locale des pièces assemblées. ", normal_style)
+            elements.append(text)
+        
+        elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+        
+    
+    # Cas B3
+    else :
+        text = Paragraph("La liaison boulonnée n’est pas précontrainte et a simplement une fonction de support. Elle entre donc dans la catégorie B3 et le dimensionnement se fait conformément au jeu de règles correspondant (RB 3281 et RB 3286). Le fluage ainsi que l’irradiation de la liaison sont négligés, d’autant plus qu’ils sont incompatibles avec cette catégorie de boulonnerie.", normal_style)
+        elements.append(text)
+        text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
+        elements.append(text)
+        text = Paragraph("  - L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort, &L; : " + str(L), normal_style)
+        elements.append(text)
+        text = Paragraph("  - -	L’épaisseur de la pièce assemblée, &e; : " + str(e), normal_style)
+        elements.append(text)
+
+        
+        
+        if selection2 :
+            text = Paragraph("Enfin, l’élément de serrage subit un moment de flexion par effet levier dû à une flexion locale des pièces assemblées.", normal_style)
+            elements.append(text)
+        else :
+            text = Paragraph("Enfin, l’élément de serrage ne subit pas de moment de flexion par effet levier dû à une flexion locale des pièces assemblées. ", normal_style)
+            elements.append(text)
+        
+        elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+        
+        
+        
+        
+        
+    
+    # =============================================================================
+    #     Bilan des efforts sollicitant la liaison boulonnée
+    # =============================================================================
+    subsubtitle_4 = Paragraph("Bilan des efforts sollicitant la liaison boulonnée", subtitle3_style)
+    elements.append(subsubtitle_4)
+    
+    text = Paragraph("Ces hypothèses permettent de dresser le tableau des efforts sollicitant l’élément de serrage, utilisés pour le calcul des contraintes.", normal_style)
+    elements.append(text)
+    
+    table_results_ansys_bilan = Table(T_Results_Ansys_Bilan)
+    table_results_ansys_bilan.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+                               ('FONTSIZE', (0, 0), (-1, -1), 8),
+                               ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                               ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                               ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                               ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+                               # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                               ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                               ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                               ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
+                               ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+    elements.append(table_results_ansys_bilan)
+    legend = Paragraph("Tableau 4 : Résultats des calculs ANSYS utilisés pour le dimensionnement de la boulonnerie en fonction des hypothèses renseignées", legend_style)
+    elements.append(legend)
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+    
+    
+    
+    
+    
+    
+    
+# =============================================================================
+#     Critères à vérifier
+# =============================================================================
+    subtitle_2 = Paragraph("CRITERES A VERIFIER", subtitle2_style)
+    elements.append(subtitle_2)
+    elements.append(Spacer(1, 8))  # Ajouter un espace après le texte
+        
+    text = Paragraph("Les critères à vérifier dans cette étude sont de niveau "+ str(critere_selection) + ". Les hypothèses posées au paragraphe 1.2.3 permettent de définir les critères dont la vérification est nécessaire. Ces critères sont les suivants.", normal_style)
+    elements.append(text)
+    
+    text = Paragraph("A compléter", normal_style)
+    elements.append(text)
+    
+    
+    
+    
+        
+        
+        
+# =============================================================================
+#     RESULTATS
+# =============================================================================
+
+    # Saut de page
+    elements.append(PageBreak())
+    
+    subtitle_3 = Paragraph("RÉSULTATS", subtitle2_style)
+    elements.append(subtitle_3)
+    
+    elements.append(Spacer(1, 8))  # Ajouter un espace après le texte
+    
+    text = Paragraph("L’évaluation des contraintes subies par la liaison boulonnée et des critères dimensionnants permet d’obtenir pour chacun des éléments de serrage les valeurs et marges suivantes", normal_style)
+    elements.append(text)
+    
+    tableau_bilan_marge = Table(L_marge_full)
+    tableau_bilan_marge.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+                               ('FONTSIZE', (0, 0), (-1, -1), 8),
+                               ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                               ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                               ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                               ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+                               # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                               ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                               ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                               ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
+                               ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+    elements.append(tableau_bilan_marge)
+    legend = Paragraph("Tableau 5 : Bilan des critères et marges associées pour les liaisons boulonnées étudiées", legend_style)
+    elements.append(legend)
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+    
+    
+    
+    
+
+    # Génération du PDF
+    doc.build(elements)
+    
+    
+    buffer.seek(0)
+    return buffer

@@ -1336,7 +1336,7 @@ def page_RCCMRx() :
         ft = 0.0
         fv = 0.0
         Lambda = 0.0
-        T_Results_Ansys_Bilan = traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selection, F0_selection, selection2, L_Donnees_Geo_Boulonnerie_Full, F0, ft, fv, Lambda)
+        T_Results_Ansys_Bilan = traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selection, F0_selection, selection1, L_Donnees_Geo_Boulonnerie_Full, F0, ft, fv, Lambda)
         
     
     else :

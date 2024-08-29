@@ -1298,25 +1298,25 @@ def page_RCCMRx() :
     elif check_preload and not check_etancheite :
         if critere_selection == "A" :
             Study_Case = "B2_A"
-            st.write(Study_Case)
+            # st.write(Study_Case)
         elif critere_selection == "C" :
             Study_Case = "B2_C"
-            st.write(Study_Case)
+            # st.write(Study_Case)
         elif critere_selection == "D" :
             Study_Case = "B2_D"
-            st.write(Study_Case)
+            # st.write(Study_Case)
     
     
     elif not check_preload  :
         if critere_selection == "A" :
             Study_Case = "B3_A"
-            st.write(Study_Case)
+            # st.write(Study_Case)
         elif critere_selection == "C" :
             Study_Case = "B3_C"
-            st.write(Study_Case)
+            # st.write(Study_Case)
         elif critere_selection == "D" :
             Study_Case = "B3_D"
-            st.write(Study_Case)
+            # st.write(Study_Case)
             
             
             

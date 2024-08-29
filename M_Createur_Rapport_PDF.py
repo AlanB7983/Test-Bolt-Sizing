@@ -736,7 +736,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     
     
-    """
+    
     
     
     
@@ -759,7 +759,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
         
         
-        
+    """        
 # =============================================================================
 #     RESULTATS
 # =============================================================================

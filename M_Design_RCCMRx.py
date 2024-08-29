@@ -1329,7 +1329,13 @@ def page_RCCMRx() :
         e = float(e) if e else 1.0
         
         # Traitement des résultats Ansys
-        # T_Results_Ansys_Bilan = traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selection, F0_selection, selection1, L_Donnees_Geo_Boulonnerie_Full, F0, ft, fv)
+        # On met des valeurs par défaut pour les données non nécessaires au cas B3
+        adherence_selection = "non"
+        F0_selection = "non"
+        F0 = 0.0
+        ft = 0.0
+        fv = 0.0
+        T_Results_Ansys_Bilan = traitement_resultats_Ansys(T_Results_Ansys, check_preload, adherence_selection, F0_selection, selection1, L_Donnees_Geo_Boulonnerie_Full, F0, ft, fv)
         
     
     else :

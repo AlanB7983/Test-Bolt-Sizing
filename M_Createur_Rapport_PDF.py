@@ -690,9 +690,9 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
         elements.append(text)
-        text = Paragraph("  - L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort, L : " + str(L), normal_style)
+        text = Paragraph("  - L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort, L : " + str(L) + " mm", normal_style)
         elements.append(text)
-        text = Paragraph("  - L’épaisseur de la pièce assemblée, e : " + str(e), normal_style)
+        text = Paragraph("  - L’épaisseur de la pièce assemblée, e : " + str(e) + " mm", normal_style)
         elements.append(text)
 
         if selection2 :
@@ -715,7 +715,9 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
     text = Paragraph("Ces hypothèses permettent de dresser le tableau des efforts sollicitant l’élément de serrage, utilisés pour le calcul des contraintes.", normal_style)
     elements.append(text)
-    
+
+    Entete_T_Results_Ansys_Bilan = ["Numéro Boulon", "NbPL", "NbAL", "TbPL", "TbAL", "MbPL", "MbAL", "Cr", "Ct", "F0"]
+    T_Results_Ansys_Bilan.insert(0, Entete_T_Results_Ansys_Bilan)
     table_results_ansys_bilan = Table(T_Results_Ansys_Bilan)
     table_results_ansys_bilan.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
                                ('FONTSIZE', (0, 0), (-1, -1), 8),

@@ -1250,6 +1250,12 @@ def page_RCCMRx() :
     with fct_bolt_col_2 :
         if check_preload :
             check_etancheite = st.checkbox("Fonction d'étanchéité")
+
+    # saut de ligne
+    st.write("\n")
+    
+    # saut de ligne
+    st.write("\n")
       
             
       
@@ -1261,6 +1267,11 @@ def page_RCCMRx() :
     
     st.write("- ##### *Niveau de critère*") #Sous-Partie
     critere_selection = st.radio("", ("A", "C", "D"), horizontal=True, label_visibility="collapsed")
+    # saut de ligne
+    st.write("\n")
+    
+    # saut de ligne
+    st.write("\n")
     
     
     
@@ -1406,12 +1417,22 @@ def page_RCCMRx() :
         L = 0.0
 
 
+
+
+    
+    # saut de ligne
+    st.write("\n")
+    
+    # saut de ligne
+    st.write("\n")
     
 
     
+    st.subheader("Résultats")
+    
     L_marge_full = []
     
-    st.write("T_Results_Ansys_Bilan : ", T_Results_Ansys_Bilan)
+    # st.write("T_Results_Ansys_Bilan : ", T_Results_Ansys_Bilan)
     for i in range (0, len(T_Results_Ansys_Bilan)) :
         # st.write("T_Results_Ansys_Bilan[i] : ", T_Results_Ansys_Bilan[i])
 
@@ -1444,12 +1465,15 @@ def page_RCCMRx() :
     
     # Création du DataFrame pandas à partir du dictionnaire
     df_bolt_geom_data_full = pd.DataFrame(D_bolt_geom_data_full)
-    st.write(df_bolt_geom_data_full)
+
+    rappel_geom_data_check_box = st.checkbox("Afficher les données géométriques utilisées pour le calcul")
+    if rappel_geom_data_check_box :
+        st.write(df_bolt_geom_data_full)
 
 
     
     
-    num_boulon = st.number_input("Numéro du boulo, dont on veut afficher les résultats", 1, int(len(T_Results_Ansys)))
+    num_boulon = st.number_input("Numéro du boulon dont on veut afficher les résultats", 1, int(len(T_Results_Ansys)))
     
     L_Result_Boulon_i = L_marge_full[num_boulon-1]
     df_bilan = pd.DataFrame(L_Result_Boulon_i[1:], columns=L_Result_Boulon_i[0])

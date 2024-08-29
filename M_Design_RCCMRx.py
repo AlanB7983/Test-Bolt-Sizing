@@ -1362,6 +1362,7 @@ def page_RCCMRx() :
         # On met des valeurs par défaut pour les données non nécessaires au cas B3
         adherence_selection = "non"
         F0_selection = "non"
+        selection2 = selection1
         F0 = 0.0
         ft = 0.0
         fv = 0.0
@@ -1434,6 +1435,9 @@ def page_RCCMRx() :
         
         # On met une valeur arbitraire pour L pour que la fonction calculer_criteres ait toutes ses données d'entrée
         L = 0.0
+
+        # On met la même valeur dans les deux cas par défaut
+        selection1 = selection2
 
 
 

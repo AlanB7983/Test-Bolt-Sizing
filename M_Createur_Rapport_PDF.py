@@ -778,7 +778,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     text = Paragraph("L’évaluation des contraintes subies par la liaison boulonnée et des critères dimensionnants permet d’obtenir pour chacun des éléments de serrage les valeurs et marges suivantes", normal_style)
     elements.append(text)
 
-    """
+    
     tableau_bilan_marge = Table(L_marge_full)
     tableau_bilan_marge.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
                                ('FONTSIZE', (0, 0), (-1, -1), 8),
@@ -798,7 +798,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
     
     
-    """
+    
 
     # Génération du PDF
     doc.build(elements)

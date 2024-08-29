@@ -14,7 +14,7 @@ import pandas as pd
 import os
 
 
-from M_Createur_Rapport_PDF import create_pdf_template
+# from M_Createur_Rapport_PDF import create_pdf_template
 from M_Calcul_Contraintes import calculate_sigma_m, calculate_sigma_m_plus_b, calculate_tau_th, calculate_tau_h, calculate_p_th, calculate_p_h, calculate_sigma_N, calculate_sigma_M, calculate_tau_T
 from M_Manipulation_Donnees_Materiaux_2 import get_grandeur_T_quelconque, get_donnees_grandeur_fonction_T
 

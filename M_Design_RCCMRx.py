@@ -1286,13 +1286,13 @@ def page_RCCMRx() :
     if check_preload and check_etancheite :
         if critere_selection == "A" :
             Study_Case = "B1_A"
-            st.write(Study_Case)
+            # st.write(Study_Case)
         elif critere_selection == "C" :
             Study_Case = "B1_C"
-            st.write(Study_Case)
+            # st.write(Study_Case)
         elif critere_selection == "D" :
             Study_Case = "B1_D"
-            st.write(Study_Case)
+            # st.write(Study_Case)
             
             
     elif check_preload and not check_etancheite :

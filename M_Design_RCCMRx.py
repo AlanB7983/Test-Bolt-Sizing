@@ -832,7 +832,7 @@ def calculer_marges_all_results(L_Contraintes, L_Criteres) :
         contrainte = round(L_Contraintes[i][1], 2)
         critere = round(L_Criteres[i], 2)
         marge = calculer_marge(contrainte, critere)
-        marge = round(marge, 2)
+        marge = round(float(marge), 2)
         
         ligne = [L_Contraintes[i][0], contrainte, critere, marge]
         

@@ -14,7 +14,7 @@ import pandas as pd
 import os
 
 
-# from M_Createur_Rapport_PDF import create_pdf_template
+# from M_Createur_Rapport_PDF import create_rapport_pdf_rccmrx
 from M_Calcul_Contraintes import calculate_sigma_m, calculate_sigma_m_plus_b, calculate_tau_th, calculate_tau_h, calculate_p_th, calculate_p_h, calculate_sigma_N, calculate_sigma_M, calculate_tau_T
 from M_Manipulation_Donnees_Materiaux_2 import get_grandeur_T_quelconque, get_donnees_grandeur_fonction_T
 
@@ -1503,3 +1503,18 @@ def page_RCCMRx() :
     L_Result_Boulon_i = L_marge_full[num_boulon-1]
     df_bilan = pd.DataFrame(L_Result_Boulon_i[1:], columns=L_Result_Boulon_i[0])
     st.write(df_bilan)    
+
+    """
+    # On crée le rapport pdf
+    pdf_buffer = create_rapport_pdf_rccmrx()
+    st.success("PDF exporté avec succès")
+    
+    # Proposer le téléchargement
+    file_name = st.text_input("Nom du fichier PDF", placeholder="Rapport.pdf")
+    st.download_button(
+      label="Télécharger le rapport PDF",
+      data=pdf_buffer,
+      file_name = file_name,
+      mime="application/pdf" # utilisé pour spécifier le type de fichier que l'utilisateur peut télécharger. Ici, application/pdf signifie qu'il s'agit d'un document pdf
+    )
+    """

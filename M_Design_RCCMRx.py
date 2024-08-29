@@ -1033,6 +1033,25 @@ def page_RCCMRx() :
     
     L_Donnees_Geo_Boulonnerie_Full = L_Valeur + [d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 
 
+    with st.expander("Détails sur les données géométriques à saisir") :
+        # st.info("- $d$ : diamètre nominal\n- $p$ : pas\n- $l_l$ : longueur du fût lisse\n- $l_n$ : longueur du filetage non en prise avec les pièces assemblées\n- $a$ : Diamètre sur plat de la tête\n- $D_p$ : Diamètre de perçage\n- $l_{a1}$ : Longueur de la pièce assemblée 1\n- $l_{a2}$ : Longueur de la pièce assemblée 2\n- $l_{a3}$ : Longueur de la pièce assemblée 3") 
+        st.write("- $d$ : Diamètre nominal")
+        st.write("- $p$ : Pas") 
+        st.write("- $d_l$ : Diamètre du fût lisse") 
+        st.write("- $a$ : Diamètre sur le plat de la tête") 
+        st.write("- $H$ : Hauteur de la tête")
+        st.write("- $D_p$ : Diamètre de perçage")
+        st.write("- $L_e$ : Longueur d'engagement des filets en prise")
+        st.write("- $B$ : Diamètre intérieur de la rondelle")
+        st.write("- $C$ : Epaisseur de la rondelle")
+        st.write("- $A$ : Diamètre extérieur de la rondelle")
+        st.write("- $h$ : Hauteur de l'écrou")
+        # st.write("*Remarque : Les rondelles doivent être considérées comme une pièce assemblée. D'après le § A6.2423 du RCC MRx, dans le cas de vis et de goujons, la longueur à prendre en compte pour la pièce taraudée sera égale à 40 % du diamètre nominal (0,4 d).*")
+
+    # saut de ligne
+    st.write("\n")
+
+
 
     
     st.write("- ##### *Données matériau*")
@@ -1366,7 +1385,7 @@ def page_RCCMRx() :
         st.write("\n")
         
         st.write("Valeur du coefficient de frottement sous tête ou sous écrou.")
-        ft = st.text_input("$f_t [-]$ :", placeholder = "0.0") 
+        ft = st.text_input("$f' [-]$ :", placeholder = "0.0") 
         if ft :
             try :
                 ft = float(ft)
@@ -1378,7 +1397,7 @@ def page_RCCMRx() :
         st.write("\n")
         
         st.write("Valeur du coefficient de frottement entre filet en prise.")
-        fv = st.text_input("$f_v [-]$ :", placeholder = "0.0")
+        fv = st.text_input("$f [-]$ :", placeholder = "0.0")
         fv = float(fv) if fv else 0.15
         
         # saut de ligne

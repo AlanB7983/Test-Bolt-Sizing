@@ -566,10 +566,11 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     
     
-    
+    """
     # =============================================================================
     #     Hypothèses de calcul
     # =============================================================================
+                                  
     subsubtitle_3 = Paragraph("Hypothèses de calcul", subtitle3_style)
     elements.append(subsubtitle_3)
     
@@ -791,7 +792,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
     
     
-    
+    """
 
     # Génération du PDF
     doc.build(elements)

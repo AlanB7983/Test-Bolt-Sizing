@@ -508,7 +508,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(text)
     bolt_material_data = [df_Bolt_Material_Data.columns.tolist()] + df_Bolt_Material_Data.values.tolist()
     table_bolt_material_data = Table(bolt_material_data)
-    table_bolt_geom_data.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+    table_bolt_material_data.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
                                ('FONTSIZE', (0, 0), (-1, -1), 8),
                                ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
                                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
@@ -582,9 +582,9 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("  - Le coefficient de rigidité, &Lambda; : " + str(Lambda), normal_style)
         elements.append(text)
-        text = Paragraph("  - Le coefficient de frottement sous tête ou sous écrou, &f'; : " + str(ft), normal_style)
+        text = Paragraph("  - Le coefficient de frottement sous tête ou sous écrou, f' : " + str(ft), normal_style)
         elements.append(text)
-        text = Paragraph("  - Le coefficient de frottement enrte les filets en prise, &f; : " + str(fv), normal_style)
+        text = Paragraph("  - Le coefficient de frottement enrte les filets en prise, f : " + str(fv), normal_style)
         elements.append(text)
         text = Paragraph("  - L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N", normal_style)
         elements.append(text)
@@ -653,9 +653,9 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("  - Le coefficient de rigidité, &Lambda; : " + str(Lambda), normal_style)
         elements.append(text)
-        text = Paragraph("  - Le coefficient de frottement sous tête ou sous écrou, &f'; : " + str(ft), normal_style)
+        text = Paragraph("  - Le coefficient de frottement sous tête ou sous écrou, f' : " + str(ft), normal_style)
         elements.append(text)
-        text = Paragraph("  - Le coefficient de frottement enrte les filets en prise, &f; : " + str(fv), normal_style)
+        text = Paragraph("  - Le coefficient de frottement enrte les filets en prise, f : " + str(fv), normal_style)
         elements.append(text)
         text = Paragraph("  - L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N", normal_style)
         elements.append(text)
@@ -690,9 +690,9 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
         elements.append(text)
-        text = Paragraph("  - L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort, &L; : " + str(L), normal_style)
+        text = Paragraph("  - L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort, L : " + str(L), normal_style)
         elements.append(text)
-        text = Paragraph("  - L’épaisseur de la pièce assemblée, &e; : " + str(e), normal_style)
+        text = Paragraph("  - L’épaisseur de la pièce assemblée, e : " + str(e), normal_style)
         elements.append(text)
 
         if selection2 :
@@ -705,7 +705,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
         
 
-    """
+    
     # =============================================================================
     #     Bilan des efforts sollicitant la liaison boulonnée
     # =============================================================================
@@ -734,7 +734,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     
     
-    
+    """
     
     
     

@@ -1470,6 +1470,12 @@ def page_RCCMRx() :
     if rappel_geom_data_check_box :
         st.write(df_bolt_geom_data_full)
 
+        # saut de ligne
+        st.write("\n")
+        
+        # saut de ligne
+        st.write("\n")
+
 
     
     

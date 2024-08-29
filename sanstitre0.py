@@ -14,7 +14,7 @@ import pandas as pd
 import os
 
 # Import des fonctions des modules internes
-from M_Createur_Rapport_PDF import create_pdf_template
+# from M_Createur_Rapport_PDF import create_pdf_template
 from M_Manipulation_Donnees_Materiaux_2 import get_grandeur_T_quelconque, get_donnees_grandeur_fonction_T
 from M_Modelisation_Precharge import page_Modelisation_Presserage
 from M_Design_SDCIC import page_SDCIC

@@ -777,24 +777,25 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
     text = Paragraph("L’évaluation des contraintes subies par la liaison boulonnée et des critères dimensionnants permet d’obtenir pour chacun des éléments de serrage les valeurs et marges suivantes", normal_style)
     elements.append(text)
-
-    
-    tableau_bilan_marge = Table(L_marge_full)
-    tableau_bilan_marge.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
-                               ('FONTSIZE', (0, 0), (-1, -1), 8),
-                               ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
-                               ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-                               ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                               ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
-                               # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
-                               ('BACKGROUND', (0, 1), (-1, -1), colors.white),
-                               ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
-                               ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
-                               ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
-    elements.append(tableau_bilan_marge)
-    legend = Paragraph("Tableau 5 : Bilan des critères et marges associées pour les liaisons boulonnées étudiées", legend_style)
-    elements.append(legend)
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+
+    for i in range(0, len(L_marge_full)) :
+        tableau_bilan_marge = Table(L_marge_full[i])
+        tableau_bilan_marge.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+                                   ('FONTSIZE', (0, 0), (-1, -1), 8),
+                                   ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                                   ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                   ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                                   ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+                                   # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                                   ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                                   ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                                   ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
+                                   ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+        elements.append(tableau_bilan_marge)
+        legend = Paragraph("Tableau 5 : Bilan des critères et marges associées pour la liaison boulonnée " + str(i+1), legend_style)
+        elements.append(legend)
+        elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     
     
     

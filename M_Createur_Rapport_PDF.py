@@ -713,7 +713,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         
         list_B3 = ["L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort, L : " + str(L) + " mm", "L’épaisseur de la pièce assemblée, e : " + str(e) + " mm"]
-        list_B3_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B3], bulletType='bullet',  # Type de puce ('bullet' pour une puce classique))
+        list_B3_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B3], bulletType='bullet')  # Type de puce ('bullet' pour une puce classique)
         elements.append(list_B3_flowable)
                                         
         """

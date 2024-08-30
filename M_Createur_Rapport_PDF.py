@@ -482,6 +482,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
     text = Paragraph("Les données géométriques de cet élément de serrage utilisées pour les calculs de dimensionnement sont résumées dans le Tableau 1 suivant.", normal_style)
     elements.append(text)
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     # Convertir le DataFrame en une liste de listes
     bolt_geom_data = [df_bolt_geom_data_full.columns.tolist()] + df_bolt_geom_data_full.values.tolist()
     # col_widths = [145, 37, 35, 30] # Définition de la largeur des colonnes du tableau
@@ -509,6 +510,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(subsubsubtitle_3)
     text = Paragraph("L'élément de serrage étudié est en " + str() + ". Les propriétés mécaniques utilisées, évaluées selon la température de calcul, sont présentées dans le Tableau 2 suivant.", normal_style)
     elements.append(text)
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     bolt_material_data = [df_Bolt_Material_Data.columns.tolist()] + df_Bolt_Material_Data.values.tolist()
     table_bolt_material_data = Table(bolt_material_data)
     table_bolt_material_data.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
@@ -547,7 +549,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
     text = Paragraph("Les données liées aux pièces assemblées (matériaux et températures) sont présentées dans le Tableau 3 ci-dessous.", normal_style)
     elements.append(text)
-    elements.append(Spacer(1, 4))  # Ajouter un espace après le sous sous titre
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le sous sous titre
     
     
     assembly_part_data = [df_assembly_part_data.columns.tolist()] + df_assembly_part_data.values.tolist()    
@@ -583,6 +585,13 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
         elements.append(text)
+
+        list_B1 = ["Le coefficient de rigidité, &Lambda; : " + str(Lambda), "Le coefficient de frottement sous tête ou sous écrou, f' : " + str(ft), "Le coefficient de frottement enrte les filets en prise, f : " + str(fv), "L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N"]
+
+        list_B1_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B1], bulletType='bullet',  # Type de puce ('bullet' pour une puce classique))
+        elements.append(list_B1_flowable)
+
+        """
         text = Paragraph("  - Le coefficient de rigidité, &Lambda; : " + str(Lambda), normal_style)
         elements.append(text)
         text = Paragraph("  - Le coefficient de frottement sous tête ou sous écrou, f' : " + str(ft), normal_style)
@@ -591,6 +600,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("  - L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N", normal_style)
         elements.append(text)
+        """
         
         if F0_selection :
             text = Paragraph("Cet effort de précontrainte est pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
@@ -654,6 +664,13 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
         elements.append(text)
+
+        list_B2 = ["Le coefficient de rigidité, &Lambda; : " + str(Lambda), "Le coefficient de frottement sous tête ou sous écrou, f' : " + str(ft), "Le coefficient de frottement enrte les filets en prise, f : " + str(fv), "L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N"]
+
+        list_B2_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B2], bulletType='bullet',  # Type de puce ('bullet' pour une puce classique))
+        elements.append(list_B2_flowable)
+                                        
+        """                                
         text = Paragraph("  - Le coefficient de rigidité, &Lambda; : " + str(Lambda), normal_style)
         elements.append(text)
         text = Paragraph("  - Le coefficient de frottement sous tête ou sous écrou, f' : " + str(ft), normal_style)
@@ -662,6 +679,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("  - L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N", normal_style)
         elements.append(text)
+        """
         
         if F0_selection :
             text = Paragraph("Cet effort de précontrainte est pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
@@ -693,10 +711,17 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
         elements.append(text)
+
+        list_B3 = ["L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort, L : " + str(L) + " mm", "L’épaisseur de la pièce assemblée, e : " + str(e) + " mm"]
+        list_B3_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B3], bulletType='bullet',  # Type de puce ('bullet' pour une puce classique))
+        elements.append(list_B3_flowable)
+                                        
+        """
         text = Paragraph("  - L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort, L : " + str(L) + " mm", normal_style)
         elements.append(text)
         text = Paragraph("  - L’épaisseur de la pièce assemblée, e : " + str(e) + " mm", normal_style)
         elements.append(text)
+        """
 
         if selection2 :
             text = Paragraph("Enfin, l’élément de serrage subit un moment de flexion par effet levier dû à une flexion locale des pièces assemblées.", normal_style)

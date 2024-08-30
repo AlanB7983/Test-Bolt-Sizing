@@ -35,7 +35,8 @@ def create_pdf_template(bolt_type, df_geom_data, image_bolt_type_path, bolt_mate
     normal_style = ParagraphStyle(
         'BodyTextCustom',
         parent=styles['BodyText'],
-        fontSize = 9  # Set the desired font size
+        fontSize = 9,  # Set the desired font size
+        alignment=TA_JUSTIFY  # Justification du texte
     )
     
     # Legend
@@ -417,7 +418,8 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     normal_style = ParagraphStyle(
         'BodyTextCustom',
         parent=styles['BodyText'],
-        fontSize = 9  # Set the desired font size
+        fontSize = 9,  # Set the desired font size
+        alignment=TA_JUSTIFY  # Justification du texte
     )
     
     # Legend

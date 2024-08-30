@@ -585,7 +585,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
         elements.append(text)
-
+        """
         list_B1 = ["Le coefficient de rigidité, &Lambda; : " + str(Lambda), "Le coefficient de frottement sous tête ou sous écrou, f' : " + str(ft), "Le coefficient de frottement enrte les filets en prise, f : " + str(fv), "L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N"]
 
         list_B1_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B1], bulletType='bullet',  # Type de puce ('bullet' pour une puce classique))
@@ -600,7 +600,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("  - L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N", normal_style)
         elements.append(text)
-        """
+        
         
         if F0_selection :
             text = Paragraph("Cet effort de précontrainte est pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
@@ -664,7 +664,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
         elements.append(text)
-
+        """
         list_B2 = ["Le coefficient de rigidité, &Lambda; : " + str(Lambda), "Le coefficient de frottement sous tête ou sous écrou, f' : " + str(ft), "Le coefficient de frottement enrte les filets en prise, f : " + str(fv), "L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N"]
 
         list_B2_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B2], bulletType='bullet',  # Type de puce ('bullet' pour une puce classique))
@@ -679,7 +679,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("  - L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N", normal_style)
         elements.append(text)
-        """
+        
         
         if F0_selection :
             text = Paragraph("Cet effort de précontrainte est pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
@@ -711,7 +711,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
         elements.append(text)
-
+        """
         list_B3 = ["L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort, L : " + str(L) + " mm", "L’épaisseur de la pièce assemblée, e : " + str(e) + " mm"]
         list_B3_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B3], bulletType='bullet',  # Type de puce ('bullet' pour une puce classique))
         elements.append(list_B3_flowable)
@@ -721,7 +721,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         text = Paragraph("  - L’épaisseur de la pièce assemblée, e : " + str(e) + " mm", normal_style)
         elements.append(text)
-        """
+        
 
         if selection2 :
             text = Paragraph("Enfin, l’élément de serrage subit un moment de flexion par effet levier dû à une flexion locale des pièces assemblées.", normal_style)

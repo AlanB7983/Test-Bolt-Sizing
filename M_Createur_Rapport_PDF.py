@@ -448,7 +448,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     subtitle_0 = Paragraph("CODE DE DIMENSIONNEMENT", subtitle2_style)
     elements.append(subtitle_0)
     
-    text = Paragraph("Le code de dimensionnement utilisé pour cette étude est le RCC-MRx, selon les règles du RB 3280 pour l’évaluation des critères et de l’Annexe 6 pour le calcul des différentes contraintes. Les paragraphes correspondant aux équations utilisées seront précisés entre parenthèses. Il conviendra de s’y référer pour plus de détail.")
+    text = Paragraph("Le code de dimensionnement utilisé pour cette étude est le RCC-MRx, selon les règles du RB 3280 pour l’évaluation des critères et de l’Annexe 6 pour le calcul des différentes contraintes. Les paragraphes correspondant aux équations utilisées seront précisés entre parenthèses. Il conviendra de s’y référer pour plus de détail.", normal_style)
     elements.append(text)
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     

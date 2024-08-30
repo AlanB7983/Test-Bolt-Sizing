@@ -781,6 +781,14 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         
     text = Paragraph("Les critères à vérifier dans cette étude sont de niveau "+ str(critere_selection) + ". Les hypothèses posées au paragraphe 1.2.3 permettent de définir les critères dont la vérification est nécessaire. Ces critères sont les suivants.", normal_style)
     elements.append(text)
+
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+                                  
+    if Study_Case == "B3_A" :
+        text = Pargraph("Contrainte de traction moyenne", normal_style)
+        elements.append(text)
+        
+                                  
     
     text = Paragraph("A compléter", normal_style)
     elements.append(text)

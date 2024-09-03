@@ -785,8 +785,18 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
                                   
     if Study_Case == "B3_A" :
-        text = Pargraph("Contrainte de traction moyenne", normal_style)
+        text = Paragraph("Contrainte de traction moyenne", normal_style)
         elements.append(text)
+        text = Paragraph("ΔE = mc^2")
+        elements.append(text)
+        text = Paragraph("\u0394")
+        elements.append(text)
+        text = Paragraph("\u0394 E = mc2")
+        elements.append(text)
+
+
+
+                                  
         
                                   
     

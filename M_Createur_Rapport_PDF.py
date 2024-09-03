@@ -422,6 +422,13 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         fontSize = 9,  # Set the desired font size
         alignment=TA_JUSTIFY  # Justification du texte
     )
+
+    equation_style = ParagraphStyle(
+        'BodyTextCustom',
+        parent=styles['BodyText'],
+        fontSize = 9,  # Set the desired font size
+        alignment=1  # Centré
+    )
     
     # Legend
     legend_style = ParagraphStyle(
@@ -787,12 +794,9 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     if Study_Case == "B3_A" :
         text = Paragraph("Contrainte de traction moyenne", normal_style)
         elements.append(text)
-        text = Paragraph("ΔE = mc^2")
-        elements.append(text)
-        text = Paragraph("\u0394")
-        elements.append(text)
-        text = Paragraph("\u0394 E = mc2")
-        elements.append(text)
+        text = Paragraph("\u03C3\u2098\u00B2N \u2264 F\u00BN")
+        elements.append(text, equation_style)
+ 
 
 
 

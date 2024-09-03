@@ -794,10 +794,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     if Study_Case == "B3_A" :
         text = Paragraph("Contrainte de traction moyenne", normal_style)
         elements.append(text)
-        text = Paragraph("σ \u2098 \u00B2N ≤ F", equation_style)
-        elements.append(text)
-        text = Paragraph("𝜎_𝑚^(𝑁_𝑒 )", equation_style)
-        elements.append(text)
+      
  
 
 

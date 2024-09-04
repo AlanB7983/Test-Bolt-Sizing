@@ -797,14 +797,19 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         
         # Charger une image
         image_B3A_path = "Pictures/B3A.png"
-        aspect_ratio = PILImage.open(image_B3A_path).width/PILImage.open(image_B3A_path).height
-        image_width = page_width/3
-        image_height = image_width/aspect_ratio
+        image_B3A = Image(image_B3A_path)
+        image_B3A.drawHeight = page_width * image_B3A.drawHeight / image_B3A.drawWidth
+        image_B3A.drawWidth = page_width
+        
+        #image_B3A_path = "Pictures/B3A.png"
+        #aspect_ratio = PILImage.open(image_B3A_path).width/PILImage.open(image_B3A_path).height
+        #image_width = page_width/3
+        #image_height = image_width/aspect_ratio
         
         # Charger une image
-        image_B3A = Image(image_B3A_path)
-        image_B3A.drawHeight = image_height
-        image_B3A.drawWidth = image_width
+        #image_B3A = Image(image_B3A_path)
+        #image_B3A.drawHeight = image_height
+        #image_B3A.drawWidth = image_width
 
         elements.append(image_B3A)
         

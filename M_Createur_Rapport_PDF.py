@@ -792,9 +792,6 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
                                   
     if Study_Case == "B3_A" :
-        text = Paragraph("Contrainte de traction moyenne", normal_style)
-        elements.append(text)
-        
         # Charger une image
         image_B3A_path = "Pictures/B3A_2.png"
         image_width = page_width - 2.16 * inch
@@ -818,8 +815,6 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                             
              
     
-    text = Paragraph("A compléter", normal_style)
-    elements.append(text)
     
     
     

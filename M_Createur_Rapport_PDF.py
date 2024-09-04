@@ -797,6 +797,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         
         # Charger une image
         image_B3A = Image("Pictures/B3A.png")
+        elements.append(image_B3A)
 
                             
              

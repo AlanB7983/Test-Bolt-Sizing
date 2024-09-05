@@ -39,12 +39,12 @@ if not st.session_state.authenticated:
     password = st.text_input("Entrez le mot de passe :", type="password")
 
     # Vérifie si le mot de passe est correct
-    if password == PASSWORD:
-        st.session_state.authenticated = True  # L'utilisateur est authentifié
-        st.success("Mot de passe correct. Accès accordé.")
-        
-    elif password:  # Si le mot de passe n'est pas vide et incorrect
-        st.error("Mot de passe incorrect. Accès refusé.")
+    if st.button("Valider"):
+        if password == PASSWORD:
+            st.session_state.authenticated = True  # L'utilisateur est authentifié
+            st.success("Mot de passe correct. Accès accordé.")
+        else:  
+            st.error("Mot de passe incorrect. Accès refusé.")
 
 else:
     # Une fois authentifié, affiche l'application

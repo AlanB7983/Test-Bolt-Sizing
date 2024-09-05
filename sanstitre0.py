@@ -42,7 +42,7 @@ if not st.session_state.authenticated:
     if password == PASSWORD:
         st.session_state.authenticated = True  # L'utilisateur est authentifié
         st.success("Mot de passe correct. Accès accordé.")
-        st.experimental_rerun  # Recharge la page pour masquer le champ de mot de passe
+        st.experimental_set_query_params(auth="true")  # Recharge la page pour masquer le champ de mot de passe
     elif password:  # Si le mot de passe n'est pas vide et incorrect
         st.error("Mot de passe incorrect. Accès refusé.")
 

@@ -27,36 +27,47 @@ st.set_page_config(page_title="G-MET Bolt", page_icon="Pictures/G-MET-Bolts-Logo
 
 sidebar = st.sidebar
 
-# Initialiser l'état de l'application
-if 'active_page' not in st.session_state:
-    st.session_state.active_page = "Modélisation de la précharge"
-    
-page1 = sidebar.button("Modélisation de la précharge", use_container_width = True)
-page2 = sidebar.button("Dimensionnement selon le SDC-IC", use_container_width = True)
-page3 = sidebar.button("Dimensionnement selon le RCC-MRx", use_container_width = True)
+# Définit un mot de passe
+PASSWORD = "GMET1234"
 
-if page1 :
-    st.session_state.active_page = "Modélisation de la précharge"
-    
-elif page2 : 
-    st.session_state.active_page = "Dimensionnement selon le SDC-IC"
-    
-elif page3 : 
-    st.session_state.active_page = "Dimensionnement selon le RCC-MRx"
-    
-    
-    
-if st.session_state.active_page == "Modélisation de la précharge" :
-    page_Modelisation_Presserage()
+# Affiche une zone de texte pour saisir le mot de passe
+password = st.text_input("Entrez le mot de passe :", type="password")
 
-elif st.session_state.active_page == "Dimensionnement selon le SDC-IC" :
-    page_SDCIC()
+# Vérifie si le mot de passe est correct
+if password == PASSWORD:
+    st.success("Mot de passe correct.")
 
-elif st.session_state.active_page == "Dimensionnement selon le RCC-MRx" :
-    page_RCCMRx()
+    # Initialiser l'état de l'application
+    if 'active_page' not in st.session_state:
+        st.session_state.active_page = "Modélisation de la précharge"
+        
+    page1 = sidebar.button("Modélisation de la précharge", use_container_width = True)
+    page2 = sidebar.button("Dimensionnement selon le SDC-IC", use_container_width = True)
+    page3 = sidebar.button("Dimensionnement selon le RCC-MRx", use_container_width = True)
+    
+    if page1 :
+        st.session_state.active_page = "Modélisation de la précharge"
+        
+    elif page2 : 
+        st.session_state.active_page = "Dimensionnement selon le SDC-IC"
+        
+    elif page3 : 
+        st.session_state.active_page = "Dimensionnement selon le RCC-MRx"
+        
+        
+        
+    if st.session_state.active_page == "Modélisation de la précharge" :
+        page_Modelisation_Presserage()
+    
+    elif st.session_state.active_page == "Dimensionnement selon le SDC-IC" :
+        page_SDCIC()
+    
+    elif st.session_state.active_page == "Dimensionnement selon le RCC-MRx" :
+        page_RCCMRx()
 
 
-
+else:
+    st.error("Mot de passe incorrect. Accès refusé.")
     
     
 

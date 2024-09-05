@@ -30,12 +30,23 @@ sidebar = st.sidebar
 # Définit un mot de passe
 PASSWORD = "GMET1234"
 
-# Affiche une zone de texte pour saisir le mot de passe
-password = st.text_input("Entrez le mot de passe :", type="password")
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
 
-# Vérifie si le mot de passe est correct
-if password == PASSWORD:
-    st.success("Mot de passe correct.")
+# Si l'utilisateur n'est pas encore authentifié
+if not st.session_state.authenticated:
+    # Affiche la zone de texte pour entrer le mot de passe
+    password = st.text_input("Entrez le mot de passe :", type="password")
+
+    # Vérifie si le mot de passe est correct
+    if password == PASSWORD:
+        st.session_state.authenticated = True  # L'utilisateur est authentifié
+        st.success("Mot de passe correct. Accès accordé.")
+    elif password:  # Si le mot de passe n'est pas vide et incorrect
+        st.error("Mot de passe incorrect. Accès refusé.")
+
+else:
+    # Une fois authentifié, affiche l'application
 
     # Initialiser l'état de l'application
     if 'active_page' not in st.session_state:
@@ -66,8 +77,5 @@ if password == PASSWORD:
         page_RCCMRx()
 
 
-else:
-    st.error("Mot de passe incorrect. Accès refusé.")
-    
     
 

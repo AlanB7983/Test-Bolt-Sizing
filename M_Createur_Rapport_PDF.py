@@ -725,12 +725,6 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         list_B3_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B3], bulletType='bullet', leftIndent = 20)  # Type de puce ('bullet' pour une puce classique)
         elements.append(list_B3_flowable)
                                         
-        """
-        text = Paragraph("  - L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort, L : " + str(L) + " mm", normal_style)
-        elements.append(text)
-        text = Paragraph("  - L’épaisseur de la pièce assemblée, e : " + str(e) + " mm", normal_style)
-        elements.append(text)
-        """
 
         if selection2 :
             text = Paragraph("Enfin, l’élément de serrage subit un moment de flexion par effet levier dû à une flexion locale des pièces assemblées.", normal_style)

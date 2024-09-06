@@ -647,24 +647,24 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         SyminB_T = float(SyminB_T)
         
         if h >= 0.8*d :
-            text = Paragraph("h >= 0,8d", normal_style)
+            text = Paragraph("h >= 0,8d", equation_style)
             elements.append(text)
         else :
-            text = Paragraph("h < 0,8d", normal_style)
+            text = Paragraph("h < 0,8d", equation_style)
             elements.append(text)
             
         if Le >= 0.8*d :
-            text = Paragraph("L<sub>e</sub> >= 0,8d", normal_style)
+            text = Paragraph("L<sub>e</sub> >= 0,8d", equation_style)
             elements.append(text)
         else :
-            text = Paragraph("L<sub>e</sub> < 0,8d", normal_style)
+            text = Paragraph("L<sub>e</sub> < 0,8d", equation_style)
             elements.append(text)
             
         if SyminP_T >= SyminB_T :
-            text = Paragraph("R<sub>p0,2p</sub> >= R<sub>p0,2b</sub>", normal_style)
+            text = Paragraph("(R<sub>p0,2</sub>)<sub>min,p</sub> >= (R<sub>p0,2</sub>)<sub>min,b</sub>", equation_style)
             elements.append(text)
         else :
-            text = Paragraph("R<sub>p0,2p</sub> < R<sub>p0,2b</sub>", normal_style)
+            text = Paragraph("(R<sub>p0,2</sub>)<sub>min,p</sub> < (R<sub>p0,2</sub>)<sub>min,b</sub>", equation_style)
             elements.append(text)
             
     
@@ -752,7 +752,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     text = Paragraph("Ces hypothèses permettent de dresser le tableau des efforts sollicitant l’élément de serrage, utilisés pour le calcul des contraintes.", normal_style)
     elements.append(text)
 
-    Entete_T_Results_Ansys_Bilan = ["Numéro Boulon", "NbPL", "NbAL", "TbPL", "TbAL", "MbPL", "MbAL", "Cr", "Ct", "F0"]
+    Entete_T_Results_Ansys_Bilan = ["Numéro Boulon", "N<sub>e</sub> (chargements mécaniques) [N]", "N<sub>e</sub> [N]", "TbPL", "TbAL", "MbPL", "MbAL", "Cr", "Ct", "F0"]
     T_Results_Ansys_Bilan.insert(0, Entete_T_Results_Ansys_Bilan)
     table_results_ansys_bilan = Table(T_Results_Ansys_Bilan)
     table_results_ansys_bilan.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),

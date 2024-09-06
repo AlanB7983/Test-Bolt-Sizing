@@ -1156,7 +1156,7 @@ def page_RCCMRx() :
     SmB_T = float(get_grandeur_T_quelconque('SmB_non_etanche', L_Bolt_Material_Properties, float(Tb)))
 
     # On les affiches dans un dataframe
-    T_Bolt_Data = [['Matériau', 'Température [°C]', 'Sm [MPa]', 'Symin [MPa]', 'Sumin [MPa]'], [materiau_bolt, float(Tb), SmB_T, SyminB_T, SuminB_T]]
+    T_Bolt_Data = [['Matériau', 'Température [°C]', 'SmB [MPa]', '(Rp0,2)min,B [MPa]', '(Rm)min,B [MPa]'], [materiau_bolt, float(Tb), SmB_T, SyminB_T, SuminB_T]]
     df_Bolt_Material_Data = pd.DataFrame(T_Bolt_Data[1:], columns=T_Bolt_Data[0])
     st.write(df_Bolt_Material_Data)
                                                          
@@ -1172,7 +1172,7 @@ def page_RCCMRx() :
 
     # Initialiser le DataFrame vide
     if 'propriete_mat_pieces_RCCMRx' not in st.session_state:
-        st.session_state.propriete_mat_pieces_RCCMRx = pd.DataFrame(columns=['Matériau', 'Température [°C]', 'Sm [MPa]', '(R<sub>p0,2</sub>)min,p [MPa]', '(Rm)min,p [MPa]'])
+        st.session_state.propriete_mat_pieces_RCCMRx = pd.DataFrame(columns=['Matériau', 'Température [°C]', 'Sm [MPa]', '(Rp0,2)min,P [MPa]', '(Rm)min,P [MPa]'])
     
     # Saisies utilisateur pour ajouter des données
     saisie_col1, saisie_col2 = st.columns([1, 1])
@@ -1194,7 +1194,7 @@ def page_RCCMRx() :
             st.session_state.propriete_mat_pieces_RCCMRx = pd.concat([st.session_state.propriete_mat_pieces_RCCMRx, new_data], ignore_index=True)
     with but_col2:
         if st.button('Effacer', use_container_width = True):
-            st.session_state.propriete_mat_pieces_RCCMRx = pd.DataFrame(columns=['Matériau', 'Température [°C]', 'Sm [MPa]', 'Symin [MPa]', 'Sumin [MPa]'])
+            st.session_state.propriete_mat_pieces_RCCMRx = pd.DataFrame(columns=['Matériau', 'Température [°C]', 'Sm [MPa]', '(Rp0,2)min,P [MPa]', '(Rm)min,P [MPa]'])
     
     # Afficher les données sous forme de tableau
     st.dataframe(st.session_state.propriete_mat_pieces_RCCMRx)

@@ -398,7 +398,7 @@ def create_pdf_template(bolt_type, df_geom_data, image_bolt_type_path, bolt_mate
 
 def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Material_Data, B_acier_aust, df_assembly_part_data, Study_Case, Lambda, 
                               ft, fv, F0, F0_selection, adherence_selection, selection1, selection2, d, h, Le, SyminP_T, SyminB_T, L, e, T_Results_Ansys_Bilan,
-                              critere_selection, L_marge_full) :
+                              critere_selection, L_marge_full, SuminB_T) :
     
     buffer = BytesIO()
     
@@ -543,9 +543,16 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     else :
         text = Paragraph("Il ne s'agit pas d'un acier austhénitique", normal_style)
         elements.append(text)
+    
+    # Boulonnerie Haute Résistance
+    if float(SuminB_T) >= 700 :
+        text = Paragraph("La valeur de (R<sub>m</sub>)<sub>min</sub> est supérieure à 700 MPa, il s'agit d'une boulonnerie haute résistance.", normal_style)
+        elements.append(text)
+    else : 
+        text = Paragraph("La valeur de (R<sub>m</sub>)<sub>min</sub> est inférieure à 700 MPa, il s'agit d'une boulonnerie à résistance normale.", normal_style)
+        elements.append(text)
+
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
-    
-    
     
     # =============================================================================
     #     Pièces assemblées

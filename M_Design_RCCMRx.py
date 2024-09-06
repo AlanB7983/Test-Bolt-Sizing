@@ -1412,7 +1412,7 @@ def page_RCCMRx() :
         st.write("\n")
         
         st.write("$F_0$ pris en compte dans les calculs ANSYS ?")
-        F0_selection = st.radio("", ("oui", "non"), horizontal=True, key="test")
+        F0_selection = st.radio("", ("oui", "non"), horizontal=True, label_visibility="collapsed", key="test")
         
         # saut de ligne
         st.write("\n")
@@ -1474,9 +1474,9 @@ def page_RCCMRx() :
     # Affichage d'un tableau avec une partie des données d'entrée
     # L_Donnees_Geo_Boulonnerie_Full = L_Valeur + [d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 
     
-    L_Designation_full = L_Designation + ["d1", "d2", "d3", "D", "L_prime", "Dm", "aprime", "Dp_prime"]
-    L_Symbole_full = L_Symbole + ["d1", "d2", "d3", "D", "L_prime", "Dm", "aprime", "Dp_prime"]
-    L_Unite_full = L_Unite + ["mm", "mm", "mm", "mm", "mm", "mm", "mm", "mm"]
+    L_Designation_full = L_Designation + ["Diamètre au sommet d'écrou", "Diamètre à flan de filet", "Diamètre à fond de filet (du noyau)", "Diamètre intérieur du taraudage", "Longueur pour le calcul au cisaillement", "Diamètre moyen sous tête", "Diamètre sur plat de la tête si rondelle", "Diamètre de perçage si rondelle"]
+    L_Symbole_full = L_Symbole + ["d1", "df", "dn", "D", "L'", "Dm", "a'", "Dp'"]
+    L_Unite_full = L_Unite + ["[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]"]
     
     # Création d'un dictionnaire
     D_bolt_geom_data_full = {

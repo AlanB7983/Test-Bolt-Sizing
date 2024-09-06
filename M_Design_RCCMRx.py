@@ -1190,7 +1190,7 @@ def page_RCCMRx() :
             Sm_piece_assemblee = float(get_grandeur_T_quelconque('Sm', L_Assembly_Part_Material_Properties, float(T_piece_assemblee)))
             Symin_piece_assemblee = float(get_grandeur_T_quelconque('Sy.min', L_Assembly_Part_Material_Properties, float(T_piece_assemblee)))
             Sumin_piece_assemblee = float(get_grandeur_T_quelconque('Su.min', L_Assembly_Part_Material_Properties, float(T_piece_assemblee)))
-            new_data = pd.DataFrame({'Matériau': [materiau], 'Température [°C]' : [float(T_piece_assemblee)], 'Sm [MPa]': [Sm_piece_assemblee], 'Symin [MPa]' : [Symin_piece_assemblee], 'Sumin [MPa]' : [Sumin_piece_assemblee]})
+            new_data = pd.DataFrame({'Matériau': [materiau], 'Température [°C]' : [float(T_piece_assemblee)], 'Sm [MPa]': [Sm_piece_assemblee], '(Rp0,2)min,P [MPa]' : [Symin_piece_assemblee], '(Rm)min,P [MPa]' : [Sumin_piece_assemblee]})
             st.session_state.propriete_mat_pieces_RCCMRx = pd.concat([st.session_state.propriete_mat_pieces_RCCMRx, new_data], ignore_index=True)
     with but_col2:
         if st.button('Effacer', use_container_width = True):

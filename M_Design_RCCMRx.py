@@ -1172,7 +1172,7 @@ def page_RCCMRx() :
 
     # Initialiser le DataFrame vide
     if 'propriete_mat_pieces_RCCMRx' not in st.session_state:
-        st.session_state.propriete_mat_pieces_RCCMRx = pd.DataFrame(columns=['Matériau', 'Température [°C]', 'Sm [MPa]', 'Symin [MPa]', 'Sumin [MPa]'])
+        st.session_state.propriete_mat_pieces_RCCMRx = pd.DataFrame(columns=['Matériau', 'Température [°C]', 'Sm [MPa]', '(R<sub>p0,2</sub>)min,p [MPa]', '(Rm)min,p [MPa]'])
     
     # Saisies utilisateur pour ajouter des données
     saisie_col1, saisie_col2 = st.columns([1, 1])

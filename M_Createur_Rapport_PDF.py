@@ -546,10 +546,10 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
     # Boulonnerie Haute Résistance
     if float(SuminB_T) >= 700 :
-        text = Paragraph("La valeur de (R<sub>m</sub>)<sub>min</sub> est supérieure à 700 MPa, il s'agit d'une boulonnerie haute résistance.", normal_style)
+        text = Paragraph("La valeur de (R<sub>m</sub>)<sub>min,B</sub> est supérieure à 700 MPa, il s'agit d'une boulonnerie haute résistance.", normal_style)
         elements.append(text)
     else : 
-        text = Paragraph("La valeur de (R<sub>m</sub>)<sub>min</sub> est inférieure à 700 MPa, il s'agit d'une boulonnerie à résistance normale.", normal_style)
+        text = Paragraph("La valeur de (R<sub>m</sub>)<sub>min,B</sub> est inférieure à 700 MPa, il s'agit d'une boulonnerie à résistance normale.", normal_style)
         elements.append(text)
 
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
@@ -752,7 +752,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     text = Paragraph("Ces hypothèses permettent de dresser le tableau des efforts sollicitant l’élément de serrage, utilisés pour le calcul des contraintes.", normal_style)
     elements.append(text)
 
-    Entete_T_Results_Ansys_Bilan = ["Numéro Boulon", "N<sub>e</sub> (chargements mécaniques) [N]", "N<sub>e</sub> [N]", "TbPL", "TbAL", "MbPL", "MbAL", "Cr", "Ct", "F0"]
+    Entete_T_Results_Ansys_Bilan = ["Numéro Boulon", "Ne (chargements mécaniques) [N]", "Nb [N]", "Te (chargements mécaniques) [N]", "Tb [N]", "Me (chargements mécaniques) [Nmm]", "Mb [Nmm]", "Cr [Nmm]", "Ct [Nmm]", "F0 [N]"]
     T_Results_Ansys_Bilan.insert(0, Entete_T_Results_Ansys_Bilan)
     table_results_ansys_bilan = Table(T_Results_Ansys_Bilan)
     table_results_ansys_bilan.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),

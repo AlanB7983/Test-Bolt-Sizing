@@ -1204,10 +1204,10 @@ def page_RCCMRx() :
     L_Sm = st.session_state.propriete_mat_pieces_RCCMRx['Sm [MPa]'].tolist()
     Sm_T = float(min(L_Sm))
 
-    L_SyminP = st.session_state.propriete_mat_pieces_RCCMRx['Symin [MPa]'].tolist()
+    L_SyminP = st.session_state.propriete_mat_pieces_RCCMRx['(Rp0,2)min,P [MPa]'].tolist()
     SyminP_T = float(min(L_SyminP))
 
-    L_SuminP = st.session_state.propriete_mat_pieces_RCCMRx['Sumin [MPa]'].tolist()
+    L_SuminP = st.session_state.propriete_mat_pieces_RCCMRx['(Rm)min,P [MPa]'].tolist()
     SuminP_T = float(min(L_SuminP))
     
     # saut de ligne

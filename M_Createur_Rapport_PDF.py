@@ -608,24 +608,22 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         text = Paragraph("  - L'effort de précontrainte', F<sub>0</sub>; : " + str(F0) + " N", normal_style)
         elements.append(text)
         """
-        text = Paragraph(str(F0_selection))
-        elements.append(text)
         
-        if F0_selection :
+        if F0_selection == "oui" :
             text = Paragraph("Cet effort de précontrainte est pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
             elements.append(text)
         else : 
             text = Paragraph("Cet effort de précontrainte n’est pas pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
             elements.append(text)
         
-        if adherence_selection :
+        if adherence_selection == "oui" :
             text = Paragraph("On suppose que les efforts extérieurs sont repris par adhérence.", normal_style)
             elements.append(text)
         else :
             text = Paragraph("On suppose que les efforts extérieurs ne sont pas repris par adhérence.", normal_style)
             elements.append(text)
         
-        if selection1 :
+        if selection1 == "oui" :
             text = Paragraph("De plus, l’élément de serrage subit un moment de flexion par effet levier dû à une flexion locale des pièces assemblées.", normal_style)
             elements.append(text)
         else :
@@ -690,21 +688,21 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         """
         
-        if F0_selection :
+        if F0_selection == "oui" :
             text = Paragraph("Cet effort de précontrainte est pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
             elements.append(text)
         else : 
             text = Paragraph("Cet effort de précontrainte n’est pas pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
             elements.append(text)
         
-        if adherence_selection :
+        if adherence_selection == "oui" :
             text = Paragraph("On suppose que les efforts extérieurs sont repris par adhérence.", normal_style)
             elements.append(text)
         else :
             text = Paragraph("On suppose que les efforts extérieurs ne sont pas repris par adhérence.", normal_style)
             elements.append(text)
         
-        if selection1 :
+        if selection1  == "oui" :
             text = Paragraph("De plus, l’élément de serrage subit un moment de flexion par effet levier dû à une flexion locale des pièces assemblées.", normal_style)
             elements.append(text)
         else :
@@ -726,7 +724,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(list_B3_flowable)
                                         
 
-        if selection2 :
+        if selection2  == "oui" :
             text = Paragraph("Enfin, l’élément de serrage subit un moment de flexion par effet levier dû à une flexion locale des pièces assemblées.", normal_style)
             elements.append(text)
         else :

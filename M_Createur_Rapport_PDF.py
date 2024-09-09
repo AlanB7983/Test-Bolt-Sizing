@@ -493,6 +493,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     # Convertir le DataFrame en une liste de listes
     bolt_geom_data = [df_bolt_geom_data_full.columns.tolist()] + df_bolt_geom_data_full.values.tolist()
     # col_widths = [145, 37, 35, 30] # Définition de la largeur des colonnes du tableau
+    bolt_geom_data [3][1] = "dₗ"
     table_bolt_geom_data = Table(bolt_geom_data)
     table_bolt_geom_data.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
                                ('FONTSIZE', (0, 0), (-1, -1), 8),

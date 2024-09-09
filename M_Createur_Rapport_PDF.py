@@ -497,7 +497,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     if "B3" in Study_Case :
         text = Paragraph("Test", normal_style)
         elements.append(text)
-        bolt_geom_data.append(["Entraxe ou distance de l'axe des éléments de serrage au bord de la pièce assemblée dans la direction de l'effort", "L", str(L), "[mm]"])
+        bolt_geom_data.append(["Entraxe ou distance de l'axe des éléments de serrage au bord \n de la pièce assemblée dans la direction de l'effort", "L", str(L), "[mm]"])
         bolt_geom_data.append(["Epaisseur de la pièce assemblée", "e", str(e), "[mm]"])
 
                                   

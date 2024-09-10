@@ -937,10 +937,17 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     text = Paragraph("L’évaluation des contraintes subies par la liaison boulonnée et des critères dimensionnants permet d’obtenir pour chacun des éléments de serrage les valeurs et marges suivantes", normal_style)
     elements.append(text)
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
-
+                                  
+    marge_min = 100.0
     for i in range(0, len(L_marge_full)) :
         tableau_bilan_marge = Table(L_marge_full[i])
+        
         tableau_int = L_marge_full[i] # Tableau intermédiaire utilisé seulement pour déterminer la marge min, parce que plus simple à utiliser qu'un élément de type Table
+        derniere_colonne = [float(ligne[-1]) for ligne in tableau_int[1:]] #tableau_int[1:] est le tableau sans l'entête
+        marge_min_int = min(derniere_colonne) #On récupère la valeur min de la liaison i étudiée
+        if marge_min_int < marge_min : # si la marge min du boulon étudié est plus faible que la marge min actuelle, alors la marge min devient celle-ci
+            marge_min = marge_min_int
+        
         tableau_bilan_marge.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
                                    ('FONTSIZE', (0, 0), (-1, -1), 8),
                                    ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
@@ -957,14 +964,14 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(legend)
         elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
 
-                                 
-    marge_min = 10.0
-    text = Paragraph("Le dimensionnement des liaisons boulonnées étudiées est validé avec une marge minimale de " + str(marge_min) + " %", conclusion_style)
-    elements.append(text)
-    text = Paragraph(str(tableau_int[1][2]), normal_style)
-    elements.append(text)                              
-    text = Paragraph(str(type(tableau_int[1][2])), normal_style)
-    elements.append(text)
+    if marge_min >= 0.0 :                              
+        text = Paragraph("Le dimensionnement des liaisons boulonnées étudiées est validé avec une marge minimale de " + str(marge_min) + " %", conclusion_style)
+        elements.append(text)
+    else :
+        text = Paragraph("Le dimensionnement des liaisons boulonnées étudiées n'est pas validé avec une marge minimale de " + str(marge_min) + " %", conclusion_style)
+        elements.append(text)        
+                        
+
 
     # Génération du PDF
     doc.build(elements)

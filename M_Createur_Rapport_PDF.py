@@ -984,12 +984,13 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     # Saut de page
     elements.append(PageBreak())
                                   
-    subtitle_4 = Paragraph("DETAIL DES FORMULES UTILISEES", subtitle2_style)
+    subtitle_4 = Paragraph("DÉTAIL DES FORMULES UTILISÉES", subtitle2_style)
     elements.append(subtitle_4)
     subsubtitle_5 = Paragraph("Calcul des contraintes", subtitle3_style)
-    elements.append(subsubtitle_5)                              
+    elements.append(subsubtitle_5)    
+                                  
     image_B1AC_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_formules.png"
-    image_width = page_width - 2.16 * inch
+    image_width = page_width - 3 * inch
     image_B1AC_formules = Image(image_B1AC_formules_path)
     image_B1AC_formules.drawHeight = image_width * image_B1AC_formules.drawHeight / image_B1AC_formules.drawWidth
     image_B1AC_formules.drawWidth = image_width

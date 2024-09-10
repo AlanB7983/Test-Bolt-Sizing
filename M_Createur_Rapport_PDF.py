@@ -603,7 +603,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(text)   
     
     list_prop_mat_bolt_def = ["S<sub>mB</sub> la contrainte admissible de l'élément de serrage pour les matériels de niveau N1<sub>Rx</sub> et N2<sub>Rx</sub>", "(R<sub>p0.2</sub>)<sub>min,B</sub> la limite d'élasticité minimle à 0,2 % de l'élément de serrage à la température T", "(R<sub>m</sub>)<sub>min,B</sub> la résistance à la traction minimale de l'élément de serrage à la température T"]
-    list_prop_mat_bolt_def_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_prop_mat_bolt_def], bulletType='bullet', firstLineIndent=20)  # Type de puce ('bullet' pour une puce classique))
+    list_prop_mat_bolt_def_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_prop_mat_bolt_def], bulletType='bullet', bulletIndent=20)  # Type de puce ('bullet' pour une puce classique))
     elements.append(list_prop_mat_bolt_def_flowable)
 
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
@@ -660,7 +660,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(text)   
     
     list_prop_mat_piece_def = ["S<sub>m</sub> la contrainte admissible des pièces assemblées pour les matériels de niveau N1<sub>Rx</sub> et N2<sub>Rx</sub>", "(R<sub>p0.2</sub>)<sub>min,P</sub> la limite d'élasticité minimle à 0,2 % des pièces assemblées à la température T", "(R<sub>m</sub>)<sub>min,P</sub> la résistance à la traction minimale des pièces assemblées à la température T"]
-    list_prop_mat_piece_def_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_prop_mat_piece_def], bulletType='bullet', leftIndent=20)  # Type de puce ('bullet' pour une puce classique))
+    list_prop_mat_piece_def_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_prop_mat_piece_def], bulletType='bullet', bulletIndent=20)  # Type de puce ('bullet' pour une puce classique))
     elements.append(list_prop_mat_piece_def_flowable)
 
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
@@ -683,7 +683,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         
         list_B1 = ["Le coefficient de rigidité : &Lambda; = " + str(Lambda), "Le coefficient de frottement sous tête ou sous écrou : f' = " + str(ft), "Le coefficient de frottement entre les filets en prise : f = " + str(fv), "L'effort de précontrainte : F<sub>0</sub> = " + str(F0) + " N"]
 
-        list_B1_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B1], bulletType='bullet', leftIndent=20)  # Type de puce ('bullet' pour une puce classique))
+        list_B1_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B1], bulletType='bullet', bulletIndent=20)  # Type de puce ('bullet' pour une puce classique))
         elements.append(list_B1_flowable)
         
         if F0_selection == "oui" :
@@ -751,7 +751,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         
         list_B2 = ["Le coefficient de rigidité : &Lambda; = " + str(Lambda), "Le coefficient de frottement sous tête ou sous écrou : f' = " + str(ft), "Le coefficient de frottement entre les filets en prise : f = " + str(fv), "L'effort de précontrainte, F<sub>0</sub> = " + str(F0) + " N"]
 
-        list_B2_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B2], bulletType='bullet', leftIndent=20)  # Type de puce ('bullet' pour une puce classique))
+        list_B2_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B2], bulletType='bullet', bulletIndent=20)  # Type de puce ('bullet' pour une puce classique))
         elements.append(list_B2_flowable)
                                         
         if F0_selection == "oui" :
@@ -786,7 +786,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
         
         list_B3 = ["L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort : L = " + str(L) + " mm", "L’épaisseur de la pièce assemblée : e = " + str(e) + " mm"]
-        list_B3_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B3], bulletType='bullet', leftIndent = 20)  # Type de puce ('bullet' pour une puce classique)
+        list_B3_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B3], bulletType='bullet', bulletIndent=20)  # Type de puce ('bullet' pour une puce classique)
         elements.append(list_B3_flowable)
                                         
 
@@ -842,7 +842,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                      "C<sub>r</sub> le couple de torsion résiduel sur les filets en prise",
                      "C<sub>t</sub> le couple de torsion résiduel sous tête",
                      "F<sub>0</sub> l'effort de préserrage initial"]
-    list_Result_Ansys_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_Result_Ansys], bulletType='bullet', leftIndent = 20)  # Type de puce ('bullet' pour une puce classique)
+    list_Result_Ansys_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_Result_Ansys], bulletType='bullet', bulletIndent=20)  # Type de puce ('bullet' pour une puce classique)
     elements.append(list_Result_Ansys_flowable)
     
     
@@ -924,14 +924,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(image_B3A)
         
 
-                            
-             
-    
-    
-    
-    
-    
-        
+
         
             
 # =============================================================================
@@ -981,8 +974,26 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(text)
     else :
         text = Paragraph("Le dimensionnement des liaisons boulonnées étudiées n'est pas validé avec une marge minimale de " + str(marge_min) + " %", conclusion_style)
-        elements.append(text)        
-                        
+        elements.append(text)  
+
+
+                                  
+# =============================================================================
+#     DETAILS DES FORMULES UTILISEES
+# =============================================================================
+    # Saut de page
+    elements.append(PageBreak())
+                                  
+    subtitle_2 = Paragraph("DETAIL DES FORMULES UTILISEES", subtitle2_style)
+    elements.append(subtitle_2)
+    subtitle_3 = Paragraph("Calcul des contraintes", subtitle3_style)
+    elements.append(subtitle_3)                              
+    image_B1AC_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_formules.png"
+    image_width = page_width - 2.16 * inch
+    image_B1AC_formules = Image(image_B1AC_formules_path)
+    image_B1AC_formules.drawHeight = image_width * image_B1AC_formules.drawHeight / image_B1AC_formules.drawWidth
+    image_B1AC_formules.drawWidth = image_width
+    elements.append(image_B1AC_formules)
 
 
     # Génération du PDF

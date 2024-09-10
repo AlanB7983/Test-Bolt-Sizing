@@ -940,6 +940,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
 
     for i in range(0, len(L_marge_full)) :
         tableau_bilan_marge = Table(L_marge_full[i])
+        tableau_int = L_marge_full[i] # Tableau intermédiaire utilisé seulement pour déterminer la marge min, parce que plus simple à utiliser qu'un élément de type Table
         tableau_bilan_marge.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
                                    ('FONTSIZE', (0, 0), (-1, -1), 8),
                                    ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
@@ -955,13 +956,14 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         legend = Paragraph("Tableau 5 : Bilan des critères et marges associées pour la liaison boulonnée " + str(i+1), legend_style)
         elements.append(legend)
         elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
-    
+
+                                 
     marge_min = 10.0
     text = Paragraph("Le dimensionnement des liaisons boulonnées étudiées est validé avec une marge minimale de " + str(marge_min) + " %", conclusion_style)
     elements.append(text)
-    text = Paragraph(str(tableau_bilan_marge[1][2]), normal_style)
+    text = Paragraph(str(tableau_int[1][2]), normal_style)
     elements.append(text)                              
-    text = Paragraph(str(type(tableau_bilan_marge[1][2])), normal_style)
+    text = Paragraph(str(type(tableau_int[1][2])), normal_style)
     elements.append(text)
 
     # Génération du PDF

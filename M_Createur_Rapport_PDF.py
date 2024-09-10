@@ -545,6 +545,15 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     legend = Paragraph("Tableau 2 : Données matériau liées à l'élément de serrage", legend_style)
     elements.append(legend)
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+
+    text = Paragraph("avec", normal_style)
+    elements.append(text)   
+    
+    list_prop_mat_bolt_def = ["S<sub>mB</sub> la contraintes admissibles de l'élément de serrage pour les matériels de niveau N1<sub>Rx</sub> et N2<sub>Rx</sub>", "(R<sub>p0.2</sub>)<sub>min,B</sub> la limite d'élasticité minimle à 0,2 % de l'élément de serrage à la température T", "(R<sub>m</sub>)<sub>min,B</sub> la résistance à la traction minimale de l'élément de serrage à la température T"]
+    list_prop_mat_bolt_def_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_prop_mat_bolt_def], bulletType='bullet', leftIndent=20)  # Type de puce ('bullet' pour une puce classique))
+    elements.append(list_prop_mat_bolt_def_flowable)
+
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     
     # Acier austhénitique
     if B_acier_aust :
@@ -592,6 +601,15 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(table_assembly_part_data)
     legend = Paragraph("Tableau 3 : Données liées aux pièces assemblées", legend_style)
     elements.append(legend)
+    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+
+    text = Paragraph("avec", normal_style)
+    elements.append(text)   
+    
+    list_prop_mat_piece_def = ["S<sub>m</sub> la contraintes admissibles des pièces assemblées pour les matériels de niveau N1<sub>Rx</sub> et N2<sub>Rx</sub>", "(R<sub>p0.2</sub>)<sub>min,P</sub> la limite d'élasticité minimle à 0,2 % des pièces assemblées à la température T", "(R<sub>m</sub>)<sub>min,P</sub> la résistance à la traction minimale des pièces assemblées à la température T"]
+    list_prop_mat_piece_def_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_prop_mat_piece_def], bulletType='bullet', leftIndent=20)  # Type de puce ('bullet' pour une puce classique))
+    elements.append(list_prop_mat_piece_def_flowable)
+
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     
     

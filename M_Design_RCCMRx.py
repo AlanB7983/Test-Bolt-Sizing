@@ -928,7 +928,7 @@ def page_RCCMRx() :
         st.write("- Le jeu de règles *B2* (*RB 3281*, *RB 3284* et *RB 3285*), qui concerne les liaisons boulonnées précontraintes qui n’assurent pas de fonction d’étanchéité.")
         st.write("- Le jeu de règles *B3* (*RB 3281* et *RB 3286*), qui concerne les liaisons boulonnées non précontraintes.")
         st.write("Pour tous les niveaux de critère, l’analyse élastique est à appliquer. Ces règles se basent sur un modèle simple de l’élément de serrage, réduit à une tige cylindrique lisse appelée *noyau*. Son diamètre est par convention égal au diamètre de la section minimale du boulon. Si elle est dans la partie filetée, il est égal au diamètre à fond de filet.")
-        st.image("Pictures/Figure RB 3281-4.png", caption='Figure RB 3281.4')
+        st.image("Pictures/Figure RB 3281-4.PNG", caption='Figure RB 3281.4')
         st.write("Pour simplifier sa mise en place, l’application ne se concentre pour le moment que sur le dimensionnement des éléments de serrage pouvant présenter des *dommages de type P*. De plus, le fluage et l’irradiation sont supposés *négligeables*. Les critères évalués relèvent ainsi des *RB 3282*, *RB 3284* et *RB 3286*. Enfin, le calcul des contraintes appliquées à l’élément de serrage suit sur les règles énoncées dans l’*Annexe 6*.")
         st.write("")
         st.subheader("Présentation")

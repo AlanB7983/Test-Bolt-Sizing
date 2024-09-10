@@ -1037,14 +1037,14 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
 
     if Study_Case == "B1_A" or Study_Case == "B1_C" :                              
         image_B1AC_formules_1_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_formules-1.png"
-        image_width = page_width - 2.5 * inch
+        image_width = page_width - 2.16 * inch
         image_B1AC_formules_1 = Image(image_B1AC_formules_1_path)
         image_B1AC_formules_1.drawHeight = image_width * image_B1AC_formules_1.drawHeight / image_B1AC_formules_1.drawWidth
         image_B1AC_formules_1.drawWidth = image_width
         elements.append(image_B1AC_formules_1)
 
         image_B1AC_formules_2_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_formules-2.png"
-        image_width = page_width - 2.5 * inch
+        image_width = page_width - 2.16 * inch
         image_B1AC_formules_2 = Image(image_B1AC_formules_2_path)
         image_B1AC_formules_2.drawHeight = image_width * image_B1AC_formules_2.drawHeight / image_B1AC_formules_2.drawWidth
         image_B1AC_formules_2.drawWidth = image_width

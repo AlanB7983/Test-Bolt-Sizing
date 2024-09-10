@@ -418,37 +418,39 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     title_style = styles['Title']
 
     # Styles de texte
-    heading1_style = ParagraphStyle(
+    heading2_style = ParagraphStyle(
         'Heading1Custom',
-        parent=styles['Heading1'],
+        parent=styles['Heading2'],
         fontName='Times-Bold',  # Police pour Heading1
         fontSize=16,
         spaceAfter=12
     )
     
-    heading2_style = ParagraphStyle(
+    heading3_style = ParagraphStyle(
         'Heading2Custom',
-        parent=styles['Heading2'],
+        parent=styles['Heading3'],
         fontName='Times-Bold',  # Police pour Heading2
         fontSize=14,
-        spaceAfter=10
+        spaceAfter=10,
+        spaceBefore=5
     )
     
-    heading3_style = ParagraphStyle(
+    heading4_style = ParagraphStyle(
         'Heading3Custom',
-        parent=styles['Heading3'],
-        fontName='Times-Roman',  # Police pour Heading3
+        parent=styles['Heading4'],
+        fontName='Times-Roman-Bold',  # Police pour Heading3
         fontSize=12,
-        spaceAfter=8
+        spaceAfter=8,
+        spaceBefore=10
     )
                                   
 
     # subtitle2_style = styles['Heading2']
     # subtitle3_style = styles['Heading3']
     # subtitle4_style = styles['Heading4']
-    subtitle2_style = heading1_style
-    subtitle3_style = heading2_style
-    subtitle4_style = heading3_style
+    subtitle2_style = heading2_style
+    subtitle3_style = heading3_style
+    subtitle4_style = heading4_style
     
 
     normal_style = ParagraphStyle(
@@ -503,13 +505,14 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
     text = Paragraph("Le code de dimensionnement utilisé pour cette étude est le RCC-MRx, selon les règles du RB 3280 pour l’évaluation des critères et de l’Annexe 6 pour le calcul des différentes contraintes. Les paragraphes correspondant aux équations utilisées seront précisés entre parenthèses. Il conviendra de s’y référer pour plus de détail.", normal_style)
     elements.append(text)
-    elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+    elements.append(Spacer(1, 22))  # Ajouter un espace après le texte
     
     
 # =============================================================================
 #     SAISIE DES DONNEES D'ENTREE
 # =============================================================================
-    
+    # Saut de page
+    elements.append(PageBreak())
     subtitle_1 = Paragraph("DONNÉES D'ENTRÉE", subtitle2_style)
     elements.append(subtitle_1)
     

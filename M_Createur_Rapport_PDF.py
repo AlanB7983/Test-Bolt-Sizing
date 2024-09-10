@@ -423,7 +423,8 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         parent=styles['Heading2'],
         fontName='Times-Bold',  # Police pour Heading1
         fontSize=16,
-        spaceAfter=12
+        spaceAfter=12,
+        firstLineIndent=0  # Indentation de la première ligne (en points)
     )
     
     heading3_style = ParagraphStyle(
@@ -432,7 +433,8 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         fontName='Times-Bold',  # Police pour Heading2
         fontSize=14,
         spaceAfter=10,
-        spaceBefore=10
+        spaceBefore=10,
+        firstLineIndent=10  # Indentation de la première ligne (en points)
     )
     
     heading4_style = ParagraphStyle(
@@ -441,7 +443,8 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         fontName='Times-Bold',  # Police pour Heading3
         fontSize=12,
         spaceAfter=8,
-        spaceBefore=20
+        spaceBefore=20,
+        firstLineIndent=20  # Indentation de la première ligne (en points)
     )
                                   
 

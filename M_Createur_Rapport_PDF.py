@@ -986,8 +986,33 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                                   
     subtitle_4 = Paragraph("DÉTAIL DES FORMULES UTILISÉES", subtitle2_style)
     elements.append(subtitle_4)
-    subsubtitle_5 = Paragraph("Calcul des contraintes", subtitle3_style)
-    elements.append(subsubtitle_5)    
+
+    subsubtitle_5 = Paragraph("Données géométriques", subtitle3_style)
+    elements.append(subsubtitle_5)
+                                  
+    image_geom_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_dimensions_geom.png"
+    image_width = page_width - 2.16 * inch
+    image_geom = Image(image_geom_path)
+    image_geom.drawHeight = image_width * image_geom.drawHeight / image_geom.drawWidth
+    image_geom.drawWidth = image_width
+    elements.append(image_geom)
+                                  
+    # Saut de page
+    elements.append(PageBreak())
+    subsubtitle_6 = Paragraph("Efforts sollicitant la liaison boulonnée", subtitle3_style)
+    elements.append(subsubtitle_6)
+                                  
+    image_efforts_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_efforts.png"
+    image_width = page_width - 2.16 * inch
+    image_efforts = Image(image_efforts_path)
+    image_efforts.drawHeight = image_width * image_efforts.drawHeight / image_efforts.drawWidth
+    image_efforts.drawWidth = image_width
+    elements.append(image_efforts) 
+                                  
+    # Saut de page
+    elements.append(PageBreak())                              
+    subsubtitle_7 = Paragraph("Calcul des contraintes", subtitle3_style)
+    elements.append(subsubtitle_7)    
                                   
     image_B1AC_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_formules.png"
     image_width = page_width - 2.3 * inch

@@ -812,6 +812,41 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(text)
 
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+
+    
+    if Study_Case == "B1_A" or Study_Case == "B1_C" :
+        # Charger une image
+        image_B1AC_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_generaux.png"
+        image_width = page_width - 2.16 * inch
+        image_B1AC = Image(image_B1AC_path)
+        image_B1AC.drawHeight = image_width * image_B1AC.drawHeight / image_B1AC.drawWidth
+        image_B1AC.drawWidth = image_width
+        elements.append(image_B1AC)
+        if h >= 0.8*d :
+            if str(bolt_type) == "Vis" or str(bolt_type) == "Goujon" :
+                if float(SyminP_T) < float(SyminB_T) :
+                    image_B1AC_h_sup_08d_2_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_h sup 08d-2.png"
+                    image_width = page_width - 2.16 * inch
+                    image_B1AC_h_sup_08d_2 = Image(image_B1AC_h_sup_08d_2_path)
+                    image_B1AC_h_sup_08d_2.drawHeight = image_width * image_B1AC_h_sup_08d_2.drawHeight / image_B1AC_h_sup_08d_2.drawWidth
+                    image_B1AC_h_sup_08d_2.drawWidth = image_width
+                    elements.append(image_B1AC_h_sup_08d_2)
+                else :
+                    if Le < 0.8*d :
+                        image_B1AC_h_sup_08d_1_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_h sup 08d-1.png"
+                        image_width = page_width - 2.16 * inch
+                        image_B1AC_h_sup_08d_1 = Image(image_B1AC_h_sup_08d_1_path)
+                        image_B1AC_h_sup_08d_1.drawHeight = image_width * image_B1AC_h_sup_08d_1.drawHeight / image_B1AC_h_sup_08d_1.drawWidth
+                        image_B1AC_h_sup_08d_1.drawWidth = image_width
+                        elements.append(image_B1AC_h_sup_08d_1)
+                    
+        else :
+            image_B1AC_h_inf_08d_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_h inf 08d.png"
+            image_width = page_width - 2.16 * inch
+            image_B1AC_h_inf_08d = Image(image_B1AC_h_inf_08d_path)
+            image_B1AC_h_inf_08d.drawHeight = image_width * image_B1AC_h_inf_08d.drawHeight / image_B1AC_h_inf_08d.drawWidth
+            image_B1AC_h_inf_08d.drawWidth = image_width
+            elements.append(image_B1AC_h_inf_08d)
                                   
     if Study_Case == "B3_A" :
         # Charger une image

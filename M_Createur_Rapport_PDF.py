@@ -429,6 +429,15 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         fontSize = 9,  # Set the desired font size
         alignment=1  # Centré
     )
+                                  
+    conclusion_style = ParagraphStyle(
+        'BodyTextCustom',
+        parent=styles['BodyText'],
+        fontName='Helvetica-Bold',
+        fontSize = 9,  # Set the desired font size
+        alignment=TA_JUSTIFY  # Justification du texte
+    )
+    
     
     # Legend
     legend_style = ParagraphStyle(
@@ -948,7 +957,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     
     marge_min = 10.0
-    text = Paragraph("<b>Le dimensionnement des liaisons boulonnées étudiées est validé avec une marge minimale de <b>" + str(marge_min) + " <b>%<b>", normal_style)
+    text = Paragraph("Le dimensionnement des liaisons boulonnées étudiées est validé avec une marge minimale de " + str(marge_min) + " %", conclusion_style)
     elements.append(text)
     text = Paragraph(str(tableau_bilan_marge[1][2]), normal-style)
     elements.append(text)                              

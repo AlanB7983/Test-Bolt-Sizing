@@ -917,6 +917,36 @@ def page_RCCMRx() :
     # Variables
     liste_material = ["304L SS", "316L SS", "660 SS", "Acier Classe 6-8", "Alloy 718", "316L", "A4L-80", "A4L-70", "A2L-80", "A2L-70"]
       
+    # Titre de l'application
+    st.title("Dimensionnement de la boulonnerie selon le RCC-MRx")
+
+    with st.expander("INTRODUCTION ET RAPPEL DES HYPOTHÈSES.") :
+        st.subheader("Objectifs et conditions d'application")
+        st.write("Cette partie est dédiée au dimensionnement des liaisons boulonnées selon le recueil de règles rédigé par l’AFCEN, le *RCC-MRx* (*R*ègles techniques applicables à la *C*onception et la *C*onstruction des *M*atériels mécaniques des installations nucléaires). Ce document propose 3 niveaux de conception et de construction correspondant à 3 niveaux de sécurité décroissants : N1RX, N2RX et N3RX. Cette application se concentre sur le dimensionnement des éléments de serrage appartenant aux deux premiers niveaux (*RB 3000* et *RC 3000*).")
+        st.write("Les règles d’analyse pour la boulonnerie sont recensées dans le *RB 3280*. Il est composé de 3 jeux de règles, applicables aux vis, boulons, goujons et lacets de niveau N1<sub>RX</sub> et N2<sub>RX</sub> :")
+        st.write("- Le jeu de règles *B1* (*RB 3281*, *RB 3282* et *RB 3283*), qui concerne les liaisons boulonnées précontraintes qui assurent une fonction d’étanchéité.")
+        st.write("- Le jeu de règles *B2* (*RB 3281*, *RB 3284* et *RB 3285*), qui concerne les liaisons boulonnées précontraintes qui n’assurent pas de fonction d’étanchéité.")
+        st.write("- Le jeu de règles *B3* (*RB 3281* et *RB 3286*), qui concerne les liaisons boulonnées non précontraintes.")
+        st.write("Pour tous les niveaux de critère, l’analyse élastique est à appliquer. Ces règles se basent sur un modèle simple de l’élément de serrage, réduit à une tige cylindrique lisse appelée *noyau*. Son diamètre est par convention égal au diamètre de la section minimale du boulon. Si elle est dans la partie filetée, il est égal au diamètre à fond de filet.")
+        st.image("Pictures/Figure RB 3281-4.png", caption='Figure RB 3281.4')
+        st.write("Pour simplifier sa mise en place, l’application ne se concentre pour le moment que sur le dimensionnement des éléments de serrage pouvant présenter des *dommages de type P*. De plus, le fluage et l’irradiation sont supposés *négligeables*. Les critères évalués relèvent ainsi des *RB 3282*, *RB 3284* et *RB 3286*. Enfin, le calcul des contraintes appliquées à l’élément de serrage suit sur les règles énoncées dans l’*Annexe 6*.")
+        st.write("")
+        st.subheader("Présentation")
+        st.write("Cette application simple d’utilisation se compose en plusieurs parties. Après avoir choisi le type d’élément de serrage, l’utilisateur doit renseigner :")
+        st.write("1. les données géométriques de son élément de serrage")
+        st.write("2. le matériau qui le compose et sa température à partir d’une base de données intégrée")
+        st.write("3. le matériau des pièces assemblées et leur température à partir d’une base de données intégrée")
+        st.write("4. les résultats de la simulation ANSYS, au format .CSV et sous la forme :")
+        st.write("Nom ou numéro de l'élément de serrage | Force axiale [N] | Couple [N.mm] | Force de cisaillement [N] | Moment de flexion [N.mm]")
+        st.write("5. les conditions de calcul : fonctions de l’élément de serrage, niveau de critère à évaluer; etc.")
+        st.write("Les résultats sont ensuites générés sous la forme :")
+        st.write("Nom de la contrainte | Valeur de la contrainte | Valeur du critère de dimensionnement | Marge associée")
+        st.write("")
+        st.write("Un rapport automatique est généré et peut être téléchargé. Il rassemble les informations renseignées, les critères évalués, les résultats et le détail des formules utilisées. A titre informatif, la base de données des matériaux est issue de l’*Annexe 3* du *RCC-MRx.*")
+        st.write("Bon dimensionnement !")
+
+
+
     
     # =============================================================================
     # DONNEES D'ENTREE    

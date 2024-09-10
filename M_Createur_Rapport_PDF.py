@@ -438,7 +438,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     heading4_style = ParagraphStyle(
         'Heading3Custom',
         parent=styles['Heading4'],
-        fontName='Times-Roman-Bold',  # Police pour Heading3
+        fontName='Times-Bold',  # Police pour Heading3
         fontSize=12,
         spaceAfter=8,
         spaceBefore=10

@@ -923,7 +923,7 @@ def page_RCCMRx() :
     with st.expander("INTRODUCTION ET RAPPEL DES HYPOTHÈSES.") :
         st.subheader("Objectifs et conditions d'application")
         st.write("Cette partie est dédiée au dimensionnement des liaisons boulonnées selon le recueil de règles rédigé par l’AFCEN, le *RCC-MRx* (*R*ègles techniques applicables à la *C*onception et la *C*onstruction des *M*atériels mécaniques des installations nucléaires). Ce document propose 3 niveaux de conception et de construction correspondant à 3 niveaux de sécurité décroissants : N1RX, N2RX et N3RX. Cette application se concentre sur le dimensionnement des éléments de serrage appartenant aux deux premiers niveaux (*RB 3000* et *RC 3000*).")
-        st.write("Les règles d’analyse pour la boulonnerie sont recensées dans le *RB 3280*. Il est composé de 3 jeux de règles, applicables aux vis, boulons, goujons et lacets de niveau N1<sub>RX</sub> et N2<sub>RX</sub> :")
+        st.write("Les règles d’analyse pour la boulonnerie sont recensées dans le *RB 3280*. Il est composé de 3 jeux de règles, applicables aux vis, boulons, goujons et lacets de niveau $N1_{RX}$ et $N2_{RX}$ :")
         st.write("- Le jeu de règles *B1* (*RB 3281*, *RB 3282* et *RB 3283*), qui concerne les liaisons boulonnées précontraintes qui assurent une fonction d’étanchéité.")
         st.write("- Le jeu de règles *B2* (*RB 3281*, *RB 3284* et *RB 3285*), qui concerne les liaisons boulonnées précontraintes qui n’assurent pas de fonction d’étanchéité.")
         st.write("- Le jeu de règles *B3* (*RB 3281* et *RB 3286*), qui concerne les liaisons boulonnées non précontraintes.")
@@ -940,7 +940,7 @@ def page_RCCMRx() :
         st.write("Nom ou numéro de l'élément de serrage | Force axiale [N] | Couple [N.mm] | Force de cisaillement [N] | Moment de flexion [N.mm]")
         st.write("5. les conditions de calcul : fonctions de l’élément de serrage, niveau de critère à évaluer; etc.")
         st.write("Les résultats sont ensuites générés sous la forme :")
-        st.write("Nom de la contrainte | Valeur de la contrainte | Valeur du critère de dimensionnement | Marge associée")
+        st.write("Nom de la contrainte | Valeur de la contrainte | Critère de dimensionnement | Marge associée")
         st.write("")
         st.write("Un rapport automatique est généré et peut être téléchargé. Il rassemble les informations renseignées, les critères évalués, les résultats et le détail des formules utilisées. A titre informatif, la base de données des matériaux est issue de l’*Annexe 3* du *RCC-MRx.*")
         st.write("Bon dimensionnement !")

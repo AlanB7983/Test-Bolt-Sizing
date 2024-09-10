@@ -823,8 +823,14 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         image_B1AC.drawWidth = image_width
         elements.append(image_B1AC)
         if h >= 0.8*d :
+            text = Paragraph("h >= 0.8*d", normal_style)
+            elements.append(text)
             if str(bolt_type) == "Vis" or str(bolt_type) == "Goujon" :
+                text = Paragraph("Vis ou goujon", normal_style)
+                elements.append(text)
                 if float(SyminP_T) < float(SyminB_T) :
+                    text = Paragraph("SyminP_T < SyminB_T", normal_style)
+                    elements.append(text)
                     image_B1AC_h_sup_08d_2_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_h sup 08d-2.png"
                     image_width = page_width - 2.16 * inch
                     image_B1AC_h_sup_08d_2 = Image(image_B1AC_h_sup_08d_2_path)
@@ -832,7 +838,11 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                     image_B1AC_h_sup_08d_2.drawWidth = image_width
                     elements.append(image_B1AC_h_sup_08d_2)
                 else :
+                    text = Paragraph("SyminP_T >= SyminB_T", normal_style)
+                    elements.append(text)
                     if Le < 0.8*d :
+                        text = Paragraph("Le < 0.8*d", normal_style)
+                        elements.append(text)
                         image_B1AC_h_sup_08d_1_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_h sup 08d-1.png"
                         image_width = page_width - 2.16 * inch
                         image_B1AC_h_sup_08d_1 = Image(image_B1AC_h_sup_08d_1_path)
@@ -841,6 +851,8 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                         elements.append(image_B1AC_h_sup_08d_1)
                     
         else :
+            text = Paragraph("h < 0.8*d", normal_style)
+            elements.append(text)
             image_B1AC_h_inf_08d_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_h inf 08d.png"
             image_width = page_width - 2.16 * inch
             image_B1AC_h_inf_08d = Image(image_B1AC_h_inf_08d_path)

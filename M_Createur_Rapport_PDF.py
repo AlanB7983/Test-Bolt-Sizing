@@ -8,6 +8,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.lib.enums import TA_JUSTIFY
+# from reportlab.pdfbase.ttfonts import TTFont
 
 
 
@@ -15,6 +16,11 @@ from io import BytesIO
 import pandas as pd
 from PIL import Image as PILImage
 
+# Enregistrer la police Times New Roman (remplacez le chemin par celui de votre fichier .ttf)
+# pdfmetrics.registerFont(TTFont('TimesNewRoman', 'TimesNewRoman.ttf'))
+# pdfmetrics.registerFont(TTFont('TimesNewRoman-Bold', 'TimesNewRoman-Bold.ttf'))
+# pdfmetrics.registerFont(TTFont('TimesNewRoman-Italic', 'TimesNewRoman-Italic.ttf'))
+# pdfmetrics.registerFont(TTFont('TimesNewRoman-BoldItalic', 'TimesNewRoman-BoldItalic.ttf'))
 
 def create_pdf_template(bolt_type, df_geom_data, image_bolt_type_path, bolt_material, df_assembly_part_data, F0, T0, check_thq, Tb, Ta, df_thermal_property_assembly_parts, Lambda, Nedecollement, L_Data_thq, df_results_with_thq, forces_evol_thq_graph_path, diagramme_chargement_thq_graph_path):
     buffer = BytesIO()
@@ -407,6 +413,8 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     doc = SimpleDocTemplate(buffer, pagesize=letter)
     elements = []
     page_width = letter[0] # Largeur de la page
+                                  
+
 
     # Styles de texte
     styles = getSampleStyleSheet()
@@ -420,6 +428,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         'BodyTextCustom',
         parent=styles['BodyText'],
         fontSize = 9,  # Set the desired font size
+        fontName = 'Times-Roman',
         alignment=TA_JUSTIFY  # Justification du texte
     )
 
@@ -428,12 +437,13 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         parent=styles['BodyText'],
         fontSize = 9,  # Set the desired font size
         alignment=1  # Centré
+        fontName = 'Times-Roman',
     )
                                   
     conclusion_style = ParagraphStyle(
         'BodyTextCustom',
         parent=styles['BodyText'],
-        fontName='Helvetica-Bold',
+        fontName='Times-Bold',
         fontSize = 9,  # Set the desired font size
         alignment=TA_JUSTIFY  # Justification du texte
     )
@@ -447,7 +457,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         textColor=colors.black,
         spaceBefore=6,
         alignment=1, # Centrer la légende
-        fontName='Helvetica-Oblique'  # Italics
+        fontName='Times-Italic'  # Italics
     )
 
     # Ajout du titre

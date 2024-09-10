@@ -777,7 +777,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     legend = Paragraph("Tableau 4 : Résultats des calculs ANSYS utilisés pour le dimensionnement de la boulonnerie en fonction des hypothèses renseignées", legend_style)
     elements.append(legend)
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
-    test = Paragraph("avec", normal_style)
+    text = Paragraph("avec", normal_style)
     elements.append(text)
 
     list_Result_Ansys = ["N<sub>e</sub> l'effort de traction ou de compression développé par les sollicitations d'origine externe, rapporté à l'axe de la liaison boulonnée",

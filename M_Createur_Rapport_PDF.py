@@ -417,11 +417,38 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
 
 
     # Styles de texte
+    heading1_style = ParagraphStyle(
+        'Heading1Custom',
+        parent=styles['Heading1'],
+        fontName='Times-Bold',  # Police pour Heading1
+        fontSize=16,
+        spaceAfter=12
+    )
+    
+    heading2_style = ParagraphStyle(
+        'Heading2Custom',
+        parent=styles['Heading2'],
+        fontName='Times-Bold',  # Police pour Heading2
+        fontSize=14,
+        spaceAfter=10
+    )
+    
+    heading3_style = ParagraphStyle(
+        'Heading3Custom',
+        parent=styles['Heading3'],
+        fontName='Times-Roman',  # Police pour Heading3
+        fontSize=12,
+        spaceAfter=8
+    )
+                                  
     styles = getSampleStyleSheet()
     title_style = styles['Title']
-    subtitle2_style = styles['Heading2']
-    subtitle3_style = styles['Heading3']
-    subtitle4_style = styles['Heading4']
+    # subtitle2_style = styles['Heading2']
+    # subtitle3_style = styles['Heading3']
+    # subtitle4_style = styles['Heading4']
+    subtitle2_style = heading1_style
+    subtitle3_style = heading2_style
+    subtitle4_style = heading3_style
     
 
     normal_style = ParagraphStyle(

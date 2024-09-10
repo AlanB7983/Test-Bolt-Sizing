@@ -1090,7 +1090,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         image_B3A_formules.drawWidth = image_width
         elements.append(image_B3A_formules)
 
-   if Study_Case == "B3_C" :
+    if Study_Case == "B3_C" :
         image_B3C_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B3-C_formules.png"
         image_width = page_width - 2.16 * inch
         image_B3C_formules = Image(image_B3C_formules_path)

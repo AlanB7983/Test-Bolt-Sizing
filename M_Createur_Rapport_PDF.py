@@ -902,7 +902,28 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
             image_B1AC_h_inf_08d.drawHeight = image_width * image_B1AC_h_inf_08d.drawHeight / image_B1AC_h_inf_08d.drawWidth
             image_B1AC_h_inf_08d.drawWidth = image_width
             elements.append(image_B1AC_h_inf_08d)
+
                                   
+    if Study_Case == "B1_D" :
+        # Charger une image
+        image_B1D_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-D_generaux.png"
+        image_width = page_width - 2.16 * inch
+        image_B1D = Image(image_B1D_path)
+        image_B1D.drawHeight = image_width * image_B1D.drawHeight / image_B1D.drawWidth
+        image_B1D.drawWidth = image_width
+        elements.append(image_B1D)
+        
+        if str(bolt_type) == "Vis" or str(bolt_type) == "Goujon" :
+            # Charger une image
+            image_B1D_vis_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-D_vis-goujon.png"
+            image_width = page_width - 2.16 * inch
+            image_B1D_vis = Image(image_B1D_vis_path)
+            image_B1D_vis.drawHeight = image_width * image_B1D_vis.drawHeight / image_B1D_vis.drawWidth
+            image_B1D_vis.drawWidth = image_width
+            elements.append(image_B1D)
+
+
+        
     if Study_Case == "B3_A" :
         # Charger une image
         image_B3A_path = "Pictures/B3A_2.png"
@@ -1013,15 +1034,83 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(PageBreak())                              
     subsubtitle_7 = Paragraph("Calcul des contraintes", subtitle3_style)
     elements.append(subsubtitle_7)    
+
+    if Study_Case == "B1_A" or Study_Case == "B1_C" :                              
+        image_B1AC_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_formules.png"
+        image_width = page_width - 2.5 * inch
+        image_B1AC_formules = Image(image_B1AC_formules_path)
+        image_B1AC_formules.drawHeight = image_width * image_B1AC_formules.drawHeight / image_B1AC_formules.drawWidth
+        image_B1AC_formules.drawWidth = image_width
+        elements.append(image_B1AC_formules)
+    
+    if Study_Case == "B1_D" :
+        image_B1D_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-D_formules.png"
+        image_width = page_width - 2.16 * inch
+        image_B1D_formules = Image(image_B1D_formules_path)
+        image_B1D_formules.drawHeight = image_width * image_B1D_formules.drawHeight / image_B1D_formules.drawWidth
+        image_B1D_formules.drawWidth = image_width
+        elements.append(image_B1D_formules)
+        
+    if Study_Case == "B2_A" :
+        image_B2A_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B2-A_formules.png"
+        image_width = page_width - 2.16 * inch
+        image_B2A_formules = Image(image_B2A_formules_path)
+        image_B2A_formules.drawHeight = image_width * image_B2A_formules.drawHeight / image_B2A_formules.drawWidth
+        image_B2A_formules.drawWidth = image_width
+        elements.append(image_B2A_formules)
+
+    if Study_Case == "B2_C" :
+        image_B2C_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B2-C_formules.png"
+        image_width = page_width - 2.16 * inch
+        image_B2C_formules = Image(image_B2C_formules_path)
+        image_B2C_formules.drawHeight = image_width * image_B2C_formules.drawHeight / image_B2C_formules.drawWidth
+        image_B2C_formules.drawWidth = image_width
+        elements.append(image_B2C_formules)
                                   
-    image_B1AC_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_formules.png"
-    image_width = page_width - 2.5 * inch
-    image_B1AC_formules = Image(image_B1AC_formules_path)
-    image_B1AC_formules.drawHeight = image_width * image_B1AC_formules.drawHeight / image_B1AC_formules.drawWidth
-    image_B1AC_formules.drawWidth = image_width
-    elements.append(image_B1AC_formules)
+    if Study_Case == "B2_D" :
+        image_B2D_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B2-D_formules.png"
+        image_width = page_width - 2.16 * inch
+        image_B2D_formules = Image(image_B2D_formules_path)
+        image_B2D_formules.drawHeight = image_width * image_B2D_formules.drawHeight / image_B2D_formules.drawWidth
+        image_B2D_formules.drawWidth = image_width
+        elements.append(image_B2D_formules)
+
+    if Study_Case == "B3_A" :
+        image_B3A_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B3-A_formules.png"
+        image_width = page_width - 2.16 * inch
+        image_B3A_formules = Image(image_B3A_formules_path)
+        image_B3A_formules.drawHeight = image_width * image_B3A_formules.drawHeight / image_B3A_formules.drawWidth
+        image_B3A_formules.drawWidth = image_width
+        elements.append(image_B3A_formules)
+
+   if Study_Case == "B3_C" :
+        image_B3C_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B3-C_formules.png"
+        image_width = page_width - 2.16 * inch
+        image_B3C_formules = Image(image_B3C_formules_path)
+        image_B3C_formules.drawHeight = image_width * image_B3C_formules.drawHeight / image_B3C_formules.drawWidth
+        image_B3C_formules.drawWidth = image_width
+        elements.append(image_B3A_formules)     
+
+    if Study_Case == "B3_D" :
+        if float(SuminB_T) >= 700 :
+            image_B3D_HR_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B3-D_formules-HR.png"
+            image_width = page_width - 2.16 * inch
+            image_B3D_HR_formules = Image(image_B3D_HR_formules_path)
+            image_B3D_HR_formules.drawHeight = image_width * image_B3D_HR_formules.drawHeight / image_B3D_HR_formules.drawWidth
+            image_B3D_HR_formules.drawWidth = image_width
+            elements.append(image_B3D_HR_formules) 
+        else :
+            image_B3D_NR_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B3-D_formules.png"
+            image_width = page_width - 2.16 * inch
+            image_B3D_NR_formules = Image(image_B3D_NR_formules_path)
+            image_B3D_NR_formules.drawHeight = image_width * image_B3D_NR_formules.drawHeight / image_B3D_NR_formules.drawWidth
+            image_B3D_NR_formules.drawWidth = image_width
+            elements.append(image_B3D_NR_formules) 
 
 
+                                  
+
+                                  
     # Génération du PDF
     doc.build(elements)
     

@@ -615,7 +615,7 @@ def calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, St
         else : # h >= 0.8*d
             # st.write("critere, cas 2")
             if type_boulonnerie == 'Boulon' or type_boulonnerie == 'Lacet' :
-                st.write("critère, cas 2.1")
+                # st.write("critère, cas 2.1")
                 critere_1 = SmB_T                                   #(sigma_m)f
                 critere_2 = 2*SmB_T                                 #sigma_m
                 critere_3 = 3*SmB_T                                 #sigma_m+b

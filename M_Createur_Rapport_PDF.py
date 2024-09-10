@@ -436,7 +436,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         'BodyTextCustom',
         parent=styles['BodyText'],
         fontSize = 9,  # Set the desired font size
-        alignment=1  # Centré
+        alignment=1,  # Centré
         fontName = 'Times-Roman',
     )
                                   

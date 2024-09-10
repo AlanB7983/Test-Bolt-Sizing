@@ -902,6 +902,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
             image_B1AC_h_inf_08d_1.drawHeight = image_width * image_B1AC_h_inf_08d_1.drawHeight / image_B1AC_h_inf_08d_1.drawWidth
             image_B1AC_h_inf_08d_1.drawWidth = image_width
             elements.append(image_B1AC_h_inf_08d_1)
+            elements.append(Spacer(1, 10))  # Ajouter un espace après le texte
             image_B1AC_h_inf_08d_2_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_h inf 08d-2.png"
             image_width = page_width - 2.16 * inch
             image_B1AC_h_inf_08d_2 = Image(image_B1AC_h_inf_08d_2_path)

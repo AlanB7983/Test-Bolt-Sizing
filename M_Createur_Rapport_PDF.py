@@ -1015,7 +1015,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(subsubtitle_7)    
                                   
     image_B1AC_formules_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_formules.png"
-    image_width = page_width - 2.4 * inch
+    image_width = page_width - 2.5 * inch
     image_B1AC_formules = Image(image_B1AC_formules_path)
     image_B1AC_formules.drawHeight = image_width * image_B1AC_formules.drawHeight / image_B1AC_formules.drawWidth
     image_B1AC_formules.drawWidth = image_width

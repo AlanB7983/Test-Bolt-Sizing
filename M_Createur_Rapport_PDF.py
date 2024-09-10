@@ -959,9 +959,9 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     marge_min = 10.0
     text = Paragraph("Le dimensionnement des liaisons boulonnées étudiées est validé avec une marge minimale de " + str(marge_min) + " %", conclusion_style)
     elements.append(text)
-    text = Paragraph(str(tableau_bilan_marge[1][2]), normal-style)
+    text = Paragraph(str(tableau_bilan_marge[1][2]), normal_style)
     elements.append(text)                              
-    text = Paragraph(str(type(tableau_bilan_marge[1][2])), normal-style)
+    text = Paragraph(str(type(tableau_bilan_marge[1][2])), normal_style)
     elements.append(text)
 
     # Génération du PDF

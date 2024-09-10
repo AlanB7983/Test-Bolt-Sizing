@@ -1007,13 +1007,13 @@ def page_RCCMRx() :
         
     with col3:
         if type_boulonnerie == "Vis" :
-            st.image("Pictures/Vis_Dimensions.png", use_column_width=True)
+            st.image("Pictures/RCC-MRx_Vis.PNG", use_column_width=True)
         elif type_boulonnerie == "Boulon" :
-            st.image("Pictures/Boulon_Dimensions.png", use_column_width=True)
+            st.image("Pictures/RCC-MRx_Boulon.PNG", use_column_width=True)
         elif type_boulonnerie == "Goujon" :
-            st.image("Pictures/Goujon_Dimensions.png", use_column_width=True)
+            st.image("Pictures/RCC-MRx_Goujon.PNG", use_column_width=True)
         elif type_boulonnerie == "Lacet" :
-            st.image("Pictures/Lacet_Dimensions.png", use_column_width=True)
+            st.image("Pictures/RCC-MRx_Lacet.PNG", use_column_width=True)
         
     d = float(d) if d else 1.0
     p = float(p) if p else 1.0

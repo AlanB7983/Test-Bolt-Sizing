@@ -432,7 +432,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         fontName='Times-Bold',  # Police pour Heading2
         fontSize=14,
         spaceAfter=10,
-        spaceBefore=5
+        spaceBefore=50
     )
     
     heading4_style = ParagraphStyle(
@@ -441,7 +441,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         fontName='Times-Bold',  # Police pour Heading3
         fontSize=12,
         spaceAfter=8,
-        spaceBefore=10
+        spaceBefore=100
     )
                                   
 

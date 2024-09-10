@@ -656,6 +656,7 @@ def calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, St
                         critere_4bis = 0.3*Sm_T                             #(tau_th_p)f ou (tau_f_p)f
                         critere_8 = 1.2*SmB_T                               #tau_th_v ou tau_f_v
                         critere_8bis = 0.6*Sm_T                             #tau_th_p ou tau_f_p
+                        L_Criteres = [critere_1, critere_2, critere_3, critere_4, critere_4bis, critere_8, critere_8bis]
                     
                 
                 

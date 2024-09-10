@@ -857,7 +857,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     # Saut de page
     elements.append(PageBreak())
                                   
-    subtitle_2 = Paragraph("CRITERES A VERIFIER", subtitle2_style)
+    subtitle_2 = Paragraph("CRITÈRES À VÉRIFIER", subtitle2_style)
     elements.append(subtitle_2)
     elements.append(Spacer(1, 8))  # Ajouter un espace après le texte
         

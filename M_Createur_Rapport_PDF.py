@@ -759,7 +759,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(text)
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
 
-    Entete_T_Results_Ansys_Bilan = ["Numéro Boulon", "Ne [N]", "Nb [N]", "Te [N]", "Tb [N]", "Me [Nmm]", "Mb [Nmm]", "Cr [Nmm]", "Ct [Nmm]", "F<sub>0</sub> [N]"]
+    Entete_T_Results_Ansys_Bilan = ["Numéro Boulon", "Ne [N]", "Nb [N]", "Te [N]", "Tb [N]", "Me [Nmm]", "Mb [Nmm]", "Cr [Nmm]", "Ct [Nmm]", "F0 [N]"]
     T_Results_Ansys_Bilan.insert(0, Entete_T_Results_Ansys_Bilan)
     table_results_ansys_bilan = Table(T_Results_Ansys_Bilan)
     table_results_ansys_bilan.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),

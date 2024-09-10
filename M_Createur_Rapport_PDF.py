@@ -928,7 +928,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
             image_B1D_vis = Image(image_B1D_vis_path)
             image_B1D_vis.drawHeight = image_width * image_B1D_vis.drawHeight / image_B1D_vis.drawWidth
             image_B1D_vis.drawWidth = image_width
-            elements.append(image_B1D)
+            elements.append(image_B1D_vis)
 
 
         

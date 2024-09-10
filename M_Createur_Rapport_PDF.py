@@ -577,10 +577,11 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     # Matériau
     subsubsubtitle_3 = Paragraph("- Matériau", subtitle4_style)
     elements.append(subsubsubtitle_3)
-    text = Paragraph("L'élément de serrage étudié est en " + str() + ". Les propriétés mécaniques utilisées, évaluées selon la température de calcul, sont présentées dans le Tableau 2 suivant.", normal_style)
+    bolt_material_data = [df_Bolt_Material_Data.columns.tolist()] + df_Bolt_Material_Data.values.tolist()
+    bolt_material = bolt_material_data[1][0]
+    text = Paragraph("L'élément de serrage étudié est en " + str(bolt_material) + ". Les propriétés mécaniques utilisées, évaluées selon la température de calcul, sont présentées dans le Tableau 2 suivant.", normal_style)
     elements.append(text)
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
-    bolt_material_data = [df_Bolt_Material_Data.columns.tolist()] + df_Bolt_Material_Data.values.tolist()
     table_bolt_material_data = Table(bolt_material_data)
     table_bolt_material_data.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
                                ('FONTSIZE', (0, 0), (-1, -1), 8),
@@ -602,7 +603,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(text)   
     
     list_prop_mat_bolt_def = ["S<sub>mB</sub> la contrainte admissible de l'élément de serrage pour les matériels de niveau N1<sub>Rx</sub> et N2<sub>Rx</sub>", "(R<sub>p0.2</sub>)<sub>min,B</sub> la limite d'élasticité minimle à 0,2 % de l'élément de serrage à la température T", "(R<sub>m</sub>)<sub>min,B</sub> la résistance à la traction minimale de l'élément de serrage à la température T"]
-    list_prop_mat_bolt_def_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_prop_mat_bolt_def], bulletType='bullet', leftIndent=20)  # Type de puce ('bullet' pour une puce classique))
+    list_prop_mat_bolt_def_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_prop_mat_bolt_def], bulletType='bullet', firstLineIndent=20)  # Type de puce ('bullet' pour une puce classique))
     elements.append(list_prop_mat_bolt_def_flowable)
 
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
@@ -875,11 +876,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         image_B1AC.drawWidth = image_width
         elements.append(image_B1AC)
         if h >= 0.8*d :
-            text = Paragraph("h >= 0.8*d", normal_style)
-            elements.append(text)
             if str(bolt_type) == "Vis" or str(bolt_type) == "Goujon" :
-                text = Paragraph("Vis ou goujon", normal_style)
-                elements.append(text)
                 if float(SyminP_T) < float(SyminB_T) :
                     text = Paragraph("SyminP_T < SyminB_T", normal_style)
                     elements.append(text)
@@ -890,11 +887,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                     image_B1AC_h_sup_08d_2.drawWidth = image_width
                     elements.append(image_B1AC_h_sup_08d_2)
                 else :
-                    text = Paragraph("SyminP_T >= SyminB_T", normal_style)
-                    elements.append(text)
                     if Le < 0.8*d :
-                        text = Paragraph("Le < 0.8*d", normal_style)
-                        elements.append(text)
                         image_B1AC_h_sup_08d_1_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_h sup 08d-1.png"
                         image_width = page_width - 2.16 * inch
                         image_B1AC_h_sup_08d_1 = Image(image_B1AC_h_sup_08d_1_path)
@@ -903,8 +896,6 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                         elements.append(image_B1AC_h_sup_08d_1)
                     
         else :
-            text = Paragraph("h < 0.8*d", normal_style)
-            elements.append(text)
             image_B1AC_h_inf_08d_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_h inf 08d.png"
             image_width = page_width - 2.16 * inch
             image_B1AC_h_inf_08d = Image(image_B1AC_h_inf_08d_path)

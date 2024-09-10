@@ -414,7 +414,8 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements = []
     page_width = letter[0] # Largeur de la page
                                   
-
+    styles = getSampleStyleSheet()
+    title_style = styles['Title']
 
     # Styles de texte
     heading1_style = ParagraphStyle(
@@ -441,8 +442,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         spaceAfter=8
     )
                                   
-    styles = getSampleStyleSheet()
-    title_style = styles['Title']
+
     # subtitle2_style = styles['Heading2']
     # subtitle3_style = styles['Heading3']
     # subtitle4_style = styles['Heading4']

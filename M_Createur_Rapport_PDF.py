@@ -948,7 +948,8 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     
     
-    
+    text = Paragraph("**Le dimensionnement des liaisons boulonnées étudiées est validé avec une marge minimale de **" + str(marge_min) + " *%*", normal_style)
+    elements.append(text)                              
     
 
     # Génération du PDF

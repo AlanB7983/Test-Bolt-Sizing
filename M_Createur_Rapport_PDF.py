@@ -878,6 +878,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         if h >= 0.8*d :
             if str(bolt_type) == "Vis" or str(bolt_type) == "Goujon" :
                 if float(SyminP_T) < float(SyminB_T) :
+                    elements.append(Spacer(1, 10))  # Ajouter un espace après le texte
                     text = Paragraph("SyminP_T < SyminB_T", normal_style)
                     elements.append(text)
                     image_B1AC_h_sup_08d_2_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_h sup 08d-2.png"
@@ -888,6 +889,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                     elements.append(image_B1AC_h_sup_08d_2)
                 else :
                     if Le < 0.8*d :
+                        elements.append(Spacer(1, 10))  # Ajouter un espace après le texte
                         image_B1AC_h_sup_08d_1_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-AC_h sup 08d-1.png"
                         image_width = page_width - 2.16 * inch
                         image_B1AC_h_sup_08d_1 = Image(image_B1AC_h_sup_08d_1_path)
@@ -922,6 +924,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(image_B1D)
         
         if str(bolt_type) == "Vis" or str(bolt_type) == "Goujon" :
+            elements.append(Spacer(1, 10))  # Ajouter un espace après le texte
             # Charger une image
             image_B1D_vis_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B1-D_vis-goujon.png"
             image_width = page_width - 2.16 * inch
@@ -939,17 +942,6 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         image_B3A = Image(image_B3A_path)
         image_B3A.drawHeight = image_width * image_B3A.drawHeight / image_B3A.drawWidth
         image_B3A.drawWidth = image_width
-        
-        #image_B3A_path = "Pictures/B3A.png"
-        #aspect_ratio = PILImage.open(image_B3A_path).width/PILImage.open(image_B3A_path).height
-        #image_width = page_width/3
-        #image_height = image_width/aspect_ratio
-        
-        # Charger une image
-        #image_B3A = Image(image_B3A_path)
-        #image_B3A.drawHeight = image_height
-        #image_B3A.drawWidth = image_width
-
         elements.append(image_B3A)
         
 

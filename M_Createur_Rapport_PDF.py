@@ -569,11 +569,12 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     # Convertir le DataFrame en une liste de listes
     bolt_geom_data = [df_bolt_geom_data_full.columns.tolist()] + df_bolt_geom_data_full.values.tolist()
+    bolt_geom_data.append(["Hauteur de l'écrou", "h", str(h), "[mm]"])
     
     # On ajoute les valeurs de e et L si elles sont fournies
     if "B3" in Study_Case :
         bolt_geom_data.append(["Entraxe ou distance de l'axe des éléments de serrage au bord \n de la pièce assemblée dans la direction de l'effort", "L", str(L), "[mm]"])
-        bolt_geom_data.append(["Epaisseur de la pièce assemblée", "e", str(e), "[mm]"])
+        bolt_geom_data.append(["Epaisseur de la pièce assemblée", "t", str(e), "[mm]"])
 
                                   
     table_bolt_geom_data = Table(bolt_geom_data)
@@ -806,7 +807,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         text = Paragraph("Les données complémentaires permettant de calculer les contraintes à vérifier sont :", normal_style)
         elements.append(text)
         
-        list_B3 = ["L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort : L = " + str(L) + " mm", "L’épaisseur de la pièce assemblée : e = " + str(e) + " mm"]
+        list_B3 = ["L’entraxe ou la distance de l’axe des éléments de serrage au bord de la pièce assemblée dans la direction de l’effort : L = " + str(L) + " mm", "L’épaisseur de la pièce assemblée : t = " + str(e) + " mm"]
         list_B3_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_B3], bulletType='bullet', bulletIndent=20)  # Type de puce ('bullet' pour une puce classique)
         elements.append(list_B3_flowable)
                                         

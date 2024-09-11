@@ -1074,7 +1074,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     text = Paragraph("L’évaluation des contraintes subies par la liaison boulonnée et des critères dimensionnants permet d’obtenir pour chacun des éléments de serrage les valeurs et marges suivantes", normal_style)
     elements.append(text)
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
-                                  
+    num_tableau = 5                              
     marge_min = 100.0
     for i in range(0, len(L_marge_full)) :
         tableau_bilan_marge = Table(L_marge_full[i])
@@ -1097,9 +1097,10 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                                    ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
                                    ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
         elements.append(tableau_bilan_marge)
-        legend = Paragraph("Tableau 5 : Bilan des critères et marges associées pour la liaison boulonnée " + str(i+1), legend_style)
+        legend = Paragraph("Tableau " + str(num_tableau)  " : Bilan des critères et marges associées pour la liaison boulonnée " + str(i+1), legend_style)
         elements.append(legend)
         elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
+        num_tableau = num_tableau + 1
 
     if marge_min >= 0.0 :                              
         text = Paragraph("Le dimensionnement des liaisons boulonnées étudiées est validé avec une marge minimale de " + str(marge_min) + " %", conclusion_style)

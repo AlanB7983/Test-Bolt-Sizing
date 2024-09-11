@@ -1510,7 +1510,7 @@ def page_RCCMRx() :
     # L_Donnees_Geo_Boulonnerie_Full = L_Valeur + [d1, d2, d3, D, round(float(L_prime),2), Dm, a_prime, Dp_prime] 
     
     L_Designation_full = L_Designation + ["Diamètre au sommet d'écrou", "Diamètre à flan de filet", "Diamètre à fond de filet (du noyau)", "Diamètre intérieur du taraudage", "Longueur pour le calcul au cisaillement", "Diamètre moyen sous tête", "Diamètre sur plat de la tête si rondelle", "Diamètre de perçage si rondelle"]
-    L_Symbole_full = L_Symbole + ["d1", "df", "dn", "D", "L'", "Dm", "a'", "Dp'"]
+    L_Symbole_full = L_Symbole + ["d1", "df", "dn", "D", "Le'", "Dm", "a'", "Dp'"]
     L_Unite_full = L_Unite + ["[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]"]
     
     # Création d'un dictionnaire

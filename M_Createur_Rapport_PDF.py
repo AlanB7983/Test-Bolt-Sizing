@@ -34,7 +34,7 @@ def header_footer(canvas, doc):
 
     # Ajouter le logo en haut à gauche 
     logo_path = "Pictures/logo-blanc.PNG"  # Le chemin vers votre logo
-    canvas.drawImage(logo_path, 1 * inch, 9.8 * inch, width=1.1 * inch, height=1.1 * inch, preserveAspectRatio=True)
+    canvas.drawImage(logo_path, 1 * inch, 9.9 * inch, width=1.1 * inch, height=1.1 * inch, preserveAspectRatio=True)
     
     # Dessiner le pied de page avec le numéro de page
     canvas.drawString(7.2 * inch, 0.75 * inch, f"Page {doc.page}")

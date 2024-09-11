@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
+import datetime
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image, PageBreak, ListFlowable, ListItem
@@ -20,10 +20,18 @@ from PIL import Image as PILImage
 
 
 def header_footer(canvas, doc):
+    # Récupérer la date du jour
+    date = datetime.datetime.now()
+    year = date.strftime("%Y")
+    month = date.strftime("%m")
+    day = date.strftime("%d")
+    full_date = str(day) + "/" + str(month) + "/" + str(year)
+    
     # Dessiner l'en-tête
     canvas.saveState()
     canvas.setFont('Times-Roman', 10)
     canvas.drawString(1 * inch, 10.5 * inch, "Document powered by G-MET Technologies")
+    canvas.drawString(10 * inch, 10.5 * inch, full_date)
     
     # Dessiner le pied de page avec le numéro de page
     canvas.drawString(1 * inch, 0.75 * inch, f"Page {doc.page}")

@@ -30,7 +30,7 @@ def header_footer(canvas, doc):
     # Dessiner l'en-tête
     canvas.saveState()
     canvas.setFont('Times-Roman', 10)
-    canvas.drawString(7 * inch, 10.5 * inch, full_date)
+    canvas.drawString(6.9 * inch, 10.5 * inch, full_date)
 
     # Ajouter le logo en haut à gauche 
     logo_path = "Pictures/logo-blanc.PNG"  # Le chemin vers votre logo

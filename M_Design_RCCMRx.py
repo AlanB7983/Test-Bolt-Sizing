@@ -1387,7 +1387,7 @@ def page_RCCMRx() :
         st.write("\n")
         
         st.write("Epaisseur de la pièce.")
-        e = st.text_input("$e [mm]$ :", placeholder = "0.0")
+        e = st.text_input("$t [mm]$ :", placeholder = "0.0")
         e = float(e) if e else 1.0
         
         # Traitement des résultats Ansys

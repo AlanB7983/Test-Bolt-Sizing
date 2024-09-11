@@ -954,16 +954,106 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
             image_B1D_vis.drawWidth = image_width
             elements.append(image_B1D_vis)
 
+    if Study_Case == "B2_A" :
+        # Charger une image
+        image_B2A_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B2-A_generaux.png"
+        image_width = page_width - 2.16 * inch
+        image_B2A = Image(image_B2A_path)
+        image_B2A.drawHeight = image_width * image_B2A.drawHeight / image_B2A.drawWidth
+        image_B2A.drawWidth = image_width
+        elements.append(image_B2A)
+        
+        if str(bolt_type) == "Vis" or str(bolt_type) == "Goujon" :
+            elements.append(Spacer(1, 10))  # Ajouter un espace après le texte
+            # Charger une image
+            image_B2A_vis_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B2-A_vis-goujon.png"
+            image_width = page_width - 2.16 * inch
+            image_B2A_vis = Image(image_B2A_vis_path)
+            image_B2A_vis.drawHeight = image_width * image_B2A_vis.drawHeight / image_B2A_vis.drawWidth
+            image_B2A_vis.drawWidth = image_width
+            elements.append(image_B2A_vis)
 
+    if Study_Case == "B2_C" :
+        if float(SuminB_T) >= 700 :
+            # Charger une image
+            image_B2C_HR_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B2-C_HR_generaux.png"
+            image_width = page_width - 2.16 * inch
+            image_B2C_HR = Image(image_B2C_HR_path)
+            image_B2C_HR.drawHeight = image_width * image_B2C_HR.drawHeight / image_B2C_HR.drawWidth
+            image_B2C_HR.drawWidth = image_width
+            elements.append(image_B2C_HR)
+            if str(bolt_type) == "Vis" or str(bolt_type) == "Goujon" :
+                elements.append(Spacer(1, 10))  # Ajouter un espace après le texte
+                # Charger une image
+                image_B2C_HR_vis_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B2-C_HR-et-vis-goujon.png"
+                image_width = page_width - 2.16 * inch
+                image_B2C_HR_vis = Image(image_B2C_HR_vis_path)
+                image_B2C_HR_vis.drawHeight = image_width * image_B2C_HR_vis.drawHeight / image_B2C_HR_vis.drawWidth
+                image_B2C_HR_vis.drawWidth = image_width
+                elements.append(image_B2C_HR_vis)      
+        else :
+            # Charger une image
+            image_B2C_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B2-C_generaux.png"
+            image_width = page_width - 2.16 * inch
+            image_B2C = Image(image_B2C_path)
+            image_B2C.drawHeight = image_width * image_B2C.drawHeight / image_B2C.drawWidth
+            image_B2C.drawWidth = image_width
+            elements.append(image_B2C)
+        
+                            
+    if Study_Case == "B2_D" :
+        if float(SuminB_T) >= 700 :
+            # Charger une image
+            image_B2D_HR_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B2-D_HR.png"
+            image_width = page_width - 2.16 * inch
+            image_B2D_HR = Image(image_B2D_HR_path)
+            image_B2D_HR.drawHeight = image_width * image_B2D_HR.drawHeight / image_B2D_HR.drawWidth
+            image_B2D_HR.drawWidth = image_width
+            elements.append(image_B2D_HR) 
+        else :
+            # Charger une image
+            image_B2D_generaux_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B2-D_classique.png"
+            image_width = page_width - 2.16 * inch
+            image_B2D_generaux = Image(image_B2D_generaux_path)
+            image_B2D_generaux.drawHeight = image_width * image_B2D_generaux.drawHeight / image_B2D_generaux.drawWidth
+            image_B2D_generaux.drawWidth = image_width
+            elements.append(image_B2D_generaux)                                       
         
     if Study_Case == "B3_A" :
         # Charger une image
-        image_B3A_path = "Pictures/B3A_2.png"
+        image_B3A_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B3-A.png"
         image_width = page_width - 2.16 * inch
         image_B3A = Image(image_B3A_path)
         image_B3A.drawHeight = image_width * image_B3A.drawHeight / image_B3A.drawWidth
         image_B3A.drawWidth = image_width
         elements.append(image_B3A)
+        
+    if Study_Case == "B3_C" :
+        # Charger une image
+        image_B3C_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B3-C.png"
+        image_width = page_width - 2.16 * inch
+        image_B3C = Image(image_B3C_path)
+        image_B3C.drawHeight = image_width * image_B3C.drawHeight / image_B3C.drawWidth
+        image_B3C.drawWidth = image_width
+        elements.append(image_B3C)
+
+    if Study_Case == "B3_D" :
+        if float(SuminB_T) >= 700 :
+            # Charger une image
+            image_B3D_HR_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B3-D_HR.png"
+            image_width = page_width - 2.16 * inch
+            image_B3D_HR = Image(image_B3D_HR_path)
+            image_B3D_HR.drawHeight = image_width * image_B3D_HR.drawHeight / image_B3D_HR.drawWidth
+            image_B3D_HR.drawWidth = image_width
+            elements.append(image_B3D_HR) 
+        else :
+            # Charger une image
+            image_B3D_generaux_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B3-D_generaux.png"
+            image_width = page_width - 2.16 * inch
+            image_B3D_generaux = Image(image_B3D_generaux_path)
+            image_B3D_generaux.drawHeight = image_width * image_B3D_generaux.drawHeight / image_B3D_generaux.drawWidth
+            image_B3D_generaux.drawWidth = image_width
+            elements.append(image_B3D_generaux)                                  
         
 
 

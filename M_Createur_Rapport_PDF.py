@@ -1208,7 +1208,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         image_B3C_formules = Image(image_B3C_formules_path)
         image_B3C_formules.drawHeight = image_width * image_B3C_formules.drawHeight / image_B3C_formules.drawWidth
         image_B3C_formules.drawWidth = image_width
-        elements.append(image_B3A_formules)     
+        elements.append(image_B3C_formules)     
 
     if Study_Case == "B3_D" :
         if float(SuminB_T) >= 700 :

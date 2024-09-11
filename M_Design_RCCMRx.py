@@ -1062,7 +1062,7 @@ def page_RCCMRx() :
     
     Dm = round(Dm, 2)    
     
-    L_Donnees_Geo_Boulonnerie_Full = L_Valeur + [d1, d2, d3, D, L_prime, Dm, a_prime, Dp_prime] 
+    L_Donnees_Geo_Boulonnerie_Full = L_Valeur + [d1, d2, d3, D, round(float(L_prime),2), Dm, a_prime, Dp_prime] 
 
     with st.expander("Détails sur les données géométriques à saisir") :
         # st.info("- $d$ : diamètre nominal\n- $p$ : pas\n- $l_l$ : longueur du fût lisse\n- $l_n$ : longueur du filetage non en prise avec les pièces assemblées\n- $a$ : Diamètre sur plat de la tête\n- $D_p$ : Diamètre de perçage\n- $l_{a1}$ : Longueur de la pièce assemblée 1\n- $l_{a2}$ : Longueur de la pièce assemblée 2\n- $l_{a3}$ : Longueur de la pièce assemblée 3") 

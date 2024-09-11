@@ -623,7 +623,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     text = Paragraph("avec", normal_style)
     elements.append(text)   
     
-    list_prop_mat_bolt_def = ["S<sub>mB</sub> la contrainte admissible de l'élément de serrage pour les matériels de niveau N1<sub>Rx</sub> et N2<sub>Rx</sub>", "(R<sub>p0.2</sub>)<sub>min,B</sub> la limite d'élasticité minimle à 0,2 % de l'élément de serrage à la température T", "(R<sub>m</sub>)<sub>min,B</sub> la résistance à la traction minimale de l'élément de serrage à la température T"]
+    list_prop_mat_bolt_def = ["S<sub>mB</sub> la contrainte admissible de l'élément de serrage pour les matériels de niveau N1<sub>Rx</sub> et N2<sub>Rx</sub>", "(R<sub>p0.2</sub>)<sub>min,B</sub> la limite d'élasticité minimale à 0,2 % de l'élément de serrage à la température T", "(R<sub>m</sub>)<sub>min,B</sub> la résistance à la traction minimale de l'élément de serrage à la température T"]
     list_prop_mat_bolt_def_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_prop_mat_bolt_def], bulletType='bullet', bulletIndent=20)  # Type de puce ('bullet' pour une puce classique))
     elements.append(list_prop_mat_bolt_def_flowable)
 
@@ -680,7 +680,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     text = Paragraph("avec", normal_style)
     elements.append(text)   
     
-    list_prop_mat_piece_def = ["S<sub>m</sub> la contrainte admissible des pièces assemblées pour les matériels de niveau N1<sub>Rx</sub> et N2<sub>Rx</sub>", "(R<sub>p0.2</sub>)<sub>min,P</sub> la limite d'élasticité minimle à 0,2 % des pièces assemblées à la température T", "(R<sub>m</sub>)<sub>min,P</sub> la résistance à la traction minimale des pièces assemblées à la température T"]
+    list_prop_mat_piece_def = ["S<sub>m</sub> la contrainte admissible des pièces assemblées pour les matériels de niveau N1<sub>Rx</sub> et N2<sub>Rx</sub>", "(R<sub>p0.2</sub>)<sub>min,P</sub> la limite d'élasticité minimale à 0,2 % des pièces assemblées à la température T", "(R<sub>m</sub>)<sub>min,P</sub> la résistance à la traction minimale des pièces assemblées à la température T"]
     list_prop_mat_piece_def_flowable = ListFlowable([ListItem(Paragraph(item, normal_style)) for item in list_prop_mat_piece_def], bulletType='bullet', bulletIndent=20)  # Type de puce ('bullet' pour une puce classique))
     elements.append(list_prop_mat_piece_def_flowable)
 

@@ -882,7 +882,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(subtitle_2)
     elements.append(Spacer(1, 8))  # Ajouter un espace après le texte
         
-    text = Paragraph("Les critères à vérifier dans cette étude sont de niveau "+ str(critere_selection) + ". Les hypothèses énoncées au paragraphe "Hypothèses de calcul" permettent de définir les critères dont la vérification est nécessaire. Ces critères sont les suivants.", normal_style)
+    text = Paragraph("Les critères à vérifier dans cette étude sont de niveau "+ str(critere_selection) + '. Les hypothèses énoncées au paragraphe "Hypothèses de calcul" permettent de définir les critères dont la vérification est nécessaire. Ces critères sont les suivants.', normal_style)
     elements.append(text)
 
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte

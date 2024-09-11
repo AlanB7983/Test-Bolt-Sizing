@@ -708,10 +708,10 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(list_B1_flowable)
         
         if F0_selection == "oui" :
-            text = Paragraph("Cet effort de précontrainte est pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
+            text = Paragraph("Cet effort de précontrainte est pris en compte dans les résultats des calculs ANSYS présentés ci-après.", normal_style)
             elements.append(text)
         else : 
-            text = Paragraph("Cet effort de précontrainte n’est pas pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
+            text = Paragraph("Cet effort de précontrainte n’est pas pris en compte dans les résultats des calculs ANSYS présentés ci-après.", normal_style)
             elements.append(text)
         
         if adherence_selection == "oui" :
@@ -776,10 +776,10 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         elements.append(list_B2_flowable)
                                         
         if F0_selection == "oui" :
-            text = Paragraph("Cet effort de précontrainte est pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
+            text = Paragraph("Cet effort de précontrainte est pris en compte dans les résultats des calculs ANSYS présentés ci-après.", normal_style)
             elements.append(text)
         else : 
-            text = Paragraph("Cet effort de précontrainte n’est pas pris en compte dans les calculs ANSYS présentés ci-dessus.", normal_style)
+            text = Paragraph("Cet effort de précontrainte n’est pas pris en compte dans les résultats des calculs ANSYS présentés ci-après.", normal_style)
             elements.append(text)
         
         if adherence_selection == "oui" :

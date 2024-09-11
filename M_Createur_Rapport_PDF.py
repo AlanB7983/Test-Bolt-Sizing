@@ -553,10 +553,10 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     elements.append(subsubsubtitle_1)
 
     if str(bolt_type) == "Vis" :                                  
-        text = Paragraph("L'élément de serrage étudié est une " + str(bolt_type) + " et est supposée normalisée", normal_style)
+        text = Paragraph("L'élément de serrage étudié est une " + str(bolt_type.lower()) + " et est supposée normalisée.", normal_style)
         elements.append(text)
     else :
-        text = Paragraph("L'élément de serrage étudié est un " + str(bolt_type) + " et est supposé normalisé", normal_style)
+        text = Paragraph("L'élément de serrage étudié est un " + str(bolt_type.lower()) + " et est supposé normalisé.", normal_style)
         elements.append(text)
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     
@@ -631,10 +631,10 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     
     # Acier austhénitique
     if B_acier_aust :
-        text = Paragraph("Il s'agit d'un acier austhénitique", normal_style)
+        text = Paragraph("Il s'agit d'un acier austénitique.", normal_style)
         elements.append(text)
     else :
-        text = Paragraph("Il ne s'agit pas d'un acier austhénitique", normal_style)
+        text = Paragraph("Il ne s'agit pas d'un acier austénitique.", normal_style)
         elements.append(text)
     
     # Boulonnerie Haute Résistance
@@ -642,7 +642,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
         text = Paragraph("La valeur de (R<sub>m</sub>)<sub>min,B</sub> est supérieure ou égale à 700 MPa, il s'agit d'une boulonnerie haute résistance.", normal_style)
         elements.append(text)
     else : 
-        text = Paragraph("La valeur de (R<sub>m</sub>)<sub>min,B</sub> est inférieure à 700 MPa, il s'agit d'une boulonnerie à résistance normale.", normal_style)
+        text = Paragraph("La valeur de (R<sub>m</sub>)<sub>min,B</sub> est inférieure à 700 MPa, il s'agit d'une boulonnerie normale.", normal_style)
         elements.append(text)
 
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte

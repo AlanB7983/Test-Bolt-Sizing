@@ -1555,6 +1555,9 @@ def page_RCCMRx() :
     
     # Proposer le téléchargement
     file_name = st.text_input("Nom du fichier PDF", placeholder="Rapport.pdf")
+    if ".pdf" not in file_name :
+        file_name = file_name + ".pdf"
+        
     st.download_button(
       label="Télécharger le rapport PDF",
       data=pdf_buffer,

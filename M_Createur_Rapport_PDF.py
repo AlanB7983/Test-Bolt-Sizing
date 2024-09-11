@@ -30,11 +30,11 @@ def header_footer(canvas, doc):
     # Dessiner l'en-tête
     canvas.saveState()
     canvas.setFont('Times-Roman', 10)
-    canvas.drawString(1 * inch, 10.5 * inch, "Document powered by G-MET Technologies")
     canvas.drawString(7 * inch, 10.5 * inch, full_date)
     
     # Dessiner le pied de page avec le numéro de page
-    canvas.drawString(1 * inch, 0.75 * inch, f"Page {doc.page}")
+    canvas.drawString(7.2 * inch, 0.75 * inch, f"Page {doc.page}")
+    canvas.drawString(3 * inch, 10.5 * inch, "Document powered by G-MET Technologies")
     canvas.restoreState()
 
 

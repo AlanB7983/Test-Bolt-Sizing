@@ -917,6 +917,7 @@ def page_RCCMRx() :
 
     # Variables
     liste_material = ["304L SS", "316L SS", "660 SS", "Acier Classe 6-8", "Alloy 718", "316L", "A4L-80", "A4L-70", "A2L-80", "A2L-70"]
+    L_Acier_Aust = ["A2L-70", "A2L-80", "A4L-70", "A4L-80"]
       
     # Titre de l'application
     st.title("Dimensionnement de la boulonnerie selon le RCC-MRx")
@@ -1490,7 +1491,10 @@ def page_RCCMRx() :
     for i in range (0, len(T_Results_Ansys_Bilan)) :
         # st.write("T_Results_Ansys_Bilan[i] : ", T_Results_Ansys_Bilan[i])
 
-        B_acier_aust = True # A compléter
+        if materiau_bolt in L_Acier_Aust :
+            B_acier_aust = True 
+        else :
+            B_acier_aust = False
         
         L_contraintes = calculer_contraintes(T_Results_Ansys_Bilan[i], L_Donnees_Geo_Boulonnerie_Full, e, Study_Case, h, SuminB_T, SyminB_T, SyminP_T, type_boulonnerie, B_acier_aust)
         

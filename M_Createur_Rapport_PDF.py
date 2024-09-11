@@ -8,7 +8,8 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.lib.enums import TA_JUSTIFY
-# from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
+
 
 
 
@@ -16,11 +17,19 @@ from io import BytesIO
 import pandas as pd
 from PIL import Image as PILImage
 
-# Enregistrer la police Times New Roman (remplacez le chemin par celui de votre fichier .ttf)
-# pdfmetrics.registerFont(TTFont('TimesNewRoman', 'TimesNewRoman.ttf'))
-# pdfmetrics.registerFont(TTFont('TimesNewRoman-Bold', 'TimesNewRoman-Bold.ttf'))
-# pdfmetrics.registerFont(TTFont('TimesNewRoman-Italic', 'TimesNewRoman-Italic.ttf'))
-# pdfmetrics.registerFont(TTFont('TimesNewRoman-BoldItalic', 'TimesNewRoman-BoldItalic.ttf'))
+
+
+def header_footer(canvas, doc):
+    # Dessiner l'en-tête
+    canvas.saveState()
+    canvas.setFont('Times-Roman', 10)
+    canvas.drawString(1 * inch, 10.5 * inch, "En-tête du document")
+    
+    # Dessiner le pied de page avec le numéro de page
+    canvas.drawString(1 * inch, 0.75 * inch, f"Page {doc.page}")
+    canvas.restoreState()
+
+
 
 def create_pdf_template(bolt_type, df_geom_data, image_bolt_type_path, bolt_material, df_assembly_part_data, F0, T0, check_thq, Tb, Ta, df_thermal_property_assembly_parts, Lambda, Nedecollement, L_Data_thq, df_results_with_thq, forces_evol_thq_graph_path, diagramme_chargement_thq_graph_path):
     buffer = BytesIO()
@@ -1119,7 +1128,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
 
                                   
     # Génération du PDF
-    doc.build(elements)
+    doc.build(elements, onFirstPage=header_footer, onLaterPages=header_footer)
     
     
     buffer.seek(0)

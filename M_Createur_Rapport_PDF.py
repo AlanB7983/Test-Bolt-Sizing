@@ -1097,7 +1097,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                                    ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
                                    ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
         elements.append(tableau_bilan_marge)
-        legend = Paragraph("Tableau " + str(num_tableau)  " : Bilan des critères et marges associées pour la liaison boulonnée " + str(i+1), legend_style)
+        legend = Paragraph("Tableau " + str(num_tableau) + " : Bilan des critères et marges associées pour la liaison boulonnée " + str(i+1), legend_style)
         elements.append(legend)
         elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
         num_tableau = num_tableau + 1

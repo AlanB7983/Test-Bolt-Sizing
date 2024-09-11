@@ -1558,6 +1558,6 @@ def page_RCCMRx() :
       mime="application/pdf" # utilisé pour spécifier le type de fichier que l'utilisateur peut télécharger. Ici, application/pdf signifie qu'il s'agit d'un document pdf
     )
 
-    if st.download_button :
-        st.success("PDF exporté avec succès")
+    # if st.download_button :
+    #     st.success("PDF exporté avec succès")
     

@@ -976,7 +976,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
     if Study_Case == "B2_C" :
         if float(SuminB_T) >= 700 :
             # Charger une image
-            image_B2C_HR_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B2-C_HR_generaux.png"
+            image_B2C_HR_path = "Pictures/RCC-MRx_Criteres_Formules/rcc_criteres-B2-C_HR.png"
             image_width = page_width - 2.16 * inch
             image_B2C_HR = Image(image_B2C_HR_path)
             image_B2C_HR.drawHeight = image_width * image_B2C_HR.drawHeight / image_B2C_HR.drawWidth

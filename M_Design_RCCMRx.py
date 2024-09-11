@@ -159,22 +159,22 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         # st.write("h < 0.8*d", h < 0.8*d)
         if h < 0.8*d : # h = 0.0 (ie: pas d'écrou) est compris dans ce cas. Il n'y a pas d'écrou, on vérifie tous les critères
             # st.write("contrainte, cas 1")
-            nom_contrainte_1 = "Contrainte equivalente fictive moyenne" #(sigma_m)f
+            nom_contrainte_1 = "Contrainte équivalente fictive moyenne" #(sigma_m)f
             contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl)) 
-            nom_contrainte_2 = "Contrainte equivalente moyenne" #sigma_m
+            nom_contrainte_2 = "Contrainte équivalente moyenne" #sigma_m
             contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
-            nom_contrainte_3 = "Contrainte equivalente maximale" #sigma_m+b
+            nom_contrainte_3 = "Contrainte équivalente maximale" #sigma_m+b
             contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
-            nom_contrainte_4 = "Contrainte de cisaillement fictive dans les filets de la vis" #(tau_th_v)f ou (tau_f_v)f
+            nom_contrainte_4 = "Contrainte fictive de cisaillement dans les filets de la vis" #(tau_th_v)f ou (tau_f_v)f
             contrainte_4 = calculate_tau_th(NbPL, MbPL, d2, L_prime)
             if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
-                nom_contrainte_4bis = "Contrainte de cisaillement fictive dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
+                nom_contrainte_4bis = "Contrainte fictive de cisaillement dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
                 contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
-            nom_contrainte_5 = "Contrainte de cisaillement fictive dans la tete de la vis" #(tau_t)f 
+            nom_contrainte_5 = "Contrainte fictive de cisaillement dans la tête de la vis" #(tau_t)f 
             contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, dl, H)
             nom_contrainte_6 = "Pression de contact fictive sur les filets" #(p_th)f ou (p_f)f
             contrainte_6 = calculate_p_th(NbPL, MbPL, p, d, D, Le)
-            nom_contrainte_7 = "Pression de contact fictive sur la tete de la vis" # (p_t)f 
+            nom_contrainte_7 = "Pression de contact fictive sur la tête de la vis" # (p_t)f 
             
             if rondelle == False : #S'il n'y a pas de rondelle
                 # st.write("contrainte, cas 1.1")
@@ -193,11 +193,11 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
             if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
                 nom_contrainte_8bis = "Contrainte de cisaillement dans les filets de la pièce" #tau_th_p ou tau_f_p
                 contrainte_8bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
-            nom_contrainte_9 = "Contrainte de cisaillement dans la tete de la vis" #tau_t
+            nom_contrainte_9 = "Contrainte de cisaillement dans la tête de la vis" #tau_t
             contrainte_9 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
             nom_contrainte_10 = "Pression de contact sur les filets" #p_th ou p_f
             contrainte_10 = calculate_p_th(NbAL, MbAL, p, d, D, Le)
-            nom_contrainte_11 = "Pression de contact sur la tete de la vis" #p_t
+            nom_contrainte_11 = "Pression de contact sur la tête de la vis" #p_t
     
             if rondelle == False : #S'il n'y a pas de rondelle
                 # st.write("contrainte, cas 1.3")
@@ -231,11 +231,11 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
             # st.write("critere, cas 2")
             if type_boulonnerie == 'Boulon' or type_boulonnerie == 'Lacet' :
                 # st.write("contraintes, cas 2.1")
-                nom_contrainte_1 = "Contrainte equivalente fictive moyenne" #(sigma_m)f
+                nom_contrainte_1 = "Contrainte équivalente fictive moyenne" #(sigma_m)f
                 contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl)) 
-                nom_contrainte_2 = "Contrainte equivalente moyenne" #sigma_m
+                nom_contrainte_2 = "Contrainte équivalente moyenne" #sigma_m
                 contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
-                nom_contrainte_3 = "Contrainte equivalente maximale" #sigma_m+b
+                nom_contrainte_3 = "Contrainte équivalente maximale" #sigma_m+b
                 contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
                 
                 L_Contraintes.append([nom_contrainte_1, contrainte_1])
@@ -246,13 +246,13 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
                 # st.write("contraintes, cas 2.2")
                 if SyminP_T < SyminB_T :
                     # st.write("contraintes, cas 2.2.1")
-                    nom_contrainte_1 = "Contrainte equivalente fictive moyenne" #(sigma_m)f
+                    nom_contrainte_1 = "Contrainte équivalente fictive moyenne" #(sigma_m)f
                     contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl)) 
-                    nom_contrainte_2 = "Contrainte equivalente moyenne" #sigma_m
+                    nom_contrainte_2 = "Contrainte équivalente moyenne" #sigma_m
                     contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
-                    nom_contrainte_3 = "Contrainte equivalente maximale" #sigma_m+b
+                    nom_contrainte_3 = "Contrainte équivalente maximale" #sigma_m+b
                     contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
-                    nom_contrainte_4bis = "Contrainte de cisaillement fictive dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
+                    nom_contrainte_4bis = "Contrainte fictive de cisaillement dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
                     contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
                     nom_contrainte_8bis = "Contrainte de cisaillement dans les filets de la pièce" #tau_th_p ou tau_f_p
                     contrainte_8bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
@@ -270,11 +270,11 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
                     # st.write("Le >= 0.8*d", Le >= 0.8*d)
                     if Le >= 0.8*d :
                         # st.write("contraintes, cas 2.2.2.1")
-                        nom_contrainte_1 = "Contrainte equivalente fictive moyenne" #(sigma_m)f
+                        nom_contrainte_1 = "Contrainte équivalente fictive moyenne" #(sigma_m)f
                         contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl)) 
-                        nom_contrainte_2 = "Contrainte equivalente moyenne" #sigma_m
+                        nom_contrainte_2 = "Contrainte équivalente moyenne" #sigma_m
                         contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
-                        nom_contrainte_3 = "Contrainte equivalente maximale" #sigma_m+b
+                        nom_contrainte_3 = "Contrainte équivalente maximale" #sigma_m+b
                         contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
                         
                         L_Contraintes.append([nom_contrainte_1, contrainte_1])
@@ -283,15 +283,15 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
                         
                     else : # Le < 0.8*d
                         # st.write("contraintes, cas 2.2.2.2")
-                        nom_contrainte_1 = "Contrainte equivalente fictive moyenne" #(sigma_m)f
+                        nom_contrainte_1 = "Contrainte équivalente fictive moyenne" #(sigma_m)f
                         contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl)) 
-                        nom_contrainte_2 = "Contrainte equivalente moyenne" #sigma_m
+                        nom_contrainte_2 = "Contrainte équivalente moyenne" #sigma_m
                         contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
-                        nom_contrainte_3 = "Contrainte equivalente maximale" #sigma_m+b
+                        nom_contrainte_3 = "Contrainte équivalente maximale" #sigma_m+b
                         contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
-                        nom_contrainte_4 = "Contrainte de cisaillement fictive dans les filets de la vis" #(tau_th_v)f ou (tau_f_v)f
+                        nom_contrainte_4 = "Contrainte fictive de cisaillement dans les filets de la vis" #(tau_th_v)f ou (tau_f_v)f
                         contrainte_4 = calculate_tau_th(NbPL, MbPL, d2, L_prime)
-                        nom_contrainte_4bis = "Contrainte de cisaillement fictive dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
+                        nom_contrainte_4bis = "Contrainte fictive de cisaillement dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
                         contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
                         nom_contrainte_8 = "Contrainte de cisaillement dans les filets de la vis" #tau_th_v ou tau_f_v
                         contrainte_8 = calculate_tau_th(NbAL, MbAL, d2, L_prime)

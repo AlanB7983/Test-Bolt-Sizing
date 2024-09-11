@@ -590,7 +590,7 @@ def create_rapport_pdf_rccmrx(bolt_type, df_bolt_geom_data_full, df_Bolt_Materia
                                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
     
     elements.append(table_bolt_geom_data)
-    legend = Paragraph("Tableau 1 : Données géométriques liées liées à l'élément de serrage", legend_style)
+    legend = Paragraph("Tableau 1 : Données géométriques liées à l'élément de serrage", legend_style)
     elements.append(legend)
     elements.append(Spacer(1, 12))  # Ajouter un espace après le texte
     

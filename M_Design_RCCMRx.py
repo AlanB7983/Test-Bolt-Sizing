@@ -316,13 +316,13 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         # st.write("calculer_contraintes : Cas B1_D")
         # st.write("contraintes, cas 3")
         
-        nom_contrainte_1 = "Contrainte equivalente moyenne" #sigma_m
+        nom_contrainte_1 = "Contrainte équivalente moyenne" #sigma_m
         contrainte_1 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
-        nom_contrainte_2 = "Contrainte equivalente maximale" #sigma_m+b
+        nom_contrainte_2 = "Contrainte équivalente maximale" #sigma_m+b
         contrainte_2 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
         nom_contrainte_3 = "Contrainte de cisaillement dans les filets de la vis"  #tau_th_v ou tau_f_v
         contrainte_3 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
-        nom_contrainte_4 = "Contrainte de cisaillement dans la tete de la vis"#tau_t
+        nom_contrainte_4 = "Contrainte de cisaillement dans la tête de la vis"#tau_t
         contrainte_4 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
         nom_contrainte_4bis = "Contrainte de cisaillement dans les filets de la pièce" #tau_th_p ou tau_f_p
         contrainte_4bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
@@ -344,19 +344,19 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         # st.write("calculer_contraintes : Cas B2_A")
         # st.write("contraites, cas 4")
         
-        nom_contrainte_1 = "Contrainte equivalente moyenne (chargements mecaniques)" #(sigma_m)f
+        nom_contrainte_1 = "Contrainte équivalente fictive moyenne" #(sigma_m)f
         contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl))
-        nom_contrainte_2 = "Contrainte equivalente moyenne" # sigma_m
+        nom_contrainte_2 = "Contrainte équivalente moyenne" # sigma_m
         contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
-        nom_contrainte_3 = "Contrainte equivalente maximale" # sigma_m+b
+        nom_contrainte_3 = "Contrainte équivalente maximale" # sigma_m+b
         contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
-        nom_contrainte_4 = "Contrainte de cisaillement dans les filets de la vis (chargements mecaniques)" #(tau_th_v)f ou (tau_f_v)f
+        nom_contrainte_4 = "Contrainte fictive de cisaillement dans les filets de la vis" #(tau_th_v)f ou (tau_f_v)f
         contrainte_4 = calculate_tau_th(NbPL, MbPL, d2, L_prime)
         if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
             # st.write("contraites, cas 4.1")
-            nom_contrainte_4bis = "Contrainte de cisaillement dans les filets de la pièce (chargements mecaniques)" #(tau_th_p)f ou (tau_f_p)f
+            nom_contrainte_4bis = "Contrainte fictive de cisaillement dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
             contrainte_4bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
-        nom_contrainte_5 = "Contrainte de cisaillement dans la tete de la vis (chargements mecaniques)" #(tau_h)f ou (tau_t)f
+        nom_contrainte_5 = "Contrainte fictive de cisaillement dans la tête de la vis" #(tau_h)f ou (tau_t)f
         contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, dl, H)
         nom_contrainte_6 = "Contrainte de cisaillement dans les filets de la vis"
         contrainte_6 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
@@ -364,9 +364,9 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
             # st.write("contraites, cas 4.2")
             nom_contrainte_6bis = "Contrainte de cisaillement dans les filets de la pièce"
             contrainte_6bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
-        nom_contrainte_7 = "Contrainte de cisaillement dans la tete de la vis"
+        nom_contrainte_7 = "Contrainte de cisaillement dans la tête de la vis"
         contrainte_7 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
-        nom_contrainte_8 = "Pression de contact sur la tete de la vis"
+        nom_contrainte_8 = "Pression de contact sur la tête de la vis"
         if rondelle == False : #S'il n'y a pas de rondelle
             # st.write("contraintes, cas 4.3")
    
@@ -404,9 +404,9 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
             # st.write("contrainte, cas 5.1")
             # st.write("Résistance Normale")
             
-            nom_contrainte_1 = "Contrainte equivalente moyenne (chargements mecaniques)"
+            nom_contrainte_1 = "Contrainte équivalente ficitve moyenne"
             contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl))
-            nom_contrainte_2 = "Contrainte equivalente maximale (chargements mecaniques)"
+            nom_contrainte_2 = "Contrainte équivalente fictive maximale"
             contrainte_2 = calculate_sigma_m_plus_b(NbPL, MbPL, TbPL, 0.0, min(d3, dl))
             
             L_Contraintes.append([nom_contrainte_1, contrainte_1])
@@ -417,29 +417,29 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
             # st.write("Haute Résistance")
             # st.write("contrainte, cas 5.2")
             
-            nom_contrainte_1 = "Contrainte equivalente moyenne (chargements mecaniques)"
+            nom_contrainte_1 = "Contrainte équivalente fictive moyenne"
             contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl))
-            nom_contrainte_2 = "Contrainte equivalente moyenne"
+            nom_contrainte_2 = "Contrainte équivalente moyenne"
             contrainte_2 = calculate_sigma_m(NbAL, TbAL, min(d3, dl))
-            nom_contrainte_3 = "Contrainte equivalente maximale"
+            nom_contrainte_3 = "Contrainte équivalente maximale"
             contrainte_3 = calculate_sigma_m_plus_b(NbAL, MbAL, TbAL, Cr, min(d3, dl))
-            nom_contrainte_4 = "Contrainte de cisaillement dans les filets de la vis (chargements mecaniques)"
+            nom_contrainte_4 = "Contrainte fictive de cisaillement dans les filets de la vis"
             contrainte_4 = calculate_tau_th(NbPL, MbPL, d2, L_prime)
-            nom_contrainte_5 = "Contrainte de cisaillement dans la tete de la vis (chargements mecaniques)"
+            nom_contrainte_5 = "Contrainte fictive de cisaillement dans la tête de la vis"
             contrainte_5 = calculate_tau_h(NbPL, MbPL, 0.0, d1, dl, H)
             if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
                 # st.write("contrainte, cas 5.2.1")
-                nom_contrainte_5bis = "Contrainte de cisaillement dans les filets de la pièce (chargements mecaniques)" #(tau_th_p)f ou (tau_f_p)f
+                nom_contrainte_5bis = "Contrainte fictive de cisaillement dans les filets de la pièce" #(tau_th_p)f ou (tau_f_p)f
                 contrainte_5bis = calculate_tau_th(NbPL, MbPL, d2, L_prime)
             nom_contrainte_6 = "Contrainte de cisaillement dans les filets de la vis"
             contrainte_6 = calculate_tau_th(NbAL, MbAL, d2, L_prime)
-            nom_contrainte_7 = "Contrainte de cisaillement dans la tete de la vis"
+            nom_contrainte_7 = "Contrainte de cisaillement dans la tête de la vis"
             contrainte_7 = calculate_tau_h(NbAL, MbAL, Ct, d1, dl, H)
             if type_boulonnerie == 'Vis' or type_boulonnerie == 'Goujon' :
                 # st.write("contrainte, cas 5.2.2")
                 nom_contrainte_7bis = "Contrainte de cisaillement dans les filets de la pièce"
                 contrainte_7bis = calculate_tau_th(NbAL, MbAL, d2, L_prime)
-            nom_contrainte_8 = "Pression de contact sur la tete de la vis"
+            nom_contrainte_8 = "Pression de contact sur la tête de la vis"
             if rondelle == False : #S'il n'y a pas de rondelle
                 # st.write("contrainte, cas 5.3")
                 contrainte_8 = calculate_p_h(NbAL, MbAL, a, Dp)
@@ -470,9 +470,9 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         # st.write("calculer_contraintes : Cas B2_D")
         # st.write("contrainte, cas 6")
         
-        nom_contrainte_1 = "Contrainte equivalente moyenne (chargements mecaniques)"
+        nom_contrainte_1 = "Contrainte équivalente fictive moyenne"
         contrainte_1 = calculate_sigma_m(NbPL, TbPL, min(d3, dl))
-        nom_contrainte_2 = "Contrainte equivalente maximale (chargements mecaniques"
+        nom_contrainte_2 = "Contrainte équivalente fictive maximale"
         contrainte_2 = calculate_sigma_m_plus_b(NbPL, MbPL, TbPL, 0.0, min(d3, dl))
         
         L_Contraintes.append([nom_contrainte_1, contrainte_1])
@@ -488,12 +488,12 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         # st.write("calculer_contraintes : Cas B3_A")
         # st.write("contrainte, cas 7")
         
-        nom_contrainte_1 = "Contrainte due aux efforts de traction"
+        nom_contrainte_1 = "Contrainte de traction moyenne"
         contrainte_1 = calculate_sigma_N(NbAL, d3)
         nom_contrainte_2 = "Contrainte de cisaillement"
         contrainte_2 = calculate_tau_T(TbAL, d3)
         
-        nom_contrainte_3 = "Sollicitations traction + cisaillement combinees"
+        nom_contrainte_3 = "Contraintes combinées"
         if B_acier_aust == True :
             # st.write("contrainte, cas 6.1")
             critere_1 = 0.3*Sumin_T
@@ -504,7 +504,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
             critere_2 = 5*Sumin_T/24
         contrainte_3 = (contrainte_1**2)/(critere_1**2) + (contrainte_2**2)/(critere_2**2)
         
-        nom_contrainte_4 = "Pression laterale"
+        nom_contrainte_4 = "Pression latérale"
         contrainte_4 = TbAL/(e*d)
         
         L_Contraintes.append([nom_contrainte_1, contrainte_1])
@@ -516,12 +516,12 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
     if Study_Case == "B3_C" :
         # st.write("calculer_contraintes : Cas B3_C")
         # st.write("contrainte, cas 7")
-        nom_contrainte_1 = "Contrainte due aux efforts de traction"
+        nom_contrainte_1 = "Contrainte de traction moyenne"
         contrainte_1 = calculate_sigma_N(NbAL, d3)
         nom_contrainte_2 = "Contrainte de cisaillement"
         contrainte_2 = calculate_tau_T(TbAL, d3)
         
-        nom_contrainte_3 = "Sollicitations traction + cisaillement combinees"
+        nom_contrainte_3 = "Contraintes combinées"
         if B_acier_aust == False :
             # st.write("contrainte, cas 7.1")
             critere_1 = min(1.25*0.5*Sumin_T, SyminB_T)
@@ -533,7 +533,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
             critere_2 = min(1.25*Sumin_T/8, SyminB_T)
         contrainte_3 = (contrainte_1**2)/(critere_1**2) + (contrainte_2**2)/(critere_2**2)
         
-        nom_contrainte_4 = "Pression laterale"
+        nom_contrainte_4 = "Pression latérale"
         contrainte_4 = TbAL/(e*d)
         
         L_Contraintes.append([nom_contrainte_1, contrainte_1])
@@ -546,12 +546,12 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         # st.write("calculer_contraintes : Cas B3_D")
         # st.write("contrainte, cas 8")
         
-        nom_contrainte_1 = "Contrainte due aux efforts de traction"
+        nom_contrainte_1 = "Contrainte de traction moyenne"
         contrainte_1 = calculate_sigma_N(NbAL, d3)
         nom_contrainte_2 = "Contrainte de cisaillement"
         contrainte_2 = calculate_tau_T(TbAL, d3)
         
-        nom_contrainte_3 = "Sollicitations traction + cisaillement combinees"
+        nom_contrainte_3 = "Contraintes combinées"
         critere_1 = min(SyminB_T, 0.7*Sumin_T)
         critere_2 = min(0.6*SyminB_T, 0.42*Sumin_T)
  
@@ -563,7 +563,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         
         if Sumin_T >= 700 :
             # st.write("contrainte, cas 8.1")
-            nom_contrainte_4 = "Contrainte due aux efforts de traction et aux moments de flexion"
+            nom_contrainte_4 = "Contrainte de traction maximale"
             contrainte_4 = calculate_sigma_N(NbAL, d3) + calculate_sigma_M(MbAL, d3)
             
             L_Contraintes.append([nom_contrainte_4, contrainte_4])

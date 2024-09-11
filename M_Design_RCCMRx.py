@@ -561,7 +561,7 @@ def calculer_contraintes(T_Results_Ansys_Bilan_i, L_Donnees_Geo_Boulonnerie_Full
         L_Contraintes.append([nom_contrainte_2, contrainte_2])
         L_Contraintes.append([nom_contrainte_3, contrainte_3])
         
-        if Sumin_T > 700 :
+        if Sumin_T >= 700 :
             # st.write("contrainte, cas 8.1")
             nom_contrainte_4 = "Contrainte due aux efforts de traction et aux moments de flexion"
             contrainte_4 = calculate_sigma_N(NbAL, d3) + calculate_sigma_M(MbAL, d3)
@@ -791,7 +791,7 @@ def calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, St
         L_Criteres = [critere_1, critere_2, critere_3]
                       
         #Haute Normale
-        if SuminB_T > 700 :
+        if SuminB_T >= 700 :
             critere_4 = SuminB_T
             
             L_Criteres.append(critere_4)

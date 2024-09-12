@@ -190,15 +190,7 @@ def page_EUROCODE() :
             tb_resine = float(tb_resine) if tb_resine else 1.0
             
 
-    if type_trou == "Oblong" :
-        st.write("Est-ce qu'il s'agit d'un trou oblong court ou long ?")
-        type_trou_oblong = st.radio("", ("Court", "Long"), horizontal=True, label_visibility="collapsed")
-        st.write("Est-ce que l'axe longitudinal est parallèle ou perpendiculaire aux efforts de cisaillement ? (Voir Figure ci-dessous)")
-        axe_longi = st.radio("", ("Parallèle", "Perpendiculaire"), horizontal=True, label_visibility="collapsed")
-        st.image("Pictures/def_axe_trou_oblong.PNG", use_column_width=True)
-        type_trou = type_trou + " " + type_trou_oblong + " " + axe_longi
-        st.write("") # Saut de ligne
-    st.write("") # Saut de ligne
+
 
     # Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
     p1 = float(p1) if p1 else 10000.0

@@ -76,7 +76,8 @@ def page_EUROCODE() :
         d0 = st.text_input("$d_0 [mm]$ :", placeholder = "0.0")
 
     with bolt_goem_data_col2 :
-        type_trou = st.radio("Type de trou", ("Normal", "Surdimensionné", "Oblong"))
+        st.write("Type de trou")
+        type_trou = st.radio("", ("Normal", "Surdimensionné", "Oblong"), label_visibility="collapsed")
 
     # On met une valeur par défaut aux variables pour ne pas générer de message d'erreur
     d = float(d) if d else 1.0

@@ -148,9 +148,9 @@ def page_EUROCODE() :
     st.image("Pictures/definition_entraxe_longi_transv.PNG", use_column_width=True)
     p1_cal1, p2_col2, empty_col3 = st.columns([1, 1, 1])
     with p1_cal1 :
-        p1_check = st.checkbox("entraxe longitudinal, $p_1$")
+        p1_check = st.checkbox("Entraxe longitudinal, $p_1$")
     with p2_col2 :
-        p2_check = st.checkbox("entraxe transversal, $p_2$")
+        p2_check = st.checkbox("Entraxe transversal, $p_2$")
 
     if p1_check and p2_check :
         quinconce_check = st.checkbox("Est-ce qu'il s'agit d'un assemblage en quinconce comme décrit sur la figure ci-dessous ?")
@@ -160,16 +160,16 @@ def page_EUROCODE() :
     bolt_goem_data_col1, bolt_goem_data_col2 = st.columns([1, 1])
 
     with bolt_goem_data_col1 :
-        tp = st.text_input("épaisseur de la plaque sous tête ou sous écrou, $t_p [mm]$ :", placeholder = "0.0")
-        t = st.text_input("épaisseur minimale des pièces assemblées, $t [mm]$ :", placeholder = "0.0")
-        e1 = st.text_input("pince longitudinale, $e_1 [mm]$ :", placeholder = "0.0")
-        e2 = st.text_input("pince transversale, $e_2 [mm]$ :", placeholder = "0.0")
+        tp = st.text_input("Épaisseur de la plaque sous tête ou sous écrou, $t_p [mm]$ :", placeholder = "0.0")
+        t = st.text_input("Épaisseur minimale des pièces assemblées, $t [mm]$ :", placeholder = "0.0")
+        e1 = st.text_input("Pince longitudinale, $e_1 [mm]$ :", placeholder = "0.0")
+        e2 = st.text_input("Pince transversale, $e_2 [mm]$ :", placeholder = "0.0")
         if p1_check and p2_check :
             if quinconce_check :
-                L = st.text_input("distance des perçages en quinconce, $L [mm]$ :", placeholder = "0.0")
+                L = st.text_input("Distance minimale entre 2 perçage, $L [mm]$ :", placeholder = "0.0")
                 L = float(L) if L else 0.0
                 # On ajoute dans le tableau des données d'entrée
-                L_Designation.append("Distance des perçages en quinconce")
+                L_Designation.append("Distance minimale entre 2 perçage")
                 L_Symbole.append("L")
                 L_Valeur.append(L)
                 L_Unite.append("[mm]")
@@ -178,7 +178,7 @@ def page_EUROCODE() :
 
     with bolt_goem_data_col2 :
         if p1_check :
-            p1 = st.text_input("entraxe longitudinal, $p_1 [mm]$ :", placeholder = "0.0")
+            p1 = st.text_input("Entraxe longitudinal, $p_1 [mm]$ :", placeholder = "0.0")
             p1 = float(p1) if p1 else 1.0
             # On ajoute dans le tableau des données d'entrée
             L_Designation.append("Entraxe longitudinal")
@@ -189,7 +189,7 @@ def page_EUROCODE() :
             p1 = 100000.0
             
         if p2_check :
-            p2 = st.text_input("entraxe transversal, $p_2 [mm]$ :", placeholder = "0.0")
+            p2 = st.text_input("Entraxe transversal, $p_2 [mm]$ :", placeholder = "0.0")
             p2 = float(p2) if p2 else 1.0
             # On ajoute dans le tableau des données d'entrée
             L_Designation.append("Entraxe transversal")
@@ -200,7 +200,7 @@ def page_EUROCODE() :
             p2 = 100000.0
             
         if tete_fraisee_check :
-            pf = st.text_input("profondeur du fraisage, $p_f [mm]$ :", placeholder = "0.0")
+            pf = st.text_input("Profondeur du fraisage, $p_f [mm]$ :", placeholder = "0.0")
             pf = float(pf) if pf else 1.0
             # On ajoute dans le tableau des données d'entrée
             L_Designation.append("Profondeur du fraisage")
@@ -208,7 +208,7 @@ def page_EUROCODE() :
             L_Valeur.append(pf)
             L_Unite.append("[mm]")
         if resine_check :
-            tb_resine = st.text_input("épaisseur efficace de résine en pression diamétrale, $t_{b,résine} [mm]$ :", placeholder = "0.0")
+            tb_resine = st.text_input("Épaisseur efficace de résine en pression diamétrale, $t_{b,résine} [mm]$ :", placeholder = "0.0")
             tb_resine = float(tb_resine) if tb_resine else 1.0
             # On ajoute dans le tableau des données d'entrée
             L_Designation.append("Epaisseur efficace de résine en pression diamétrale")
@@ -222,8 +222,8 @@ def page_EUROCODE() :
     tp = float(tp) if tp else 1.0
 
     # On ajoute dans le tableau des données d'entrée
-    L_Designation.append("Epaisseur de la plaque sous tête ou sous écrou")
-    L_Designation.append("Epaisseur minimale des pièces assemblées")
+    L_Designation.append("Épaisseur de la plaque sous tête ou sous écrou")
+    L_Designation.append("Épaisseur minimale des pièces assemblées")
     L_Designation.append("Pince longitudinale")
     L_Designation.append("Pince transversale")
     L_Symbole.append("tp")

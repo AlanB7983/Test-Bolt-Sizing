@@ -135,16 +135,6 @@ def page_EUROCODE() :
     L_Valeur = [d, p, d0, d1, d2, d3, round(As, 2), round(S, 2), fub, kb, ksp, GammaM2]
     L_Unite = ["[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm²]", "[mm²]", "[MPa]", "[-]", "[-]", "[-]"]
 
-    # Création d'un dictionnaire
-    D_bolt_geom_data = {
-        'Désignation' : L_Designation,
-        'Symbole' : L_Symbole,
-        'Valeur' : L_Valeur,
-        'Unité' : L_Unite
-        }
-    
-    # Création du DataFrame pandas à partir du dictionnaire
-    df_bolt_geom_data = pd.DataFrame(D_bolt_geom_data)
 
 
 
@@ -178,6 +168,13 @@ def page_EUROCODE() :
             if quinconce_check :
                 L = st.text_input("distance des perçages en quinconce, $L [mm]$ :", placeholder = "0.0")
                 L = float(L) if L else 0.0
+                # On ajoute dans le tableau des données d'entrée
+                L_Designation.append("Distance des perçages en quinconce")
+                L_Symbole.append("L")
+                L_Valeur.append(L)
+                L_Unité.append(["mm"])
+
+                                     
 
     with bolt_goem_data_col2 :
         if p1_check :
@@ -199,6 +196,18 @@ def page_EUROCODE() :
             tb_resine = st.text_input("épaisseur efficace de résine en pression diamétrale, $t_{b,résine} [mm]$ :", placeholder = "0.0")
             tb_resine = float(tb_resine) if tb_resine else 1.0
 
+    
+    # Création d'un dictionnaire
+    D_bolt_geom_data = {
+        'Désignation' : L_Designation,
+        'Symbole' : L_Symbole,
+        'Valeur' : L_Valeur,
+        'Unité' : L_Unite
+        }
+    
+    # Création du DataFrame pandas à partir du dictionnaire
+    df_bolt_geom_data = pd.DataFrame(D_bolt_geom_data)
+    
     st.write("") # Saut de ligne
     
     st.write("- ##### *Données matériaux*") #Sous-Partie

@@ -90,6 +90,8 @@ def page_EUROCODE() :
         C = 0.8                   # Coefficient de trou
     elif type_trou == "Oblong" :
         C = 0.6                   # Coefficient de trou
+    else :
+        C = 1.0                   # Coefficient de trou
         
     classe_part1 = classe[0] # On récupère le premier digit de la classe de la boulonnerie pour calculer fub
     if classe_part1 == "1" :

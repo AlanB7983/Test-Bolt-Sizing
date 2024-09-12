@@ -86,6 +86,8 @@ def page_EUROCODE() :
         axe_longi = st.radio("", ("Parallèle", "Perpendiculaire"), horizontal=True, label_visibility="collapsed")
         st.image("Pictures/def_axe_trou_oblong.PNG", use_column_width=True)
         type_trou = type_trou + " " + type_trou_oblong + " " + axe_longi
+        st.write("") # Saut de ligne
+    st.write("") # Saut de ligne
     
     # On met une valeur par défaut aux variables pour ne pas générer de message d'erreur
     d = float(d) if d else 1.0
@@ -153,5 +155,15 @@ def page_EUROCODE() :
     st.subheader("Données liées à l'assemblage") #Sous-Partie
 
     st.write("- ##### *Type d'élément de serrage*") #Sous-Partie
+
+
+
+
+
+
+
+
+
+    st.write(df_bolt_geom_data)
 
 

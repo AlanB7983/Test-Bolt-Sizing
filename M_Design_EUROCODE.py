@@ -165,7 +165,7 @@ def page_EUROCODE() :
 
     with bolt_goem_data_col1 :
         tp = st.text_input("épaisseur de la plaque sous tête ou sous écrou, $t_p [mm]$ :", placeholder = "0.0")
-        t = st.text_input("$t [mm]$ :", placeholder = "0.0")
+        t = st.text_input("épaisseur minimale des pièces assemblées, $t [mm]$ :", placeholder = "0.0")
         e1 = st.text_input("pince longitudinale, $e_1 [mm]$ :", placeholder = "0.0")
         e2 = st.text_input("pince transversale, $e_2 [mm]$ :", placeholder = "0.0")
 

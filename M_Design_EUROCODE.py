@@ -28,7 +28,7 @@ def page_EUROCODE() :
     # TITRE DE L'APPLICATION ET INTRODUCTION 
     # =============================================================================
     
-    st.title("Dimensionnement de la boulonnerie selon le SDC-IC")
+    st.title("Dimensionnement de la boulonnerie selon l'EUROCODE")
     st.write("En cours de développement...")
 
 

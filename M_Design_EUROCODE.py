@@ -195,7 +195,7 @@ def page_EUROCODE() :
 
     # Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
     p1 = float(p1) if p1 else 10000.0
-    p2 = float(p1) if p2 else 10000.0
+    p2 = float(p2) if p2 else 10000.0
     
     st.write("- ##### *Données matériaux*") #Sous-Partie
     

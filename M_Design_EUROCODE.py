@@ -165,7 +165,8 @@ def page_EUROCODE() :
     if p1_check and p2_check :
         quinconce_check = st.checkbox("Est-ce qu'il s'agit d'un assemblage en quinconce comme décrit sur la figure ci-dessous ?")
         st.image("Pictures/definition_assemblage_quinconce.PNG", use_column_width=True)
-    
+
+    st.write("") # Saut de ligne
     bolt_goem_data_col1, bolt_goem_data_col2 = st.columns([1, 1])
 
     with bolt_goem_data_col1 :
@@ -197,9 +198,8 @@ def page_EUROCODE() :
         if resine_check :
             tb_resine = st.text_input("épaisseur efficace de résine en pression diamétrale, $t_{b,résine} [mm]$ :", placeholder = "0.0")
             tb_resine = float(tb_resine) if tb_resine else 1.0
-            
 
-
+    st.write("") # Saut de ligne
     
     st.write("- ##### *Données matériaux*") #Sous-Partie
     

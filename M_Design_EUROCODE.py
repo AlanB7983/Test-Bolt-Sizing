@@ -48,16 +48,21 @@ def page_EUROCODE() :
 
     st.write("- ##### *Type d'élément de serrage*") #Sous-Partie
     
-    type_boulonnerie = st.radio("", ("Boulon", "Rivet"), horizontal=True)
+    type_boulonnerie = st.radio("", ("Boulon", "Rivet"), horizontal=True, label_visibility="collapsed")
+
+    type_bolt_col1, type_bolt_col2, type_bolt_col3 = st.columns([1, 1, 1])
 
     # Classe (menu déroulant)
-    classe = st.selectbox("Classe de l'élément de serrage : ", liste_classe, label_visibility="collapsed")
+    with type_bolt_col1 :
+        classe = st.selectbox("Classe de l'élément de serrage : ", liste_classe)
     
     # Tête fraisée (case à cocher)
-    tete_fraisee_check = st.checkbox("Tête fraisée")
+    with type_bolt_col2 :
+        tete_fraisee_check = st.checkbox("Tête fraisée")
     
     # Résine injectée (case à cocher)
-    resine_check = st.checkbox("Résine injectée")
+    with type_bolt_col3 :
+        resine_check = st.checkbox("Résine injectée")
     
     st.write("") # Saut de ligne
 

@@ -106,7 +106,7 @@ def page_EUROCODE() :
     
 
     # On créé un tableau pandas qui servira aussi pour le rapport
-    L_Désignation = ["Diamètre nominal", "Pas", "Diamètre du trou", "Diamètre en sommet d'écrou", "Diamètre moyen", "Diamètre à fond de filet", "Section résistante à la traction", 
+    L_Designation = ["Diamètre nominal", "Pas", "Diamètre du trou", "Diamètre en sommet d'écrou", "Diamètre moyen", "Diamètre à fond de filet", "Section résistante à la traction", 
                      "Section brute ou du fût lisse", "Résistance ultime à la traction (à 20°C)", "Coefficient de trou", "Coefficient partiel pour la résistance des boulons"]
     L_Symbole = ["d", "p", "d0", "d1", "d2", "d3", "As", "S", "fub", "C", "GammaM2"]
     L_Valeur = [d, p, d0, d1, d2, d3, round(As, 2), round(S, 2), fub, C, GammaM2]

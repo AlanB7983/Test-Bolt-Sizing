@@ -70,9 +70,9 @@ def page_EUROCODE() :
     bolt_goem_data_col1, bolt_goem_data_col2 = st.columns([1, 1])
 
     with bolt_goem_data_col1 :
-        d = st.text_input("$d [mm]$ :", placeholder = "0.0")
-        p = st.text_input("$p [mm]$ :", placeholder = "0.0")
-        d0 = st.text_input("$d_0 [mm]$ :", placeholder = "0.0")
+        d = st.text_input("Diamètre nominal, $d [mm]$ :", placeholder = "0.0")
+        p = st.text_input("Pas, $p [mm]$ :", placeholder = "0.0")
+        d0 = st.text_input("Diamètre du perçage, $d_0 [mm]$ :", placeholder = "0.0")
 
     with bolt_goem_data_col2 :
         st.write("Type de trou")

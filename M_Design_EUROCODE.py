@@ -239,6 +239,30 @@ def page_EUROCODE() :
     L_Unite.append("[mm]")
     L_Unite.append("[mm]")
     
+    
+    st.write("") # Saut de ligne
+    
+    st.write("- ##### *Données matériaux*") #Sous-Partie
+    mat_piece_col1, mat_piece_col2 = st.columns([1, 1])
+    with mat_piece_col1 :
+        fu = st.text_input("Résistance ultime à la traction minimale des pièces assemblée, $f_u [MPa]$ :", placeholder = "0.0")
+        fu = float(fu) if fu else 1.0
+        # On ajoute dans le tableau des données d'entrée
+        L_Designation.append("Résistance ultime à la traction minimale des pièces assemblée")
+        L_Symbole.append("fu")
+        L_Valeur.append(fu)
+        L_Unite.append("[MPa]")
+    with mat_piece_col2 :
+        if resine_check :
+            fbresine = st.text_input("Résistance en pression diamétrale de la résine, $f_{b,résine} [MPa]$ :", placeholder = "0.0")
+            fbresine = float(fbresine) if fbresine else 1.0
+            # On ajoute dans le tableau des données d'entrée
+            L_Designation.append("Résistance en pression diamétrale de la résine")
+            L_Symbole.append("fb,resine")
+            L_Valeur.append(fbresine)
+            L_Unite.append("[MPa]")
+    
+
     # Création d'un dictionnaire
     D_bolt_geom_data = {
         'Désignation' : L_Designation,
@@ -249,13 +273,6 @@ def page_EUROCODE() :
     
     # Création du DataFrame pandas à partir du dictionnaire
     df_bolt_geom_data = pd.DataFrame(D_bolt_geom_data)
-    
-    st.write("") # Saut de ligne
-    
-    st.write("- ##### *Données matériaux*") #Sous-Partie
-    
-
-
 
 
 

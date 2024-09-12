@@ -85,6 +85,7 @@ def page_EUROCODE() :
         st.write("Est-ce que l'axe longitudinal est parallèle ou perpendiculaire aux efforts de cisaillement ? (Voir Figure ci-dessous)")
         axe_longi = st.radio("", ("Parallèle", "Perpendiculaire"), horizontal=True, label_visibility="collapsed")
         st.image("Pictures/def_axe_trou_oblong.PNG", use_column_width=True)
+        type_trou = type_trou + " " + type_trou_oblong + " " + axe_longi
     
     # On met une valeur par défaut aux variables pour ne pas générer de message d'erreur
     d = float(d) if d else 1.0
@@ -100,25 +101,38 @@ def page_EUROCODE() :
     GammaM2 = 1.25                # Coefficient partiel pour la résistance des boulons
     
     if type_trou == "Surdimensionné" :
-        C = 0.8                   # Coefficient de trou
+        kb = 0.8                   # Coefficient de trou
     elif type_trou == "Oblong" :
-        C = 0.6                   # Coefficient de trou
+        kb = 0.6                   # Coefficient de trou
     else :
-        C = 1.0                   # Coefficient de trou
+        kb = 1.0                   # Coefficient de trou
+
+    if type_trou == "Surdimensionné" or type_trou == "Oblong Court Perpendiculaire" :
+        ksp = 0.85
+    elif type_trou == "Oblong Long Perpendiculaire" :
+        ksp = 0.7
+    elif type_trou == "Oblong Court Parallèle" :
+        ksp = 0.76
+    elif type_trou == "Oblong Long Parallèle" :
+        ksp = 0.63
+    else :
+        ksp = 1.0
         
     classe_part1 = classe[0] # On récupère le premier digit de la classe de la boulonnerie pour calculer fub
     if classe_part1 == "1" :
         fub = float(classe_part1)*1000 # résistance ultime à la traction
     else :
         fub = float(classe_part1)*100  # résistance ultime à la traction
+
     
 
     # On créé un tableau pandas qui servira aussi pour le rapport
     L_Designation = ["Diamètre nominal", "Pas", "Diamètre du trou", "Diamètre en sommet d'écrou", "Diamètre moyen", "Diamètre à fond de filet", "Section résistante à la traction", 
-                     "Section brute ou du fût lisse", "Résistance ultime à la traction (à 20°C)", "Coefficient de trou", "Coefficient partiel pour la résistance des boulons"]
-    L_Symbole = ["d", "p", "d0", "d1", "d2", "d3", "As", "S", "fub", "C", "GammaM2"]
-    L_Valeur = [d, p, d0, d1, d2, d3, round(As, 2), round(S, 2), fub, C, GammaM2]
-    L_Unite = ["[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm²]", "[mm²]", "[MPa]", "[-]", "[-]"]
+                     "Section brute ou du fût lisse", "Résistance ultime à la traction (à 20°C)", "Coefficient de trou", "Coefficient de trou en précontrainte",
+                     "Coefficient partiel pour la résistance des boulons"]
+    L_Symbole = ["d", "p", "d0", "d1", "d2", "d3", "As", "S", "fub", "kb", "ks", "GammaM2"]
+    L_Valeur = [d, p, d0, d1, d2, d3, round(As, 2), round(S, 2), fub, kb, ksp, GammaM2]
+    L_Unite = ["[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm²]", "[mm²]", "[MPa]", "[-]", "[-]", "[-]"]
 
     # Création d'un dictionnaire
     D_bolt_geom_data = {

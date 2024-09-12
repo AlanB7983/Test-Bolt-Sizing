@@ -88,7 +88,7 @@ def page_EUROCODE() :
     
     if type_trou == "Surdimensionné" :
         C = 0.8                   # Coefficient de trou
-    elif type_trou = "Oblong" :
+    elif type_trou == "Oblong" :
         C = 0.6                   # Coefficient de trou
         
     classe_part1 = classe[0] # On récupère le premier digit de la classe de la boulonnerie pour calculer fub

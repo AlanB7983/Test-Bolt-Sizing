@@ -29,7 +29,6 @@ def page_EUROCODE() :
     # =============================================================================
     
     st.title("Dimensionnement de la boulonnerie selon l'EUROCODE")
-    st.write("En cours de développement...")
 
 
     

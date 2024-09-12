@@ -155,7 +155,7 @@ def page_EUROCODE() :
 
     st.write("- ##### *Données géométriques*") #Sous-Partie
     st.write("Est-ce que les notions d'entraxe longitudinal et d'entraxe transversal, respectivement notées $p_1$ et $p_2$, visibles sur la figure ci-dessous sont définies ?")
-    p1_cal1, p2_col2, empty_col3 = st.columns([1, 1])
+    p1_cal1, p2_col2, empty_col3 = st.columns([1, 1, 1])
     with p1_cal1 :
         p1_check = st.checkbox("entraxe longitudinal, $p_1$")
     with p2_col2 :

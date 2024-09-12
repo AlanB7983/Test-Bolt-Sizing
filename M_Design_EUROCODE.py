@@ -180,22 +180,64 @@ def page_EUROCODE() :
         if p1_check :
             p1 = st.text_input("entraxe longitudinal, $p_1 [mm]$ :", placeholder = "0.0")
             p1 = float(p1) if p1 else 1.0
+            # On ajoute dans le tableau des données d'entrée
+            L_Designation.append("Entraxe longitudinal")
+            L_Symbole.append("p1")
+            L_Valeur.append(p1)
+            L_Unite.append(["mm"])
         else : # Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
             p1 = 100000.0
             
         if p2_check :
             p2 = st.text_input("entraxe transversal, $p_2 [mm]$ :", placeholder = "0.0")
             p2 = float(p2) if p2 else 1.0
+            # On ajoute dans le tableau des données d'entrée
+            L_Designation.append("Entraxe transversal")
+            L_Symbole.append("p2")
+            L_Valeur.append(p2)
+            L_Unite.append(["mm"])
         else :# Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
             p2 = 100000.0
             
         if tete_fraisee_check :
             pf = st.text_input("profondeur du fraisage, $p_f [mm]$ :", placeholder = "0.0")
             pf = float(pf) if pf else 1.0
+            # On ajoute dans le tableau des données d'entrée
+            L_Designation.append("Profondeur du fraisage")
+            L_Symbole.append("pf")
+            L_Valeur.append(pf)
+            L_Unite.append(["mm"])
         if resine_check :
             tb_resine = st.text_input("épaisseur efficace de résine en pression diamétrale, $t_{b,résine} [mm]$ :", placeholder = "0.0")
             tb_resine = float(tb_resine) if tb_resine else 1.0
+            # On ajoute dans le tableau des données d'entrée
+            L_Designation.append("Epaisseur efficace de résine en pression diamétrale")
+            L_Symbole.append("tb,résine")
+            L_Valeur.append(tb_resine)
+            L_Unite.append(["mm"])
 
+    e1 = float(e1) if e1 else 1.0
+    e2 = float(e2) if e2 else 1.0
+    t = float(t) if t else 1.0
+    tp = float(tp) if tp else 1.0
+
+    # On ajoute dans le tableau des données d'entrée
+    L_Designation.append("Epaisseur de la plaque sous tête ou sous écrou")
+    L_Designation.append("Epaisseur minimale des pièces assemblées")
+    L_Designation.append("Pince longitudinale")
+    L_Designation.append("Pince transversale")
+    L_Symbole.append("tp")
+    L_Symbole.append("t")
+    L_Symbole.append("e1")
+    L_Symbole.append("e2")
+    L_Valeur.append(tp)
+    L_Valeur.append(t)
+    L_Valeur.append(e1)
+    L_Valeur.append(e2)
+    L_Unite.append(["mm"])
+    L_Unite.append(["mm"])
+    L_Unite.append(["mm"])
+    L_Unite.append(["mm"])
     
     # Création d'un dictionnaire
     D_bolt_geom_data = {

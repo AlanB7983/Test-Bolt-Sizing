@@ -78,7 +78,7 @@ def page_EUROCODE() :
     with bolt_goem_data_col2 :
         st.write("Type de trou")
         type_trou = st.radio("", ("Normal", "Surdimensionné", "Oblong"), label_visibility="collapsed")
-
+    st.write("") # Saut de ligne
     if type_trou == "Oblong" :
         st.write("Est-ce qu'il s'agit d'un trou oblong court ou long ?")
         type_trou_oblong = st.radio("", ("Court", "Long"), horizontal=True, label_visibility="collapsed")

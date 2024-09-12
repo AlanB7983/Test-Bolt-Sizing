@@ -211,7 +211,7 @@ def page_EUROCODE() :
             tb_resine = st.text_input("Épaisseur efficace de résine en pression diamétrale, $t_{b,résine} [mm]$ :", placeholder = "0.0")
             tb_resine = float(tb_resine) if tb_resine else 1.0
             # On ajoute dans le tableau des données d'entrée
-            L_Designation.append("Epaisseur efficace de résine en pression diamétrale")
+            L_Designation.append("Épaisseur efficace de résine en pression diamétrale")
             L_Symbole.append("tb,résine")
             L_Valeur.append(tb_resine)
             L_Unite.append("[mm]")

@@ -172,7 +172,7 @@ def page_EUROCODE() :
                 L_Designation.append("Distance des perçages en quinconce")
                 L_Symbole.append("L")
                 L_Valeur.append(L)
-                L_Unité.append(["mm"])
+                L_Unite.append(["mm"])
 
                                      
 

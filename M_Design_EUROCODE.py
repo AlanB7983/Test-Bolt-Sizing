@@ -175,7 +175,7 @@ def page_EUROCODE() :
         e2 = st.text_input("pince transversale, $e_2 [mm]$ :", placeholder = "0.0")
         if quincince_check :
             L = st.text_input("distance des perçages en quinconce, $L [mm]$ :", placeholder = "0.0")
-            L = float(L) if L else 1.0
+            L = float(L) if L else 0.0
 
     with bolt_goem_data_col2 :
         if p1_check :

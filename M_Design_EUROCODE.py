@@ -153,7 +153,51 @@ def page_EUROCODE() :
 
     st.subheader("Données liées à l'assemblage") #Sous-Partie
 
-    st.write("- ##### *Type d'élément de serrage*") #Sous-Partie
+    st.write("- ##### *Données géométriques*") #Sous-Partie
+    st.write("Est-ce que les notions d'entraxe longitudinal et d'entraxe transversal, respectivement notées $p_1$ et $p_2$, visibles sur la figure ci-dessous sont définies ?")
+    p1_cal1, p2_col2, empty_col3 = st.columns([1, 1])
+    with p1_cal1 :
+        p1_check = st.checkbox("entraxe longitudinal, $p_1$")
+    with p2_col2 :
+        p2_check = st.checkbox("entraxe transversal, $p_2$")
+    
+    bolt_goem_data_col1, bolt_goem_data_col2 = st.columns([1, 1])
+
+    with bolt_goem_data_col1 :
+        tp = st.text_input("épaisseur de la plaque sous tête ou sous écrou, $t_p [mm]$ :", placeholder = "0.0")
+        t = st.text_input("$t [mm]$ :", placeholder = "0.0")
+        e1 = st.text_input("pince longitudinale, $e_1 [mm]$ :", placeholder = "0.0")
+        e2 = st.text_input("pince transversale, $e_2 [mm]$ :", placeholder = "0.0")
+
+    with bolt_goem_data_col2 :
+        if p1_check :
+            p1 = st.text_input("entraxe longitudinal, $p_1 [mm]$ :", placeholder = "0.0")
+        if p2_check :
+            p2 = st.text_input("entraxe transversal, $p_2 [mm]$ :", placeholder = "0.0")
+        if tete_fraisee_check :
+            pf = st.text_input("profondeur du fraisage, $p_f [mm]$ :", placeholder = "0.0")
+            pf = float(pf) if pf else 1.0
+        if resine_check :
+            tb_resine = st.text_input("épaisseur efficace de résine en pression diamétrale, $t_{b,résine} [mm]$ :", placeholder = "0.0")
+            tb_resine = float(tb_resine) if tb_resine else 1.0
+            
+
+    if type_trou == "Oblong" :
+        st.write("Est-ce qu'il s'agit d'un trou oblong court ou long ?")
+        type_trou_oblong = st.radio("", ("Court", "Long"), horizontal=True, label_visibility="collapsed")
+        st.write("Est-ce que l'axe longitudinal est parallèle ou perpendiculaire aux efforts de cisaillement ? (Voir Figure ci-dessous)")
+        axe_longi = st.radio("", ("Parallèle", "Perpendiculaire"), horizontal=True, label_visibility="collapsed")
+        st.image("Pictures/def_axe_trou_oblong.PNG", use_column_width=True)
+        type_trou = type_trou + " " + type_trou_oblong + " " + axe_longi
+        st.write("") # Saut de ligne
+    st.write("") # Saut de ligne
+
+    # Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
+    p1 = float(p1) if p1 else 10000.0
+    p2 = float(p1) if p2 else 10000.0
+    
+    st.write("- ##### *Données matériaux*") #Sous-Partie
+    
 
 
 

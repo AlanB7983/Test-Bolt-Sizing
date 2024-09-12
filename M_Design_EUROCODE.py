@@ -79,6 +79,13 @@ def page_EUROCODE() :
         st.write("Type de trou")
         type_trou = st.radio("", ("Normal", "Surdimensionné", "Oblong"), label_visibility="collapsed")
 
+    if type_trou == "Oblong" :
+        st.write("Est-ce qu'il s'agit d'un trou oblong court ou long ?")
+        type_trou_oblong = st.radio("", ("Court", "Long"), horizontal=True, label_visibility="collapsed")
+        st.write("Est-ce que l'axe longitudinal est parallèle ou perpendiculaire aux efforts de cisaillement ? (Voir Figure ci-dessous)")
+        axe_longi = st.radio("", ("Parallèle", "Perpendiculaire"), horizontal=True, label_visibility="collapsed")
+        st.image("Pictures/def_axe_trou_oblong.PNG", use_column_width=True)
+    
     # On met une valeur par défaut aux variables pour ne pas générer de message d'erreur
     d = float(d) if d else 1.0
     p = float(p) if p else 1.0

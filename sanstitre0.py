@@ -19,6 +19,7 @@ from M_Manipulation_Donnees_Materiaux_2 import get_grandeur_T_quelconque, get_do
 from M_Modelisation_Precharge import page_Modelisation_Presserage
 from M_Design_SDCIC import page_SDCIC
 from M_Design_RCCMRx import page_RCCMRx
+from M_Design_EUROCODE import page_EUROCODE
 
 
 # Configuration du titre de la page et du logo
@@ -56,6 +57,7 @@ else:
     page1 = sidebar.button("Modélisation de la précharge", use_container_width = True)
     page2 = sidebar.button("Dimensionnement selon le SDC-IC", use_container_width = True)
     page3 = sidebar.button("Dimensionnement selon le RCC-MRx", use_container_width = True)
+    page4 = sidebar.button("Dimensionnement selon l'EUROCODE", use_container_width = True)
     
     if page1 :
         st.session_state.active_page = "Modélisation de la précharge"
@@ -66,6 +68,8 @@ else:
     elif page3 : 
         st.session_state.active_page = "Dimensionnement selon le RCC-MRx"
         
+    elif page4 :
+        st.session_state.active_page = "Dimensionnement selon l'EUROCODE"
         
         
     if st.session_state.active_page == "Modélisation de la précharge" :
@@ -76,6 +80,9 @@ else:
     
     elif st.session_state.active_page == "Dimensionnement selon le RCC-MRx" :
         page_RCCMRx()
+
+    elif st.session_state.active_page == "Dimensionnement selon l'EUROCODE" :
+        page_EUROCODE()
 
 
     

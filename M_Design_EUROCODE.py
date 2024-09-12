@@ -163,7 +163,7 @@ def page_EUROCODE() :
         p2_check = st.checkbox("entraxe transversal, $p_2$")
 
     if p1_check and p2_check :
-        quincince_check = st.checkbox("Est-ce qu'il s'agit d'un assemblage en quinconce comme décrit sur la figure ci-dessous ?")
+        quinconce_check = st.checkbox("Est-ce qu'il s'agit d'un assemblage en quinconce comme décrit sur la figure ci-dessous ?")
         st.image("Pictures/definition_assemblage_quinconce.PNG", use_column_width=True)
     
     bolt_goem_data_col1, bolt_goem_data_col2 = st.columns([1, 1])
@@ -173,9 +173,10 @@ def page_EUROCODE() :
         t = st.text_input("épaisseur minimale des pièces assemblées, $t [mm]$ :", placeholder = "0.0")
         e1 = st.text_input("pince longitudinale, $e_1 [mm]$ :", placeholder = "0.0")
         e2 = st.text_input("pince transversale, $e_2 [mm]$ :", placeholder = "0.0")
-        if quincince_check :
-            L = st.text_input("distance des perçages en quinconce, $L [mm]$ :", placeholder = "0.0")
-            L = float(L) if L else 0.0
+        if p1_check and p2_check :
+            if quinconce_check :
+                L = st.text_input("distance des perçages en quinconce, $L [mm]$ :", placeholder = "0.0")
+                L = float(L) if L else 0.0
 
     with bolt_goem_data_col2 :
         if p1_check :

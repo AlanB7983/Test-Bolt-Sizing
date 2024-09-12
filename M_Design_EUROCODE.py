@@ -172,7 +172,7 @@ def page_EUROCODE() :
                 L_Designation.append("Distance des perçages en quinconce")
                 L_Symbole.append("L")
                 L_Valeur.append(L)
-                L_Unite.append(["mm"])
+                L_Unite.append("[mm]")
 
                                      
 
@@ -184,7 +184,7 @@ def page_EUROCODE() :
             L_Designation.append("Entraxe longitudinal")
             L_Symbole.append("p1")
             L_Valeur.append(p1)
-            L_Unite.append(["mm"])
+            L_Unite.append("[mm]")
         else : # Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
             p1 = 100000.0
             
@@ -195,7 +195,7 @@ def page_EUROCODE() :
             L_Designation.append("Entraxe transversal")
             L_Symbole.append("p2")
             L_Valeur.append(p2)
-            L_Unite.append(["mm"])
+            L_Unite.append("[mm]")
         else :# Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
             p2 = 100000.0
             
@@ -206,7 +206,7 @@ def page_EUROCODE() :
             L_Designation.append("Profondeur du fraisage")
             L_Symbole.append("pf")
             L_Valeur.append(pf)
-            L_Unite.append(["mm"])
+            L_Unite.append("[mm]")
         if resine_check :
             tb_resine = st.text_input("épaisseur efficace de résine en pression diamétrale, $t_{b,résine} [mm]$ :", placeholder = "0.0")
             tb_resine = float(tb_resine) if tb_resine else 1.0
@@ -214,7 +214,7 @@ def page_EUROCODE() :
             L_Designation.append("Epaisseur efficace de résine en pression diamétrale")
             L_Symbole.append("tb,résine")
             L_Valeur.append(tb_resine)
-            L_Unite.append(["mm"])
+            L_Unite.append("[mm]")
 
     e1 = float(e1) if e1 else 1.0
     e2 = float(e2) if e2 else 1.0
@@ -234,10 +234,10 @@ def page_EUROCODE() :
     L_Valeur.append(t)
     L_Valeur.append(e1)
     L_Valeur.append(e2)
-    L_Unite.append(["mm"])
-    L_Unite.append(["mm"])
-    L_Unite.append(["mm"])
-    L_Unite.append(["mm"])
+    L_Unite.append("[mm]")
+    L_Unite.append("[mm]")
+    L_Unite.append("[mm]")
+    L_Unite.append("[mm]")
     
     # Création d'un dictionnaire
     D_bolt_geom_data = {

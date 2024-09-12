@@ -181,8 +181,16 @@ def page_EUROCODE() :
     with bolt_goem_data_col2 :
         if p1_check :
             p1 = st.text_input("entraxe longitudinal, $p_1 [mm]$ :", placeholder = "0.0")
+            p1 = float(p1) if p1 else 1.0
+        else : # Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
+            p1 = 100000.0
+            
         if p2_check :
             p2 = st.text_input("entraxe transversal, $p_2 [mm]$ :", placeholder = "0.0")
+            p2 = float(p2) if p2 else 1.0
+        else :# Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
+            p2 = 100000.0
+            
         if tete_fraisee_check :
             pf = st.text_input("profondeur du fraisage, $p_f [mm]$ :", placeholder = "0.0")
             pf = float(pf) if pf else 1.0
@@ -192,10 +200,6 @@ def page_EUROCODE() :
             
 
 
-
-    # Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
-    p1 = float(p1) if p1 else 10000.0
-    p2 = float(p2) if p2 else 10000.0
     
     st.write("- ##### *Données matériaux*") #Sous-Partie
     

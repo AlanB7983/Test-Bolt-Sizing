@@ -274,11 +274,129 @@ def page_EUROCODE() :
     
     # Création du DataFrame pandas à partir du dictionnaire
     df_bolt_geom_data = pd.DataFrame(D_bolt_geom_data)
+    st.write("") # Saut de ligne
+
+
+    
+    # ===================================
+    # Saisie du torseur mécanique
+    # ===================================
+    st.subheader("Efforts sollicitant la liaison")
+
+    # On crée in tableau de saisie vide
+    if 'efforts_ext' not in st.session_state:
+        st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
+        
+    # Saisies utilisateur pour ajouter des données
+    saisie_effort_col1, saisie_effort_col2, saisie_effort_col3 = st.columns([1, 1, 1])
+    with saisie_effort_col1 :
+        FtEd = st.text_input('Effort de traction, $F_{t,Ed}$ [N]', placeholder = 0.0)
+    with saisie_effort_col2 :
+        FvxEd = st.text_input('Effort de cisaillement selon x, $F_{vx,Ed}$ [N]', placeholder = 0.0)
+    with saisie_effort_col3 :
+        FvyEd = st.text_input('Effort de cisaillement selon y, $F_{vy,Ed}$ [N]', placeholder = 0.0)
+    
+    but_col1, but_col2, but_col3 = st.columns([1,1,4])
+    with but_col1 :
+        indice_boulon = 1
+        # Bouton pour ajouter les données au DataFrame
+        if st.button('Ajouter', use_container_width = True):
+            new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Effort de traction, Ft,Ed [N]' : [float(FtEd)], 'Effort de cisaillement selon x, Fvx,Ed [N]': [FvxEd], 'Effort de cisaillement selon y, Fvy,Ed [N]' : [FvyEd]})
+            st.session_state.efforts_ext = pd.concat([st.session_state.efforts_ext, new_data], ignore_index=True)
+            indice_boulon = indice_boulon + 1
+    with but_col2:
+        if st.button('Effacer', use_container_width = True):
+            st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
+
+    # Afficher les données sous forme de tableau
+    st.dataframe(st.session_state.efforts_ext)
+
+    # On crée une liste de listes à partir de ce tableau dataframe
+    torseur_effort = [st.session_state.efforts_ext.columns.tolist()] + st.session_state.efforts_ext.values.tolist()  
+    
+    # saut de ligne
+    st.write("\n")
+    
+    # saut de ligne
+    st.write("\n")
+
+
+
+    
+    # =======================================
+    # Condition de calcul
+    # =======================================
+
+    if classe == "8.8" or classe == "10.9" :
+    st.subheader("Conditions de calcul")
+    
+        st.write("- ##### *Fonction de l'élément de serrage*")
+        fct_bolt_col_1, fct_bolt_col_2 = st.columns([1, 1])
+        with fct_bolt_col_1 :
+            check_preload = st.checkbox("Boulonnerie précontrainte")
+        # saut de ligne
+        st.write("\n")
+        
+        # saut de ligne
+        st.write("\n")
+    
+        if check_preload :
+            st.write("Valeur de l'effort de précontrainte $F_{p,C}$.")
+            F0 = st.text_input("$F_{p,C}$ [N] :", placeholder = "0.0")
+            F0 = float(F0) if F0 else 0.0
+            
+            st.write("$F_{p,C}$ pris en compte dans les efforts saisis ?")
+            F0_selection = st.radio("", ("oui", "non"), horizontal=True, label_visibility="collapsed", key="test")
+    
+            if F0_selection == "non" :
+                # On demande la valeur de Lambda
+                st.write("Valeur du coefficient de rigidité $\Lambda$.")
+                Lambda = st.text_input("$\Lambda$ [-] :", placeholder = "0.0")
+                Lambda = float(Lambda) if Lambda else 0.0
+                st.info("Prendre $\Lambda$ = 0 revient à prendre l'hypothèse d'une liaison infiniment rigide.")
+    
+                # On ajoute une colonne pour noter F0 dans le tableau et pour écrire Ft,Ed,p
+
+    else :
+        check_preload = False
+
+    st.write("- ##### *Catégorie*") #Sous-Partie
+    if check_preload :
+        critere_col1, critere_col2, critere_col3 = st.columns([1, 1, 1])
+        with critere_col1 :
+            check_cat_B = st.checkbox("Catégorie B : Résistant au glissement à l'ELS")
+        with critere_col2 :
+            check_cat_C = st.checkbox("Catégorie C : Résistant au glissement à l'ELU")
+        with critere_col3 :
+            check_cat_E = st.checkbox("Catégorie E : Attaches tendues par boulons précontraints à haute résistance")
+        if (check_cat_B and check_cat_E) or (check_cat_C and check_cat_E) :
+            check_combine = True
+        else :
+            check_combine = False
+    else :
+        critere_col4, critere_col5, critere_col6 = st.columns([1, 1, 1])
+        with critere_col4 :
+            check_cat_A = st.checkbox("Catégorie A : Travail en pression diamétrale")
+        with critere_col5 :
+            check_cat_D = st.checkbox("Catégorie D : Attaches tendues par boulons non précontraints")
+        if check_cat_A and check_cat_D :
+            check_combine = True
+        else :
+            check_combine = False
+            
+        
+            
+
+    # saut de ligne
+    st.write("\n")
+    
+    # saut de ligne
+    st.write("\n")
 
 
 
 
-
+    
 
 
     st.write(df_bolt_geom_data)

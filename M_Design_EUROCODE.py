@@ -465,13 +465,17 @@ def page_EUROCODE() :
                 # Ajouter la nouvelle ligne modifiée à la liste finale
                 torseur_effort_full.append(nouvelle_ligne)
 
+        # saut de ligne
+        st.write("\n")
+        
         # On demande le nombre de pièces assemblées 
-        nb_piece = st.number_input("Nombre de pièces assemblées (hors rondelles)", min_value = 1, step = 1)
+        st.write("Nombre de pièces assemblées (hors rondelles)")
+        nb_piece = st.number_input("Nombre de pièces assemblées (hors rondelles)", min_value = 1, step = 1, label_visibility="collapsed")
         n = nb_piece - 1
 
         # On demande de choisir le coefficient de frottement mu
         st.write("Sélectionner le coefficient de frottement $\mu$ en fonction du traitement de surface détaillé dans le tableau ci-dessous")
-        mu = st.radio("", ("0.50", "0.40", "0.30", "0.20"), horizontal=True, label_visibility="collapsed", key="test")
+        mu = st.radio("", ("0.50", "0.40", "0.30", "0.20"), horizontal=True, label_visibility="collapsed", key="mu")
         mu = float(mu) if mu else 0.2
         T_mu_Data = [["Classe", "Traitement de surface"], ["A", "Surfaces grenaillées ou sablées, débarrassées de toute rouille non adhérente, exemple de piqûres."], 
              ["B", "Surfaces grenaillées ou sablées : \n - puis métallisées par projection d'un produit à base d'aluminium ou de zinc \n - avec une peinture au zinc silicate (alcalin) inorganique d'une épaisseur de 50 µm à 80 µm"],

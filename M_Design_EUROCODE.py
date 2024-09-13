@@ -483,7 +483,10 @@ def page_EUROCODE() :
             check_combine = True
         else :
             check_combine = False
-
+        # On met une valeur False apr défaut pour les autres type de catégories
+        check_cat_A = False
+        check_cat_D = False
+        
     else :
         critere_col4, critere_col5, critere_col6 = st.columns([1, 1, 1])
         with critere_col4 :
@@ -495,6 +498,10 @@ def page_EUROCODE() :
             check_combine = True
         else :
             check_combine = False
+        # On met une valeur False apr défaut pour les autres type de catégories
+        check_cat_B = False
+        check_cat_C = False
+        check_cat_E = False
     
     if check_cat_A or check_cat_B or check_cat_C :
         st.write("Préciser la localisation du ou des plans de cisaillements.")

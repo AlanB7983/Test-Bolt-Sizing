@@ -164,15 +164,8 @@ def page_EUROCODE() :
         t = st.text_input("Épaisseur minimale des pièces assemblées extérieures, $t [mm]$ :", placeholder = "0.0")
         e1 = st.text_input("Pince longitudinale, $e_1 [mm]$ :", placeholder = "0.0")
         e2 = st.text_input("Pince transversale, $e_2 [mm]$ :", placeholder = "0.0")
-        if p1_check and p2_check :
-            if quinconce_check :
-                L = st.text_input("Distance minimale entre 2 perçage, $L [mm]$ :", placeholder = "0.0")
-                L = float(L) if L else 0.0
-                # On ajoute dans le tableau des données d'entrée
-                L_Designation.append("Distance minimale entre 2 perçage")
-                L_Symbole.append("L")
-                L_Valeur.append(L)
-                L_Unite.append("[mm]")
+        Lj = st.text_input("Entraxe extrême dans la direction des efforts, $L_j [mm]$ :", placeholder = "0.0")
+        
 
                                      
 
@@ -198,6 +191,16 @@ def page_EUROCODE() :
             L_Unite.append("[mm]")
         else :# Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
             p2 = 100000.0
+
+        if p1_check and p2_check :
+            if quinconce_check :
+                L = st.text_input("Distance minimale entre 2 perçages, $L [mm]$ :", placeholder = "0.0")
+                L = float(L) if L else 0.0
+                # On ajoute dans le tableau des données d'entrée
+                L_Designation.append("Distance minimale entre 2 perçages")
+                L_Symbole.append("L")
+                L_Valeur.append(L)
+                L_Unite.append("[mm]")
             
         if tete_fraisee_check :
             pf = st.text_input("Profondeur du fraisage, $p_f [mm]$ :", placeholder = "0.0")
@@ -226,14 +229,18 @@ def page_EUROCODE() :
     L_Designation.append("Épaisseur minimale des pièces assemblées extérieures")
     L_Designation.append("Pince longitudinale")
     L_Designation.append("Pince transversale")
+    L_Designation.append("Entraxe extrême dans la direction des efforts")
     L_Symbole.append("tp")
     L_Symbole.append("t")
     L_Symbole.append("e1")
     L_Symbole.append("e2")
+    L_Symbole.append("Lj")
     L_Valeur.append(tp)
     L_Valeur.append(t)
     L_Valeur.append(e1)
     L_Valeur.append(e2)
+    L_Valeur.append(Lj)
+    L_Unite.append("[mm]")
     L_Unite.append("[mm]")
     L_Unite.append("[mm]")
     L_Unite.append("[mm]")
@@ -370,10 +377,12 @@ def page_EUROCODE() :
             check_cat_C = st.checkbox("Catégorie C : Résistant au glissement à l'ELU")
         with critere_col3 :
             check_cat_E = st.checkbox("Catégorie E : Attaches tendues par boulons précontraints à haute résistance")
-        if (check_cat_B and check_cat_E) or (check_cat_C and check_cat_E) :
+        if (check_cat_B and check_cat_E) or (check_cat_C and check_cat_E) or (check_cat_C and check_cat_B and check_cat_E) :
             check_combine = True
+            st.write("check_combine : "+ str(check_combine))
         else :
             check_combine = False
+            st.write("check_combine : "+ str(check_combine))
     else :
         critere_col4, critere_col5, critere_col6 = st.columns([1, 1, 1])
         with critere_col4 :

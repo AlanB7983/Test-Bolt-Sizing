@@ -379,6 +379,7 @@ def page_EUROCODE() :
             check_cat_A = st.checkbox("Catégorie A : Travail en pression diamétrale")
         with critere_col5 :
             check_cat_D = st.checkbox("Catégorie D : Attaches tendues par boulons non précontraints")
+            
         if check_cat_A and check_cat_D :
             check_combine = True
         else :

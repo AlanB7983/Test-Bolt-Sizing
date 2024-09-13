@@ -475,6 +475,7 @@ def page_EUROCODE() :
     Result_Cat_D = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
     Result_Cat_E = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
     Result_Cat_Combine = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
+    st.write(Result_Cat_A)
 
     # On parcourt l'ensemble des valeurs des efforts
     for i in range(1, len(torseur_effort_full)) :

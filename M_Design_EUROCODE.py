@@ -45,6 +45,18 @@ def calculer_marge(valeur, critere) :
 def determination_type_trou(forme_trou, d0, Largeur, longueur) :
     return "Surdimensionné"
 
+
+def diametre_trou_normal_max(d) :
+    if int(d) in range(0, 16) :
+        return int(d + 1)
+    elif int(d) in range(16, 27) :
+        return int(d + 2)
+    elif int(d) in range(27, 1000) :
+        return int(d + 3)
+    else :
+        return int(d)
+        
+
 def page_EUROCODE() :
 
     # =========================================================================
@@ -143,6 +155,7 @@ def page_EUROCODE() :
     S = np.pi*d*d/4               # Section du fût
     As = (((d1+d2)/2)**2)*np.pi/4 # Section résistante
     GammaM2 = 1.25                # Coefficient partiel pour la résistance des boulons
+    GammaM4 = 1.0                 # Coefficient partiel pour la résistance en pression diamétrale des boulons injectés
     
     
     if type_trou == "Surdimensionné" :
@@ -162,6 +175,19 @@ def page_EUROCODE() :
         ksp = 0.63
     else :
         ksp = 1.0
+
+    if resine_check :
+        if type_trou == "Normal" :
+            ksresine = 1
+        elif type_trou == "Surdimensionné" :
+            d0normalmax = diametre_trou_normal_max(d) # Diamètre maximal d'un trou normal pour un diamètre de bolt d
+            m = float(d0normalmax) - d0
+            ksresine = 1 - 0.1*m
+        elif "Oblong" in type_trou :
+            m = (longueur - Largeur)/2
+            ksresine = 1 - 0.1*m
+        else : 
+            ksresine = 1
         
     classe_part1 = classe[0] # On récupère le premier digit de la classe de la boulonnerie pour calculer fub
     if classe_part1 == "1" :
@@ -557,9 +583,12 @@ def page_EUROCODE() :
 
             Result_Cat_A.append(["Boulon n°" + str(i), "Résistance au cisaillement", round(FvEd,2), round(FvRd, 2)])
 
-            # Résistance à la pression diamétrale
 
-             
+
+            
+
+            # Résistance à la pression diamétrale
+            
             # Si ce n'est pas un boulon injecté (avec résine)
             if not resine_check :
                 # S'il s'agit d'un boulon à tête fraisée, on modifie la valeur de t
@@ -582,7 +611,8 @@ def page_EUROCODE() :
 
             # Si c'est un boulon injecté (avec résine)
             else :
-                FbRd = 1.2*ksresine*d*tb_resine*Beta*fbresine/
+                Beta = 1 # Valeur par défaut
+                FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
 
             marge = round(calculer_marge(FvEd, FbRd), 2)
             Result_Cat_A.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2)])

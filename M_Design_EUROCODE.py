@@ -156,6 +156,7 @@ def page_EUROCODE() :
     As = (((d1+d2)/2)**2)*np.pi/4 # Section résistante
     GammaM2 = 1.25                # Coefficient partiel pour la résistance des boulons
     GammaM4 = 1.0                 # Coefficient partiel pour la résistance en pression diamétrale des boulons injectés
+    GammaM3ser = 1.1              # Coefficient partiel
     
     
     if type_trou == "Surdimensionné" :
@@ -431,11 +432,11 @@ def page_EUROCODE() :
         st.write("\n")
     
         if check_preload :
-            st.write("Valeur de l'effort de précontrainte $F_{p,C}$.")
-            F0 = st.text_input("$F_{p,C}$ [N] :", placeholder = "0.0")
+            st.write("Valeur de l'effort de précontrainte $F_{p,Cd}$.")
+            F0 = st.text_input("$F_{p,Cd}$ [N] :", placeholder = "0.0")
             F0 = float(F0) if F0 else 0.0
             
-            st.write("$F_{p,C}$ pris en compte dans les efforts saisis ?")
+            st.write("$F_{p,Cd}$ pris en compte dans les efforts saisis ?")
             F0_selection = st.radio("", ("oui", "non"), horizontal=True, label_visibility="collapsed", key="test")
     
             if F0_selection == "non" :
@@ -450,7 +451,7 @@ def page_EUROCODE() :
                 for index, ligne in enumerate(torseur_effort) :
                     if index == 0 :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
-                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,C [N]", "Effort de traction d'origine externe et interne, Ft,Ed,p [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
+                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ft,Ed,p [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
                     else :
                         # Convertir les valeurs numériques de Col1
                         col2_val = float(ligne[2])
@@ -463,6 +464,22 @@ def page_EUROCODE() :
                     
                 # Ajouter la nouvelle ligne modifiée à la liste finale
                 torseur_effort_full.append(nouvelle_ligne)
+
+        # On demande le nombre de pièces assemblées 
+        nb_piece = st.number_input("Nombre de pièces assemblées (hors rondelles)", min_value = 1, step = 1)
+        n = nb_piece - 1
+
+        # On demande de choisir le coefficient de frottement mu
+        st.write("Sélectionner le coefficient de frottement $\mu$ en fonction du traitement de surface détaillé dans le tableau ci-dessous")
+        mu = st.radio("", ("0.50", "0.40", "0.30", "0.20"), horizontal=True, label_visibility="collapsed", key="test")
+        mu = float(mu) if mu else 0.2
+        T_mu_Data = [["Classe", "Traitement de surface"], ["A", "Surfaces grenaillées ou sablées, débarrassées de toute rouille non adhérente, exemple de piqûres."], 
+             ["B", "Surfaces grenaillées ou sablées : \n - puis métallisées par projection d'un produit à base d'aluminium ou de zinc \n - avec une peinture au zinc silicate (alcalin) inorganique d'une épaisseur de 50 µm à 80 µm"],
+             ["C", "Surfaces nettoyées à la brosse métallique ou au chalumeau, débarrassées de toute rouille non adhérente."],
+             ["D", "Surfaces brutes de laminage."]]
+        df_T_mu_Data = pd.DataFrame(T_mu_Data[1:], columns=T_mu_Data[0])
+        st.write(df_T_mu_Data)
+        
                     
                     
 
@@ -564,7 +581,6 @@ def page_EUROCODE() :
             
             # Résistance au cisaillement 
             
-
             if type_boulonnerie == "Rivet" :
                 A = As
                 alpha_v = 0.6
@@ -625,21 +641,161 @@ def page_EUROCODE() :
 
             # Si c'est un boulon injecté (avec résine)
             else :
-                Beta = 1 # Valeur par défaut
+                Beta = 1.0 # Valeur par défaut
                 FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
 
             marge = round(calculer_marge(FvEd, FbRd), 2)
             Result_Cat_A.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2)])
+
+        
+        ###############
+        # Catégorie B #
+        ###############
     
+        if check_cat_B :
+            st.write("Catégorie B")
+            # Résistance au cisaillement 
 
-                                
+            if type_boulonnerie == "Rivet" :
+                A = As
+                alpha_v = 0.6
+                
+            else :
+                if plan_cisaillement == "filet" :
+                    A = As
+                    if classe == "4.6" or classe == "5.6" or classe == "8.8" :
+                        alpha_v = 0.6
+                    else :
+                        alpha_v = 0.5
+                else :
+                    A = S
+                    alpha_v = 0.6
+                
+            FvRd = alpha_v*fub*A/GammaM2
+
+            if tp > d/3 :
+                Betap = 9*d/(8*d+3*tp)
+                FvRd = Betap*FvRd
+                
+            # Si c'est un assemblage long, on applique un coefficient supplémentaire
+            if check_assemblage_long :
+                BetaLf = 1 - (Lj - 15*d)/(200*d)
+                if BetaLf <= 0.75 :
+                    BetaLf = 0.75
+                FvRd = BetaLf*FvRd
+
+            marge = round(calculer_marge(FvEd, FvRd), 2)
+
+            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance au cisaillement", round(FvEd,2), round(FvRd, 2)])
+
+
+            # Résistance à la pression diamétrale
             
+            # Si ce n'est pas un boulon injecté (avec résine)
+            if not resine_check :
+                # S'il s'agit d'un boulon à tête fraisée, on modifie la valeur de t
+                if tete_fraisee_check :
+                    t = tp - pf/2
+                
+                # Pour les boulons intérieurs
+                if position == "Intérieure" :
+                    alpha_d = (p1/(3*d0)) - 1/4
+                    alpha_b = min(alpha_d, float(fub)/float(fu), 1)
+                    k1 = min((1.4*p2/d0 - 1.7), 2.5)
+    
+                # Pour les boulons de rive
+                else :
+                    alpha_d = e1/(3*d0)
+                    alpha_b = min(alpha_d, float(fub)/float(fu), 1)
+                    k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
+    
+                FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
+
+            # Si c'est un boulon injecté (avec résine)
+            else :
+                Beta = 1 # Valeur par défaut
+                FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
+
+            marge = round(calculer_marge(FvEd, FbRd), 2)
+            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2)])
+
+
+
+            Résistance au glissement à l'ELS
+            FpC = 0.7*fub*As
+            # Si il y a des efforts combinés
+            if check_combine :
+                FsRdser = ksp*n*mu*(FpC - 0.8*FtEd)/GammaM3ser
+            else : 
+                FsRdser = ksp*n*mu*FpC/GammaM3ser
+
+            # Si c'est un boulon injecté
+            if resine_check :
+                Beta = 1.0 # Valeur par défaut
+                FbRdresine = ksresine*d*tbresine*Beta*fbresine/GammaM4
+                FsRd = FbRdresine + FsRdser
+            else :
+                FsRd = FsRdser
+
+            marge = round(calculer_marge(FvEd, FbRd), 2)
+            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance au glissement à l'ELS", round(FvEd,2), round(FsRd, 2)])
+
+
+
+        
+        
+        ###############
+        # Catégorie C #
+        ###############
+    
+        if check_cat_C :
+            st.write("Catégorie C")
+            # Résistance au cisaillement     
             
 
 
-            
+
+
+
+        
+
+        ###############
+        # Catégorie D #
+        ###############
+    
+        if check_cat_D :
+            st.write("Catégorie D")
+            # Résistance au cisaillement 
+
+
+
+
+
+
+
         
     
+        ###############
+        # Catégorie E #
+        ###############
+    
+        if check_cat_E :
+            st.write("Catégorie E")
+            # Résistance au cisaillement 
+
+
+
+
+
+        
+            
+        ######################
+        # Catégorie Combinés #
+        ######################
+        
+        if check_combine :
+            st.write("Catégorie Combinés")
+            # Résistance au cisaillement 
     
 
     

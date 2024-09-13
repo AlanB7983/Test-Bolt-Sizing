@@ -328,7 +328,7 @@ def page_EUROCODE() :
     # =======================================
 
     if classe == "8.8" or classe == "10.9" :
-    st.subheader("Conditions de calcul")
+        st.subheader("Conditions de calcul")
     
         st.write("- ##### *Fonction de l'élément de serrage*")
         fct_bolt_col_1, fct_bolt_col_2 = st.columns([1, 1])

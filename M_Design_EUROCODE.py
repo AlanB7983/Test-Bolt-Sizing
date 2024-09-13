@@ -223,6 +223,13 @@ def page_EUROCODE() :
     e2 = float(e2) if e2 else 1.0
     t = float(t) if t else 1.0
     tp = float(tp) if tp else 1.0
+    Lj = float(Lj) if Lj else 1.0
+
+    # On teste la valeur de Lj pour savoir s'il s'agit d'un assemblage long
+    if Lj > 15*d :
+        check_assemblage_long = True
+    else :
+        check_assemblage_long = False
 
     # On ajoute dans le tableau des données d'entrée
     L_Designation.append("Épaisseur de la plaque sous tête ou sous écrou")
@@ -379,10 +386,9 @@ def page_EUROCODE() :
             check_cat_E = st.checkbox("Catégorie E : Attaches tendues par boulons précontraints à haute résistance")
         if (check_cat_B and check_cat_E) or (check_cat_C and check_cat_E) or (check_cat_C and check_cat_B and check_cat_E) :
             check_combine = True
-            st.write("check_combine : "+ str(check_combine))
         else :
             check_combine = False
-            st.write("check_combine : "+ str(check_combine))
+
     else :
         critere_col4, critere_col5, critere_col6 = st.columns([1, 1, 1])
         with critere_col4 :

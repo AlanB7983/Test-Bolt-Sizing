@@ -469,7 +469,7 @@ def page_EUROCODE() :
             plan_cisaillement = "filet"
         else :
             plan_cisaillement = "filet"
-        st.write("plan de cisaillement : " + plan_cisaillement)
+        
             
 
     # saut de ligne
@@ -515,14 +515,21 @@ def page_EUROCODE() :
             FvEd = (FvxEd**2 + FvyEd**2)**(0.5)
 
             if type_boulonnerie == "Rivet" :
+                A = As
                 alpha_v = 0.6
+                
             else :
-                if classe == "4.6" or classe == "5.6" or classe == "8.8" :
-                    alpha_v = 0.6
+                if plan_cisaillement == "filet" :
+                    A = As
+                    if classe == "4.6" or classe == "5.6" or classe == "8.8" :
+                        alpha_v = 0.6
+                    else :
+                        alpha_v = 0.5
                 else :
-                    alpha_v = 0.5
-                    
-            FvRd = alpha_v*fub*As/GammaM2
+                    A = S
+                    alpha_v = 0.6
+                
+            FvRd = alpha_v*fub*A/GammaM2
 
             if tp > d/3 :
                 Betap = 9*d/(8*d+3*tp)

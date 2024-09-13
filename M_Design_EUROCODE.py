@@ -452,8 +452,24 @@ def page_EUROCODE() :
             check_combine = True
         else :
             check_combine = False
-            
+    
+    if check_cat_A or check_cat_B or check_cat_C :
+        st.write("Préciser la localisation du ou des plans de cisaillements.")
+        plan_cisaillement_col1, plan_cisaillement_col2 = st.columns([1, 1])
+        with plan_cisaillement_col1 :
+            plan_cisaill_fut_lisse_check = st.checkbox("Plan de cisaillement dans le fût lisse")
+        with plan_cisaillement_col2 :
+            plan_cisaill_filet_check = st.checkbox("Plan de cisaillement dans les filets")
         
+        # st.image("Pictures/definition_plan_cisaillement.PNG", use_column_width=True, caption="Définition du ou des plans de cisaillement")
+            
+        if plan_cisaill_fut_lisse_check and plan_cisaill_filet_check == False :
+            plan_cisaillement = "fut lisse"
+        elif plan_cisaill_fut_lisse_check and plan_cisaill_filet_check :
+            plan_cisaillement = "filet"
+        else :
+            plan_cisaillement = "filet"
+        st.write("plan de cisaillement : " + plan_cisaillement)
             
 
     # saut de ligne
@@ -505,6 +521,7 @@ def page_EUROCODE() :
                     alpha_v = 0.6
                 else :
                     alpha_v = 0.5
+                    
             FvRd = alpha_v*fub*As/GammaM2
 
             if tp > d/3 :

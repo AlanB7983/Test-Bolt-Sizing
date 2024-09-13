@@ -409,11 +409,11 @@ def page_EUROCODE() :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
                         nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,C [N]", "Effort de traction d'origine externe et interne, Ft,Ed,p [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
                     else :
-                    # Convertir les valeurs numériques de Col1
-                    col2_val = float(ligne[2])
-
-                    # Calcul pour la nouvelle colonne Ft,Ed,p 
-                    FtEdp = F0 + float(Lambda)*col2_val
+                        # Convertir les valeurs numériques de Col1
+                        col2_val = float(ligne[2])
+    
+                        # Calcul pour la nouvelle colonne Ft,Ed,p 
+                        FtEdp = F0 + float(Lambda)*col2_val
 
                     # Ajouter la nouvelle colonne 6 (F0) et colonne 7 (Ft,Ed,p)
                     nouvelle_ligne = ligne + [str(F0), str(FtEdp)]

@@ -459,7 +459,7 @@ def page_EUROCODE() :
         with plan_cisaillement_col1 :
             plan_cisaill_fut_lisse_check = st.checkbox("Plan de cisaillement dans le fût lisse")
         with plan_cisaillement_col2 :
-            plan_cisaill_filet_check = st.checkbox("Plan de cisaillement dans les filets")
+            plan_cisaill_filet_check = st.checkbox("Plan de cisaillement dans les filets", value = True)
         
         # st.image("Pictures/definition_plan_cisaillement.PNG", use_column_width=True, caption="Définition du ou des plans de cisaillement")
             

@@ -585,6 +585,13 @@ def page_EUROCODE() :
             if tp > d/3 :
                 Betap = 9*d/(8*d+3*tp)
                 FvRd = Betap*FvRd
+                
+            # Si c'est un assemblage long, on applique un coefficient supplémentaire
+            if check_assemblage_long :
+                BetaLf = 1 - (Lj - 15*d)/(200*d)
+                if BetaLf <= 0.75 :
+                    BetaLf = 0.75
+                FvRd = BetaLf*FvRd
 
             marge = round(calculer_marge(FvEd, FvRd), 2)
 

@@ -721,7 +721,8 @@ def page_EUROCODE() :
 
 
 
-            Résistance au glissement à l'ELS
+            # Résistance au glissement à l'ELS
+            
             FpC = 0.7*fub*As
             # Si il y a des efforts combinés
             if check_combine :

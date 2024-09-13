@@ -605,7 +605,7 @@ def page_EUROCODE() :
                 else :
                     alpha_d = e1/(3*d0)
                     alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                    k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7, 2.5)
+                    k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
     
                 FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
 

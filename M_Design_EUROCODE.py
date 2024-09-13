@@ -16,6 +16,32 @@ import os
 
 from M_Manipulation_Donnees_Materiaux_2 import get_grandeur_T_quelconque, get_donnees_grandeur_fonction_T
 
+
+
+
+def calculer_marge(valeur, critere) :
+    """
+
+    Parameters
+    ----------
+    valeur : TYPE = float
+        Valeur calculée au préalable
+    critere : TYPE = float
+        Valeur dont on veut calculer l'écart sous forme de marge en %
+
+    Returns
+    -------
+    marge : TYPE = float
+        Valeur de l'écart relatif entre la valeur calculée et la valeur du critère sous forme de pourcentage
+
+    """
+    
+    marge = 100*(float(critere) - float(valeur))/float(critere)
+    
+    return marge
+
+
+
 def page_EUROCODE() :
 
     # =========================================================================
@@ -23,6 +49,7 @@ def page_EUROCODE() :
     # =========================================================================
 
     liste_classe = ["4.6", "4.8", "5.6", "5.8", "6.8", "8.8", "10.9"] 
+    liste_position = ["Intérieure", "Rive"]
 
     # =============================================================================
     # TITRE DE L'APPLICATION ET INTRODUCTION 
@@ -299,28 +326,33 @@ def page_EUROCODE() :
 
     # On crée in tableau de saisie vide
     if 'efforts_ext' not in st.session_state:
-        st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
+        st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
         
     # Saisies utilisateur pour ajouter des données
-    saisie_effort_col1, saisie_effort_col2, saisie_effort_col3 = st.columns([1, 1, 1])
+    saisie_effort_col1, saisie_effort_col2 = st.columns([1, 1])
     with saisie_effort_col1 :
         FtEd = st.text_input('Effort de traction, $F_{t,Ed}$ [N]', placeholder = 0.0)
     with saisie_effort_col2 :
         FvxEd = st.text_input('Effort de cisaillement selon x, $F_{vx,Ed}$ [N]', placeholder = 0.0)
+        
+    st.write("") # Saut de ligne    
+    saisie_effort_col3, saisie_position_col4 = st.columns([1, 1])
     with saisie_effort_col3 :
         FvyEd = st.text_input('Effort de cisaillement selon y, $F_{vy,Ed}$ [N]', placeholder = 0.0)
+    with saisie_position_col4 :
+        position = st.selectbox('Position', liste_position)
     
     but_col1, but_col2, but_col3 = st.columns([1,1,4])
     with but_col1 :
         indice_boulon = 1
         # Bouton pour ajouter les données au DataFrame
         if st.button('Ajouter', use_container_width = True):
-            new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Effort de traction, Ft,Ed [N]' : [float(FtEd)], 'Effort de cisaillement selon x, Fvx,Ed [N]': [FvxEd], 'Effort de cisaillement selon y, Fvy,Ed [N]' : [FvyEd]})
+            new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Position': [position], 'Effort de traction, Ft,Ed [N]' : [float(FtEd)], 'Effort de cisaillement selon x, Fvx,Ed [N]': [FvxEd], 'Effort de cisaillement selon y, Fvy,Ed [N]' : [FvyEd]})
             st.session_state.efforts_ext = pd.concat([st.session_state.efforts_ext, new_data], ignore_index=True)
             indice_boulon = indice_boulon + 1
     with but_col2:
         if st.button('Effacer', use_container_width = True):
-            st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
+            st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
 
     # Afficher les données sous forme de tableau
     st.dataframe(st.session_state.efforts_ext)
@@ -371,9 +403,29 @@ def page_EUROCODE() :
                 st.info("Prendre $\Lambda$ = 0 revient à prendre l'hypothèse d'une liaison infiniment rigide.")
     
                 # On ajoute une colonne pour noter F0 dans le tableau et pour écrire Ft,Ed,p
+                torseur_effort_full = []
+                for index, ligne in enumerate(torseur_effort) :
+                    if index == 0 :
+                        # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
+                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,C [N]", "Effort de traction d'origine externe et interne, Ft,Ed,p [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
+                    else :
+                    # Convertir les valeurs numériques de Col1
+                    col2_val = float(ligne[2])
+
+                    # Calcul pour la nouvelle colonne Ft,Ed,p 
+                    FtEdp = F0 + float(Lambda)*col2_val
+
+                    # Ajouter la nouvelle colonne 6 (F0) et colonne 7 (Ft,Ed,p)
+                    nouvelle_ligne = ligne + [str(F0), str(FtEdp)]
+                    
+                # Ajouter la nouvelle ligne modifiée à la liste finale
+                torseur_effort_full.append(nouvelle_ligne)
+                    
+                    
 
     else :
         check_preload = False
+        torseur_effort_full = torseur_effort
 
     st.write("- ##### *Catégorie*") #Sous-Partie
     if check_preload :
@@ -409,6 +461,85 @@ def page_EUROCODE() :
     
     # saut de ligne
     st.write("\n")
+
+
+
+
+    # =======================================
+    # Calculs
+    # =======================================
+
+    Result_Cat_A = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
+    Result_Cat_B = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
+    Result_Cat_C = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
+    Result_Cat_D = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
+    Result_Cat_E = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
+    Result_Cat_Combine = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
+
+    # On parcourt l'ensemble des valeurs des efforts
+    for i in range(1, len(torseur_effort_full)) :
+
+        position = torseur_effort_full[i][1]
+        FtEd = float(torseur_effort_full[i][2])
+        FvxEd = float(torseur_effort_full[i][3])
+        FvyEd = float(torseur_effort_full[i][4])
+        
+        if check_preload :
+            FtEdp = float(torseur_effort_full[i][6])
+                     
+
+        ###############
+        # Catégorie A #
+        ###############
+    
+        if check_cat_A :
+            
+            # Résistance au cisaillement 
+            FvEd = (FvxEd**2 + FvyEd**2)**(0.5)
+
+            if type_boulonnerie == "Rivet" :
+                alpha_v = 0.6
+            else :
+                if classe == "4.6" or classe == "5.6" or classe == "8.8" :
+                    alpha_v = 0.6
+                else :
+                    alpha_v = 0.5
+            FvRd = alpha_v*fub*As/GammaM2
+
+            if tp > d/3 :
+                Betap = 9*d/(8*d+3*tp)
+                FvRd = Betap*FvRd
+
+            marge = round(calculer_marge(FvEd, FvRd), 2)
+
+            Result_Cat_A.append(["Boulon n°" + str(i), "Résistance au cisaillement", round(FvEd,2), round(FvRd, 2)])
+
+
+            # Résistance à la pression diamétrale
+            # Dans la direction x
+            if position == "Intérieure" :
+                FbxRd = 4
+            else :
+                FbxRd = 4
+
+                                
+            
+            
+
+
+            
+        
+    
+    
+
+    
+    
+    
+    # =======================================
+    # Résultats
+    # =======================================
+    
+    st.subheader("Résultats")
 
 
 

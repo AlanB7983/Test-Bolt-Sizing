@@ -42,6 +42,9 @@ def calculer_marge(valeur, critere) :
 
 
 
+def determination_type_trou(forme_trou, d0, Largeur, longueur) :
+    return "Surdimensionné"
+
 def page_EUROCODE() :
 
     # =========================================================================
@@ -97,28 +100,41 @@ def page_EUROCODE() :
     bolt_goem_data_col1, bolt_goem_data_col2 = st.columns([1, 1])
 
     with bolt_goem_data_col1 :
+        st.write("Type de trou")
+        forme_trou = st.radio("", ("Rond", "Oblong"), label_visibility="collapsed")
         d = st.text_input("Diamètre nominal, $d [mm]$ :", placeholder = "0.0")
         p = st.text_input("Pas, $p [mm]$ :", placeholder = "0.0")
-        d0 = st.text_input("Diamètre du perçage, $d_0 [mm]$ :", placeholder = "0.0")
+        
 
     with bolt_goem_data_col2 :
-        st.write("Type de trou")
-        type_trou = st.radio("", ("Normal", "Surdimensionné", "Oblong"), label_visibility="collapsed")
-    st.write("") # Saut de ligne
-    if type_trou == "Oblong" :
-        st.write("Est-ce qu'il s'agit d'un trou oblong court ou long ?")
-        type_trou_oblong = st.radio("", ("Court", "Long"), horizontal=True, label_visibility="collapsed")
-        st.write("Est-ce que l'axe longitudinal est parallèle ou perpendiculaire aux efforts de cisaillement ? (Voir Figure ci-dessous)")
-        axe_longi = st.radio("", ("Parallèle", "Perpendiculaire"), horizontal=True, label_visibility="collapsed")
-        st.image("Pictures/def_axe_trou_oblong.PNG", use_column_width=True)
-        type_trou = type_trou + " " + type_trou_oblong + " " + axe_longi
-        st.write("") # Saut de ligne
-    st.write("") # Saut de ligne
-    
+        if forme_trou == "Rond" :
+            d0 = st.text_input("Diamètre du perçage, $d_0 [mm]$ :", placeholder = "0.0")
+            Largeur = 0.0
+            longueur = 0.0
+        else :
+            Largeur = st.text_input("Largeur du trou oblong, $L_0 [mm]$ :", placeholder = "0.0")
+            longueur = st.text_input("Longueur du trou oblong, $l_0 [mm]$ :", placeholder = "0.0")
+            d0 = Largeur
+
     # On met une valeur par défaut aux variables pour ne pas générer de message d'erreur
     d = float(d) if d else 1.0
     p = float(p) if p else 1.0
     d0 = float(d0) if d0 else 1.0
+    Largeur = float(Largeur) if Largeur else 0.0
+    longueur = float(longueur) if longueur else 0.0
+
+    type_trou = determination_type_trou(forme_trou, d0, Largeur, longueur)
+    
+    st.write("") # Saut de ligne
+    if forme_trou == "Oblong" :
+        st.write("Est-ce que l'axe longitudinal est parallèle ou perpendiculaire aux efforts de cisaillement ? (Voir Figure ci-dessous)")
+        axe_longi = st.radio("", ("Parallèle", "Perpendiculaire"), horizontal=True, label_visibility="collapsed")
+        st.image("Pictures/def_axe_trou_oblong.PNG", use_column_width=True)
+        type_trou = type_trou + " " + axe_longi
+        st.write("") # Saut de ligne
+    st.write("") # Saut de ligne
+    
+
 
     # On détermine les données intermédiaires
     d1 = d - 1.0825*p             # Diamètre au sommet de l'écrou [mm]
@@ -127,6 +143,7 @@ def page_EUROCODE() :
     S = np.pi*d*d/4               # Section du fût
     As = (((d1+d2)/2)**2)*np.pi/4 # Section résistante
     GammaM2 = 1.25                # Coefficient partiel pour la résistance des boulons
+    
     
     if type_trou == "Surdimensionné" :
         kb = 0.8                   # Coefficient de trou
@@ -504,7 +521,8 @@ def page_EUROCODE() :
         if check_preload :
             FtEdp = float(torseur_effort_full[i][6])
                      
-
+        FvEd = (FvxEd**2 + FvyEd**2)**(0.5)
+        
         ###############
         # Catégorie A #
         ###############
@@ -512,7 +530,7 @@ def page_EUROCODE() :
         if check_cat_A :
             
             # Résistance au cisaillement 
-            FvEd = (FvxEd**2 + FvyEd**2)**(0.5)
+            
 
             if type_boulonnerie == "Rivet" :
                 A = As
@@ -539,13 +557,36 @@ def page_EUROCODE() :
 
             Result_Cat_A.append(["Boulon n°" + str(i), "Résistance au cisaillement", round(FvEd,2), round(FvRd, 2)])
 
-
             # Résistance à la pression diamétrale
-            # Dans la direction x
-            if position == "Intérieure" :
-                FbxRd = 4
+
+             
+            # Si ce n'est pas un boulon injecté (avec résine)
+            if not resine_check :
+                # S'il s'agit d'un boulon à tête fraisée, on modifie la valeur de t
+                if tete_fraisee_check :
+                    t = tp - pf/2
+                
+                # Pour les boulons intérieurs
+                if position == "Intérieure" :
+                    alpha_d = (p1/(3*d0)) - 1/4
+                    alpha_b = min(alpha_d, float(fub)/float(fu), 1)
+                    k1 = min((1.4*p2/d0 - 1.7), 2.5)
+    
+                # Pour les boulons de rive
+                else :
+                    alpha_d = e1/(3*d0)
+                    alpha_b = min(alpha_d, float(fub)/float(fu), 1)
+                    k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7, 2.5)
+    
+                FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
+
+            # Si c'est un boulon injecté (avec résine)
             else :
-                FbxRd = 4
+                FbRd = 1.2*ksresine*d*tb_resine*Beta*fbresine/
+
+            marge = round(calculer_marge(FvEd, FbRd), 2)
+            Result_Cat_A.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2)])
+    
 
                                 
             

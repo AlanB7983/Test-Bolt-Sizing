@@ -562,6 +562,8 @@ def page_EUROCODE() :
         check_cat_E = False
     
     if check_cat_A or check_cat_B or check_cat_C :
+        # saut de ligne
+        st.write("\n")
         st.write("Préciser la localisation du ou des plans de cisaillements.")
         plan_cisaillement_col1, plan_cisaillement_col2 = st.columns([1, 1])
         with plan_cisaillement_col1 :

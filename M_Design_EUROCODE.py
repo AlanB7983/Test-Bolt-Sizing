@@ -61,8 +61,7 @@ def determine_dm(d, L_dm) :
         if float(L_dm[i][0]) == float(d)  :
             dm = float(L_dm[i][1])
 
-        else :
-            dm = 1.0
+
     return dm
         
 

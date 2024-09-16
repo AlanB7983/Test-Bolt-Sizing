@@ -146,6 +146,7 @@ def page_EUROCODE() :
     Largeur = float(Largeur) if Largeur else 0.0
     longueur = float(longueur) if longueur else 0.0
     dm = determine_dm(d, L_dm)
+    st.write("dm = " + str(dm))
 
     type_trou = determination_type_trou(forme_trou, d0, Largeur, longueur)
     

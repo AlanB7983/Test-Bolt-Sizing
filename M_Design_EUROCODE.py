@@ -55,6 +55,15 @@ def diametre_trou_normal_max(d) :
         return int(d + 3)
     else :
         return int(d)
+
+def determine_dm(d, L_dm) :
+    for i in range(0, len(L_dm)) :
+        if int(d) == int(L_dm[i][0]) :
+            dm = float(L_dm[i][1])
+
+        else :
+            dm = 1.0
+    return dm
         
 
 def page_EUROCODE() :
@@ -65,7 +74,9 @@ def page_EUROCODE() :
 
     liste_classe = ["4.6", "4.8", "5.6", "5.8", "6.8", "8.8", "10.9"] 
     liste_position = ["Intérieure", "Rive"]
+    L_dm = [[3,5.75], [4,7.35], [5,8.4], [6,10.5], [8,13.7], [10,16.9], [12,19], [14,22.2], [16,25.4], [18,28.55], [20,31.75], [22,35.85], [24,38], [27,43.1], [30,47.9], [33,52.7], [36,57.9], [39,63.2], [42,68.15], [45,73.5], [48,78.8], [52,84.1], [56,89.3], [60,94.6], [64,99.95]]
 
+    
     # =============================================================================
     # TITRE DE L'APPLICATION ET INTRODUCTION 
     # =============================================================================
@@ -134,6 +145,7 @@ def page_EUROCODE() :
     d0 = float(d0) if d0 else 1.0
     Largeur = float(Largeur) if Largeur else 0.0
     longueur = float(longueur) if longueur else 0.0
+    dm = determine_dm(d, L_dm)
 
     type_trou = determination_type_trou(forme_trou, d0, Largeur, longueur)
     
@@ -615,7 +627,7 @@ def page_EUROCODE() :
 
             marge = round(calculer_marge(FvEd, FvRd), 2)
 
-            Result_Cat_A.append(["Boulon n°" + str(i), "Résistance au cisaillement", round(FvEd,2), round(FvRd, 2)])
+            Result_Cat_A.append(["Boulon n°" + str(i), "Résistance au cisaillement", round(FvEd,2), round(FvRd, 2), marge])
 
 
 
@@ -649,7 +661,7 @@ def page_EUROCODE() :
                 FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
 
             marge = round(calculer_marge(FvEd, FbRd), 2)
-            Result_Cat_A.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2)])
+            Result_Cat_A.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2), marge])
 
         
         ###############
@@ -690,7 +702,7 @@ def page_EUROCODE() :
 
             marge = round(calculer_marge(FvEd, FvRd), 2)
 
-            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance au cisaillement", round(FvEd,2), round(FvRd, 2)])
+            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance au cisaillement", round(FvEd,2), round(FvRd, 2), marge])
 
 
             # Résistance à la pression diamétrale
@@ -721,7 +733,7 @@ def page_EUROCODE() :
                 FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
 
             marge = round(calculer_marge(FvEd, FbRd), 2)
-            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2)])
+            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2), marge])
 
 
 
@@ -743,7 +755,7 @@ def page_EUROCODE() :
                 FsRd = FsRdser
 
             marge = round(calculer_marge(FvEd, FbRd), 2)
-            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance au glissement à l'ELS", round(FvEd,2), round(FsRd, 2)])
+            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance au glissement à l'ELS", round(FvEd,2), round(FsRd, 2), marge])
 
 
 
@@ -755,7 +767,59 @@ def page_EUROCODE() :
     
         if check_cat_C :
             st.write("Catégorie C")
-            # Résistance au cisaillement     
+
+            # Résistance à la pression diamétrale
+            
+            # Si ce n'est pas un boulon injecté (avec résine)
+            if not resine_check :
+                # S'il s'agit d'un boulon à tête fraisée, on modifie la valeur de t
+                if tete_fraisee_check :
+                    t = tp - pf/2
+                
+                # Pour les boulons intérieurs
+                if position == "Intérieure" :
+                    alpha_d = (p1/(3*d0)) - 1/4
+                    alpha_b = min(alpha_d, float(fub)/float(fu), 1)
+                    k1 = min((1.4*p2/d0 - 1.7), 2.5)
+    
+                # Pour les boulons de rive
+                else :
+                    alpha_d = e1/(3*d0)
+                    alpha_b = min(alpha_d, float(fub)/float(fu), 1)
+                    k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
+    
+                FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
+
+            # Si c'est un boulon injecté (avec résine)
+            else :
+                Beta = 1 # Valeur par défaut
+                FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
+
+            marge = round(calculer_marge(FvEd, FbRd), 2)
+            Result_Cat_C.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2), marge])
+
+
+
+            # Résistance au glissement à l'ELU
+            
+            FpC = 0.7*fub*As
+            # Si il y a des efforts combinés
+            if check_combine :
+                FsRdser = ksp*n*mu*(FpC - 0.8*FtEd)/GammaM3ser
+            else : 
+                FsRdser = ksp*n*mu*FpC/GammaM3ser
+
+            # Si c'est un boulon injecté
+            if resine_check :
+                Beta = 1.0 # Valeur par défaut
+                FbRdresine = 1.2*ksresine*d*tbresine*Beta*fbresine/GammaM4
+                FsRd = FbRdresine + FsRdser
+            else :
+                FsRd = FsRdser
+
+            marge = round(calculer_marge(FvEd, FbRd), 2)
+            Result_Cat_C.append(["Boulon n°" + str(i), "Résistance au glissement à l'ELU", round(FvEd,2), round(FsRd, 2), marge])
+            
             
 
 
@@ -770,10 +834,26 @@ def page_EUROCODE() :
     
         if check_cat_D :
             st.write("Catégorie D")
-            # Résistance au cisaillement 
+            # Résistance à la traction 
+
+            if tete_fraisee_check :
+                k2 = 0.63
+            else :
+                k2 = 0.9
+
+            FtRd = k2*fub*As/GammaM2
+            marge = round(calculer_marge(FtEd, FtRd), 2)
+            Result_Cat_D.append(["Boulon n°" + str(i), "Résistance à la traction", round(FtEd,2), round(FtRd, 2), marge])
 
 
 
+            # Résistance au poinçonnement
+
+            # Si ce n'est pas un boulon, on ne vérifie pas le critère de résistance au poinçonnement
+            if type_boulonnerie == "Boulon" :
+                BpRd = 0.6*np.pi*dm*tp*fu/GammaM2
+                marge = round(calculer_marge(FtEd, BpRd), 2)
+                Result_Cat_D.append(["Boulon n°" + str(i), "Résistance au poinçonnement", round(FtEd,2), round(BpRd, 2), marge])
 
 
 

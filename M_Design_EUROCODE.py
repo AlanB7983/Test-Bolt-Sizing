@@ -171,7 +171,7 @@ def page_EUROCODE() :
     GammaM3ser = 1.1              # Coefficient partiel
     
     
-    if type_trou == "Surdimensionné" :
+    if type_trou == "d" :
         kb = 0.8                   # Coefficient de trou
     elif type_trou == "Oblong" :
         kb = 0.6                   # Coefficient de trou
@@ -638,11 +638,16 @@ def page_EUROCODE() :
                 else :
                     A = S
                     alpha_v = 0.6
+
+            st.write("alpha_v = " + str(alpha_v))
+            st.write("A = " + str(A))
                 
             FvRd = alpha_v*fub*A/GammaM2
 
             if tp > d/3 :
                 Betap = 9*d/(8*d+3*tp)
+                st.write("Betap = " + str(Betap))
+                
                 FvRd = Betap*FvRd
                 
             # Si c'est un assemblage long, on applique un coefficient supplémentaire
@@ -679,7 +684,10 @@ def page_EUROCODE() :
                     alpha_d = e1/(3*d0)
                     alpha_b = min(alpha_d, float(fub)/float(fu), 1)
                     k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
-    
+
+                st.write("alpha_d = " + str(alpha_d))
+                st.write("alpha_b = " + str(alpha_b))
+                st.write("k1 = " + str(k1))
                 FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
 
             # Si c'est un boulon injecté (avec résine)

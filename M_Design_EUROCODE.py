@@ -227,7 +227,7 @@ def page_EUROCODE() :
     st.subheader("Données liées à l'assemblage") #Sous-Partie
 
     st.write("- ##### *Données géométriques*") #Sous-Partie
-    st.write("Est-ce que les notions d'entraxe longitudinal et d'entraxe transversal, respectivement notées $p_1$ et $p_2$, visibles sur la figure ci-dessous sont définies ?")
+    st.write("Est-ce que les notions d'entraxe longitudinal et d'entraxe transversal, respectivement notés $p_1$ et $p_2$, visibles sur la figure ci-dessous sont définies ?")
     st.image("Pictures/definition_entraxe_longi_transv.PNG", use_column_width=True)
     p1_cal1, p2_col2, empty_col3 = st.columns([1, 1, 1])
     with p1_cal1 :

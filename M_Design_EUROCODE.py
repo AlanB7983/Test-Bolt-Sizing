@@ -450,7 +450,9 @@ def page_EUROCODE() :
             
             st.write("$F_{p,Cd}$ pris en compte dans les efforts saisis ?")
             F0_selection = st.radio("", ("oui", "non"), horizontal=True, label_visibility="collapsed", key="test")
-    
+
+            torseur_effort_full = []
+            
             if F0_selection == "non" :
                 # On demande la valeur de Lambda
                 st.write("Valeur du coefficient de rigidité $\Lambda$.")
@@ -459,7 +461,6 @@ def page_EUROCODE() :
                 st.info("Prendre $\Lambda$ = 0 revient à prendre l'hypothèse d'une liaison infiniment rigide.")
     
                 # On ajoute une colonne pour noter F0 dans le tableau et pour écrire Ft,Ed,p
-                torseur_effort_full = []
                 for index, ligne in enumerate(torseur_effort) :
                     if index == 0 :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
@@ -476,6 +477,29 @@ def page_EUROCODE() :
                     
                 # Ajouter la nouvelle ligne modifiée à la liste finale
                 torseur_effort_full.append(nouvelle_ligne)
+
+            # Si F0 a été pris en compte dans les résultats saisis
+            else :
+                # On ajoute une colonne pour noter F0 dans le tableau et pour écrire Ft,Ed,p
+                for index, ligne in enumerate(torseur_effort) :
+                    if index == 0 :
+                        # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
+                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ft,Ed,p [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
+                    else :
+                        # On copie colle la valeur de Ft,Ed,p dans la dernière colonne
+                        FtEdp = float(ligne[2])
+
+                    # Ajouter la nouvelle colonne 6 (F0) et colonne 7 (Ft,Ed,p)
+                    nouvelle_ligne = ligne + [str(F0), str(FtEdp)]
+                    
+                # Ajouter la nouvelle ligne modifiée à la liste finale
+                torseur_effort_full.append(nouvelle_ligne)
+
+
+        
+        else :
+            check_preload = False
+            torseur_effort_full = torseur_effort
 
         # saut de ligne
         st.write("\n")
@@ -499,9 +523,6 @@ def page_EUROCODE() :
                     
                     
 
-    else :
-        check_preload = False
-        torseur_effort_full = torseur_effort
 
     st.write("- ##### *Catégorie*") #Sous-Partie
     if check_preload :

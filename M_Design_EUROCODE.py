@@ -58,7 +58,7 @@ def diametre_trou_normal_max(d) :
 
 def determine_dm(d, L_dm) :
     for i in range(0, len(L_dm)) :
-        if int(d) == int(L_dm[i][0]) :
+        if float(L_dm[i][0]) == float(d)  :
             dm = float(L_dm[i][1])
 
         else :

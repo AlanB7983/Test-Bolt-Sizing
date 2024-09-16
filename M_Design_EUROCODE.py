@@ -866,8 +866,26 @@ def page_EUROCODE() :
     
         if check_cat_E :
             st.write("Catégorie E")
-            # Résistance au cisaillement 
+            # Résistance à la traction 
 
+            if tete_fraisee_check :
+                k2 = 0.63
+            else :
+                k2 = 0.9
+
+            FtRd = k2*fub*As/GammaM2
+            marge = round(calculer_marge(FtEdp, FtRd), 2)
+            Result_Cat_E.append(["Boulon n°" + str(i), "Résistance à la traction", round(FtEdp,2), round(FtRd, 2), marge])
+
+
+
+            # Résistance au poinçonnement
+
+            # Si ce n'est pas un boulon, on ne vérifie pas le critère de résistance au poinçonnement
+            if type_boulonnerie == "Boulon" :
+                BpRd = 0.6*np.pi*dm*tp*fu/GammaM2
+                marge = round(calculer_marge(FtEdp, BpRd), 2)
+                Result_Cat_E.append(["Boulon n°" + str(i), "Résistance au poinçonnement", round(FtEdp,2), round(BpRd, 2), marge])
 
 
 
@@ -880,7 +898,14 @@ def page_EUROCODE() :
         
         if check_combine :
             st.write("Catégorie Combinés")
-            # Résistance au cisaillement 
+            if check_preload :
+                effort = FvEd/FvRd + FtEdp/(1.4*FtRd)
+                marge = round(calculer_marge(effort, 1.0), 2)
+            else :
+                effort = FvEd/FvRd + FtEd/(1.4*FtRd)
+                marge = round(calculer_marge(effort, 1.0), 2)
+                
+            Result_Cat_Combine.append(["Boulon n°" + str(i), "Résistance combinée", round(effort,2), 1.0, marge])
     
 
     
@@ -891,8 +916,82 @@ def page_EUROCODE() :
     # =======================================
     
     st.subheader("Résultats")
+    if check_cat_A :
+        # Convertir la liste de listes en DataFrame
+        df_cat_A = pd.DataFrame(Result_Cat_A[1:], columns=Result_Cat_A[0])
+        
+        # Afficher le DataFrame dans Streamlit
+        st.dataframe(df_cat_A)
+
+        # saut de ligne
+        st.write("\n")
+        
+        # saut de ligne
+        st.write("\n")
 
 
+    if check_cat_B :
+        # Convertir la liste de listes en DataFrame
+        df_cat_B = pd.DataFrame(Result_Cat_B[1:], columns=Result_Cat_B[0])
+        
+        # Afficher le DataFrame dans Streamlit
+        st.dataframe(df_cat_B)
+
+        # saut de ligne
+        st.write("\n")
+        
+        # saut de ligne
+        st.write("\n")
+        
+
+    if check_cat_C :
+        # Convertir la liste de listes en DataFrame
+        df_cat_C = pd.DataFrame(Result_Cat_C[1:], columns=Result_Cat_C[0])
+        
+        # Afficher le DataFrame dans Streamlit
+        st.dataframe(df_cat_C)
+
+        # saut de ligne
+        st.write("\n")
+        
+        # saut de ligne
+        st.write("\n")
+        
+
+    if check_cat_D :
+        # Convertir la liste de listes en DataFrame
+        df_cat_D = pd.DataFrame(Result_Cat_D[1:], columns=Result_Cat_D[0])
+        
+        # Afficher le DataFrame dans Streamlit
+        st.dataframe(df_cat_D)
+
+        # saut de ligne
+        st.write("\n")
+        
+        # saut de ligne
+        st.write("\n")
+        
+
+    if check_cat_E :
+        # Convertir la liste de listes en DataFrame
+        df_cat_E = pd.DataFrame(Result_Cat_E[1:], columns=Result_Cat_E[0])
+        
+        # Afficher le DataFrame dans Streamlit
+        st.dataframe(df_cat_E)
+
+        # saut de ligne
+        st.write("\n")
+        
+        # saut de ligne
+        st.write("\n")
+        
+
+    if check_combine :
+        # Convertir la liste de listes en DataFrame
+        df_cat_Combine = pd.DataFrame(Result_Cat_Combine[1:], columns=Result_Cat_Combine[0])
+        
+        # Afficher le DataFrame dans Streamlit
+        st.dataframe(df_cat_Combine)
 
 
     

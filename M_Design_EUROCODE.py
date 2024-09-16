@@ -937,6 +937,18 @@ def page_EUROCODE() :
     # =======================================
     
     st.subheader("Résultats")
+
+    rappel_geom_data_check_box = st.checkbox("Afficher les données géométriques utilisées pour le calcul")
+    if rappel_geom_data_check_box :
+        st.write(df_bolt_geom_data)
+
+        # saut de ligne
+        st.write("\n")
+        
+        # saut de ligne
+        st.write("\n")
+
+    
     if check_cat_A :
         # Convertir la liste de listes en DataFrame
         df_cat_A = pd.DataFrame(Result_Cat_A[1:], columns=Result_Cat_A[0])
@@ -1041,6 +1053,6 @@ def page_EUROCODE() :
     
 
 
-    st.write(df_bolt_geom_data)
+
 
 

@@ -944,6 +944,9 @@ def page_EUROCODE() :
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_cat_A)
 
+        # On affiche la légende
+        st.caption("Résultats du dimensionnement pour les critères de catégorie A")
+
         # saut de ligne
         st.write("\n")
         
@@ -957,6 +960,10 @@ def page_EUROCODE() :
         
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_cat_B)
+
+        
+        # On affiche la légende
+        st.caption("Résultats du dimensionnement pour les critères de catégorie B")
 
         # saut de ligne
         st.write("\n")
@@ -972,6 +979,10 @@ def page_EUROCODE() :
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_cat_C)
 
+        
+        # On affiche la légende
+        st.caption("Résultats du dimensionnement pour les critères de catégorie C")
+
         # saut de ligne
         st.write("\n")
         
@@ -985,6 +996,10 @@ def page_EUROCODE() :
         
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_cat_D)
+
+        
+        # On affiche la légende
+        st.caption("Résultats du dimensionnement pour les critères de catégorie D")
 
         # saut de ligne
         st.write("\n")
@@ -1000,6 +1015,10 @@ def page_EUROCODE() :
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_cat_E)
 
+        
+        # On affiche la légende
+        st.caption("Résultats du dimensionnement pour les critères de catégorie E")
+
         # saut de ligne
         st.write("\n")
         
@@ -1013,6 +1032,10 @@ def page_EUROCODE() :
         
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_cat_Combine)
+
+        
+        # On affiche la légende
+        st.caption("Résultats du dimensionnement pour les critères de cisaillement et traction combinés")
 
 
     

@@ -165,7 +165,7 @@ def page_EUROCODE() :
     d2 = d - 0.6495*p             # Diamètre moyen de la vis [mm]
     d3 = d - 1.2268*p             # Diamètre à fond de filet (ou diamètre du noyau), noté aussi dn [mm]
     S = np.pi*d*d/4               # Section du fût
-    As = (((d1+d2)/2)**2)*np.pi/4 # Section résistante
+    As = (((d3+d2)/2)**2)*np.pi/4 # Section résistante
     GammaM2 = 1.25                # Coefficient partiel pour la résistance des boulons
     GammaM4 = 1.0                 # Coefficient partiel pour la résistance en pression diamétrale des boulons injectés
     GammaM3ser = 1.1              # Coefficient partiel
@@ -503,22 +503,26 @@ def page_EUROCODE() :
 
         # saut de ligne
         st.write("\n")
-        
-        # On demande le nombre de pièces assemblées 
-        st.write("Nombre de pièces assemblées (hors rondelles)")
-        nb_piece = st.number_input("Nombre de pièces assemblées (hors rondelles)", min_value = 1, step = 1, label_visibility="collapsed")
-        n = nb_piece - 1
 
-        # On demande de choisir le coefficient de frottement mu
-        st.write("Sélectionner le coefficient de frottement $\mu$ en fonction du traitement de surface détaillé dans le tableau ci-dessous")
-        mu = st.radio("", ("0.50", "0.40", "0.30", "0.20"), horizontal=True, label_visibility="collapsed", key="mu")
-        mu = float(mu) if mu else 0.2
-        T_mu_Data = [["µ [-]", "Classe", "Traitement de surface"], ["0.50", "A", "Surfaces grenaillées ou sablées, débarrassées de toute rouille non adhérente, exemple de piqûres."], 
-             ["0.40", "B", "Surfaces grenaillées ou sablées : \n - puis métallisées par projection d'un produit à base d'aluminium ou de zinc \n - avec une peinture au zinc silicate (alcalin) inorganique d'une épaisseur de 50 µm à 80 µm"],
-             ["0.30", "C", "Surfaces nettoyées à la brosse métallique ou au chalumeau, débarrassées de toute rouille non adhérente."],
-             ["0.20", "D", "Surfaces brutes de laminage."]]
-        df_T_mu_Data = pd.DataFrame(T_mu_Data[1:], columns=T_mu_Data[0])
-        st.write(df_T_mu_Data)
+        if check_preload :
+            # On demande le nombre de pièces assemblées 
+            st.write("Nombre de pièces assemblées (hors rondelles)")
+            nb_piece = st.number_input("Nombre de pièces assemblées (hors rondelles)", min_value = 1, step = 1, label_visibility="collapsed")
+            n = nb_piece - 1
+    
+            # On demande de choisir le coefficient de frottement mu
+            st.write("Sélectionner le coefficient de frottement $\mu$ en fonction du traitement de surface détaillé dans le tableau ci-dessous")
+            mu = st.radio("", ("0.50", "0.40", "0.30", "0.20"), horizontal=True, label_visibility="collapsed", key="mu")
+            mu = float(mu) if mu else 0.2
+            T_mu_Data = [["µ [-]", "Classe", "Traitement de surface"], ["0.50", "A", "Surfaces grenaillées ou sablées, débarrassées de toute rouille non adhérente, exemple de piqûres."], 
+                 ["0.40", "B", "Surfaces grenaillées ou sablées : \n - puis métallisées par projection d'un produit à base d'aluminium ou de zinc \n - avec une peinture au zinc silicate (alcalin) inorganique d'une épaisseur de 50 µm à 80 µm"],
+                 ["0.30", "C", "Surfaces nettoyées à la brosse métallique ou au chalumeau, débarrassées de toute rouille non adhérente."],
+                 ["0.20", "D", "Surfaces brutes de laminage."]]
+            df_T_mu_Data = pd.DataFrame(T_mu_Data[1:], columns=T_mu_Data[0])
+            st.write(df_T_mu_Data)
+
+            # saut de ligne
+            st.write("\n")
         
                     
                     

@@ -595,12 +595,12 @@ def page_EUROCODE() :
     # Calculs
     # =======================================
 
-    Result_Cat_A = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
-    Result_Cat_B = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
-    Result_Cat_C = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
-    Result_Cat_D = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
-    Result_Cat_E = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
-    Result_Cat_Combine = [["N° Boulon", "Nom du critère", "Valeur de l'effort de calcul [N]", "Valeur de l'effort de résistance [N]", "Marge [%]"]]
+    Result_Cat_A = [["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"]]
+    Result_Cat_B = [["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"]]
+    Result_Cat_C = [["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"]]
+    Result_Cat_D = [["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"]]
+    Result_Cat_E = [["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"]]
+    Result_Cat_Combine = [["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"]]
     # st.write(Result_Cat_A)
 
     st.write(torseur_effort_full)

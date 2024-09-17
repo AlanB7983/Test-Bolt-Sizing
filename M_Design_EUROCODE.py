@@ -405,7 +405,7 @@ def page_EUROCODE() :
         if st.button('Ajouter', use_container_width = True) :
             new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Position': [position], 'Effort de traction, Ft,Ed [N]' : [float(FtEd)], 'Effort de cisaillement selon x, Fvx,Ed [N]': [FvxEd], 'Effort de cisaillement selon y, Fvy,Ed [N]' : [FvyEd]})
             st.session_state.efforts_ext = pd.concat([st.session_state.efforts_ext, new_data], ignore_index=True)
-            indice_boulon += 1
+            indice_boulon = new_data.shape[0]
     with but_col2:
         if st.button('Effacer', use_container_width = True):
             st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])

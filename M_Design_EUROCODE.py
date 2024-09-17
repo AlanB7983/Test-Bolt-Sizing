@@ -403,7 +403,7 @@ def page_EUROCODE() :
     with but_col1 :
         # Bouton pour ajouter les données au DataFrame
         if st.button('Ajouter', use_container_width = True) :
-            indice_boulon = st.session_state.efforts_ext.shape[0]
+            indice_boulon = st.session_state.efforts_ext.shape[0] + 1
             new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Position': [position], 'Effort de traction, Ft,Ed [N]' : [float(FtEd)], 'Effort de cisaillement selon x, Fvx,Ed [N]': [FvxEd], 'Effort de cisaillement selon y, Fvy,Ed [N]' : [FvyEd]})
             st.session_state.efforts_ext = pd.concat([st.session_state.efforts_ext, new_data], ignore_index=True)
     with but_col2:

@@ -799,7 +799,7 @@ def page_EUROCODE() :
             else :
                 FsRd = FsRdser
 
-            marge = round(calculer_marge(FvEd, FbRd), 2)
+            marge = round(calculer_marge(FvEd, FsRd), 2)
             Result_Cat_B.append(["Boulon n°" + str(i), "Résistance au glissement à l'ELS", round(FvEd,2), round(FsRd, 2), marge])
 
 
@@ -862,7 +862,7 @@ def page_EUROCODE() :
             else :
                 FsRd = FsRdser
 
-            marge = round(calculer_marge(FvEd, FbRd), 2)
+            marge = round(calculer_marge(FvEd, FsRd), 2)
             Result_Cat_C.append(["Boulon n°" + str(i), "Résistance au glissement à l'ELU", round(FvEd,2), round(FsRd, 2), marge])
             
             

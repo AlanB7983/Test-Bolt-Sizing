@@ -604,6 +604,7 @@ def page_EUROCODE() :
     # st.write(Result_Cat_A)
 
     st.write(torseur_effort_full)
+    st.write("len : " + str(len(torseur_effort_full)))
 
     # On parcourt l'ensemble des valeurs des efforts
     for i in range(1, len(torseur_effort_full)) :

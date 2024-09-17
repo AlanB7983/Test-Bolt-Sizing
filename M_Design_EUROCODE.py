@@ -399,8 +399,8 @@ def page_EUROCODE() :
         position = st.selectbox('Position', liste_position)
     
     but_col1, but_col2, but_col3 = st.columns([1,1,4])
+    indice_boulon = 1
     with but_col1 :
-        indice_boulon = 1
         # Bouton pour ajouter les données au DataFrame
         if st.button('Ajouter', use_container_width = True):
             new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Position': [position], 'Effort de traction, Ft,Ed [N]' : [float(FtEd)], 'Effort de cisaillement selon x, Fvx,Ed [N]': [FvxEd], 'Effort de cisaillement selon y, Fvy,Ed [N]' : [FvyEd]})

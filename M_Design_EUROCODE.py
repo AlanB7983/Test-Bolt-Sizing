@@ -613,8 +613,15 @@ def page_EUROCODE() :
         
         if check_preload :
             FtEdp = float(torseur_effort_full[i][6])
+            st.write("FtEdp = " + str(FtEdp))
                      
         FvEd = (FvxEd**2 + FvyEd**2)**(0.5)
+
+        st.write("FtEd = " + str(FtEd))
+        st.write("FvxEd = " + str(FvxEd))
+        st.write("FvyEd = " + str(FvyEd))
+        st.write("FvEd = " + str(FvEd))
+        
         
         ###############
         # Catégorie A #

@@ -603,9 +603,6 @@ def page_EUROCODE() :
     Result_Cat_Combine = [["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"]]
     # st.write(Result_Cat_A)
 
-    st.write(torseur_effort_full)
-    st.write("len : " + str(torseur_effort_full[1]))
-
     # On parcourt l'ensemble des valeurs des efforts
     for i in range(1, len(torseur_effort_full)) :
 

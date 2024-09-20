@@ -660,6 +660,23 @@ def page_EUROCODE() :
         check_preload = False
         torseur_effort_full = torseur_effort
 
+    
+    # saut de ligne
+    st.write("\n")
+
+    # Torseur finalement utilisé pour le dimensionnement
+    if check_preload : # On ne l'affiche que si on est précontraint parce que sinon il n'y a rien qui change
+        st.write("Le torseur d'effort finalement utilisé pour le dimensionnement de la boulonnerie en fonction des conditions de calcul saisies est donné dans le tableau ci-dessous.")
+        
+        # Convertir la liste de listes en DataFrame
+        df_torseur_full = pd.DataFrame(torseur_effort_full[1:], columns=torseur_effort_full[0])
+        
+        # Afficher le DataFrame dans Streamlit
+        st.dataframe(df_torseur_full)
+
+
+    
+
     st.write("- ##### *Catégorie*") #Sous-Partie
     if check_preload :
         critere_col1, critere_col2, critere_col3 = st.columns([1, 1, 1])

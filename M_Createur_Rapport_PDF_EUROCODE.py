@@ -20,6 +20,32 @@ from io import BytesIO
 import pandas as pd
 from PIL import Image as PILImage
 
+
+def header_footer(canvas, doc):
+    # Récupérer la date du jour
+    date = datetime.datetime.now()
+    year = date.strftime("%Y")
+    month = date.strftime("%m")
+    day = date.strftime("%d")
+    full_date = str(day) + "/" + str(month) + "/" + str(year)
+    
+    # Dessiner l'en-tête
+    canvas.saveState()
+    canvas.setFont('Times-Roman', 10)
+    canvas.drawString(6.95 * inch, 10.5 * inch, full_date)
+
+    # Ajouter le logo en haut à gauche 
+    logo_path = "Pictures/logo-blanc.PNG"  # Le chemin vers votre logo
+    canvas.drawImage(logo_path, 1 * inch, 9.9 * inch, width=1.1 * inch, height=1.1 * inch, preserveAspectRatio=True)
+    
+    # Dessiner le pied de page avec le numéro de page
+    canvas.drawString(7.2 * inch, 0.75 * inch, f"Page {doc.page}")
+    canvas.drawString(3 * inch, 0.75 * inch, "Document powered by G-MET Technologies")
+    canvas.restoreState()
+
+
+
+
 def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_check, resine_check, df_bolt_data, df_assembly_data, recouvrement_une_rangee, plan_cisaill, df_loads_data, L_cat, tp , Lj):
     buffer = BytesIO()
     
@@ -525,7 +551,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     
     
     #Génération du PDF
-    doc.build(elements)
+    doc.build(elements, onFirstPage=header_footer, onLaterPages=header_footer)
     buffer.seek(0)
     
     return buffer

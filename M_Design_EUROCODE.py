@@ -936,6 +936,7 @@ def page_EUROCODE() :
                 FsRdser = ksp*n*mu*(FpC - 0.8*FtEd)/GammaM3ser
             else : 
                 st.write("oui")
+                st.write(ksp)
                 FsRdser = ksp*n*mu*FpC/GammaM3ser
             st.write(type(FsRdser))
             

@@ -276,7 +276,7 @@ def page_EUROCODE() :
     # On détermine le type de trou et on affiche le résultat
     st.write("") # Saut de ligne
     if d == 1.0 :
-        type_trou = "indéterminé"
+        type_trou = "trou indéterminé"
     else :
         type_trou = determination_type_trou(d, forme_trou, d0, Largeur, longueur)
     st.write("D'après les données saisies, il s'agit d'un " + type_trou.lower())

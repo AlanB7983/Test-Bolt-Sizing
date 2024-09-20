@@ -20,7 +20,7 @@ from io import BytesIO
 import pandas as pd
 from PIL import Image as PILImage
 
-def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, bolt_tete, bolt_inject, df_bolt_data, df_assembly_data, recouvrement_une_rangee, plan_cisaill, df_loads_data, L_cat, tp , Lj):
+def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_check, resine_check, df_bolt_data, df_assembly_data, recouvrement_une_rangee, plan_cisaill, df_loads_data, L_cat, tp , Lj):
     buffer = BytesIO()
     
     #Configuration du document
@@ -139,12 +139,12 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, bolt_tete, bolt_i
     subsubsubtitle_2_1_1 = Paragraph("Type d'élément de serrage", subsubsubtitle_style)
     elements.append(subsubsubtitle_2_1_1)
     
-    if bolt_tete == "classique" :
+    if not tete_fraisee_check :
         text_2_1_1 = "L'élément de serrage étudié est un " + str(bolt_type) + " M" + str(bolt_diameter) + " de classe " + str(bolt_classe) + ", à tête non fraisée et supposé normalisé."
     else :
         text_2_1_1 = "L'élément de serrage étudié est un " + str(bolt_type) + " M" + str(bolt_diameter) + " de classe " + str(bolt_classe) + ", à tête fraisée et supposé normalisé."
     
-    if bolt_inject == "oui" :
+    if resine_check :
         text_2_1_1 = text_2_1_1 + " Il est injecté."
     else :
         text_2_1_1 = text_2_1_1 + " Il n'est pas injecté."
@@ -335,7 +335,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, bolt_tete, bolt_i
     if L_cat[0] : # Catégorie A - criteres 
         traceurA = Paragraph("CatA")
         elements.append(traceurA)
-        if bolt_inject :
+        if resine_check :
             traceurA = Paragraph("CatAi")
             elements.append(traceurA)
             image_A_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie A/eurocode_critere_CatA-injecte.PNG"
@@ -357,7 +357,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, bolt_tete, bolt_i
     if L_cat[1] : # Catégorie B - criteres
         traceurB = Paragraph("CatB")
         elements.append(traceurB)        
-        if bolt_inject :
+        if resine_check :
             traceurB = Paragraph("CatBi")
             elements.append(traceurB)  
             image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_critere_CatB-injecte.PNG"
@@ -379,7 +379,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, bolt_tete, bolt_i
     if L_cat[2] : # Catégorie C - criteres
         traceurC = Paragraph("CatC")
         elements.append(traceurC)         
-        if bolt_inject :
+        if resine_check :
             traceurC = Paragraph("CatCi")
             elements.append(traceurC)
             image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_critere_CatC-injecte.PNG"
@@ -457,26 +457,26 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, bolt_tete, bolt_i
         
         # Résistance au cisaillement FvRd
         if tp > d/3 :
-            image_A_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie A/eurocode_formules_CatA_FvRd-tp.PNG"
+            image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FvRd-tp.png"
             image_width = page_width - 2.16*inch
             image_A_general = Image(image_A_general_path)
             image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
             image_A_general.drawWidth = image_width
             if Lj > 15*d :
-                image_A_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie A/eurocode_formules_CatA_FvRd-tp-Lj.PNG"
+                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FvRd-tp-Lj.png"
                 image_width = page_width - 2.16*inch
                 image_A_general = Image(image_A_general_path)
                 image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
                 image_A_general.drawWidth = image_width
         else :
             if Lj > 15*d :
-                image_A_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie A/eurocode_formules_CatA_FvRd-Lj.PNG"
+                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FvRd-Lj.PNG"
                 image_width = page_width - 2.16*inch
                 image_A_general = Image(image_A_general_path)
                 image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
                 image_A_general.drawWidth = image_width
             else :
-                image_A_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie A/eurocode_formules_CatA_FvRd-general.PNG"
+                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FvRd-general.PNG"
                 image_width = page_width - 2.16*inch
                 image_A_general = Image(image_A_general_path)
                 image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
@@ -485,29 +485,29 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, bolt_tete, bolt_i
         elements.append(image_A_general)
         
         # Résistance à la pression diamétrale FbRd
-        if bolt_inject :
-            image_A_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie A/eurocode_formules_CatA_FbRd-injecte.PNG"
+        if resine_check :
+            image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FbRd-injecte.PNG"
             image_width = page_width - 2.16*inch
             image_A_general = Image(image_A_general_path)
             image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
             image_A_general.drawWidth = image_width
             elements.append(image_A_general)
             if recouvrement_une_rangee :
-                image_A_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie A/eurocode_formules_CatA_FbRd-supplement simple recouvrement.PNG"
+                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FbRd-supplement simple recouvrement.PNG"
                 image_width = page_width - 2.16*inch
                 image_A_general = Image(image_A_general_path)
                 image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
                 image_A_general.drawWidth = image_width
                 elements.append(image_A_general)
         else :
-            image_A_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie A/eurocode_formules_CatA_FbRd-general.PNG"
+            image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FbRd-general.PNG"
             image_width = page_width - 2.16*inch
             image_A_general = Image(image_A_general_path)
             image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
             image_A_general.drawWidth = image_width
             elements.append(image_A_general)
             if recouvrement_une_rangee :
-                image_A_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie A/eurocode_formules_CatA_FbRd-supplement simple recouvrement.PNG"
+                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FbRd-supplement simple recouvrement.PNG"
                 image_width = page_width - 2.16*inch
                 image_A_general = Image(image_A_general_path)
                 image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth

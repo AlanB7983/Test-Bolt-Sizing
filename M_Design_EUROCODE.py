@@ -675,7 +675,8 @@ def page_EUROCODE() :
         st.dataframe(df_torseur_full)
 
 
-    
+    # saut de ligne
+    st.write("\n")
 
     st.write("- ##### *Catégorie*") #Sous-Partie
     if check_preload :
@@ -761,7 +762,7 @@ def page_EUROCODE() :
         
         if check_preload :
             FtEdp = float(torseur_effort_full[i][6])
-            st.write("FtEdp = " + str(FtEdp))
+            # st.write("FtEdp = " + str(FtEdp))
                      
         FvEd = (FvxEd**2 + FvyEd**2)**(0.5)
 

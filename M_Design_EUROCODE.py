@@ -765,10 +765,10 @@ def page_EUROCODE() :
                      
         FvEd = (FvxEd**2 + FvyEd**2)**(0.5)
 
-        st.write("FtEd = " + str(FtEd))
-        st.write("FvxEd = " + str(FvxEd))
-        st.write("FvyEd = " + str(FvyEd))
-        st.write("FvEd = " + str(FvEd))
+        # st.write("FtEd = " + str(FtEd))
+        # st.write("FvxEd = " + str(FvxEd))
+        # st.write("FvyEd = " + str(FvyEd))
+        # st.write("FvEd = " + str(FvEd))
         
         
         ###############
@@ -794,14 +794,14 @@ def page_EUROCODE() :
                     A = S
                     alpha_v = 0.6
 
-            st.write("alpha_v = " + str(alpha_v))
-            st.write("A = " + str(A))
+            # st.write("alpha_v = " + str(alpha_v))
+            # st.write("A = " + str(A))
                 
             FvRd = alpha_v*fub*A/GammaM2
 
             if tp > d/3 :
                 Betap = 9*d/(8*d+3*tp)
-                st.write("Betap = " + str(Betap))
+                # st.write("Betap = " + str(Betap))
                 
                 FvRd = Betap*FvRd
                 
@@ -840,9 +840,9 @@ def page_EUROCODE() :
                     alpha_b = min(alpha_d, float(fub)/float(fu), 1)
                     k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
 
-                st.write("alpha_d = " + str(alpha_d))
-                st.write("alpha_b = " + str(alpha_b))
-                st.write("k1 = " + str(k1))
+                # st.write("alpha_d = " + str(alpha_d))
+                # st.write("alpha_b = " + str(alpha_b))
+                # st.write("k1 = " + str(k1))
                 FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
 
             # Si c'est un boulon injecté (avec résine)

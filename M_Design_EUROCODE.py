@@ -931,6 +931,7 @@ def page_EUROCODE() :
             # Résistance au glissement à l'ELS
             
             FpC = 0.7*fub*As
+            st.write(FpC)
             # Si il y a des efforts combinés
             if check_combine :
                 FsRdser = ksp*n*mu*(FpC - 0.8*FtEd)/GammaM3ser

@@ -603,7 +603,7 @@ def page_EUROCODE() :
                         FtEdp = F0 + float(Lambda)*col2_val
 
                         # Ajouter la nouvelle colonne 6 (F0) et colonne 7 (Ft,Ed,p)
-                        nouvelle_ligne = ligne + [str(F0), FtEdp]
+                        nouvelle_ligne = ligne + [float(F0), FtEdp]
                     
                     # Ajouter la nouvelle ligne modifiée à la liste finale
                     torseur_effort_full.append(nouvelle_ligne)
@@ -620,7 +620,7 @@ def page_EUROCODE() :
                         FtEdp = float(ligne[2])
 
                         # Ajouter la nouvelle colonne 6 (F0) et colonne 7 (Ft,Ed,p)
-                        nouvelle_ligne = ligne + [str(F0), str(FtEdp)]
+                        nouvelle_ligne = ligne + [float(F0), float(FtEdp)]
                     
                     # Ajouter la nouvelle ligne modifiée à la liste finale
                     torseur_effort_full.append(nouvelle_ligne)

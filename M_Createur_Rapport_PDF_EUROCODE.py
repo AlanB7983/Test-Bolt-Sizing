@@ -7,23 +7,24 @@ Created on Thu Sep 12 11:03:09 2024
 
 
 
+import datetime
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image, PageBreak
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image, PageBreak, ListFlowable, ListItem
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.lib.enums import TA_JUSTIFY
-
+from reportlab.pdfgen import canvas
 
 from io import BytesIO
 import pandas as pd
 from PIL import Image as PILImage
 
-def create_pdf_eurocode(output_path, bolt_type, bolt_diameter, bolt_classe, bolt_tete, bolt_inject, df_bolt_data, df_assembly_data, recouvrement_une_rangee, plan_cisaill, df_loads_data, L_cat, tp , Lj):
+def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, bolt_tete, bolt_inject, df_bolt_data, df_assembly_data, recouvrement_une_rangee, plan_cisaill, df_loads_data, L_cat, tp , Lj):
     buffer = BytesIO()
     
     #Configuration du document
-    doc = SimpleDocTemplate(output_path, pagesize=letter)
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
     elements = []
     page_width = letter[0] # Largeur de la page
 

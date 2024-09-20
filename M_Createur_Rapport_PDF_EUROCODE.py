@@ -5,9 +5,6 @@ Created on Thu Sep 12 11:03:09 2024
 @author: admin
 """
 
-import sys
-
-sys.path.append("c:/users/admin/appdata/local/packages/pythonsoftwarefoundation.python.3.12_qbz5n2kfra8p0/localcache/local-packages/python312/site-packages")
 
 
 from reportlab.lib.pagesizes import letter

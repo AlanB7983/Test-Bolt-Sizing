@@ -526,9 +526,11 @@ def page_EUROCODE() :
 
             # saut de ligne
             st.write("\n")
-        
-                    
-                    
+
+    
+    # Si la boulonnerie n'est pas de classe 8.8 ou 10.9                 
+    else :
+        check_preload = False
 
 
     st.write("- ##### *Catégorie*") #Sous-Partie

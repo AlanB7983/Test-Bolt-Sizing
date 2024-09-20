@@ -637,7 +637,7 @@ def page_EUROCODE() :
         if check_preload :
             # On demande le nombre de pièces assemblées 
             st.write("Nombre de pièces assemblées (hors rondelles)")
-            nb_piece = st.number_input("Nombre de pièces assemblées (hors rondelles)", min_value = 1, step = 1, label_visibility="collapsed")
+            nb_piece = st.number_input("Nombre de pièces assemblées (hors rondelles)", min_value = 2, step = 1, label_visibility="collapsed")
             n = nb_piece - 1
     
             # On demande de choisir le coefficient de frottement mu

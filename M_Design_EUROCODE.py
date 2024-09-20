@@ -936,7 +936,8 @@ def page_EUROCODE() :
                 FsRdser = ksp*n*mu*(FpC - 0.8*FtEd)/GammaM3ser
             else : 
                 FsRdser = ksp*n*mu*FpC/GammaM3ser
-
+            st.write(type(FsRdser))
+            
             # Si c'est un boulon injecté
             if resine_check :
                 Beta = 1.0 # Valeur par défaut

@@ -42,8 +42,132 @@ def calculer_marge(valeur, critere) :
 
 
 
-def determination_type_trou(forme_trou, d0, Largeur, longueur) :
-    return "Surdimensionné"
+def determination_type_trou(d, forme_trou, d0, Largeur, Longueur) :
+    if forme_trou == "Rond" :
+        if d == 3 :
+            if d0 > 3.4 :
+                return("Trou rond surdimensionné")
+            else :
+                return("Trou rond normal")
+        elif 4 <= d <= 5 :
+            if d0 > d + 0.5 :
+                return("Trou rond surdimensionné")
+            else :
+                return("Trou rond normal")
+        elif d == 6 :
+            if d0 > 6.6:
+                return("Trou rond surdimensionné")
+            else :
+                return("Trou rond normal")
+        elif 8 <= d <= 10 :
+            if d0 > d + 1 :
+                return("Trou rond surdimensionné")
+            else :
+                return("Trou rond normal")
+        elif 12 <= d <= 16 :
+            if d0 > d + 1.5 :
+                return("Trou rond surdimensionné")
+            else :
+                return("Trou rond normal")
+        elif 18 <= d <= 24 :
+            if d0 > d + 2 :
+                return("Trou rond surdimensionné")
+            else :
+                return("Trou rond normal")
+        elif 27 <= d <= 45 :
+            if d0 > d + 3 :
+                return("Trou rond surdimensionné")
+            else :
+                return("Trou rond normal")
+        elif 48 <= d <= 52 :
+            if d0 > d + 4 :
+                return("Trou rond surdimensionné")
+            else :
+                return("Trou rond normal")
+        elif 56 <= d <= 72 :
+            if d0 > d + 6 :
+                return("Trou rond surdimensionné")
+            else :
+                return("Trou rond normal")
+    else : # forme_trou == "Oblong"
+        if d <= 12 :
+            if Largeur <= d + 1.5 and Longueur <= d + 4 :
+                return("Trou oblong court")
+            elif Largeur <= d + 1.5 and Longueur <= (d + 3) * 2 :
+                return("Trou oblong long")
+            else :
+                return ("Trou oblong très long")
+        elif 12 < d <= 14 :
+            if Largeur <= d + 1.5 and Longueur <= d + 4 :
+                return("Trou oblong court")
+            elif Largeur <= d + 1.5 and Longueur <= (d + 3) * 2 + 1 :
+                return("Trou oblong long")
+            else :
+                return ("Trou oblong très long")
+        elif 14 < d <= 16 :
+            if Largeur <= d + 1.5 and Longueur <= d + 6 :
+                return("Trou oblong court")
+            elif Largeur <= d + 1.5 and Longueur <= (d + 4) * 2 :
+                return("Trou oblong long")
+            else :
+                return ("Trou oblong très long")
+        elif 16 < d <= 18 :
+            if Largeur <= d + 2 and Longueur <= d + 6 :
+                return("Trou oblong court")
+            elif Largeur <= d + 2 and Longueur <= (d + 4) * 2 + 1 :
+                return("Trou oblong long")
+            else :
+                return ("Trou oblong très long")
+        elif 18 < d <= 20 :
+            if Largeur <= d + 2 and Longueur <= d + 6 :
+                return("Trou oblong court")
+            elif Largeur <= d + 2 and Longueur <= (d + 5) * 2 :
+                return("Trou oblong long")
+            else :
+                return ("Trou oblong très long")
+        elif 20 < d <= 22 :
+            if Largeur <= d + 2 and Longueur <= d + 6 :
+                return("Trou oblong court")
+            elif Largeur <= d + 2 and Longueur <= (d + 5) * 2 + 1 :
+                return("Trou oblong long")
+            else :
+                return ("Trou oblong très long")
+        elif 22 < d <= 24 :
+            if Largeur <= d + 2 and Longueur <= d + 8 :
+                return("Trou oblong court")
+            elif Largeur <= d + 2 and Longueur <= (d + 6) * 2 :
+                return("Trou oblong long")
+            else :
+                return ("Trou oblong très long")
+        elif 24 < d <= 27 :
+            if Largeur <= d + 3 and Longueur <= d + 10 :
+                return("Trou oblong court")
+            elif Largeur <= d + 3 and Longueur <= (d + 6) * 2 + 1 :
+                return("Trou oblong long")
+            else :
+                return ("Trou oblong très long")
+        elif 27 < d <= 30 :
+            if Largeur <= d + 3 and Longueur <= d + 10 :
+                return("Trou oblong court")
+            elif Largeur <= d + 3 and Longueur <= (d + 7) * 2 + 1 :
+                return("Trou oblong long")
+            else :
+                return ("Trou oblong très long")
+        elif 30 < d <= 33 :
+            if Largeur <= d + 3 and Longueur <= d + 10 :
+                return("Trou oblong court")
+            elif Largeur <= d + 3 and Longueur <= (d + 8) * 2 :
+                return("Trou oblong long")
+            else :
+                return ("Trou oblong très long")
+        elif 33 < d <= 36 :
+            if Largeur <= d + 3 and Longueur <= d + 10 :
+                return("Trou oblong court")
+            elif Largeur <= d + 3 and Longueur <= (d + 9) * 2 :
+                return("Trou oblong long")
+            else :
+                return ("Trou oblong très long")
+
 
 
 def diametre_trou_normal_max(d) :
@@ -149,8 +273,11 @@ def page_EUROCODE() :
     else :
         dm = 1.0
 
-
-    type_trou = determination_type_trou(forme_trou, d0, Largeur, longueur)
+    # On détermine le type de trou et on affiche le résultat
+    st.write("") # Saut de ligne
+    type_trou = determination_type_trou(d, forme_trou, d0, Largeur, Longueur)
+    st.write("D'après les données saisies, il s'agit d'un " + type_trou)
+    
     
     st.write("") # Saut de ligne
     if forme_trou == "Oblong" :

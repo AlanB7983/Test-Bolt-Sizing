@@ -198,7 +198,7 @@ def page_EUROCODE() :
     liste_classe = ["4.6", "4.8", "5.6", "5.8", "6.8", "8.8", "10.9"] 
     liste_position = ["Intérieure", "Rive"]
     L_dm = [[3,5.75], [4,7.35], [5,8.4], [6,10.5], [8,13.7], [10,16.9], [12,19], [14,22.2], [16,25.4], [18,28.55], [20,31.75], [22,35.85], [24,38], [27,43.1], [30,47.9], [33,52.7], [36,57.9], [39,63.2], [42,68.15], [45,73.5], [48,78.8], [52,84.1], [56,89.3], [60,94.6], [64,99.95]]
-    type_trou = "indéterminé"
+
     
     # =============================================================================
     # TITRE DE L'APPLICATION ET INTRODUCTION 
@@ -275,7 +275,10 @@ def page_EUROCODE() :
 
     # On détermine le type de trou et on affiche le résultat
     st.write("") # Saut de ligne
-    type_trou = determination_type_trou(d, forme_trou, d0, Largeur, longueur)
+    if d = 1.0 :
+        type_trou = "indéterminé"
+    else :
+        type_trou = determination_type_trou(d, forme_trou, d0, Largeur, longueur)
     st.write("D'après les données saisies, il s'agit d'un " + type_trou.lower())
     
     

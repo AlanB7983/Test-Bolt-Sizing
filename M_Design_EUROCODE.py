@@ -499,7 +499,7 @@ def page_EUROCODE() :
                     torseur_effort_full.append(nouvelle_ligne)
 
 
-        
+        # Si on est de classe 8.8 ou 10.9 mais qu'on n'est pas précontraint
         else :
             check_preload = False
             torseur_effort_full = torseur_effort
@@ -531,7 +531,7 @@ def page_EUROCODE() :
     # Si la boulonnerie n'est pas de classe 8.8 ou 10.9                 
     else :
         check_preload = False
-
+        torseur_effort_full = torseur_effort
 
     st.write("- ##### *Catégorie*") #Sous-Partie
     if check_preload :
@@ -606,7 +606,6 @@ def page_EUROCODE() :
     Result_Cat_D = [["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"]]
     Result_Cat_E = [["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"]]
     Result_Cat_Combine = [["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"]]
-    # st.write(Result_Cat_A)
 
     # On parcourt l'ensemble des valeurs des efforts
     for i in range(1, len(torseur_effort_full)) :

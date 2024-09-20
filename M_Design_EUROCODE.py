@@ -15,7 +15,7 @@ import os
 
 
 from M_Manipulation_Donnees_Materiaux_2 import get_grandeur_T_quelconque, get_donnees_grandeur_fonction_T
-
+from M_Createur_Rapport_PDF_EUROCODE import create_pdf_eurocode
 
 
 
@@ -673,6 +673,10 @@ def page_EUROCODE() :
         
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_torseur_full)
+    else :
+        # On ne l'affiche pas mais on le convertie en dataframe pour l'afficher dans le rapport
+        df_torseur_full = pd.DataFrame(torseur_effort_full[1:], columns=torseur_effort_full[0])
+        
 
 
     # saut de ligne
@@ -1219,6 +1223,27 @@ def page_EUROCODE() :
         
         # On affiche la légende
         st.caption("Résultats du dimensionnement pour les critères de cisaillement et traction combinés")
+
+    # RAPPORT PDF
+    # On récupère les données nécessaires
+    L_cat = [check_cat_A, check_cat_B, check_cat_C, check_cat_D, check_cat_E, check_combine]
+    
+    # On crée le rapport pdf
+    pdf_buffer = create_pdf_eurocode(type_boulonnerie, d, classe, tete_fraisee_check, resine_check, df_bolt_geom_data, df_bolt_geom_data, recouvrement_une_rangee = "oui", plan_cisaillement, df_torseur_full, L_cat, tp , Lj)
+    
+    
+    # Proposer le téléchargement
+    file_name = st.text_input("Nom du fichier PDF", placeholder="Rapport.pdf")
+    
+    if ".pdf" not in file_name :
+        file_name = file_name + ".pdf"
+        
+    st.download_button(
+      label="Télécharger le rapport PDF",
+      data=pdf_buffer,
+      file_name = file_name,
+      mime="application/pdf" # utilisé pour spécifier le type de fichier que l'utilisateur peut télécharger. Ici, application/pdf signifie qu'il s'agit d'un document pdf
+    )
 
 
     

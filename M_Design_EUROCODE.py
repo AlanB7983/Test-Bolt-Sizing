@@ -278,6 +278,8 @@ def page_EUROCODE() :
     if d > 2.0 :
         type_trou = determination_type_trou(d, forme_trou, d0, Largeur, longueur)
         st.write("D'après les données saisies, il s'agit d'un " + type_trou.lower())
+    else :
+        type_trou = "trou rond normal"
     
     
     st.write("") # Saut de ligne

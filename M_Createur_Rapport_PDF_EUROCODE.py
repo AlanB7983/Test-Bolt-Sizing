@@ -360,10 +360,10 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
    
     if L_cat[0] : # Catégorie A - criteres 
         # traceurA = Paragraph("CatA")
-        elements.append(traceurA)
+        # elements.append(traceurA)
         if resine_check :
             # traceurA = Paragraph("CatAi")
-            elements.append(traceurA)
+            # elements.append(traceurA)
             image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_critere_CatA-injecte.png"
             image_width = page_width - 2.16*inch
             image_A_general = Image(image_A_general_path)
@@ -372,7 +372,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             elements.append(image_A_general)
         else :
             # traceurA = Paragraph("CatAg")
-            elements.append(traceurA)
+            # elements.append(traceurA)
             image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_critere_CatA.png"
             image_width = page_width - 2.16*inch
             image_A_general = Image(image_A_general_path)

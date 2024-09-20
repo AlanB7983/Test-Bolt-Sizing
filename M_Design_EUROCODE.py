@@ -302,20 +302,20 @@ def page_EUROCODE() :
     GammaM3ser = 1.1              # Coefficient partiel
     
     
-    if type_trou == "d" :
+    if "surdimensionné" in type_trou :
         kb = 0.8                   # Coefficient de trou
-    elif type_trou == "Oblong" :
+    elif forme_trou == "Oblong" :
         kb = 0.6                   # Coefficient de trou
     else :
         kb = 1.0                   # Coefficient de trou
 
-    if type_trou == "Surdimensionné" or type_trou == "Oblong Court Perpendiculaire" :
+    if type_trou == "Trou rond surdimensionné" or type_trou == "Trou oblong court Perpendiculaire" :
         ksp = 0.85
-    elif type_trou == "Oblong Long Perpendiculaire" :
+    elif type_trou == "Trou oblong long Perpendiculaire" :
         ksp = 0.7
-    elif type_trou == "Oblong Court Parallèle" :
+    elif type_trou == "Trou oblong court Parallèle" :
         ksp = 0.76
-    elif type_trou == "Oblong Long Parallèle" :
+    elif type_trou == "Trou oblong long Parallèle" :
         ksp = 0.63
     else :
         ksp = 1.0

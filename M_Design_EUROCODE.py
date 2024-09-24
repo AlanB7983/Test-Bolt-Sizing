@@ -41,6 +41,23 @@ def calculer_marge(valeur, critere) :
     return marge
 
 
+def trouver_marge_min(table_result) :
+    """
+    Donnée d'entrée :
+        Liste de liste sous la forme : [["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"]]
+    Donnée de sortie :
+        Float : valeur de la marge minimale contenue dans le tableau donné en entrée
+    """
+    
+    marge_min = 100.0 # Valeur de départ la plus élevée possible
+    
+    for i in range(1, len(table_result)) : # On commence à un pour ne pas considérer l'entête
+        if float(table_result[i][4]) < marge_min :
+            marge_min = float(table_result[i][4])
+    return marge_min
+
+
+        
 
 def determination_type_trou(d, forme_trou, d0, Largeur, Longueur) :
     if forme_trou == "Rond" :
@@ -1163,6 +1180,9 @@ def page_EUROCODE() :
 
         # On affiche la légende
         st.caption("Résultats du dimensionnement pour les critères de catégorie A")
+        
+        # On récupère la marge min
+        marge_min_A = trouver_marge_min(Result_Cat_A)
 
         # saut de ligne
         st.write("\n")
@@ -1178,9 +1198,11 @@ def page_EUROCODE() :
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_cat_B)
 
-        
         # On affiche la légende
         st.caption("Résultats du dimensionnement pour les critères de catégorie B")
+        
+        # On récupère la marge min
+        marge_min_B = trouver_marge_min(Result_Cat_B)
 
         # saut de ligne
         st.write("\n")
@@ -1196,9 +1218,11 @@ def page_EUROCODE() :
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_cat_C)
 
-        
         # On affiche la légende
         st.caption("Résultats du dimensionnement pour les critères de catégorie C")
+        
+        # On récupère la marge min
+        marge_min_C = trouver_marge_min(Result_Cat_C)
 
         # saut de ligne
         st.write("\n")
@@ -1213,10 +1237,12 @@ def page_EUROCODE() :
         
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_cat_D)
-
         
         # On affiche la légende
         st.caption("Résultats du dimensionnement pour les critères de catégorie D")
+
+        # On récupère la marge min
+        marge_min_D = trouver_marge_min(Result_Cat_D)
 
         # saut de ligne
         st.write("\n")
@@ -1232,9 +1258,11 @@ def page_EUROCODE() :
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_cat_E)
 
-        
         # On affiche la légende
         st.caption("Résultats du dimensionnement pour les critères de catégorie E")
+        
+        # On récupère la marge min
+        marge_min_E = trouver_marge_min(Result_Cat_E)
 
         # saut de ligne
         st.write("\n")
@@ -1250,9 +1278,22 @@ def page_EUROCODE() :
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_cat_Combine)
 
-        
         # On affiche la légende
-        st.caption("Résultats du dimensionnement pour les critères de cisaillement et traction combinés")
+        st.caption("Résultats du dimensionnement pour les critères de cisaillement et traction combinés").
+
+        # On récupère la marge min
+        marge_min_combine = trouver_marge_min(Result_Cat_Combine)
+
+        
+    # saut de ligne
+        st.write("\n")
+        
+    # saut de ligne
+    st.write("\n")
+
+    # On affiche les marges min des différentes catégories
+        
+    
 
     # RAPPORT PDF
     # On récupère les données nécessaires

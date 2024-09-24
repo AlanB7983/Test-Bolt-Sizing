@@ -248,7 +248,7 @@ def page_EUROCODE() :
         st.write("N° Boulon | Nom du critère | Effort de calcul [N] | Effort de résistance [N] | Marge associée [%]")
         st.write("")
         st.write("Un rapport automatique est généré et peut être téléchargé. Il rassemble les informations renseignées, les critères évalués, les résultats et le détail des formules utilisées.")
-        st.write("Bon dimensionnement ! ")
+        st.write("Bon dimensionnement !")
 
 
     

@@ -922,6 +922,9 @@ def page_RCCMRx() :
     # Titre de l'application
     st.title("Dimensionnement de la boulonnerie selon le RCC-MRx")
 
+    # saut de ligne
+    st.write("\n")
+
     with st.expander("INTRODUCTION ET RAPPEL DES HYPOTHÈSES.") :
         st.subheader("Objectifs et conditions d'application")
         st.write("Cette partie est dédiée au dimensionnement des liaisons boulonnées selon le recueil de règles rédigé par l’AFCEN, le *RCC-MRx* (*R*ègles techniques applicables à la *C*onception et la *C*onstruction des *M*atériels mécaniques des installations nucléaires). Ce document propose 3 niveaux de conception et de construction correspondant à 3 niveaux de sécurité décroissants : $N1_{RX}$, $N2_{RX}$ et $N3_{RX}$. Cette application se concentre sur le dimensionnement des éléments de serrage appartenant aux deux premiers niveaux (*RB 3000* et *RC 3000*).")

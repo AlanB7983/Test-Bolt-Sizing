@@ -1296,26 +1296,26 @@ def page_EUROCODE() :
     # On affiche les marges min des différentes catégories
     if check_cat_A :
         if marge_min_A >= 0 :
-            st.succes("Le dimensionnement en catégorie A **est validé** avec une marge minimale de " + str(marge_min_A) + " %.")
+            st.success("Le dimensionnement en catégorie A **est validé** avec une marge minimale de " + str(marge_min_A) + " %.")
         else :
             st.error("Le dimensionnement en catégorie A **n'est pas validé** avec une marge minimale de " + str(marge_min_A) + " %.")
 
     if check_cat_B :
         if marge_min_B >= 0 :
-            st.succes("Le dimensionnement en catégorie B **est validé** avec une marge minimale de " + str(marge_min_B) + " %.")
+            st.success("Le dimensionnement en catégorie B **est validé** avec une marge minimale de " + str(marge_min_B) + " %.")
         else :
             st.error("Le dimensionnement en catégorie B **n'est pas validé** avec une marge minimale de " + str(marge_min_B) + " %.")
 
 
     if check_cat_C :
         if marge_min_C >= 0 :
-            st.succes("Le dimensionnement en catégorie C **est validé** avec une marge minimale de " + str(marge_min_C) + " %.")
+            st.success("Le dimensionnement en catégorie C **est validé** avec une marge minimale de " + str(marge_min_C) + " %.")
         else :
             st.error("Le dimensionnement en catégorie C **n'est pas validé** avec une marge minimale de " + str(marge_min_C) + " %.")
 
     if check_cat_D :
         if marge_min_D >= 0 :
-            st.succes("Le dimensionnement en catégorie D **est validé** avec une marge minimale de " + str(marge_min_D) + " %.")
+            st.success("Le dimensionnement en catégorie D **est validé** avec une marge minimale de " + str(marge_min_D) + " %.")
         else :
             st.error("Le dimensionnement en catégorie D **n'est pas validé** avec une marge minimale de " + str(marge_min_D) + " %.")
     

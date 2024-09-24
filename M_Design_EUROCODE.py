@@ -206,6 +206,33 @@ def page_EUROCODE() :
     
     st.title("Dimensionnement de la boulonnerie selon l'EUROCODE")
 
+    # saut de ligne
+    st.write("\n")
+
+    with st.expander("INTRODUCTION ET RAPPEL DES HYPOTHÈSES.") :
+        st.subheader("Objectifs et conditions d'application")
+        st.write("Cette partie est dédiée au dimensionnement des liaisons boulonnées selon les règles de conception et de calcul de la norme **NF EN 1993-1-8 (Eurocode 3 : Calcul des structures en acier – Calcul des assemblages)**. Elle concerne les assemblages soumis à un chargement statique prédominant. Les aciers qui peuvent les composer, éléments de serrage comme pièces assemblées, doivent être de nuances S235, S275, S355, S420, S450 et S460. Les règles spécifiques aux attaches par boulons, rivets ou axes d’articulation sont données dans la **section 3** du code. Elles ne sont applicables qu’aux classes de boulons de qualité suivantes, données avec leurs limite d’élasticité $f_{yb}$ et résistance ultime à la traction $f_{ub}$ associées :")
+        st.image("Pictures/tableau_fu_fy_introduction.PNG", use_column_width=True)
+        st.write("Les attaches boulonnées sont divisées en 5 catégories qui dépendent de l’effort subi et de leur condition d’utilisation :")
+        st.write("-	**Catégorie A**, pour les boulons travaillant à la pression diamétrale qui ne nécessitent pas de préserrage")
+        st.write("- **Catégorie B**, pour les boulons précontraints à haute résistance devant résister au glissement à l’état limite de service (ELS)")
+        st.write("- **Catégorie C**, pour les boulons précontraints à haute résistance devant résister au glissement à l’état ultime de service (ELU)")
+        st.write("- **Catégorie D**, pour les boulons sollicités en traction qui ne nécessite pas de préserrage")
+        st.write("- **Catégorie E**, pour les boulons précontraints à haute résistance sollicités en traction")
+        st.write("Il est alors possible, pour une attache soumise à des efforts combinés, d’appartenir à plusieurs catégories (A et D, B et E ou C et E). A noter que seuls les boulons de classes 8.8 et 10.9 peuvent entrer dans les catégories B, C et E. Chaque catégorie nécessite la vérification de différents critères, donnés dans le **Tableau 3.2** et calculés selon les règles des sections **3.6**, **3.7**, **3.8** et **3.9**.")
+
+        st.subheader("Présentation")
+        st.write("Cette application simple d’utilisation se compose en plusieurs parties. Après avoir choisi le type d’élément de serrage, l’utilisateur doit renseigner :")
+        st.write("1. les données liées à l'élément de serrage")
+        st.write("2. les données liées à l'assemblage, en temres de géométrie et de matériaux")
+        st.write("3. les efforts sollicitant la liaison")
+        st.write("4. les conditions de calcul : catégorie(s), données liée à la précontrainte, etc.")
+        st.write("Les résultats sont ensuites générés sous la forme de tableau, un par catégorie étudiée, et sous la forme :")
+        st.write("N° Boulon | Nom du critère | Effort de calcul | Effort de résistance | Marge associée")
+        st.write("")
+        st.write("Un rapport automatique est généré et peut être téléchargé. Il rassemble les informations renseignées, les critères évalués, les résultats et le détail des formules utilisées.")
+        st.write("Bon dimensionnement !")
+
 
     
     # =============================================================================

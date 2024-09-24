@@ -482,20 +482,20 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     if L_cat[1] :
         
         # Résistance au cisaillement FvRd
-        if tp > d/3 :
+        if tp > bolt_diameter/3 :
             image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FvRd-tp.png"
             image_width = page_width - 2.16*inch
             image_A_general = Image(image_A_general_path)
             image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
             image_A_general.drawWidth = image_width
-            if Lj > 15*d :
+            if Lj > 15*bolt_diameter :
                 image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FvRd-tp-Lj.png"
                 image_width = page_width - 2.16*inch
                 image_A_general = Image(image_A_general_path)
                 image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
                 image_A_general.drawWidth = image_width
         else :
-            if Lj > 15*d :
+            if Lj > 15*bolt_diameter :
                 image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FvRd-Lj.PNG"
                 image_width = page_width - 2.16*inch
                 image_A_general = Image(image_A_general_path)

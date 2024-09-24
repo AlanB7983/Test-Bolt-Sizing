@@ -1286,7 +1286,7 @@ def page_EUROCODE() :
 
         
     # saut de ligne
-        st.write("\n")
+    st.write("\n")
         
     # saut de ligne
     st.write("\n")
@@ -1318,9 +1318,26 @@ def page_EUROCODE() :
             st.success("Le dimensionnement en catégorie D **est validé** avec une marge minimale de " + str(marge_min_D) + " %.")
         else :
             st.error("Le dimensionnement en catégorie D **n'est pas validé** avec une marge minimale de " + str(marge_min_D) + " %.")
-    
 
+    if check_cat_E :
+        if marge_min_E >= 0 :
+            st.success("Le dimensionnement en catégorie E **est validé** avec une marge minimale de " + str(marge_min_E) + " %.")
+        else :
+            st.error("Le dimensionnement en catégorie E **n'est pas validé** avec une marge minimale de " + str(marge_min_E) + " %.")
+
+    if check_combine :
+        if marge_min_combine >= 0 :
+            st.success("Le dimensionnement en cisaillement et traction combinés **est validé** avec une marge minimale de " + str(marge_min_combine) + " %.")
+        else :
+            st.error("Le dimensionnement en cisaillement et traction combinés **n'est pas validé** avec une marge minimale de " + str(marge_min_combine) + " %.")
+    
+    
+    # saut de ligne
+    st.write("\n")
+    
     # RAPPORT PDF
+    st.subheader("Export des résultats")
+    
     # On récupère les données nécessaires
     L_cat = [check_cat_A, check_cat_B, check_cat_C, check_cat_D, check_cat_E, check_combine]
     recouvrement_une_rangee = "oui"

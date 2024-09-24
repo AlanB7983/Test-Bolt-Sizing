@@ -520,7 +520,10 @@ def page_EUROCODE() :
     L_Unite.append("[mm]")
     L_Unite.append("[mm]")
 
-    st.image("Pictures/definition_donnee_assemblage_full.PNG", use_column_width=True, caption="Définition des données d'assemblage")
+    if forme_trou == "Rond" :
+        st.image("Pictures/definition_donnee_assemblage_full_circulaire.PNG", use_column_width=True, caption="Définition des données d'assemblage")
+    else :
+        st.image("Pictures/definition_donnee_assemblage_full_oblong.PNG", use_column_width=True, caption="Définition des données d'assemblage")
     
     st.write("") # Saut de ligne
     

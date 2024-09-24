@@ -395,6 +395,11 @@ def page_EUROCODE() :
     L_Valeur = [d, p, d0, d1, d2, d3, round(As, 2), round(S, 2), fub, kb, ksp, GammaM2]
     L_Unite = ["[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm²]", "[mm²]", "[MPa]", "[-]", "[-]", "[-]"]
 
+    if type_trou == "Normal" :
+        st.image("Pictures/dimensions_trou_circulaire.PNG", use_column_width=True)
+    else :
+        st.image("Pictures/dimensions_trou_oblong.PNG", use_column_width=True)
+
 
 
 

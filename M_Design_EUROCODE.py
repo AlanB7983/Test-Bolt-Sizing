@@ -496,7 +496,7 @@ def page_EUROCODE() :
     L_Unite.append("[mm]")
     L_Unite.append("[mm]")
 
-    st.image("Pictures/definition_donnee_assemblage.PNG", use_column_width=True, caption="Définition des données d'assemblage")
+    st.image("Pictures/definition_donnee_assemblage_full.PNG", use_column_width=True, caption="Définition des données d'assemblage")
     
     st.write("") # Saut de ligne
     

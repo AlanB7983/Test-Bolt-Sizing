@@ -1306,6 +1306,13 @@ def page_EUROCODE() :
         else :
             st.error("Le dimensionnement en catégorie B **n'est pas validé** avec une marge minimale de " + str(marge_min_B) + " %.")
 
+
+    if check_cat_C :
+        if marge_min_C >= 0 :
+            st.succes("Le dimensionnement en catégorie C **est validé** avec une marge minimale de " + str(marge_min_C) + " %.")
+        else :
+            st.error("Le dimensionnement en catégorie C **n'est pas validé** avec une marge minimale de " + str(marge_min_C) + " %.")
+
     if check_cat_D :
         if marge_min_D >= 0 :
             st.succes("Le dimensionnement en catégorie D **est validé** avec une marge minimale de " + str(marge_min_D) + " %.")

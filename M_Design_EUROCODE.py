@@ -228,7 +228,7 @@ def page_EUROCODE() :
         st.write("3. les efforts sollicitant la liaison")
         st.write("4. les conditions de calcul : catégorie(s), données liée à la précontrainte, etc.")
         st.write("Les résultats sont ensuite générés sous la forme de tableau, un par catégorie étudiée, et sous la forme :")
-        st.write("N° Boulon | Nom du critère | Effort de calcul | Effort de résistance | Marge associée")
+        st.write("N° Boulon | Nom du critère | Effort de calcul [N] | Effort de résistance [N] | Marge associée [%]")
         st.write("")
         st.write("Un rapport automatique est généré et peut être téléchargé. Il rassemble les informations renseignées, les critères évalués, les résultats et le détail des formules utilisées.")
         st.write("Bon dimensionnement !")

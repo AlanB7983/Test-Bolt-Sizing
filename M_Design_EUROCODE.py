@@ -1291,8 +1291,20 @@ def page_EUROCODE() :
     # saut de ligne
     st.write("\n")
 
+    
+
     # On affiche les marges min des différentes catégories
-        
+    if check_cat_A :
+        if marge_min_A >= 0 :
+            st.succes("Le dimensionnement en catégorie A **est validé** avec une marge minimale de " + str(marge_min_A) + " %.")
+        else :
+            st.error("Le dimensionnement en catégorie A **n'est pas validé** avec une marge minimale de " + str(marge_min_A) + " %.")
+
+    if check_cat_B :
+        if marge_min_B >= 0 :
+            st.succes("Le dimensionnement en catégorie B **est validé** avec une marge minimale de " + str(marge_min_B) + " %.")
+        else :
+            st.error("Le dimensionnement en catégorie B **n'est pas validé** avec une marge minimale de " + str(marge_min_B) + " %.")
     
 
     # RAPPORT PDF

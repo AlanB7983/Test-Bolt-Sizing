@@ -1279,7 +1279,7 @@ def page_EUROCODE() :
         st.dataframe(df_cat_Combine)
 
         # On affiche la légende
-        st.caption("Résultats du dimensionnement pour les critères de cisaillement et traction combinés").
+        st.caption("Résultats du dimensionnement pour les critères de cisaillement et traction combinés")
 
         # On récupère la marge min
         marge_min_combine = trouver_marge_min(Result_Cat_Combine)

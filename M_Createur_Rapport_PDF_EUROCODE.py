@@ -250,7 +250,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     elements.append(legend)
     elements.append(espace)  # Ajouter un espace après le texte
 
-    if recouvrement_une_rangee == "oui" :
+    if recouvrement_une_rangee :
         text_2_2_1bis = "Cet assemblage est à simple recouvrement à une rangée de boulons."
     else :
         text_2_2_1bis = ""

@@ -1185,6 +1185,13 @@ def page_EUROCODE() :
     
     st.subheader("Résultats")
 
+    marge_min_A = 1000.0
+    marge_min_B = 1000.0
+    marge_min_C = 1000.0
+    marge_min_D = 1000.0
+    marge_min_E = 1000.0
+    marge_min_combine = 1000.0
+
     rappel_geom_data_check_box = st.checkbox("Afficher les données géométriques utilisées pour le calcul")
     if rappel_geom_data_check_box :
         st.write(df_bolt_geom_data)
@@ -1319,6 +1326,7 @@ def page_EUROCODE() :
     
 
     # On affiche les marges min des différentes catégories
+    
     if check_cat_A :
         if marge_min_A >= 0 :
             st.success("Le dimensionnement en catégorie A **est validé** avec une marge minimale de " + str(marge_min_A) + " %.")
@@ -1365,12 +1373,7 @@ def page_EUROCODE() :
     
     # On récupère les données nécessaires
     L_cat = [check_cat_A, check_cat_B, check_cat_C, check_cat_D, check_cat_E, check_combine]
-    marge_min_A = float(marge_min_A) if marge_min_A else 0.0
-    marge_min_B = float(marge_min_B) if marge_min_B else 0.0
-    marge_min_C = float(marge_min_C) if marge_min_C else 0.0
-    marge_min_D = float(marge_min_D) if marge_min_D else 0.0
-    marge_min_E = float(marge_min_E) if marge_min_E else 0.0
-    marge_min_combine = float(marge_min_combine) if marge_min_combine else 0.0
+
     
     # On crée le rapport pdf
     pdf_buffer = create_pdf_eurocode(type_boulonnerie, d, classe, tete_fraisee_check, resine_check, df_bolt_geom_data, df_bolt_geom_data, simple_recouvrement_check, plan_cisaillement, df_torseur_full, L_cat, tp , Lj, Result_Cat_A, Result_Cat_B, Result_Cat_C, Result_Cat_D, Result_Cat_E, Result_Cat_Combine, marge_min_A, marge_min_B, marge_min_C, marge_min_D, marge_min_E, marge_min_combine)

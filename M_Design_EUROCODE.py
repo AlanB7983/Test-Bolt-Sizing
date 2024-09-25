@@ -892,23 +892,27 @@ def page_EUROCODE() :
                 # S'il s'agit d'un boulon à tête fraisée, on modifie la valeur de t
                 if tete_fraisee_check :
                     t = tp - pf/2
-                
-                # Pour les boulons intérieurs
-                if position == "Intérieure" :
-                    alpha_d = (p1/(3*d0)) - 1/4
-                    alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                    k1 = min((1.4*p2/d0 - 1.7), 2.5)
-    
-                # Pour les boulons de rive
-                else :
-                    alpha_d = e1/(3*d0)
-                    alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                    k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
 
-                # st.write("alpha_d = " + str(alpha_d))
-                # st.write("alpha_b = " + str(alpha_b))
-                # st.write("k1 = " + str(k1))
-                FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
+                if simple_recouvrement_check :
+                    FbRd = 1.5*fu*d*t/GammaM2
+
+                else :
+                    # Pour les boulons intérieurs
+                    if position == "Intérieure" :
+                        alpha_d = (p1/(3*d0)) - 1/4
+                        alpha_b = min(alpha_d, float(fub)/float(fu), 1)
+                        k1 = min((1.4*p2/d0 - 1.7), 2.5)
+        
+                    # Pour les boulons de rive
+                    else :
+                        alpha_d = e1/(3*d0)
+                        alpha_b = min(alpha_d, float(fub)/float(fu), 1)
+                        k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
+    
+                    # st.write("alpha_d = " + str(alpha_d))
+                    # st.write("alpha_b = " + str(alpha_b))
+                    # st.write("k1 = " + str(k1))
+                    FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
 
             # Si c'est un boulon injecté (avec résine)
             else :
@@ -967,20 +971,24 @@ def page_EUROCODE() :
                 # S'il s'agit d'un boulon à tête fraisée, on modifie la valeur de t
                 if tete_fraisee_check :
                     t = tp - pf/2
-                
-                # Pour les boulons intérieurs
-                if position == "Intérieure" :
-                    alpha_d = (p1/(3*d0)) - 1/4
-                    alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                    k1 = min((1.4*p2/d0 - 1.7), 2.5)
-    
-                # Pour les boulons de rive
+
+                if simple_recouvrement_check :
+                    FbRd = 1.5*fu*d*t/GammaM2
+
                 else :
-                    alpha_d = e1/(3*d0)
-                    alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                    k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
-    
-                FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
+                    # Pour les boulons intérieurs
+                    if position == "Intérieure" :
+                        alpha_d = (p1/(3*d0)) - 1/4
+                        alpha_b = min(alpha_d, float(fub)/float(fu), 1)
+                        k1 = min((1.4*p2/d0 - 1.7), 2.5)
+        
+                    # Pour les boulons de rive
+                    else :
+                        alpha_d = e1/(3*d0)
+                        alpha_b = min(alpha_d, float(fub)/float(fu), 1)
+                        k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
+        
+                    FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
 
             # Si c'est un boulon injecté (avec résine)
             else :
@@ -1031,20 +1039,24 @@ def page_EUROCODE() :
                 # S'il s'agit d'un boulon à tête fraisée, on modifie la valeur de t
                 if tete_fraisee_check :
                     t = tp - pf/2
-                
-                # Pour les boulons intérieurs
-                if position == "Intérieure" :
-                    alpha_d = (p1/(3*d0)) - 1/4
-                    alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                    k1 = min((1.4*p2/d0 - 1.7), 2.5)
-    
-                # Pour les boulons de rive
+
+                if simple_recouvrement_check :
+                    FbRd = 1.5*fu*d*t/GammaM2
+
                 else :
-                    alpha_d = e1/(3*d0)
-                    alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                    k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
-    
-                FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
+                    # Pour les boulons intérieurs
+                    if position == "Intérieure" :
+                        alpha_d = (p1/(3*d0)) - 1/4
+                        alpha_b = min(alpha_d, float(fub)/float(fu), 1)
+                        k1 = min((1.4*p2/d0 - 1.7), 2.5)
+        
+                    # Pour les boulons de rive
+                    else :
+                        alpha_d = e1/(3*d0)
+                        alpha_b = min(alpha_d, float(fub)/float(fu), 1)
+                        k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
+        
+                    FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
 
             # Si c'est un boulon injecté (avec résine)
             else :
@@ -1353,10 +1365,9 @@ def page_EUROCODE() :
     
     # On récupère les données nécessaires
     L_cat = [check_cat_A, check_cat_B, check_cat_C, check_cat_D, check_cat_E, check_combine]
-    recouvrement_une_rangee = "oui"
     
     # On crée le rapport pdf
-    pdf_buffer = create_pdf_eurocode(type_boulonnerie, d, classe, tete_fraisee_check, resine_check, df_bolt_geom_data, df_bolt_geom_data, recouvrement_une_rangee, plan_cisaillement, df_torseur_full, L_cat, tp , Lj)
+    pdf_buffer = create_pdf_eurocode(type_boulonnerie, d, classe, tete_fraisee_check, resine_check, df_bolt_geom_data, df_bolt_geom_data, simple_recouvrement_check, plan_cisaillement, df_torseur_full, L_cat, tp , Lj)
     
     
     # Proposer le téléchargement

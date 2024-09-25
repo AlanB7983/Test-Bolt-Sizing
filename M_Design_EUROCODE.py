@@ -1030,7 +1030,7 @@ def page_EUROCODE() :
         ###############
     
         if check_cat_C :
-            st.write("Catégorie C")
+            # st.write("Catégorie C")
 
             # Résistance à la pression diamétrale
             
@@ -1101,7 +1101,7 @@ def page_EUROCODE() :
         ###############
     
         if check_cat_D :
-            st.write("Catégorie D")
+            # st.write("Catégorie D")
             # Résistance à la traction 
 
             if tete_fraisee_check :
@@ -1133,7 +1133,7 @@ def page_EUROCODE() :
         ###############
     
         if check_cat_E :
-            st.write("Catégorie E")
+            # st.write("Catégorie E")
             # Résistance à la traction 
 
             if tete_fraisee_check :
@@ -1165,7 +1165,7 @@ def page_EUROCODE() :
         ######################
         
         if check_combine :
-            st.write("Catégorie Combinés")
+            # st.write("Catégorie Combinés")
             if check_preload :
                 effort = FvEd/FvRd + FtEdp/(1.4*FtRd)
                 marge = round(calculer_marge(effort, 1.0), 2)

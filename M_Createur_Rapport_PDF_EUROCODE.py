@@ -46,7 +46,7 @@ def header_footer(canvas, doc):
 
 
 
-def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_check, resine_check, df_bolt_data, df_assembly_data, recouvrement_une_rangee, plan_cisaill, df_loads_data, L_cat, tp , Lj):
+def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_check, resine_check, df_bolt_data, df_assembly_data, recouvrement_une_rangee, plan_cisaill, df_loads_data, L_cat, tp , Lj, Result_Cat_A, Result_Cat_B, Result_Cat_C, Result_Cat_D, Result_Cat_E, Result_Cat_Combine, marge_min_A, marge_min_B, marge_min_C, marge_min_D, marge_min_E, marge_min_combine):
     buffer = BytesIO()
     
     #Configuration du document
@@ -462,6 +462,174 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     elements.append(espace)
     
     #tableaux
+    num_tabeau = 4
+    if L_cat[0] :
+        Table_Result_Cat_A = Table(Result_Cat_A)
+        Table_Result_Cat_A.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+                                   ('FONTSIZE', (0, 0), (-1, -1), 8),
+                                   ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                                   ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                   ('FONTNAME', (0, 0), (-1, 0), 'Times-Bold'),
+                                   ('FONTNAME', (0, 1), (-1, -1), 'Times-Roman'),
+                                   # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                                   ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                                   ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                                   ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
+                                   ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+        elements.append(Table_Result_Cat_A)
+        legend = Paragraph("Tableau " + str(num_tabeau) + " : Résultats du dimensionnement pour les critères de catégorie A", legend_style)
+        elements.append(legend)
+        elements.append(espace)  # Ajouter un espace après le texte
+        num_tabeau += 1 # On met à jour le numéro du tableau
+
+        # On ajoute une phrase de conclusion
+        if marge_min_A >= 0 :
+            text = Paragraph("Le dimensionnement en catégorie A est validé avec une marge minimale de " + str(marge_min_A) + " %.", conclusion_style)
+        else :
+            text = Paragraph("Le dimensionnement en catégorie A n'est pas validé avec une marge minimale de " + str(marge_min_A) + " %.", conclusion_style)
+        elements.append(text)  
+        elements.append(espace)  # Ajouter un espace après le texte
+
+    if L_cat[1] :
+        Table_Result_Cat_B = Table(Result_Cat_B)
+        Table_Result_Cat_B.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+                                   ('FONTSIZE', (0, 0), (-1, -1), 8),
+                                   ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                                   ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                   ('FONTNAME', (0, 0), (-1, 0), 'Times-Bold'),
+                                   ('FONTNAME', (0, 1), (-1, -1), 'Times-Roman'),
+                                   # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                                   ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                                   ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                                   ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
+                                   ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+        elements.append(Table_Result_Cat_B)
+        legend = Paragraph("Tableau " + str(num_tabeau) + " : Résultats du dimensionnement pour les critères de catégorie B", legend_style)
+        elements.append(legend)
+        elements.append(espace)  # Ajouter un espace après le texte
+        num_tabeau += 1 # On met à jour le numéro du tableau
+
+        # On ajoute une phrase de conclusion
+        if marge_min_B >= 0 :
+            text = Paragraph("Le dimensionnement en catégorie B est validé avec une marge minimale de " + str(marge_min_B) + " %.", conclusion_style)
+        else :
+            text = Paragraph("Le dimensionnement en catégorie B n'est pas validé avec une marge minimale de " + str(marge_min_B) + " %.", conclusion_style)
+        elements.append(text)  
+        elements.append(espace)  # Ajouter un espace après le texte
+
+    if L_cat[2] :
+        Table_Result_Cat_C = Table(Result_Cat_C)
+        Table_Result_Cat_C.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+                                   ('FONTSIZE', (0, 0), (-1, -1), 8),
+                                   ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                                   ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                   ('FONTNAME', (0, 0), (-1, 0), 'Times-Bold'),
+                                   ('FONTNAME', (0, 1), (-1, -1), 'Times-Roman'),
+                                   # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                                   ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                                   ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                                   ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
+                                   ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+        elements.append(Table_Result_Cat_C)
+        legend = Paragraph("Tableau " + str(num_tabeau) + " : Résultats du dimensionnement pour les critères de catégorie C", legend_style)
+        elements.append(legend)
+        elements.append(espace)  # Ajouter un espace après le texte
+        num_tabeau += 1 # On met à jour le numéro du tableau
+
+        # On ajoute une phrase de conclusion
+        if marge_min_C >= 0 :
+            text = Paragraph("Le dimensionnement en catégorie C est validé avec une marge minimale de " + str(marge_min_C) + " %.", conclusion_style)
+        else :
+            text = Paragraph("Le dimensionnement en catégorie C n'est pas validé avec une marge minimale de " + str(marge_min_C) + " %.", conclusion_style)
+        elements.append(text)  
+        elements.append(espace)  # Ajouter un espace après le texte
+
+    if L_cat[3] :
+        Table_Result_Cat_D = Table(Result_Cat_D)
+        Table_Result_Cat_D.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+                                   ('FONTSIZE', (0, 0), (-1, -1), 8),
+                                   ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                                   ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                   ('FONTNAME', (0, 0), (-1, 0), 'Times-Bold'),
+                                   ('FONTNAME', (0, 1), (-1, -1), 'Times-Roman'),
+                                   # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                                   ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                                   ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                                   ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
+                                   ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+        elements.append(Table_Result_Cat_D)
+        legend = Paragraph("Tableau " + str(num_tabeau) + " : Résultats du dimensionnement pour les critères de catégorie D", legend_style)
+        elements.append(legend)
+        elements.append(espace)  # Ajouter un espace après le texte
+        num_tabeau += 1 # On met à jour le numéro du tableau
+
+        # On ajoute une phrase de conclusion
+        if marge_min_D >= 0 :
+            text = Paragraph("Le dimensionnement en catégorie D est validé avec une marge minimale de " + str(marge_min_D) + " %.", conclusion_style)
+        else :
+            text = Paragraph("Le dimensionnement en catégorie D n'est pas validé avec une marge minimale de " + str(marge_min_D) + " %.", conclusion_style)
+        elements.append(text)  
+        elements.append(espace)  # Ajouter un espace après le texte
+
+    if L_cat[4] :
+        Table_Result_Cat_E = Table(Result_Cat_E)
+        Table_Result_Cat_E.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+                                   ('FONTSIZE', (0, 0), (-1, -1), 8),
+                                   ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                                   ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                   ('FONTNAME', (0, 0), (-1, 0), 'Times-Bold'),
+                                   ('FONTNAME', (0, 1), (-1, -1), 'Times-Roman'),
+                                   # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                                   ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                                   ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                                   ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
+                                   ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+        elements.append(Table_Result_Cat_E)
+        legend = Paragraph("Tableau " + str(num_tabeau) + " : Résultats du dimensionnement pour les critères de catégorie E", legend_style)
+        elements.append(legend)
+        elements.append(espace)  # Ajouter un espace après le texte
+        num_tabeau += 1 # On met à jour le numéro du tableau
+
+        # On ajoute une phrase de conclusion
+        if marge_min_E >= 0 :
+            text = Paragraph("Le dimensionnement en catégorie E est validé avec une marge minimale de " + str(marge_min_E) + " %.", conclusion_style)
+        else :
+            text = Paragraph("Le dimensionnement en catégorie E n'est pas validé avec une marge minimale de " + str(marge_min_E) + " %.", conclusion_style)
+        elements.append(text)  
+        elements.append(espace)  # Ajouter un espace après le texte
+
+    if L_cat[5] :
+        Table_Result_Cat_Combine = Table(Result_Cat_Combine)
+        Table_Result_Cat_Combine.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
+                                   ('FONTSIZE', (0, 0), (-1, -1), 8),
+                                   ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                                   ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                   ('FONTNAME', (0, 0), (-1, 0), 'Times-Bold'),
+                                   ('FONTNAME', (0, 1), (-1, -1), 'Times-Roman'),
+                                   # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+                                   ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+                                   ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
+                                   ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour
+                                   ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+        elements.append(Table_Result_Cat_Combine)
+        legend = Paragraph("Tableau " + str(num_tabeau) + " : Résultats du dimensionnement pour les critères de cisaillement et traction combinés", legend_style)
+        elements.append(legend)
+        elements.append(espace)  # Ajouter un espace après le texte
+        num_tabeau += 1 # On met à jour le numéro du tableau
+
+        # On ajoute une phrase de conclusion
+        if marge_min_combine >= 0 :
+            text = Paragraph("Le dimensionnement en cisaillement et traction combinés est validé avec une marge minimale de " + str(marge_min_combine) + " %.", conclusion_style)
+        else :
+            text = Paragraph("Le dimensionnement en cisaillement et traction combinés n'est pas validé avec une marge minimale de " + str(marge_min_combine) + " %.", conclusion_style)
+        elements.append(text)  
+        elements.append(espace)  # Ajouter un espace après le texte
+
+    
+
+
+
+
     
     
         # =============================================================================
@@ -479,7 +647,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             #      Catégorie A
             # =============================================================================
          
-    if L_cat[1] :
+    if L_cat[0] :
         
         # Résistance au cisaillement FvRd
         if tp > bolt_diameter/3 :

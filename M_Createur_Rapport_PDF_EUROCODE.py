@@ -496,13 +496,13 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
                 image_A_general.drawWidth = image_width
         else :
             if Lj > 15*bolt_diameter :
-                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FvRd-Lj.PNG"
+                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FvRd-Lj.png"
                 image_width = page_width - 2.16*inch
                 image_A_general = Image(image_A_general_path)
                 image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
                 image_A_general.drawWidth = image_width
             else :
-                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FvRd-general.PNG"
+                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FvRd-general.png"
                 image_width = page_width - 2.16*inch
                 image_A_general = Image(image_A_general_path)
                 image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
@@ -512,28 +512,28 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
         
         # Résistance à la pression diamétrale FbRd
         if resine_check :
-            image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FbRd-injecte.PNG"
+            image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FbRd-injecte.png"
             image_width = page_width - 2.16*inch
             image_A_general = Image(image_A_general_path)
             image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
             image_A_general.drawWidth = image_width
             elements.append(image_A_general)
             if recouvrement_une_rangee :
-                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FbRd-supplement simple recouvrement.PNG"
+                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FbRd-supplement simple recouvrement.png"
                 image_width = page_width - 2.16*inch
                 image_A_general = Image(image_A_general_path)
                 image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
                 image_A_general.drawWidth = image_width
                 elements.append(image_A_general)
         else :
-            image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FbRd-general.PNG"
+            image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FbRd-general.png"
             image_width = page_width - 2.16*inch
             image_A_general = Image(image_A_general_path)
             image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth
             image_A_general.drawWidth = image_width
             elements.append(image_A_general)
             if recouvrement_une_rangee :
-                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FbRd-supplement simple recouvrement.PNG"
+                image_A_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatA_FbRd-supplement simple recouvrement.png"
                 image_width = page_width - 2.16*inch
                 image_A_general = Image(image_A_general_path)
                 image_A_general.drawHeight = image_width * image_A_general.drawHeight / image_A_general.drawWidth

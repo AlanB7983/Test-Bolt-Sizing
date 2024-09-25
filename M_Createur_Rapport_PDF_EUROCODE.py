@@ -489,6 +489,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             text = Paragraph("Le dimensionnement en catégorie A n'est pas validé avec une marge minimale de " + str(marge_min_A) + " %.", conclusion_style)
         elements.append(text)  
         elements.append(espace)  # Ajouter un espace après le texte
+        elements.append(espace)  # Ajouter un espace après le texte
 
     if L_cat[1] :
         Table_Result_Cat_B = Table(Result_Cat_B)
@@ -515,6 +516,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
         else :
             text = Paragraph("Le dimensionnement en catégorie B n'est pas validé avec une marge minimale de " + str(marge_min_B) + " %.", conclusion_style)
         elements.append(text)  
+        elements.append(espace)  # Ajouter un espace après le texte
         elements.append(espace)  # Ajouter un espace après le texte
 
     if L_cat[2] :
@@ -543,6 +545,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             text = Paragraph("Le dimensionnement en catégorie C n'est pas validé avec une marge minimale de " + str(marge_min_C) + " %.", conclusion_style)
         elements.append(text)  
         elements.append(espace)  # Ajouter un espace après le texte
+        elements.append(espace)  # Ajouter un espace après le texte
 
     if L_cat[3] :
         Table_Result_Cat_D = Table(Result_Cat_D)
@@ -569,6 +572,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
         else :
             text = Paragraph("Le dimensionnement en catégorie D n'est pas validé avec une marge minimale de " + str(marge_min_D) + " %.", conclusion_style)
         elements.append(text)  
+        elements.append(espace)  # Ajouter un espace après le texte
         elements.append(espace)  # Ajouter un espace après le texte
 
     if L_cat[4] :
@@ -597,6 +601,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             text = Paragraph("Le dimensionnement en catégorie E n'est pas validé avec une marge minimale de " + str(marge_min_E) + " %.", conclusion_style)
         elements.append(text)  
         elements.append(espace)  # Ajouter un espace après le texte
+        elements.append(espace)  # Ajouter un espace après le texte
 
     if L_cat[5] :
         Table_Result_Cat_Combine = Table(Result_Cat_Combine)
@@ -623,6 +628,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
         else :
             text = Paragraph("Le dimensionnement en cisaillement et traction combinés n'est pas validé avec une marge minimale de " + str(marge_min_combine) + " %.", conclusion_style)
         elements.append(text)  
+        elements.append(espace)  # Ajouter un espace après le texte
         elements.append(espace)  # Ajouter un espace après le texte
 
     

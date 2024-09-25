@@ -526,6 +526,9 @@ def page_EUROCODE() :
         st.image("Pictures/definition_donnee_assemblage_full_oblong.PNG", use_column_width=True, caption="Définition des données d'assemblage")
     
     st.write("") # Saut de ligne
+
+    simple_recouvrement_check = st.checkbox("Est-ce qu'il s'agit d'un assemblage à simple recouvrement ne comportant qu'une seule rangée de boulons, comme décrit sur la figure ci-dessous ?")
+    st.image("Pictures/assemblage_simple_recouvrement.PNG", use_column_width=True, caption="Assemblage simple recouvrement ne comportant qu'une seule rangée de boulons")
     
     st.write("- ##### *Données matériaux*") #Sous-Partie
     mat_piece_col1, mat_piece_col2 = st.columns([1, 1])

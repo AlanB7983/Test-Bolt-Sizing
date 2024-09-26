@@ -721,7 +721,7 @@ def page_EUROCODE() :
         st.write("- ##### *Effort à l'état limite ultime*") #Sous-Partie
         
     if 'efforts_ext' not in st.session_state:
-        st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
+        st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]'])
         
     # Saisies utilisateur pour ajouter des données
     saisie_effort_col1, saisie_effort_col2 = st.columns([1, 1])
@@ -743,11 +743,11 @@ def page_EUROCODE() :
         # Bouton pour ajouter les données au DataFrame
         if st.button('Ajouter', use_container_width = True) :
             indice_boulon = st.session_state.efforts_ext.shape[0] + 1
-            new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Position': [position], 'Effort de traction, Ft,Ed [N]' : [float(FtEd)], 'Effort de cisaillement selon x, Fvx,Ed [N]': [float(FvxEd)], 'Effort de cisaillement selon y, Fvy,Ed [N]' : [float(FvyEd)]})
+            new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Position': [position], 'Ft,Ed [N]' : [float(FtEd)], 'Fvx,Ed [N]': [float(FvxEd)], 'Fvy,Ed [N]' : [float(FvyEd)]})
             st.session_state.efforts_ext = pd.concat([st.session_state.efforts_ext, new_data], ignore_index=True)
     with but_col2:
         if st.button('Effacer', use_container_width = True):
-            st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
+            st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]'])
 
     # Afficher les données sous forme de tableau
     st.dataframe(st.session_state.efforts_ext)

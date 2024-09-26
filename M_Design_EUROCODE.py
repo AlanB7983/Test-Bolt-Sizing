@@ -574,54 +574,13 @@ def page_EUROCODE() :
     df_geom_data = pd.DataFrame(D_geom_data)
     st.write("") # Saut de ligne
 
-
-    
-    # ===================================
-    # Saisie du torseur mécanique
-    # ===================================
-    st.subheader("Efforts sollicitant la liaison")
-
-    # On crée in tableau de saisie vide
-    if 'efforts_ext' not in st.session_state:
-        st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
-        
-    # Saisies utilisateur pour ajouter des données
-    saisie_effort_col1, saisie_effort_col2 = st.columns([1, 1])
-    with saisie_effort_col1 :
-        FtEd = st.text_input('Effort de traction, $F_{t,Ed}$ [N]', placeholder = 0.0)
-    with saisie_effort_col2 :
-        FvxEd = st.text_input('Effort de cisaillement selon x, $F_{vx,Ed}$ [N]', placeholder = 0.0)
-        
-    st.write("") # Saut de ligne    
-    saisie_effort_col3, saisie_position_col4 = st.columns([1, 1])
-    with saisie_effort_col3 :
-        FvyEd = st.text_input('Effort de cisaillement selon y, $F_{vy,Ed}$ [N]', placeholder = 0.0)
-    with saisie_position_col4 :
-        position = st.selectbox('Position', liste_position)
-    
-    but_col1, but_col2, but_col3 = st.columns([1,1,4])
-    indice_boulon = 1
-    with but_col1 :
-        # Bouton pour ajouter les données au DataFrame
-        if st.button('Ajouter', use_container_width = True) :
-            indice_boulon = st.session_state.efforts_ext.shape[0] + 1
-            new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Position': [position], 'Effort de traction, Ft,Ed [N]' : [float(FtEd)], 'Effort de cisaillement selon x, Fvx,Ed [N]': [float(FvxEd)], 'Effort de cisaillement selon y, Fvy,Ed [N]' : [float(FvyEd)]})
-            st.session_state.efforts_ext = pd.concat([st.session_state.efforts_ext, new_data], ignore_index=True)
-    with but_col2:
-        if st.button('Effacer', use_container_width = True):
-            st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
-
-    # Afficher les données sous forme de tableau
-    st.dataframe(st.session_state.efforts_ext)
-
-    # On crée une liste de listes à partir de ce tableau dataframe
-    torseur_effort = [st.session_state.efforts_ext.columns.tolist()] + st.session_state.efforts_ext.values.tolist()  
-    
     # saut de ligne
     st.write("\n")
     
     # saut de ligne
     st.write("\n")
+    
+    
 
 
 
@@ -807,6 +766,57 @@ def page_EUROCODE() :
         
             
 
+    # saut de ligne
+    st.write("\n")
+    
+    # saut de ligne
+    st.write("\n")
+
+
+
+    
+
+    # ===================================
+    # Saisie du torseur mécanique
+    # ===================================
+    st.subheader("Efforts sollicitant la liaison")
+
+    # On crée in tableau de saisie vide
+    if 'efforts_ext' not in st.session_state:
+        st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
+        
+    # Saisies utilisateur pour ajouter des données
+    saisie_effort_col1, saisie_effort_col2 = st.columns([1, 1])
+    with saisie_effort_col1 :
+        FtEd = st.text_input('Effort de traction, $F_{t,Ed}$ [N]', placeholder = 0.0)
+    with saisie_effort_col2 :
+        FvxEd = st.text_input('Effort de cisaillement selon x, $F_{vx,Ed}$ [N]', placeholder = 0.0)
+        
+    st.write("") # Saut de ligne    
+    saisie_effort_col3, saisie_position_col4 = st.columns([1, 1])
+    with saisie_effort_col3 :
+        FvyEd = st.text_input('Effort de cisaillement selon y, $F_{vy,Ed}$ [N]', placeholder = 0.0)
+    with saisie_position_col4 :
+        position = st.selectbox('Position', liste_position)
+    
+    but_col1, but_col2, but_col3 = st.columns([1,1,4])
+    indice_boulon = 1
+    with but_col1 :
+        # Bouton pour ajouter les données au DataFrame
+        if st.button('Ajouter', use_container_width = True) :
+            indice_boulon = st.session_state.efforts_ext.shape[0] + 1
+            new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Position': [position], 'Effort de traction, Ft,Ed [N]' : [float(FtEd)], 'Effort de cisaillement selon x, Fvx,Ed [N]': [float(FvxEd)], 'Effort de cisaillement selon y, Fvy,Ed [N]' : [float(FvyEd)]})
+            st.session_state.efforts_ext = pd.concat([st.session_state.efforts_ext, new_data], ignore_index=True)
+    with but_col2:
+        if st.button('Effacer', use_container_width = True):
+            st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
+
+    # Afficher les données sous forme de tableau
+    st.dataframe(st.session_state.efforts_ext)
+
+    # On crée une liste de listes à partir de ce tableau dataframe
+    torseur_effort = [st.session_state.efforts_ext.columns.tolist()] + st.session_state.efforts_ext.values.tolist()  
+    
     # saut de ligne
     st.write("\n")
     

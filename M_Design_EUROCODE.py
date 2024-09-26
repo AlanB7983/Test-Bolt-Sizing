@@ -1194,8 +1194,21 @@ def page_EUROCODE() :
 
     rappel_geom_data_check_box = st.checkbox("Afficher les données géométriques utilisées pour le calcul")
     if rappel_geom_data_check_box :
-        #st.write(df_bolt_geom_data)
+        st.markdown(
+            """
+            <style>
+            .dataframe-table {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        st.write(df_bolt_geom_data)
+        
         # Utiliser du HTML pour centrer le tableau
+        """
         st.markdown(
             """
             <div style="display: flex; justify-content: center;">
@@ -1204,6 +1217,7 @@ def page_EUROCODE() :
             """.format(df_bolt_geom_data.to_html(index=False)),
             unsafe_allow_html=True
         )
+        """
 
         # saut de ligne
         st.write("\n")

@@ -765,7 +765,7 @@ def page_EUROCODE() :
                 for index, ligne in enumerate(torseur_effort) :
                     if index == 0 :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
-                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ft,Ed,p [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
+                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ftp,Ed [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
                     else :
                         # Convertir les valeurs numériques de Col1
                         col2_val = float(ligne[2])
@@ -785,7 +785,7 @@ def page_EUROCODE() :
                 for index, ligne in enumerate(torseur_effort) :
                     if index == 0 :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
-                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ft,Ed,p [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
+                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ftp,Ed [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
                     else :
                         # On copie colle la valeur de Ft,Ed,p dans la dernière colonne
                         FtEdp = float(ligne[2])

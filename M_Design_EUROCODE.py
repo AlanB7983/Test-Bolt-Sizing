@@ -765,14 +765,14 @@ def page_EUROCODE() :
         # Saisies utilisateur pour ajouter des données
         saisie_effort_ser_col1, saisie_effort_ser_col2 = st.columns([1, 1])
         with saisie_effort_ser_col1 :
-            FtEdser = st.text_input('Effort de traction à l'ELS, $F_{t,Ed,ser}$ [N]', placeholder = 0.0)
+            FtEdser = st.text_input("Effort de traction à l'ELS, $F_{t,Ed,ser}$ [N]", placeholder = 0.0)
         with saisie_effort_ser_col2 :
-            FvxEdser = st.text_input('Effort de cisaillement à l'ELS selon x, $F_{vx,Ed,ser}$ [N]', placeholder = 0.0)
+            FvxEdser = st.text_input("Effort de cisaillement à l'ELS selon x, $F_{vx,Ed,ser}$ [N]", placeholder = 0.0)
             
         st.write("") # Saut de ligne    
         saisie_effort_ser_col3, saisie_position_ser_col4 = st.columns([1, 1])
         with saisie_effort_ser_col3 :
-            FvyEdser = st.text_input('Effort de cisaillement à l'ELS selon y, $F_{vy,Ed,ser}$ [N]', placeholder = 0.0)
+            FvyEdser = st.text_input("Effort de cisaillement à l'ELS selon y, $F_{vy,Ed,ser}$ [N]", placeholder = 0.0)
         with saisie_position_ser_col4 :
             position_ser = st.selectbox('Position', liste_position)
         

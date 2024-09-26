@@ -949,7 +949,7 @@ def page_EUROCODE() :
         ###############
     
         if check_cat_B :
-            st.write("Catégorie B")
+            # st.write("Catégorie B")
             # Résistance au cisaillement 
 
             if type_boulonnerie == "Rivet" :
@@ -1024,7 +1024,7 @@ def page_EUROCODE() :
             # Résistance au glissement à l'ELS
             
             FpC = 0.7*fub*As
-            st.write(FpC)
+            # st.write(FpC)
             # Si il y a des efforts combinés
             if check_combine :
                 FsRdser = ksp*n*mu*(FpC - 0.8*FtEd)/GammaM3ser

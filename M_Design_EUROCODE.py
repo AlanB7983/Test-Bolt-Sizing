@@ -801,57 +801,85 @@ def page_EUROCODE() :
     
     
     # On modifie le torseur d'effort en fonction des données saisies par l'utilisateur
-    
+    torseur_effort_full_final = []
     if classe == "8.8" or classe == "10.9" :
         if check_preload :
-            torseur_effort_full = []
+            
+            if check_cat_B :
+                torseur_effort_full[0] = ['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fv,Ed [N]', 'Ft,Ed,ser [N]', 'Fv,Ed,ser [N]']
+                for i in range(1, len(torseur_effort) : # On commence à 1 car on n'a pas besoin de l'entête
+                    torseur_effort_full.append[torseur_effort[i][0], torseur_effort[i][1], torseur_effort[i][2], (torseur_effort[i][3]**2 + torseur_effort[i][4]**2)**(0.5), torseur_effort_ser[i][2], (torseur_effort_ser[i][3]**2 + torseur_effort_ser[i][4]**2)**(0.5)]
+
+            else :
+                torseur_effort_full = [['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fv,Ed [N]']]
+                for i in range(1, len(torseur_effort) : # On commence à 1 car on n'a pas besoin de l'entête
+                    torseur_effort_full.append[torseur_effort[i][0], torseur_effort[i][1], torseur_effort[i][2], (torseur_effort[i][3]**2 + torseur_effort[i][4]**2)**(0.5)]
                     
+            # Si F0 n'a pas été pris en compte dans les résultats saisis
             if F0_selection == "non" :
-                # On ajoute une colonne pour noter F0 dans le tableau et pour écrire Ft,Ed,p
-                for index, ligne in enumerate(torseur_effort) :
+                # On ajoute une colonne pour noter F0 dans le tableau 
+                for index, ligne in enumerate(torseur_effort_full) :
                     if index == 0 :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
-                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ftp,Ed [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
+                        nouvelle_ligne = ligne + ["Fp,Cd [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
                     else :
-                        # Convertir les valeurs numériques de Col1
-                        col2_val = float(ligne[2])
-        
-                        # Calcul pour la nouvelle colonne Ft,Ed,p 
-                        FtEdp = F0 + float(Lambda)*col2_val
-        
-                        # Ajouter la nouvelle colonne 6 (F0) et colonne 7 (Ft,Ed,p)
-                        nouvelle_ligne = ligne + [float(F0), FtEdp]
+                        if check_cat_B :
+                            # Convertir les valeurs numériques de Col1
+                            FtEd = float(ligne[2])
+                            FtEdser = float(ligne[4])
+            
+                            # Calcul pour la nouvelle colonne Ft,Ed,p 
+                            FtpEd = F0 + float(Lambda)*FtEd
+                            FtpEdser = F0 + float(Lambda)*FtEdser
+            
+                            # Ajouter la nouvelle colonne 6 (F0) 
+                            nouvelle_ligne = ligne + [float(F0)]
+                            
+                            # On modifie les valeurs des efforts de tractions pour qu'ils prennent en compte la précontrainte
+                            nouvelle_ligne[2] = FtpEd
+                            nouvelle_ligne[4] = FtpEdser
+                        
+                        
+                        else :
+                            # Convertir les valeurs numériques de Col1
+                            FtEd = float(ligne[2])
+            
+                            # Calcul pour la nouvelle colonne Ft,Ed,p 
+                            FtpEd = F0 + float(Lambda)*FtEd
+            
+                            # Ajouter la nouvelle colonne 6 (F0) 
+                            nouvelle_ligne = ligne + [float(F0)]
+
+                            # On modifie les valeurs des efforts de tractions pour qu'ils prennent en compte la précontrainte
+                            nouvelle_ligne[2] = FtpEd
                     
                     # Ajouter la nouvelle ligne modifiée à la liste finale
-                    torseur_effort_full.append(nouvelle_ligne)
+                    torseur_effort_full_final.append(nouvelle_ligne)
         
             # Si F0 a été pris en compte dans les résultats saisis
             else :
                 # On ajoute une colonne pour noter F0 dans le tableau et pour écrire Ft,Ed,p
-                for index, ligne in enumerate(torseur_effort) :
+                for index, ligne in enumerate(torseur_effort_full) :
                     if index == 0 :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
                         nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ftp,Ed [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
                     else :
-                        # On copie colle la valeur de Ft,Ed,p dans la dernière colonne
-                        FtEdp = float(ligne[2])
-        
-                        # Ajouter la nouvelle colonne 6 (F0) et colonne 7 (Ft,Ed,p)
-                        nouvelle_ligne = ligne + [float(F0), float(FtEdp)]
+                        # Ajouter la nouvelle colonne 6 avec F0 
+                        nouvelle_ligne = ligne + [float(F0)]
                     
                     # Ajouter la nouvelle ligne modifiée à la liste finale
-                    torseur_effort_full.append(nouvelle_ligne)
+                    torseur_effort_full_final.append(nouvelle_ligne)
 
 
         # Si on est de classe 8.8 ou 10.9 mais qu'on n'est pas précontraint
         else :
             # check_preload = False
-            torseur_effort_full = torseur_effort
+            torseur_effort_full_final = torseur_effort
             
     # Si la boulonnerie n'est pas de classe 8.8 ou 10.9                 
     else :
         check_preload = False
-        torseur_effort_full = torseur_effort
+        torseur_effort_full_final = torseur_effort
     
     # saut de ligne
     st.write("\n")
@@ -861,13 +889,13 @@ def page_EUROCODE() :
         st.write("Le torseur d'effort finalement utilisé pour le dimensionnement de la boulonnerie en fonction des conditions de calcul saisies est donné dans le tableau ci-dessous.")
         
         # Convertir la liste de listes en DataFrame
-        df_torseur_full = pd.DataFrame(torseur_effort_full[1:], columns=torseur_effort_full[0])
+        df_torseur_full = pd.DataFrame(torseur_effort_full_final[1:], columns=torseur_effort_full_final[0])
         
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_torseur_full)
     else :
         # On ne l'affiche pas mais on le convertie en dataframe pour l'afficher dans le rapport
-        df_torseur_full = pd.DataFrame(torseur_effort_full[1:], columns=torseur_effort_full[0])
+        df_torseur_full = pd.DataFrame(torseur_effort_full_final[1:], columns=torseur_effort_full_final[0])
     
     # saut de ligne
     st.write("\n")
@@ -887,18 +915,20 @@ def page_EUROCODE() :
     Result_Cat_Combine = [["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"]]
 
     # On parcourt l'ensemble des valeurs des efforts
-    for i in range(1, len(torseur_effort_full)) :
+    for i in range(1, len(torseur_effort_full_final)) :
 
-        position = torseur_effort_full[i][1]
-        FtEd = float(torseur_effort_full[i][2])
-        FvxEd = float(torseur_effort_full[i][3])
-        FvyEd = float(torseur_effort_full[i][4])
+        position = torseur_effort_full_final[i][1]
+        FtEd = float(torseur_effort_full_final[i][2])
+        FvEd = float(torseur_effort_full_final[i][3])
+        if check_cat_B : 
+            FtEdser = float(torseur_effort_full_final[i][4])
+            FvEdser = float(torseur_effort_full_final[i][5])
         
-        if check_preload :
-            FtEdp = float(torseur_effort_full[i][6])
+        # if check_preload :
+            # FtEdp = float(torseur_effort_full_final[i][6])
             # st.write("FtEdp = " + str(FtEdp))
                      
-        FvEd = (FvxEd**2 + FvyEd**2)**(0.5)
+        #FvEd = (FvxEd**2 + FvyEd**2)**(0.5)
 
         # st.write("FtEd = " + str(FtEd))
         # st.write("FvxEd = " + str(FvxEd))
@@ -1212,8 +1242,8 @@ def page_EUROCODE() :
                 k2 = 0.9
 
             FtRd = k2*fub*As/GammaM2
-            marge = round(calculer_marge(FtEdp, FtRd), 2)
-            Result_Cat_E.append(["Boulon n°" + str(i), "Résistance à la traction", round(FtEdp,2), round(FtRd, 2), marge])
+            marge = round(calculer_marge(FtEd, FtRd), 2)
+            Result_Cat_E.append(["Boulon n°" + str(i), "Résistance à la traction", round(FtEd,2), round(FtRd, 2), marge])
 
 
 
@@ -1222,8 +1252,8 @@ def page_EUROCODE() :
             # Si ce n'est pas un boulon, on ne vérifie pas le critère de résistance au poinçonnement
             if type_boulonnerie == "Boulon" :
                 BpRd = 0.6*np.pi*dm*tp*fu/GammaM2
-                marge = round(calculer_marge(FtEdp, BpRd), 2)
-                Result_Cat_E.append(["Boulon n°" + str(i), "Résistance au poinçonnement", round(FtEdp,2), round(BpRd, 2), marge])
+                marge = round(calculer_marge(FtEd, BpRd), 2)
+                Result_Cat_E.append(["Boulon n°" + str(i), "Résistance au poinçonnement", round(FtEd,2), round(BpRd, 2), marge])
 
 
 
@@ -1237,7 +1267,7 @@ def page_EUROCODE() :
         if check_combine :
             # st.write("Catégorie Combinés")
             if check_preload :
-                effort = FvEd/FvRd + FtEdp/(1.4*FtRd)
+                effort = FvEd/FvRd + FtEd/(1.4*FtRd)
                 marge = round(calculer_marge(effort, 1.0), 2)
             else :
                 effort = FvEd/FvRd + FtEd/(1.4*FtRd)

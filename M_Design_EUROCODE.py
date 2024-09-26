@@ -716,7 +716,7 @@ def page_EUROCODE() :
     # ===================================
     st.subheader("Efforts sollicitant la liaison")
 
-    # On crée in tableau de saisie vide
+    # On crée un tableau de saisie vide
     if check_cat_B :
         st.write("- ##### *Effort à l'état limite ultime*") #Sous-Partie
         

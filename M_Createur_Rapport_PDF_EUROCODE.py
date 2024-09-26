@@ -801,21 +801,22 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     if L_cat[2] :
         
         # Résistance à la pression diamétrale FbRd
-        image_C_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatC_FbRd-general.png"
-        image_width = page_width - 2.16*inch
-        image_C_general = Image(image_C_general_path)
-        image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
-        image_C_general.drawWidth = image_width
-        elements.append(image_C_general)
-        elements.append(Spacer(1, 10))
-        if recouvrement_une_rangee :
-            image_C_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatC_FbRd-supplement simple recouvrement.png"
+        if not L_cat[1] :
+            image_C_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatC_FbRd-general.png"
             image_width = page_width - 2.16*inch
             image_C_general = Image(image_C_general_path)
             image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
             image_C_general.drawWidth = image_width
             elements.append(image_C_general)
             elements.append(Spacer(1, 10))
+            if recouvrement_une_rangee :
+                image_C_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatC_FbRd-supplement simple recouvrement.png"
+                image_width = page_width - 2.16*inch
+                image_C_general = Image(image_C_general_path)
+                image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
+                image_C_general.drawWidth = image_width
+                elements.append(image_C_general)
+                elements.append(Spacer(1, 10))
     
         #Résistance au glissement à l'ELU FsRd
         if resine_check :

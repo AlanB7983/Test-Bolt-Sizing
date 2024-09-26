@@ -735,7 +735,7 @@ def page_EUROCODE() :
     with saisie_effort_col3 :
         FvyEd = st.text_input('Effort de cisaillement selon y, $F_{vy,Ed}$ [N]', placeholder = 0.0)
     with saisie_position_col4 :
-        position = st.selectbox('Position', liste_position)
+        position = st.selectbox('Position', liste_position, key = "position ELU")
     
     but_col1, but_col2, but_col3 = st.columns([1,1,4])
     indice_boulon = 1
@@ -776,7 +776,7 @@ def page_EUROCODE() :
         with saisie_effort_ser_col3 :
             FvyEdser = st.text_input("Effort de cisaillement à l'ELS selon y, $F_{vy,Ed,ser}$ [N]", placeholder = 0.0)
         with saisie_position_ser_col4 :
-            position_ser = st.selectbox('Position', liste_position)
+            position_ser = st.selectbox('Position', liste_position, key = "position ELS")
         
         but_col1_ser, but_col2_ser, but_col3_ser = st.columns([1,1,4])
         indice_boulon_ser = 1

@@ -757,6 +757,8 @@ def page_EUROCODE() :
 
     # Si on est en catégorie B on demande les efforts à l'état limite de service
     if check_cat_B :
+        # saut de ligne
+        st.write("\n")
         st.write("- ##### *Effort à l'état limite de service*") #Sous-Partie
 
         if 'efforts_ext_ser' not in st.session_state:

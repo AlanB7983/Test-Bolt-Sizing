@@ -329,29 +329,25 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     
     text_3 = "Les efforts sollicitant mentionnés précédemment permettent d'établir la ou les catégories de dimensionnement de l'élément de serrage."
     
-    if L_cat[0] : # Catégorie A - texte
-        text_3 = text_3 + " Ici, il appartient à la catégorie A. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
-        
-    if L_cat[1] : # Catégorie B - texte
-        text_3 = text_3 + " Ici, il appartient à la catégorie B. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
-    
-    if L_cat[2] : # Catégorie C - texte
-        text_3 = text_3 + " Ici, il appartient à la catégorie C. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
-        
-    if L_cat[3] : # Catégorie D - texte
-        text_3 = text_3 + " Ici, il appartient à la catégorie D. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
+    if L_cat[0] or L_cat[3] :  # Non précontraints
+        if L_cat[0] and L_cat[3] :  # Catégories A et D
+            text_3 = text_3 + " Ici, il appartient aux catégories A et D. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
+        elif L_cat[0] :  # Catégorie A
+            text_3 = text_3 + " Ici, il appartient à la catégorie A. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
+        elif L_cat [3] :  # Catégorie D
+            text_3 = text_3 + " Ici, il appartient à la catégorie D. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
 
-    if L_cat[4] : # Catégorie E - texte
-        text_3 = text_3 + " Ici, il appartient à la catégorie E. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
-        
-    if L_cat[0] and L_cat[3] :
-        text_3 = text_3 + " Ici, il appartient aux catégories A et D. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
-        
-    if L_cat[1] and L_cat[4] :
-        text_3 = text_3 + " Ici, il appartient aux catégories B et E. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
-
-    if L_cat[3] and L_cat[4] :
-        text_3 = text_3 + " Ici, il appartient aux catégories C et E. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
+    elif L_cat[1] or L_cat[2] or L_cat[4] : # Précontraints
+        if L_cat[1] and L_cat[4] : # Catégories B et E
+            text_3 = text_3 + " Ici, il appartient aux catégories B et E. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
+        elif L_cat[2] and L_cat[4] : # Catégories C et E
+            text_3 = text_3 + " Ici, il appartient aux catégories C et E. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
+        elif L_cat[1] : # Catégorie B
+            text_3 = text_3 + " Ici, il appartient à la catégorie B. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
+        elif L_cat[2] : # Catégorie C
+            text_3 = text_3 + " Ici, il appartient à la catégorie C. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
+        elif L_cat[4] : # Catégorie E
+            text_3 = text_3 + " Ici, il appartient à la catégorie E. D'après le Tableau 3.2 de la norme NF EN 1998-8-1, les critères à vérifier sont les suivants."
 
     text_3 = Paragraph(text_3, normal_style)
     elements.append(text_3)
@@ -719,7 +715,153 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             #      Catégorie B
             # =============================================================================
          
-    # if cat_bolt == "B" :
+    if L_cat[1] :
+        
+        # Résistance au cisaillement FvRd
+        if tp > bolt_diameter/3 :
+            image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FvRd-tp.PNG"
+            image_width = page_width - 2.16*inch
+            image_B_general = Image(image_B_general_path)
+            image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
+            image_B_general.drawWidth = image_width
+            if Lj > 15*bolt_diameter :
+                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FvRd-tp-Lj.PNG"
+                image_width = page_width - 2.16*inch
+                image_B_general = Image(image_B_general_path)
+                image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
+                image_B_general.drawWidth = image_width
+        else :
+            if Lj > 15*bolt_diameter :
+                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FvRd-Lj.PNG"
+                image_width = page_width - 2.16*inch
+                image_B_general = Image(image_B_general_path)
+                image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
+                image_B_general.drawWidth = image_width
+            else :
+                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FvRd-general.PNG"
+                image_width = page_width - 2.16*inch
+                image_B_general = Image(image_B_general_path)
+                image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
+                image_B_general.drawWidth = image_width
+        
+        elements.append(image_B_general)
+        elements.append(Spacer(1, 10))
+
+        # Résistance à la pression diamétrale FbRd
+        image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FbRd-general.PNG"
+        image_width = page_width - 2.16*inch
+        image_B_general = Image(image_B_general_path)
+        image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
+        image_B_general.drawWidth = image_width
+        elements.append(image_B_general)
+        elements.append(Spacer(1, 10))
+        if recouvrement_une_rangee :
+            image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FbRd-supplement simple recouvrement.PNG"
+            image_width = page_width - 2.16*inch
+            image_B_general = Image(image_B_general_path)
+            image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
+            image_B_general.drawWidth = image_width
+            elements.append(image_B_general)
+            elements.append(Spacer(1, 10))
+    
+        #Résistance au glissement à l'ELS FsRdser
+        if bolt_inject :
+            image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FsRdser-injecte.PNG"
+            image_width = page_width - 2.16*inch
+            image_B_general = Image(image_B_general_path)
+            image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
+            image_B_general.drawWidth = image_width
+            if L_cat[5] :
+                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FsRdser-injecte-combines.PNG"
+                image_width = page_width - 2.16*inch
+                image_B_general = Image(image_B_general_path)
+                image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
+                image_B_general.drawWidth = image_width
+        else :
+            if L_cat[5] :
+                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FsRdser-combines.PNG"
+                image_width = page_width - 2.16*inch
+                image_B_general = Image(image_B_general_path)
+                image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
+                image_B_general.drawWidth = image_width
+            else :
+                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FsRdser-general.PNG"
+                image_width = page_width - 2.16*inch
+                image_B_general = Image(image_B_general_path)
+                image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
+                image_B_general.drawWidth = image_width
+        
+        elements.append(image_B_general)
+        elements.append(Spacer(1, 10))
+    
+    
+            # =============================================================================
+            #      Catégorie C
+            # =============================================================================
+         
+    if L_cat[2] :
+        
+        # Résistance à la pression diamétrale FbRd
+        image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FbRd-general.PNG"
+        image_width = page_width - 2.16*inch
+        image_C_general = Image(image_C_general_path)
+        image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
+        image_C_general.drawWidth = image_width
+        elements.append(image_C_general)
+        elements.append(Spacer(1, 10))
+        if recouvrement_une_rangee :
+            image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FbRd-supplement simple recouvrement.PNG"
+            image_width = page_width - 2.16*inch
+            image_C_general = Image(image_C_general_path)
+            image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
+            image_C_general.drawWidth = image_width
+            elements.append(image_C_general)
+            elements.append(Spacer(1, 10))
+    
+        #Résistance au glissement à l'ELU FsRd
+        if bolt_inject :
+            image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FsRd-injecte.PNG"
+            image_width = page_width - 2.16*inch
+            image_C_general = Image(image_C_general_path)
+            image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
+            image_C_general.drawWidth = image_width
+            if L_cat[5] :
+                image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FsRd-injecte-combines.PNG"
+                image_width = page_width - 2.16*inch
+                image_C_general = Image(image_C_general_path)
+                image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
+                image_C_general.drawWidth = image_width
+        else :
+            if L_cat[5] :
+                image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FsRd-combines.PNG"
+                image_width = page_width - 2.16*inch
+                image_C_general = Image(image_C_general_path)
+                image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
+                image_C_general.drawWidth = image_width
+            else :
+                image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FsRd-general.PNG"
+                image_width = page_width - 2.16*inch
+                image_C_general = Image(image_C_general_path)
+                image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
+                image_C_general.drawWidth = image_width
+        
+        elements.append(image_C_general)
+        elements.append(Spacer(1, 10))
+    
+
+            # =============================================================================
+            #      Catégories D et E
+            # =============================================================================      
+
+    if L_cat[3] or L_cat[4] :
+
+        image_DE_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégories DE/eurocode_formules_CatDE.PNG"
+        image_width = page_width - 2.16*inch
+        image_DE_general = Image(image_DE_general_path)
+        image_DE_general.drawHeight = image_width * image_DE_general.drawHeight / image_DE_general.drawWidth
+        image_DE_general.drawWidth = image_width
+        elements.append(image_DE_general)
+        elements.append(Spacer(1, 10))
 
     
     

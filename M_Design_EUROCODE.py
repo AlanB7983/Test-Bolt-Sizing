@@ -1194,18 +1194,7 @@ def page_EUROCODE() :
 
     rappel_geom_data_check_box = st.checkbox("Afficher les données géométriques utilisées pour le calcul")
     if rappel_geom_data_check_box :
-        st.markdown(
-            """
-            <style>
-            .stDataFrame div[data-testid="stTable"] {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-        st.write(df_bolt_geom_data)
+        st.dataframe(df_bolt_geom_data)
     
 
 

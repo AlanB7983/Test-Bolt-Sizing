@@ -764,7 +764,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             elements.append(Spacer(1, 10))
     
         #Résistance au glissement à l'ELS FsRdser
-        if bolt_inject :
+        if resine_check :
             image_B_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatB_FsRdser-injecte.png"
             image_width = page_width - 2.16*inch
             image_B_general = Image(image_B_general_path)
@@ -818,7 +818,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             elements.append(Spacer(1, 10))
     
         #Résistance au glissement à l'ELU FsRd
-        if bolt_inject :
+        if resine_check :
             image_C_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_formules_CatC_FsRd-injecte.png"
             image_width = page_width - 2.16*inch
             image_C_general = Image(image_C_general_path)

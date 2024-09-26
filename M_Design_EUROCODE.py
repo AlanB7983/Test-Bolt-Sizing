@@ -1108,7 +1108,7 @@ def page_EUROCODE() :
             # st.write(FpC)
             # Si il y a des efforts combinés
             if check_combine :
-                FsRdser = ksp*n*mu*(FpC - 0.8*FtEd)/GammaM3ser
+                FsRdser = ksp*n*mu*(FpC - 0.8*FtEdser)/GammaM3ser
             else : 
                 FsRdser = ksp*n*mu*FpC/GammaM3ser
             
@@ -1120,8 +1120,8 @@ def page_EUROCODE() :
             else :
                 FsRd = FsRdser
 
-            marge = round(calculer_marge(FvEd, FsRd), 2)
-            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance au glissement à l'ELS", round(FvEd,2), round(FsRd, 2), marge])
+            marge = round(calculer_marge(FvEdser, FsRd), 2)
+            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance au glissement à l'ELS", round(FvEdser,2), round(FsRd, 2), marge])
 
 
 

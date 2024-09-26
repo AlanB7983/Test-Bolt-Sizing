@@ -1211,7 +1211,7 @@ def page_EUROCODE() :
         st.dataframe(df_cat_A)
 
         # On affiche la légende
-        st.markdown(" "*20 + "_Résultats du dimensionnement pour les critères de catégorie A_")
+        st.markdown(" "*20 + "          _Résultats du dimensionnement pour les critères de catégorie A_")
         
         # On récupère la marge min
         marge_min_A = trouver_marge_min(Result_Cat_A)

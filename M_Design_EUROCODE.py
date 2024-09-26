@@ -862,7 +862,7 @@ def page_EUROCODE() :
                 for index, ligne in enumerate(torseur_effort_full) :
                     if index == 0 :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
-                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ftp,Ed [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
+                        nouvelle_ligne = ligne + ["Fp,Cd [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
                     else :
                         # Ajouter la nouvelle colonne 6 avec F0 
                         nouvelle_ligne = ligne + [float(F0)]

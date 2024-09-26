@@ -1211,9 +1211,8 @@ def page_EUROCODE() :
         st.dataframe(df_cat_A)
 
         # On affiche la légende
-        # st.markdown("\u00A0" * 20 + "_Résultats du dimensionnement pour les critères de catégorie A_")
         st.markdown(
-            "<p style='text-align: center; font-size:14px; color:darkgray; font-style:italic;'>"
+            "<p style='text-align: center; font-size:15px; color:darkgray; font-style:italic;'>"
             "Résultats du dimensionnement pour les critères de catégorie A"
             "</p>",
             unsafe_allow_html=True
@@ -1237,7 +1236,12 @@ def page_EUROCODE() :
         st.dataframe(df_cat_B)
 
         # On affiche la légende
-        st.caption("Résultats du dimensionnement pour les critères de catégorie B")
+        st.markdown(
+            "<p style='text-align: center; font-size:15px; color:darkgray; font-style:italic;'>"
+            "Résultats du dimensionnement pour les critères de catégorie B"
+            "</p>",
+            unsafe_allow_html=True
+        )
         
         # On récupère la marge min
         marge_min_B = trouver_marge_min(Result_Cat_B)
@@ -1257,7 +1261,12 @@ def page_EUROCODE() :
         st.dataframe(df_cat_C)
 
         # On affiche la légende
-        st.caption("Résultats du dimensionnement pour les critères de catégorie C")
+        st.markdown(
+            "<p style='text-align: center; font-size:15px; color:darkgray; font-style:italic;'>"
+            "Résultats du dimensionnement pour les critères de catégorie C"
+            "</p>",
+            unsafe_allow_html=True
+        )
         
         # On récupère la marge min
         marge_min_C = trouver_marge_min(Result_Cat_C)
@@ -1277,7 +1286,12 @@ def page_EUROCODE() :
         st.dataframe(df_cat_D)
         
         # On affiche la légende
-        st.caption(" "*20 + "Résultats du dimensionnement pour les critères de catégorie D")
+        st.markdown(
+            "<p style='text-align: center; font-size:15px; color:darkgray; font-style:italic;'>"
+            "Résultats du dimensionnement pour les critères de catégorie D"
+            "</p>",
+            unsafe_allow_html=True
+        )
 
         # On récupère la marge min
         marge_min_D = trouver_marge_min(Result_Cat_D)
@@ -1297,7 +1311,12 @@ def page_EUROCODE() :
         st.dataframe(df_cat_E)
 
         # On affiche la légende
-        st.caption("Résultats du dimensionnement pour les critères de catégorie E")
+        st.markdown(
+            "<p style='text-align: center; font-size:15px; color:darkgray; font-style:italic;'>"
+            "Résultats du dimensionnement pour les critères de catégorie E"
+            "</p>",
+            unsafe_allow_html=True
+        )
         
         # On récupère la marge min
         marge_min_E = trouver_marge_min(Result_Cat_E)
@@ -1317,7 +1336,12 @@ def page_EUROCODE() :
         st.dataframe(df_cat_Combine)
 
         # On affiche la légende
-        st.caption("Résultats du dimensionnement pour les critères de cisaillement et traction combinés")
+        st.markdown(
+            "<p style='text-align: center; font-size:15px; color:darkgray; font-style:italic;'>"
+            "Résultats du dimensionnement pour les critères de cisaillement et traction combinés"
+            "</p>",
+            unsafe_allow_html=True
+        )
 
         # On récupère la marge min
         marge_min_combine = trouver_marge_min(Result_Cat_Combine)

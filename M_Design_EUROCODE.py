@@ -1349,7 +1349,6 @@ def page_EUROCODE() :
         
     # saut de ligne
     st.write("\n")
-        
     # saut de ligne
     st.write("\n")
 

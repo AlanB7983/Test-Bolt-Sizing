@@ -279,7 +279,8 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     elements.append(text_2_3_1)
     elements.append(espace)
 
-    loads_data = [df_loads_data.columns.tolist()] + df_loads_data.values.tolist()    
+    loads_data = [df_loads_data.columns.tolist()] + df_loads_data.values.tolist()
+    loads_data[0] = ["N° Boulon", "Position", "Ft,Ed [N]", "Fv,x,Ed [N]", "Fv,y,Ed [N]", "Fp,Cd [N]", "Ftp,Ed [N]"]
     table_loads_data = Table(loads_data)
     table_loads_data.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.white),
                                ('FONTSIZE', (0, 0), (-1, -1), 8),
@@ -306,7 +307,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     elements.append(text_2_3_1bis)
     text_2_3_1bis = Paragraph("- F<sub>v,y,Ed,ser</sub> la composante sur Y de l'effort de cisaillement à l'état limite de service, rapporté à l'axe de la liaison boulonnée", normal_style)
     elements.append(text_2_3_1bis)
-    text_2_3_1bis = Paragraph("- Ft,Ed l'effort de cisaillement à l'état limite ultime, rapporté à l'axe de la liaison boulonnée", normal_style)
+    text_2_3_1bis = Paragraph("- F<sub>t,Ed</sub> l'effort de cisaillement à l'état limite ultime, rapporté à l'axe de la liaison boulonnée", normal_style)
     elements.append(text_2_3_1bis)
     text_2_3_1bis = Paragraph("- F<sub>t,Ed,ser</sub> l'effort de traction à l'état limite de service, rapporté à l'axe de la liaison boulonnée", normal_style)
     elements.append(text_2_3_1bis)

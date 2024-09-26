@@ -133,7 +133,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     subtitle_1 = Paragraph("Code de dimensionnement", subtitle_style)
     elements.append(subtitle_1)
 
-    text_1 = Paragraph("Pour cette étude, la boulonnerie est dimensionnée selon la norme NF EN 1993-1-8 (Eurocode 3 pour le calcul des assemblages). Les paragraphes correspondant aux équations utilisées seront précisés entre parenthèses. Il conviendra de s'y référer pour plus de détails.", normal_style)
+    text_1 = Paragraph("Pour cette étude, la boulonnerie est dimensionnée selon la norme **NF EN 1993-1-8** (Eurocode 3 pour le calcul des assemblages). Les paragraphes correspondant aux équations utilisées seront précisés entre parenthèses. Il conviendra de s'y référer pour plus de détails.", normal_style)
     elements.append(text_1)
     elements.append(espace)
     

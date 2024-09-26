@@ -431,7 +431,7 @@ def page_EUROCODE() :
         p2_check = st.checkbox("Entraxe transversal, $p_2$")
 
     if p1_check and p2_check :
-        quinconce_check = st.checkbox("Est-ce qu'il s'agit d'un assemblage en quinconce comme décrit sur la figure ci-dessous ?")
+        quinconce_check = st.checkbox("Il s'agit d'un assemblage en quinconce comme décrit sur la figure ci-dessous")
         st.image("Pictures/definition_assemblage_quinconce.PNG", use_column_width=True)
 
     st.write("") # Saut de ligne
@@ -717,6 +717,9 @@ def page_EUROCODE() :
     st.subheader("Efforts sollicitant la liaison")
 
     # On crée in tableau de saisie vide
+    if check_cat_B :
+        st.write("- ##### *Effort à l'état limite ultime*") #Sous-Partie
+        
     if 'efforts_ext' not in st.session_state:
         st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Effort de traction, Ft,Ed [N]', 'Effort de cisaillement selon x, Fvx,Ed [N]', 'Effort de cisaillement selon y, Fvy,Ed [N]'])
         
@@ -752,7 +755,48 @@ def page_EUROCODE() :
     # On crée une liste de listes à partir de ce tableau dataframe
     torseur_effort = [st.session_state.efforts_ext.columns.tolist()] + st.session_state.efforts_ext.values.tolist()  
 
+    # Si on est en catégorie B on demande les efforts à l'état limite de service
+    if check_cat_B :
+        st.write("- ##### *Effort à l'état limite de service*") #Sous-Partie
 
+        if 'efforts_ext_ser' not in st.session_state:
+            st.session_state.efforts_ext_ser = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed,ser [N]', 'Fvx,Ed,ser [N]', 'Fvy,Ed,ser [N]'])
+            
+        # Saisies utilisateur pour ajouter des données
+        saisie_effort_ser_col1, saisie_effort_ser_col2 = st.columns([1, 1])
+        with saisie_effort_ser_col1 :
+            FtEdser = st.text_input('Effort de traction à l'ELS, $F_{t,Ed,ser}$ [N]', placeholder = 0.0)
+        with saisie_effort_ser_col2 :
+            FvxEdser = st.text_input('Effort de cisaillement à l'ELS selon x, $F_{vx,Ed,ser}$ [N]', placeholder = 0.0)
+            
+        st.write("") # Saut de ligne    
+        saisie_effort_ser_col3, saisie_position_ser_col4 = st.columns([1, 1])
+        with saisie_effort_ser_col3 :
+            FvyEdser = st.text_input('Effort de cisaillement à l'ELS selon y, $F_{vy,Ed,ser}$ [N]', placeholder = 0.0)
+        with saisie_position_ser_col4 :
+            position_ser = st.selectbox('Position', liste_position)
+        
+        but_col1_ser, but_col2_ser, but_col3_ser = st.columns([1,1,4])
+        indice_boulon = 1
+        with but_col1_ser :
+            # Bouton pour ajouter les données au DataFrame
+            if st.button('Ajouter', use_container_width = True) :
+                indice_boulon = st.session_state.efforts_ext_ser.shape[0] + 1
+                new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Position': [position], 'Ft,Ed,ser [N]' : [float(FtEdser)], 'Fvx,Ed,ser [N]': [float(FvxEdser)], 'Fvy,Ed,ser [N]' : [float(FvyEdser)]})
+                st.session_state.efforts_ext_ser = pd.concat([st.session_state.efforts_ext, new_data], ignore_index=True)
+        with but_col2_ser:
+            if st.button('Effacer', use_container_width = True):
+                st.session_state.efforts_ext_ser = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed,ser [N]', 'Fvx,Ed,ser [N]', 'Fvy,Ed,ser [N]'])
+    
+        # Afficher les données sous forme de tableau
+        st.dataframe(st.session_state.efforts_ext_ser)
+    
+        # On crée une liste de listes à partir de ce tableau dataframe
+        torseur_effort_ser = [st.session_state.efforts_ext_ser.columns.tolist()] + st.session_state.efforts_ext_ser.values.tolist()  
+
+
+
+    
     
     # On modifie le torseur d'effort en fonction des données saisies par l'utilisateur
     

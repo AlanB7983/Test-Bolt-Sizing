@@ -782,12 +782,12 @@ def page_EUROCODE() :
         indice_boulon_ser = 1
         with but_col1_ser :
             # Bouton pour ajouter les données au DataFrame
-            if st.button('Ajouter', use_container_width = True) :
+            if st.button('Ajouter', use_container_width = True, key = "Ajouter ELS") :
                 indice_boulon_ser = st.session_state.efforts_ext_ser.shape[0] + 1
                 new_data = pd.DataFrame({'N° Boulon': [indice_boulon_ser], 'Position': [position_ser], 'Ft,Ed,ser [N]' : [float(FtEdser)], 'Fvx,Ed,ser [N]': [float(FvxEdser)], 'Fvy,Ed,ser [N]' : [float(FvyEdser)]})
                 st.session_state.efforts_ext_ser = pd.concat([st.session_state.efforts_ext_ser, new_data], ignore_index=True)
         with but_col2_ser:
-            if st.button('Effacer', use_container_width = True):
+            if st.button('Effacer', use_container_width = True, key = "Effacer ELS"):
                 st.session_state.efforts_ext_ser = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed,ser [N]', 'Fvx,Ed,ser [N]', 'Fvy,Ed,ser [N]'])
     
         # Afficher les données sous forme de tableau

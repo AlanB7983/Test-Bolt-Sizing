@@ -818,6 +818,7 @@ def page_EUROCODE() :
             # Si F0 n'a pas été pris en compte dans les résultats saisis
             if F0_selection == "non" :
                 # On ajoute une colonne pour noter F0 dans le tableau 
+                st.write("non")
                 for index, ligne in enumerate(torseur_effort_full) :
                     if index == 0 :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
@@ -858,7 +859,8 @@ def page_EUROCODE() :
         
             # Si F0 a été pris en compte dans les résultats saisis
             else :
-                # On ajoute une colonne pour noter F0 dans le tableau et pour écrire Ft,Ed,p
+                st.write("oui")
+                # On ajoute une colonne pour noter F0 dans le tableau 
                 for index, ligne in enumerate(torseur_effort_full) :
                     if index == 0 :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes

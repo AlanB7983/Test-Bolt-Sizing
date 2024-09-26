@@ -806,7 +806,7 @@ def page_EUROCODE() :
         if check_preload :
             
             if check_cat_B :
-                torseur_effort_full[0] = ['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fv,Ed [N]', 'Ft,Ed,ser [N]', 'Fv,Ed,ser [N]']
+                torseur_effort_full = [['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fv,Ed [N]', 'Ft,Ed,ser [N]', 'Fv,Ed,ser [N]']]
                 for i in range(1, len(torseur_effort)) : # On commence à 1 car on n'a pas besoin de l'entête
                     torseur_effort_full.append[torseur_effort[i][0], torseur_effort[i][1], torseur_effort[i][2], (torseur_effort[i][3]**2 + torseur_effort[i][4]**2)**(0.5), torseur_effort_ser[i][2], (torseur_effort_ser[i][3]**2 + torseur_effort_ser[i][4]**2)**(0.5)]
 

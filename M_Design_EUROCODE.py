@@ -400,6 +400,17 @@ def page_EUROCODE() :
     L_Valeur = [d, p, d0, d1, d2, d3, round(As, 2), round(S, 2), fub, kb, ksp, GammaM2]
     L_Unite = ["[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm²]", "[mm²]", "[MPa]", "[-]", "[-]", "[-]"]
 
+    # Création d'un dictionnaire uniquement pour les données de la boulonnerie
+    D_bolt_geom_data = {
+        'Désignation' : L_Designation,
+        'Symbole' : L_Symbole,
+        'Valeur' : L_Valeur,
+        'Unité' : L_Unite
+        }
+    
+    # Création du DataFrame pandas à partir du dictionnaire
+    df_bolt_geom_data = pd.DataFrame(D_bolt_geom_data)
+
 
 
 
@@ -552,7 +563,7 @@ def page_EUROCODE() :
     
 
     # Création d'un dictionnaire
-    D_bolt_geom_data = {
+    D_geom_data = {
         'Désignation' : L_Designation,
         'Symbole' : L_Symbole,
         'Valeur' : L_Valeur,
@@ -560,7 +571,7 @@ def page_EUROCODE() :
         }
     
     # Création du DataFrame pandas à partir du dictionnaire
-    df_bolt_geom_data = pd.DataFrame(D_bolt_geom_data)
+    df_geom_data = pd.DataFrame(D_geom_data)
     st.write("") # Saut de ligne
 
 
@@ -1194,7 +1205,7 @@ def page_EUROCODE() :
 
     rappel_geom_data_check_box = st.checkbox("Afficher les données géométriques utilisées pour le calcul")
     if rappel_geom_data_check_box :
-        st.dataframe(df_bolt_geom_data)
+        st.dataframe(df_geom_data)
     
 
 
@@ -1404,10 +1415,10 @@ def page_EUROCODE() :
     
     # On récupère les données nécessaires
     L_cat = [check_cat_A, check_cat_B, check_cat_C, check_cat_D, check_cat_E, check_combine]
-
+    df_assembly_geom_data = df_geom_data.loc[12:len(df_geom_data)-1]
     
     # On crée le rapport pdf
-    pdf_buffer = create_pdf_eurocode(type_boulonnerie, d, classe, tete_fraisee_check, resine_check, df_bolt_geom_data, df_bolt_geom_data, simple_recouvrement_check, plan_cisaillement, df_torseur_full, L_cat, tp , Lj, Result_Cat_A, Result_Cat_B, Result_Cat_C, Result_Cat_D, Result_Cat_E, Result_Cat_Combine, marge_min_A, marge_min_B, marge_min_C, marge_min_D, marge_min_E, marge_min_combine)
+    pdf_buffer = create_pdf_eurocode(type_boulonnerie, d, classe, tete_fraisee_check, resine_check, df_bolt_geom_data, df_assembly_geom_data, simple_recouvrement_check, plan_cisaillement, df_torseur_full, L_cat, tp , Lj, Result_Cat_A, Result_Cat_B, Result_Cat_C, Result_Cat_D, Result_Cat_E, Result_Cat_Combine, marge_min_A, marge_min_B, marge_min_C, marge_min_D, marge_min_E, marge_min_combine)
     
     
     # Proposer le téléchargement

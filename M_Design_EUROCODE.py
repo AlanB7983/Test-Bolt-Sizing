@@ -611,60 +611,17 @@ def page_EUROCODE() :
             st.write("$F_{p,Cd}$ pris en compte dans les efforts saisis ?")
             F0_selection = st.radio("", ("oui", "non"), horizontal=True, label_visibility="collapsed", key="test")
 
-            torseur_effort_full = []
-            
             if F0_selection == "non" :
                 # On demande la valeur de Lambda
                 st.write("Valeur du coefficient de rigidité $\Lambda$.")
                 Lambda = st.text_input("$\Lambda$ [-] :", placeholder = "0.0")
                 Lambda = float(Lambda) if Lambda else 0.0
                 st.info("Prendre $\Lambda$ = 0 revient à prendre l'hypothèse d'une liaison infiniment rigide.")
-    
-                # On ajoute une colonne pour noter F0 dans le tableau et pour écrire Ft,Ed,p
-                for index, ligne in enumerate(torseur_effort) :
-                    if index == 0 :
-                        # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
-                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ft,Ed,p [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
-                    else :
-                        # Convertir les valeurs numériques de Col1
-                        col2_val = float(ligne[2])
-    
-                        # Calcul pour la nouvelle colonne Ft,Ed,p 
-                        FtEdp = F0 + float(Lambda)*col2_val
 
-                        # Ajouter la nouvelle colonne 6 (F0) et colonne 7 (Ft,Ed,p)
-                        nouvelle_ligne = ligne + [float(F0), FtEdp]
-                    
-                    # Ajouter la nouvelle ligne modifiée à la liste finale
-                    torseur_effort_full.append(nouvelle_ligne)
+            # saut de ligne
+            st.write("\n")
 
-            # Si F0 a été pris en compte dans les résultats saisis
-            else :
-                # On ajoute une colonne pour noter F0 dans le tableau et pour écrire Ft,Ed,p
-                for index, ligne in enumerate(torseur_effort) :
-                    if index == 0 :
-                        # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
-                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ft,Ed,p [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
-                    else :
-                        # On copie colle la valeur de Ft,Ed,p dans la dernière colonne
-                        FtEdp = float(ligne[2])
-
-                        # Ajouter la nouvelle colonne 6 (F0) et colonne 7 (Ft,Ed,p)
-                        nouvelle_ligne = ligne + [float(F0), float(FtEdp)]
-                    
-                    # Ajouter la nouvelle ligne modifiée à la liste finale
-                    torseur_effort_full.append(nouvelle_ligne)
-
-
-        # Si on est de classe 8.8 ou 10.9 mais qu'on n'est pas précontraint
-        else :
-            check_preload = False
-            torseur_effort_full = torseur_effort
-
-        # saut de ligne
-        st.write("\n")
-
-        if check_preload :
+        #if check_preload :
             # On demande le nombre de pièces assemblées 
             st.write("Nombre de pièces assemblées (hors rondelles)")
             nb_piece = st.number_input("Nombre de pièces assemblées (hors rondelles)", min_value = 2, step = 1, label_visibility="collapsed")
@@ -684,29 +641,7 @@ def page_EUROCODE() :
             # saut de ligne
             st.write("\n")
 
-    
-    # Si la boulonnerie n'est pas de classe 8.8 ou 10.9                 
-    else :
-        check_preload = False
-        torseur_effort_full = torseur_effort
 
-    
-    # saut de ligne
-    st.write("\n")
-
-    # Torseur finalement utilisé pour le dimensionnement
-    if check_preload : # On ne l'affiche que si on est précontraint parce que sinon il n'y a rien qui change
-        st.write("Le torseur d'effort finalement utilisé pour le dimensionnement de la boulonnerie en fonction des conditions de calcul saisies est donné dans le tableau ci-dessous.")
-        
-        # Convertir la liste de listes en DataFrame
-        df_torseur_full = pd.DataFrame(torseur_effort_full[1:], columns=torseur_effort_full[0])
-        
-        # Afficher le DataFrame dans Streamlit
-        st.dataframe(df_torseur_full)
-    else :
-        # On ne l'affiche pas mais on le convertie en dataframe pour l'afficher dans le rapport
-        df_torseur_full = pd.DataFrame(torseur_effort_full[1:], columns=torseur_effort_full[0])
-        
 
 
     # saut de ligne
@@ -816,9 +751,77 @@ def page_EUROCODE() :
 
     # On crée une liste de listes à partir de ce tableau dataframe
     torseur_effort = [st.session_state.efforts_ext.columns.tolist()] + st.session_state.efforts_ext.values.tolist()  
+
+
+    
+    # On modifie le torseur d'effort en fonction des données saisies par l'utilisateur
+    
+    if classe == "8.8" or classe == "10.9" :
+        if check_preload :
+            torseur_effort_full = []
+                    
+            if F0_selection == "non" :
+                # On ajoute une colonne pour noter F0 dans le tableau et pour écrire Ft,Ed,p
+                for index, ligne in enumerate(torseur_effort) :
+                    if index == 0 :
+                        # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
+                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ft,Ed,p [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
+                    else :
+                        # Convertir les valeurs numériques de Col1
+                        col2_val = float(ligne[2])
+        
+                        # Calcul pour la nouvelle colonne Ft,Ed,p 
+                        FtEdp = F0 + float(Lambda)*col2_val
+        
+                        # Ajouter la nouvelle colonne 6 (F0) et colonne 7 (Ft,Ed,p)
+                        nouvelle_ligne = ligne + [float(F0), FtEdp]
+                    
+                    # Ajouter la nouvelle ligne modifiée à la liste finale
+                    torseur_effort_full.append(nouvelle_ligne)
+        
+            # Si F0 a été pris en compte dans les résultats saisis
+            else :
+                # On ajoute une colonne pour noter F0 dans le tableau et pour écrire Ft,Ed,p
+                for index, ligne in enumerate(torseur_effort) :
+                    if index == 0 :
+                        # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
+                        nouvelle_ligne = ligne + ["Effort de précontrainte, Fp,Cd [N]", "Effort de traction d'origine externe et interne, Ft,Ed,p [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
+                    else :
+                        # On copie colle la valeur de Ft,Ed,p dans la dernière colonne
+                        FtEdp = float(ligne[2])
+        
+                        # Ajouter la nouvelle colonne 6 (F0) et colonne 7 (Ft,Ed,p)
+                        nouvelle_ligne = ligne + [float(F0), float(FtEdp)]
+                    
+                    # Ajouter la nouvelle ligne modifiée à la liste finale
+                    torseur_effort_full.append(nouvelle_ligne)
+
+
+        # Si on est de classe 8.8 ou 10.9 mais qu'on n'est pas précontraint
+        else :
+            # check_preload = False
+            torseur_effort_full = torseur_effort
+            
+    # Si la boulonnerie n'est pas de classe 8.8 ou 10.9                 
+    else :
+        check_preload = False
+        torseur_effort_full = torseur_effort
     
     # saut de ligne
     st.write("\n")
+    
+    # Torseur finalement utilisé pour le dimensionnement
+    if check_preload : # On ne l'affiche que si on est précontraint parce que sinon il n'y a rien qui change
+        st.write("Le torseur d'effort finalement utilisé pour le dimensionnement de la boulonnerie en fonction des conditions de calcul saisies est donné dans le tableau ci-dessous.")
+        
+        # Convertir la liste de listes en DataFrame
+        df_torseur_full = pd.DataFrame(torseur_effort_full[1:], columns=torseur_effort_full[0])
+        
+        # Afficher le DataFrame dans Streamlit
+        st.dataframe(df_torseur_full)
+    else :
+        # On ne l'affiche pas mais on le convertie en dataframe pour l'afficher dans le rapport
+        df_torseur_full = pd.DataFrame(torseur_effort_full[1:], columns=torseur_effort_full[0])
     
     # saut de ligne
     st.write("\n")

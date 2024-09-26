@@ -378,13 +378,13 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             elements.append(image_A_general)
     
     if L_cat[1] : # Catégorie B - criteres
-        traceurB = Paragraph("CatB")
-        elements.append(traceurB)
+        # traceurB = Paragraph("CatB")
+        # elements.append(traceurB)
         text = Paragraph("Catégorie B :", normal_style)
         elements.append(text)
         if resine_check :
-            traceurB = Paragraph("CatBi")
-            elements.append(traceurB)  
+            # traceurB = Paragraph("CatBi")
+            # elements.append(traceurB)  
             image_B_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_critere_CatB-injecte.png"
             image_width = page_width - 2.16*inch
             image_B_general = Image(image_B_general_path)
@@ -392,8 +392,8 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             image_B_general.drawWidth = image_width
             elements.append(image_B_general)
         else :
-            traceurB = Paragraph("CatBg")
-            elements.append(traceurB)  
+            # traceurB = Paragraph("CatBg")
+            # elements.append(traceurB)  
             image_B_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_critere_CatB.png"
             image_width = page_width - 2.16*inch
             image_B_general = Image(image_B_general_path)
@@ -402,13 +402,13 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             elements.append(image_B_general)
     
     if L_cat[2] : # Catégorie C - criteres
-        traceurC = Paragraph("CatC")
-        elements.append(traceurC)  
+        # traceurC = Paragraph("CatC")
+        # elements.append(traceurC)  
         text = Paragraph("Catégorie C :", normal_style)
         elements.append(text)
         if resine_check :
-            traceurC = Paragraph("CatCi")
-            elements.append(traceurC)
+            # traceurC = Paragraph("CatCi")
+            # elements.append(traceurC)
             image_C_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_critere_CatC-injecte.png"
             image_width = page_width - 2.16*inch
             image_C_general = Image(image_C_general_path)
@@ -416,8 +416,8 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             image_C_general.drawWidth = image_width
             elements.append(image_C_general)
         else :
-            traceurC = Paragraph("CatCg")
-            elements.append(traceurC)
+            # traceurC = Paragraph("CatCg")
+            # elements.append(traceurC)
             image_C_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_critere_CatC.png"
             image_width = page_width - 2.16*inch
             image_C_general = Image(image_C_general_path)
@@ -426,8 +426,8 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
             elements.append(image_C_general)
     
     if L_cat[3] or L_cat[4] : # Catégorie D ou E - criteres
-        traceurDE = Paragraph("CatDE")
-        elements.append(traceurDE)
+        # traceurDE = Paragraph("CatDE")
+        # elements.append(traceurDE)
         if L_cat[3] :
             text = Paragraph("Catégorie D :", normal_style)
         else : 
@@ -442,8 +442,8 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
         elements.append(image_DE_general)
               
     if L_cat[5] : # Efforts combinés
-        traceurComb = Paragraph("CatComb")
-        elements.append(traceurComb)
+        # traceurComb = Paragraph("CatComb")
+        # elements.append(traceurComb)
         text = Paragraph("Cisaillement et traction combinés :", normal_style)
         elements.append(text)
         image_comb_general_path = "Pictures/EUROCODE_Criteres_Formules/eurocode_critere_combines.png"

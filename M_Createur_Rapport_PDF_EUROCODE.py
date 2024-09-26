@@ -35,7 +35,7 @@ def header_footer(canvas, doc):
     canvas.drawString(6.95 * inch, 10.5 * inch, full_date)
 
     # Ajouter le logo en haut à gauche 
-    logo_path = "Pictures/logo-blanc.PNG"  # Le chemin vers votre logo
+    logo_path = "Pictures/logo-blanc.png"  # Le chemin vers votre logo
     canvas.drawImage(logo_path, 1 * inch, 9.9 * inch, width=1.1 * inch, height=1.1 * inch, preserveAspectRatio=True)
     
     # Dessiner le pied de page avec le numéro de page
@@ -719,26 +719,26 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
         
         # Résistance au cisaillement FvRd
         if tp > bolt_diameter/3 :
-            image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FvRd-tp.PNG"
+            image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FvRd-tp.png"
             image_width = page_width - 2.16*inch
             image_B_general = Image(image_B_general_path)
             image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
             image_B_general.drawWidth = image_width
             if Lj > 15*bolt_diameter :
-                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FvRd-tp-Lj.PNG"
+                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FvRd-tp-Lj.png"
                 image_width = page_width - 2.16*inch
                 image_B_general = Image(image_B_general_path)
                 image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
                 image_B_general.drawWidth = image_width
         else :
             if Lj > 15*bolt_diameter :
-                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FvRd-Lj.PNG"
+                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FvRd-Lj.png"
                 image_width = page_width - 2.16*inch
                 image_B_general = Image(image_B_general_path)
                 image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
                 image_B_general.drawWidth = image_width
             else :
-                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FvRd-general.PNG"
+                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FvRd-general.png"
                 image_width = page_width - 2.16*inch
                 image_B_general = Image(image_B_general_path)
                 image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
@@ -748,7 +748,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
         elements.append(Spacer(1, 10))
 
         # Résistance à la pression diamétrale FbRd
-        image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FbRd-general.PNG"
+        image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FbRd-general.png"
         image_width = page_width - 2.16*inch
         image_B_general = Image(image_B_general_path)
         image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
@@ -756,7 +756,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
         elements.append(image_B_general)
         elements.append(Spacer(1, 10))
         if recouvrement_une_rangee :
-            image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FbRd-supplement simple recouvrement.PNG"
+            image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FbRd-supplement simple recouvrement.png"
             image_width = page_width - 2.16*inch
             image_B_general = Image(image_B_general_path)
             image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
@@ -766,26 +766,26 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     
         #Résistance au glissement à l'ELS FsRdser
         if bolt_inject :
-            image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FsRdser-injecte.PNG"
+            image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FsRdser-injecte.png"
             image_width = page_width - 2.16*inch
             image_B_general = Image(image_B_general_path)
             image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
             image_B_general.drawWidth = image_width
             if L_cat[5] :
-                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FsRdser-injecte-combines.PNG"
+                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FsRdser-injecte-combines.png"
                 image_width = page_width - 2.16*inch
                 image_B_general = Image(image_B_general_path)
                 image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
                 image_B_general.drawWidth = image_width
         else :
             if L_cat[5] :
-                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FsRdser-combines.PNG"
+                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FsRdser-combines.png"
                 image_width = page_width - 2.16*inch
                 image_B_general = Image(image_B_general_path)
                 image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
                 image_B_general.drawWidth = image_width
             else :
-                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FsRdser-general.PNG"
+                image_B_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie B/eurocode_formules_CatB_FsRdser-general.png"
                 image_width = page_width - 2.16*inch
                 image_B_general = Image(image_B_general_path)
                 image_B_general.drawHeight = image_width * image_B_general.drawHeight / image_B_general.drawWidth
@@ -802,7 +802,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     if L_cat[2] :
         
         # Résistance à la pression diamétrale FbRd
-        image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FbRd-general.PNG"
+        image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FbRd-general.png"
         image_width = page_width - 2.16*inch
         image_C_general = Image(image_C_general_path)
         image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
@@ -810,7 +810,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
         elements.append(image_C_general)
         elements.append(Spacer(1, 10))
         if recouvrement_une_rangee :
-            image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FbRd-supplement simple recouvrement.PNG"
+            image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FbRd-supplement simple recouvrement.png"
             image_width = page_width - 2.16*inch
             image_C_general = Image(image_C_general_path)
             image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
@@ -820,26 +820,26 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     
         #Résistance au glissement à l'ELU FsRd
         if bolt_inject :
-            image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FsRd-injecte.PNG"
+            image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FsRd-injecte.png"
             image_width = page_width - 2.16*inch
             image_C_general = Image(image_C_general_path)
             image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
             image_C_general.drawWidth = image_width
             if L_cat[5] :
-                image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FsRd-injecte-combines.PNG"
+                image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FsRd-injecte-combines.png"
                 image_width = page_width - 2.16*inch
                 image_C_general = Image(image_C_general_path)
                 image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
                 image_C_general.drawWidth = image_width
         else :
             if L_cat[5] :
-                image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FsRd-combines.PNG"
+                image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FsRd-combines.png"
                 image_width = page_width - 2.16*inch
                 image_C_general = Image(image_C_general_path)
                 image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
                 image_C_general.drawWidth = image_width
             else :
-                image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FsRd-general.PNG"
+                image_C_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégorie C/eurocode_formules_CatC_FsRd-general.png"
                 image_width = page_width - 2.16*inch
                 image_C_general = Image(image_C_general_path)
                 image_C_general.drawHeight = image_width * image_C_general.drawHeight / image_C_general.drawWidth
@@ -855,7 +855,7 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
 
     if L_cat[3] or L_cat[4] :
 
-        image_DE_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégories DE/eurocode_formules_CatDE.PNG"
+        image_DE_general_path = "C:/Users/admin/Documents/DIMENSIONNEMENT LIAISONS/TEMPLATES/EUROCODE/Catégories DE/eurocode_formules_CatDE.png"
         image_width = page_width - 2.16*inch
         image_DE_general = Image(image_DE_general_path)
         image_DE_general.drawHeight = image_width * image_DE_general.drawHeight / image_DE_general.drawWidth

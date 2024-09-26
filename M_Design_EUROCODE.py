@@ -1197,7 +1197,7 @@ def page_EUROCODE() :
         st.markdown(
             """
             <style>
-            .dataframe-table {
+            .stDataFrame div[data-testid="stTable"] {
                 margin-left: auto;
                 margin-right: auto;
             }

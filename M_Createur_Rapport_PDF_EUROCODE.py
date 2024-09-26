@@ -287,7 +287,6 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
                                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
                                ('FONTNAME', (0, 0), (-1, 0), 'Times-Bold'),
                                ('FONTNAME', (0, 1), (-1, -1), 'Times-Roman'),
-                               # ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
                                ('BACKGROUND', (0, 1), (-1, -1), colors.white),
                                ('INNERGRID', (0, 0), (-1, -1), 0.5, colors.grey),
                                ('BOX', (0, 0), (-1, -1), 0, colors.white), # Pas de contour

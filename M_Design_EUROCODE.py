@@ -1213,7 +1213,7 @@ def page_EUROCODE() :
         # On affiche la légende
         # st.markdown("\u00A0" * 20 + "_Résultats du dimensionnement pour les critères de catégorie A_")
         st.markdown(
-            "<p style='text-align: center; font-size:16px; color:darkgray; font-style:italic;'>"
+            "<p style='text-align: center; font-size:14px; color:darkgray; font-style:italic;'>"
             "Résultats du dimensionnement pour les critères de catégorie A"
             "</p>",
             unsafe_allow_html=True

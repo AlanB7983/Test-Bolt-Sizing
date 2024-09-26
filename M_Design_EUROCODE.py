@@ -397,7 +397,7 @@ def page_EUROCODE() :
                      "Section brute ou du fût lisse", "Résistance ultime à la traction (à 20°C)", "Coefficient de trou", "Coefficient de trou en précontrainte",
                      "Coefficient partiel pour la résistance des boulons"]
     L_Symbole = ["d", "p", "d0", "d1", "d2", "d3", "As", "S", "fub", "kb", "ks", "GammaM2"]
-    L_Valeur = [d, p, d0, d1, d2, d3, round(As, 2), round(S, 2), fub, kb, ksp, GammaM2]
+    L_Valeur = [d, p, d0, round(d1,2), round(d2,2), round(d3,2), round(As, 2), round(S, 2), fub, kb, ksp, GammaM2]
     L_Unite = ["[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm²]", "[mm²]", "[MPa]", "[-]", "[-]", "[-]"]
 
     # Création d'un dictionnaire uniquement pour les données de la boulonnerie

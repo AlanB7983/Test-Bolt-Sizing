@@ -557,7 +557,7 @@ def page_EUROCODE() :
             fbresine = float(fbresine) if fbresine else 1.0
             # On ajoute dans le tableau des données d'entrée
             L_Designation.append("Résistance en pression diamétrale de la résine")
-            L_Symbole.append("fb,resine")
+            L_Symbole.append("fb,résine")
             L_Valeur.append(fbresine)
             L_Unite.append("[MPa]")
     

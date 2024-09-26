@@ -779,12 +779,12 @@ def page_EUROCODE() :
             position_ser = st.selectbox('Position', liste_position)
         
         but_col1_ser, but_col2_ser, but_col3_ser = st.columns([1,1,4])
-        indice_boulon = 1
+        indice_boulon_ser = 1
         with but_col1_ser :
             # Bouton pour ajouter les données au DataFrame
             if st.button('Ajouter', use_container_width = True) :
-                indice_boulon = st.session_state.efforts_ext_ser.shape[0] + 1
-                new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Position': [position], 'Ft,Ed,ser [N]' : [float(FtEdser)], 'Fvx,Ed,ser [N]': [float(FvxEdser)], 'Fvy,Ed,ser [N]' : [float(FvyEdser)]})
+                indice_boulon_ser = st.session_state.efforts_ext_ser.shape[0] + 1
+                new_data = pd.DataFrame({'N° Boulon': [indice_boulon_ser], 'Position': [position_ser], 'Ft,Ed,ser [N]' : [float(FtEdser)], 'Fvx,Ed,ser [N]': [float(FvxEdser)], 'Fvy,Ed,ser [N]' : [float(FvyEdser)]})
                 st.session_state.efforts_ext_ser = pd.concat([st.session_state.efforts_ext_ser, new_data], ignore_index=True)
         with but_col2_ser:
             if st.button('Effacer', use_container_width = True):

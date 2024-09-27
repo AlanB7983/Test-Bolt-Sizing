@@ -642,7 +642,8 @@ def page_EUROCODE() :
             st.write("\n")
 
 
-
+    if classe != "8.8" or classe != "10.9" :
+        check_preload = False
 
     # saut de ligne
     st.write("\n")

@@ -680,7 +680,7 @@ def page_EUROCODE() :
         check_cat_C = False
         check_cat_E = False
     
-    if check_cat_A or check_cat_B or check_cat_C :
+    if check_cat_A or check_cat_B :
         # saut de ligne
         st.write("\n")
         st.write("Préciser la localisation du ou des plans de cisaillements.")

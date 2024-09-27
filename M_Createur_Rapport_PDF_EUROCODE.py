@@ -263,6 +263,11 @@ def create_pdf_eurocode(bolt_type, bolt_diameter, bolt_classe, tete_fraisee_chec
     text_2_2_1bis = Paragraph(text_2_2_1bis, normal_style)
     elements.append(text_2_2_1bis)
     elements.append(espace)
+
+    if L_cat[0] or L_cat[1] or L_cat[2] :
+        if resine_check :
+            text = Paragraph("La valeur du coefficient &Beta; a été pris égal à 1 de façon conservative, d'après le Tableau 3.5", normal_style)
+            elements.append(text)
     
     
         # =============================================================================

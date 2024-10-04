@@ -765,7 +765,8 @@ def calculer_criteres(d, SyminB_T, SyminP_T, SuminB_T, SuminP_T, Sm_T, SmB_T, St
     
         L_Criteres = [critere_1, critere_2, critere_3, critere_4]
         
-        
+
+    
     if Study_Case == "B3_C" : 
         # st.write("calculer_criteres : Cas B3_C")
         if B_acier_aust == False :

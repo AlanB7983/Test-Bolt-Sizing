@@ -122,7 +122,7 @@ def page_Modelisation_Presserage() :
   
 
   # Variables
-  liste_material = ["304L SS", "316L SS", "660 SS", "Acier Classe 6-8", "Alloy 718"]
+  liste_material = ["304L SS", "316L SS", "660 SS", "Acier Classe 6-8", "Alloy 718", "Acier 10.9", "F15NM trempe-revenu (X4CrNiMo16-05-01)"]
   
   
   # Titre de l'application

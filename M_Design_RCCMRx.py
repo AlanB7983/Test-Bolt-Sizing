@@ -917,7 +917,7 @@ def traduire_fichier_to_liste(name) :
 def page_RCCMRx() :
 
     # Variables
-    liste_material = ["304L SS", "316L SS", "660 SS", "Acier Classe 6-8", "Alloy 718", "316L", "A4L-80", "A4L-70", "A2L-80", "A2L-70", "F15NM trempe-revenu (X4CrNiMo16-05-01)", "Acier 10.9", "304L (X2CrNi19-11)", "304L (X2CrNi18-9)"]
+    liste_material = ["304L SS", "316L SS", "660 SS", "Acier Classe 6-8", "Alloy 718", "316L", "A4L-80", "A4L-70", "A2L-80", "A2L-70", "F15NM trempe-revenu (X4CrNiMo16-05-01)", "Acier 10.9", "304L (X2CrNi18-9)", "304L (X2CrNi19-11)"]
     L_Acier_Aust = ["A2L-70", "A2L-80", "A4L-70", "A4L-80"]
       
     # Titre de l'application

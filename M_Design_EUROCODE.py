@@ -229,7 +229,7 @@ def page_EUROCODE() :
     with st.expander("INTRODUCTION ET RAPPEL DES HYPOTHÈSES.") :
         st.subheader("Objectifs et conditions d'application")
         st.write("Cette partie est dédiée au dimensionnement des liaisons boulonnées selon les règles de conception et de calcul de la norme **NF EN 1993-1-8 (Eurocode 3 : Calcul des structures en acier – Calcul des assemblages)**. Elle concerne les assemblages soumis à un chargement statique prédominant. Les aciers qui peuvent les composer, éléments de serrage comme pièces assemblées, doivent être de nuances S235, S275, S355, S420, S450 et S460. Les règles spécifiques aux attaches par boulons, rivets ou axes d’articulation sont données dans la **section 3** du code. Elles ne sont applicables qu’aux classes de boulons de qualité suivantes, données avec leurs limite d’élasticité $f_{yb}$ et résistance ultime à la traction $f_{ub}$ associées :")
-        st.image("Pictures/tableau_fu_fy_introduction.PNG", use_column_width=True)
+        st.image("Pictures/tableau_fu_fy_introduction.PNG", use_container_width=True)
         st.write("Les attaches boulonnées sont divisées en 5 catégories qui dépendent de l’effort subi et de leur condition d’utilisation :")
         st.write("-	**Catégorie A**, pour les boulons travaillant à la pression diamétrale qui ne nécessitent pas de préserrage")
         st.write("- **Catégorie B**, pour les boulons précontraints à haute résistance devant résister au glissement à l’état limite de service (ELS)")
@@ -318,9 +318,9 @@ def page_EUROCODE() :
         dm = 1.0
 
     if forme_trou == "Rond" :
-        st.image("Pictures/dimensions_trou_circulaire.PNG", use_column_width=True)
+        st.image("Pictures/dimensions_trou_circulaire.PNG", use_container_width=True)
     else :
-        st.image("Pictures/dimensions_trou_oblong.PNG", use_column_width=True)
+        st.image("Pictures/dimensions_trou_oblong.PNG", use_container_width=True)
 
     # On détermine le type de trou et on affiche le résultat
     st.write("") # Saut de ligne
@@ -335,7 +335,7 @@ def page_EUROCODE() :
     if forme_trou == "Oblong" :
         st.write("Est-ce que l'axe longitudinal est parallèle ou perpendiculaire aux efforts de cisaillement ? (Voir Figure ci-dessous)")
         axe_longi = st.radio("", ("Parallèle", "Perpendiculaire"), horizontal=True, label_visibility="collapsed")
-        st.image("Pictures/def_axe_trou_oblong.PNG", use_column_width=True)
+        st.image("Pictures/def_axe_trou_oblong.PNG", use_container_width=True)
         type_trou = type_trou + " " + axe_longi
         st.write("") # Saut de ligne
     st.write("") # Saut de ligne
@@ -423,7 +423,7 @@ def page_EUROCODE() :
 
     st.write("- ##### *Données géométriques*") #Sous-Partie
     st.write("Est-ce que les notions d'entraxe longitudinal et d'entraxe transversal, respectivement notés $p_1$ et $p_2$, visibles sur la figure ci-dessous sont définies ?")
-    st.image("Pictures/definition_entraxe_longi_transv.PNG", use_column_width=True)
+    st.image("Pictures/definition_entraxe_longi_transv.PNG", use_container_width=True)
     p1_cal1, p2_col2, empty_col3 = st.columns([1, 1, 1])
     with p1_cal1 :
         p1_check = st.checkbox("Entraxe longitudinal, $p_1$")
@@ -432,7 +432,7 @@ def page_EUROCODE() :
 
     if p1_check and p2_check :
         quinconce_check = st.checkbox("Il s'agit d'un assemblage en quinconce comme décrit sur la figure ci-dessous")
-        st.image("Pictures/definition_assemblage_quinconce.PNG", use_column_width=True)
+        st.image("Pictures/definition_assemblage_quinconce.PNG", use_container_width=True)
 
     st.write("") # Saut de ligne
     bolt_goem_data_col1, bolt_goem_data_col2 = st.columns([1, 1])
@@ -532,14 +532,14 @@ def page_EUROCODE() :
     L_Unite.append("[mm]")
 
     if forme_trou == "Rond" :
-        st.image("Pictures/definition_donnee_assemblage_full_circulaire.PNG", use_column_width=True, caption="Définition des données d'assemblage")
+        st.image("Pictures/definition_donnee_assemblage_full_circulaire.PNG", use_container_width=True, caption="Définition des données d'assemblage")
     else :
-        st.image("Pictures/definition_donnee_assemblage_full_oblong.PNG", use_column_width=True, caption="Définition des données d'assemblage")
+        st.image("Pictures/definition_donnee_assemblage_full_oblong.PNG", use_container_width=True, caption="Définition des données d'assemblage")
     
     st.write("") # Saut de ligne
 
     simple_recouvrement_check = st.checkbox("Est-ce qu'il s'agit d'un assemblage à simple recouvrement ne comportant qu'une seule rangée de boulons, comme décrit sur la figure ci-dessous ?")
-    st.image("Pictures/assemblage_simple_recouvrement.PNG", use_column_width=True, caption="Assemblage simple recouvrement ne comportant qu'une seule rangée de boulons")
+    st.image("Pictures/assemblage_simple_recouvrement.PNG", use_container_width=True, caption="Assemblage simple recouvrement ne comportant qu'une seule rangée de boulons")
     
     st.write("- ##### *Données matériaux*") #Sous-Partie
     mat_piece_col1, mat_piece_col2 = st.columns([1, 1])
@@ -691,7 +691,7 @@ def page_EUROCODE() :
         with plan_cisaillement_col2 :
             plan_cisaill_filet_check = st.checkbox("Plan de cisaillement dans les filets", value = True)
         
-        # st.image("Pictures/definition_plan_cisaillement.PNG", use_column_width=True, caption="Définition du ou des plans de cisaillement")
+        # st.image("Pictures/definition_plan_cisaillement.PNG", use_container_width=True, caption="Définition du ou des plans de cisaillement")
             
         if plan_cisaill_fut_lisse_check and plan_cisaill_filet_check == False :
             plan_cisaillement = "fut lisse"

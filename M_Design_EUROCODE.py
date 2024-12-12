@@ -1015,12 +1015,18 @@ def page_EUROCODE() :
                     # st.write("alpha_d = " + str(alpha_d))
                     # st.write("alpha_b = " + str(alpha_b))
                     # st.write("k1 = " + str(k1))
-                    FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
+                    if "Parallèle" in type_trou :
+                        FbRd = k1*alpha_b*fu*d*t/GammaM2
+                    else :
+                        FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
 
             # Si c'est un boulon injecté (avec résine)
             else :
                 Beta = 1.0 # Valeur par défaut
-                FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
+                if "Parallèle" in type_trou :
+                    FbRd = 1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
+                else :
+                    FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
 
             marge = round(calculer_marge(FvEd, FbRd), 2)
             Result_Cat_A.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2), marge])
@@ -1090,13 +1096,19 @@ def page_EUROCODE() :
                         alpha_d = e1/(3*d0)
                         alpha_b = min(alpha_d, float(fub)/float(fu), 1)
                         k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
-        
-                    FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
+                    if "Parallèle" in type_trou :
+                        FbRd = k1*alpha_b*fu*d*t/GammaM2
+                    else :
+                        FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
+                    
 
             # Si c'est un boulon injecté (avec résine)
             else :
                 Beta = 1 # Valeur par défaut
-                FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
+                if "Parallèle" in type_trou :
+                    FbRd = 1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
+                else :
+                    FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
 
             marge = round(calculer_marge(FvEd, FbRd), 2)
             Result_Cat_B.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2), marge])
@@ -1159,12 +1171,19 @@ def page_EUROCODE() :
                         alpha_b = min(alpha_d, float(fub)/float(fu), 1)
                         k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
         
-                    FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
+                    if "Parallèle" in type_trou :
+                        FbRd = k1*alpha_b*fu*d*t/GammaM2
+                    else :
+                        FbRd = kb*k1*alpha_b*fu*d*t/GammaM2
 
             # Si c'est un boulon injecté (avec résine)
             else :
                 Beta = 1 # Valeur par défaut
-                FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
+                if "Parallèle" in type_trou :
+                    FbRd = 1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
+                else :
+                    FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
+                
 
             marge = round(calculer_marge(FvEd, FbRd), 2)
             Result_Cat_C.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2), marge])

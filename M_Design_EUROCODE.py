@@ -429,7 +429,7 @@ def page_EUROCODE() :
         p1_check = st.checkbox("Entraxe longitudinal, $p_1$")
     with p2_col2 :
         p2_check = st.checkbox("Entraxe transversal, $p_2$")
-
+    st.info("Si la direction de l'effort n'est pas connue, choisir de façon arbitraire une direction longitudinal et une direction transversal. Le dimensionnement est ensuite fait de façon conservatrice à partir des données saisies.")
     if p1_check and p2_check :
         quinconce_check = st.checkbox("Il s'agit d'un assemblage en quinconce comme décrit sur la figure ci-dessous")
         st.image("Pictures/definition_assemblage_quinconce.PNG", use_container_width=True)
@@ -1547,6 +1547,7 @@ def page_EUROCODE() :
 
 
     
+
 
 
 

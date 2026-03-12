@@ -841,7 +841,7 @@ def page_EUROCODE() :
     # Zone de collage des données csv
     # ===============================
     
-    st.markdown("### Import des efforts par collage CSV")
+    # st.markdown("#### Import des efforts par collage CSV")
 
     # Choix des séparateurs
     opt_col1, opt_col2 = st.columns(2)
@@ -1703,6 +1703,7 @@ def page_EUROCODE() :
 
 
     
+
 
 
 

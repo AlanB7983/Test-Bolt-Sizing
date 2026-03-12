@@ -12,6 +12,7 @@ import numpy as np
 import plotly.graph_objects as go
 import pandas as pd
 import os
+import io
 
 
 from M_Manipulation_Donnees_Materiaux_2 import get_grandeur_T_quelconque, get_donnees_grandeur_fonction_T
@@ -1674,6 +1675,7 @@ def page_EUROCODE() :
 
 
     
+
 
 
 

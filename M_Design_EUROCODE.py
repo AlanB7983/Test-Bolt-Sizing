@@ -231,34 +231,74 @@ def lire_csv_colle(texte_csv: str, sep_col: str, sep_dec: str) -> pd.DataFrame:
     Lit le texte collé comme un CSV SANS en-tête.
     Ordre attendu des colonnes :
     N° Boulon ; Position ; Ft,Ed [N] ; Fvx,Ed [N] ; Fvy,Ed [N]
+
+    La colonne 'N° Boulon' est conservée comme chaîne de caractères.
     """
     if not texte_csv.strip():
         raise ValueError("Aucune donnée collée.")
 
     colonnes_attendues = ['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
 
-    # Lecture brute sans ligne d'en-tête
+    # Lecture brute sans en-tête
     df = pd.read_csv(
         io.StringIO(texte_csv.strip()),
         sep=sep_col,
         header=None,
         names=colonnes_attendues,
-        dtype=str
+        dtype=str,
+        skip_blank_lines=True
     )
 
-    # Vérification simple du nombre de colonnes
-    if df.shape[1] != 5:
+    # Suppression des lignes totalement vides
+    df = df.dropna(how="all")
+
+    # Nettoyage global des espaces de début / fin
+    for col in colonnes_attendues:
+        df[col] = df[col].astype(str).str.strip()
+
+    # Remplacement des pseudo valeurs vides
+    df = df.replace({
+        "": pd.NA,
+        "nan": pd.NA,
+        "NaN": pd.NA,
+        "None": pd.NA,
+        "none": pd.NA
+    })
+
+    # Suppression des lignes totalement vides après nettoyage
+    df = df.dropna(how="all")
+
+    # Vérification : toutes les colonnes doivent être remplies
+    if df[colonnes_attendues].isna().any().any():
+        lignes_invalides = df[df[colonnes_attendues].isna().any(axis=1)].index.tolist()
         raise ValueError(
-            "Le tableau collé doit contenir exactement 5 colonnes dans l'ordre : "
-            "N° Boulon ; Position ; Ft,Ed [N] ; Fvx,Ed [N] ; Fvy,Ed [N]"
+            f"Certaines lignes sont incomplètes ou mal formatées : "
+            f"{', '.join(str(i+1) for i in lignes_invalides)}"
         )
 
-    # Suppression des lignes complètement vides
-    df = df.dropna(how="all")
-    df = df[df.astype(str).apply(lambda row: "".join(row).strip() != "", axis=1)]
+    # -------------------------------------------------------------------------
+    # Colonne 'N° Boulon' : on la garde comme texte
+    # -------------------------------------------------------------------------
+    df['N° Boulon'] = df['N° Boulon'].astype(str).str.strip()
 
-    # Nettoyage / conversion des colonnes numériques
+    # Vérification simple : éviter une chaîne vide
+    if (df['N° Boulon'] == "").any():
+        lignes_invalides = df[df['N° Boulon'] == ""].index.tolist()
+        raise ValueError(
+            f"Le nom du boulon est vide sur les lignes : "
+            f"{', '.join(str(i+1) for i in lignes_invalides)}"
+        )
+
+    # -------------------------------------------------------------------------
+    # Colonne 'Position' : texte
+    # -------------------------------------------------------------------------
+    df['Position'] = df['Position'].astype(str).str.strip()
+
+    # -------------------------------------------------------------------------
+    # Colonnes numériques : conversion avec gestion du séparateur décimal
+    # -------------------------------------------------------------------------
     colonnes_numeriques = ['Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
+
     for col in colonnes_numeriques:
         df[col] = (
             df[col]
@@ -267,23 +307,11 @@ def lire_csv_colle(texte_csv: str, sep_col: str, sep_dec: str) -> pd.DataFrame:
             .str.replace(" ", "", regex=False)
         )
 
-        # Conversion du séparateur décimal si besoin
+        # Si les décimales sont écrites avec une virgule, on les convertit en point
         if sep_dec == ",":
             df[col] = df[col].str.replace(",", ".", regex=False)
 
         df[col] = pd.to_numeric(df[col], errors="raise")
-
-    # Conversion du numéro de boulon
-    df['N° Boulon'] = (
-        df['N° Boulon']
-        .astype(str)
-        .str.strip()
-        .str.replace(" ", "", regex=False)
-    )
-    df['N° Boulon'] = pd.to_numeric(df['N° Boulon'], errors="raise").astype(int)
-
-    # Nettoyage de la position
-    df['Position'] = df['Position'].astype(str).str.strip()
 
     return df
 
@@ -1675,6 +1703,7 @@ def page_EUROCODE() :
 
 
     
+
 
 
 

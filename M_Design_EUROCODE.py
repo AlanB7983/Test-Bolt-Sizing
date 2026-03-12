@@ -230,14 +230,14 @@ def lire_csv_colle(texte_csv: str, sep_col: str, sep_dec: str) -> pd.DataFrame:
     """
     Lit le texte collé comme un CSV SANS en-tête.
     Ordre attendu des colonnes :
-    N° Boulon ; Position ; Ft,Ed [N] ; Fvx,Ed [N] ; Fvy,Ed [N]
+    N° Boulon ; Ft,Ed [N] ; Fvx,Ed [N] ; Fvy,Ed [N] ; Position
 
     La colonne 'N° Boulon' est conservée comme chaîne de caractères.
     """
     if not texte_csv.strip():
         raise ValueError("Aucune donnée collée.")
 
-    colonnes_attendues = ['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
+    colonnes_attendues = ['N° Boulon', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]', 'Position']
 
     # Lecture brute sans en-tête
     df = pd.read_csv(
@@ -276,12 +276,9 @@ def lire_csv_colle(texte_csv: str, sep_col: str, sep_dec: str) -> pd.DataFrame:
             f"{', '.join(str(i+1) for i in lignes_invalides)}"
         )
 
-    # -------------------------------------------------------------------------
     # Colonne 'N° Boulon' : on la garde comme texte
-    # -------------------------------------------------------------------------
     df['N° Boulon'] = df['N° Boulon'].astype(str).str.strip()
 
-    # Vérification simple : éviter une chaîne vide
     if (df['N° Boulon'] == "").any():
         lignes_invalides = df[df['N° Boulon'] == ""].index.tolist()
         raise ValueError(
@@ -289,14 +286,10 @@ def lire_csv_colle(texte_csv: str, sep_col: str, sep_dec: str) -> pd.DataFrame:
             f"{', '.join(str(i+1) for i in lignes_invalides)}"
         )
 
-    # -------------------------------------------------------------------------
     # Colonne 'Position' : texte
-    # -------------------------------------------------------------------------
     df['Position'] = df['Position'].astype(str).str.strip()
 
-    # -------------------------------------------------------------------------
     # Colonnes numériques : conversion avec gestion du séparateur décimal
-    # -------------------------------------------------------------------------
     colonnes_numeriques = ['Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
 
     for col in colonnes_numeriques:
@@ -307,11 +300,13 @@ def lire_csv_colle(texte_csv: str, sep_col: str, sep_dec: str) -> pd.DataFrame:
             .str.replace(" ", "", regex=False)
         )
 
-        # Si les décimales sont écrites avec une virgule, on les convertit en point
         if sep_dec == ",":
             df[col] = df[col].str.replace(",", ".", regex=False)
 
         df[col] = pd.to_numeric(df[col], errors="raise")
+
+    # Réordonner explicitement les colonnes de sortie
+    df = df[['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']]
 
     return df
 
@@ -867,38 +862,36 @@ def page_EUROCODE() :
         height=220,
         placeholder=(
             "Exemple sans en-tête :\n"
-            "1;A;1000,0;200,0;50,0\n"
-            "2;B;1200,0;180,0;60,0"
+            "Boulon 1;1000,0;200,0;50,0;Rive\n"
+            "Boulon 2;1200,0;180,0;60,0;Intérieure"
         )
     )
-    
+    st.info('La colonne "Position" doit contenir uniquement : "Rive" ou "Intérieure".')
+
+    message_import = st.empty()
     but_col1, but_col2, but_col3 = st.columns([1,1,4])
     
     with but_col1:
         if st.button('Ajouter', use_container_width=True):
             try:
-                # Lecture du CSV collé
                 new_data = lire_csv_colle(csv_texte, separateur_csv, separateur_decimal)
     
-                # Ajout au DataFrame existant sans changer sa structure finale
                 st.session_state.efforts_ext = pd.concat(
                     [st.session_state.efforts_ext, new_data],
                     ignore_index=True
                 )
     
-                # Optionnel : suppression des doublons exacts si besoin
-                # st.session_state.efforts_ext = st.session_state.efforts_ext.drop_duplicates(ignore_index=True)
-    
-                st.success("Données ajoutées avec succès.")
+                message_import.success("Données ajoutées avec succès.")
     
             except Exception as e:
-                st.error(f"Erreur lors de l'import des données : {e}")
+                message_import.error(f"Erreur lors de l'import des données : {e}")
     
     with but_col2:
         if st.button('Effacer', use_container_width=True):
             st.session_state.efforts_ext = pd.DataFrame(
                 columns=['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
             )
+            message_import.success("Tableau effacé.")
 
     # Afficher les données sous forme de tableau
     st.dataframe(st.session_state.efforts_ext)
@@ -1703,6 +1696,7 @@ def page_EUROCODE() :
 
 
     
+
 
 
 

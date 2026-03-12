@@ -867,7 +867,8 @@ def page_EUROCODE() :
         )
     )
     st.info('La colonne "Position" doit contenir uniquement : "Rive" ou "Intérieure".')
-
+    st.info('Si c'est l'effort de cisaillement total qui est connu, alors il suffit de mettre la valeur dans une des composantes, et 0 dans l'autre : Fvx,Ed = Fv,Ed et Fvy,Ed = 0')
+    
     message_import = st.empty()
     but_col1, but_col2, but_col3 = st.columns([1,1,4])
     
@@ -1696,6 +1697,7 @@ def page_EUROCODE() :
 
 
     
+
 
 
 

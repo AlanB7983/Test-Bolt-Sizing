@@ -967,11 +967,13 @@ def page_EUROCODE() :
                 
             FvRd = alpha_v*fub*A/GammaM2
 
-            if tp > d/3 :
-                Betap = 9*d/(8*d+3*tp)
-                # st.write("Betap = " + str(Betap))
-                
-                FvRd = Betap*FvRd
+            # Prise en compte de l'épaisseur totale de calage, notée tp dans la norme.
+            # A intégrer dans une évolution future
+            #if tcal > d/3 :
+            #    Betap = 9*d/(8*d+3*tcal)
+            #    # st.write("Betap = " + str(Betap))
+            #    
+            #    FvRd = Betap*FvRd
                 
             # Si c'est un assemblage long, on applique un coefficient supplémentaire
             if check_assemblage_long :
@@ -1057,9 +1059,13 @@ def page_EUROCODE() :
                 
             FvRd = alpha_v*fub*A/GammaM2
 
-            if tp > d/3 :
-                Betap = 9*d/(8*d+3*tp)
-                FvRd = Betap*FvRd
+            # Prise en compte de l'épaisseur totale de calage, notée tp dans la norme.
+            # A intégrer dans une évolution future
+            #if tcal > d/3 :
+            #    Betap = 9*d/(8*d+3*tcal)
+            #    # st.write("Betap = " + str(Betap))
+            #    
+            #    FvRd = Betap*FvRd
                 
             # Si c'est un assemblage long, on applique un coefficient supplémentaire
             if check_assemblage_long :
@@ -1547,6 +1553,7 @@ def page_EUROCODE() :
 
 
     
+
 
 
 

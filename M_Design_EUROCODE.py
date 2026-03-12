@@ -204,7 +204,110 @@ def determine_dm(d, L_dm) :
 
 
     return dm
-        
+
+
+
+# -----------------------------------------------------------------------------
+# Fonction utilitaire pour homogénéiser les noms de colonnes
+# -----------------------------------------------------------------------------
+def normaliser_nom_colonne(nom_colonne: str) -> str:
+    """
+    Simplifie un nom de colonne pour faciliter la reconnaissance même si
+    l'écriture varie légèrement (espaces, casse, accents simples, etc.).
+    """
+    nom = str(nom_colonne).strip().lower()
+    nom = nom.replace("°", "")
+    nom = nom.replace(" ", "")
+    nom = nom.replace("_", "")
+    nom = nom.replace("-", "")
+    return nom
+
+# -----------------------------------------------------------------------------
+# Fonction de lecture / validation du texte CSV collé
+# -----------------------------------------------------------------------------
+def lire_csv_colle(texte_csv: str, sep_col: str, sep_dec: str) -> pd.DataFrame:
+    """
+    Lit le texte collé comme un CSV et renvoie un DataFrame mis au bon format :
+    colonnes finales = ['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
+
+    Le but est de préserver exactement la structure utilisée plus loin dans le code.
+    """
+    if not texte_csv.strip():
+        raise ValueError("Aucune donnée collée.")
+
+    # Lecture brute du texte collé
+    df_brut = pd.read_csv(
+        io.StringIO(texte_csv.strip()),
+        sep=sep_col,
+        dtype=str  # on lit d'abord tout en texte pour maîtriser la conversion
+    )
+
+    # Mapping robuste des colonnes entrantes vers les colonnes attendues
+    mapping_colonnes = {}
+    for col in df_brut.columns:
+        col_norm = normaliser_nom_colonne(col)
+
+        if col_norm in ["nboulon", "noboulon", "numeroboulon"]:
+            mapping_colonnes[col] = "N° Boulon"
+        elif col_norm in ["position", "positions"]:
+            mapping_colonnes[col] = "Position"
+        elif col_norm in ["ft,ed[n]", "ft,ed", "fted[n]", "fted"]:
+            mapping_colonnes[col] = "Ft,Ed [N]"
+        elif col_norm in ["fvx,ed[n]", "fvx,ed", "fvxed[n]", "fvxed"]:
+            mapping_colonnes[col] = "Fvx,Ed [N]"
+        elif col_norm in ["fvy,ed[n]", "fvy,ed", "fvyed[n]", "fvyed", "vy,ed[n]", "vyed"]:
+            mapping_colonnes[col] = "Fvy,Ed [N]"
+
+    df = df_brut.rename(columns=mapping_colonnes)
+
+    colonnes_attendues = ['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
+    colonnes_manquantes = [c for c in colonnes_attendues if c not in df.columns]
+
+    if colonnes_manquantes:
+        raise ValueError(
+            f"Colonnes manquantes dans les données collées : {colonnes_manquantes}"
+        )
+
+    # On ne conserve que les colonnes utiles et dans le bon ordre
+    df = df[colonnes_attendues].copy()
+
+    # Suppression des lignes complètement vides
+    df = df.dropna(how="all")
+    df = df[df.astype(str).apply(lambda row: "".join(row).strip() != "", axis=1)]
+
+    # Conversion des colonnes numériques
+    colonnes_numeriques = ['Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
+
+    # Si le séparateur décimal est la virgule, on convertit en point pour float()
+    for col in colonnes_numeriques:
+        df[col] = (
+            df[col]
+            .astype(str)
+            .str.strip()
+            .str.replace(" ", "", regex=False)
+        )
+
+        if sep_dec == ",":
+            df[col] = df[col].str.replace(",", ".", regex=False)
+
+        df[col] = pd.to_numeric(df[col], errors="raise")
+
+    # Conversion du numéro de boulon
+    df['N° Boulon'] = (
+        df['N° Boulon']
+        .astype(str)
+        .str.strip()
+        .str.replace(" ", "", regex=False)
+    )
+    df['N° Boulon'] = pd.to_numeric(df['N° Boulon'], errors="raise").astype(int)
+
+    # Nettoyage de la position
+    df['Position'] = df['Position'].astype(str).str.strip()
+
+    return df
+
+
+
 
 def page_EUROCODE() :
 
@@ -723,32 +826,71 @@ def page_EUROCODE() :
         
     if 'efforts_ext' not in st.session_state:
         st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]'])
-        
-    # Saisies utilisateur pour ajouter des données
-    saisie_effort_col1, saisie_effort_col2 = st.columns([1, 1])
-    with saisie_effort_col1 :
-        FtEd = st.text_input('Effort de traction, $F_{t,Ed}$ [N]', placeholder = 0.0)
-    with saisie_effort_col2 :
-        FvxEd = st.text_input('Effort de cisaillement selon x, $F_{vx,Ed}$ [N]', placeholder = 0.0)
-        
-    st.write("") # Saut de ligne    
-    saisie_effort_col3, saisie_position_col4 = st.columns([1, 1])
-    with saisie_effort_col3 :
-        FvyEd = st.text_input('Effort de cisaillement selon y, $F_{vy,Ed}$ [N]', placeholder = 0.0)
-    with saisie_position_col4 :
-        position = st.selectbox('Position', liste_position, key = "position ELU")
+
+    
+    # ===============================
+    # Zone de collage des données csv
+    # ===============================
+    
+    st.markdown("### Import des efforts par collage CSV")
+
+    # Choix des séparateurs
+    opt_col1, opt_col2 = st.columns(2)
+    with opt_col1:
+        separateur_csv = st.selectbox(
+            "Séparateur de colonnes",
+            options=[";", ","],
+            index=0,
+            help="Choisir le séparateur utilisé dans les données collées."
+        )
+    
+    with opt_col2:
+        separateur_decimal = st.selectbox(
+            "Séparateur décimal",
+            options=[",", "."],
+            index=1,
+            help="Choisir le séparateur décimal utilisé dans les valeurs numériques."
+        )
+    
+    # Zone de texte multi-lignes pour coller le contenu du CSV
+    csv_texte = st.text_area(
+        "Coller ici les données CSV",
+        height=220,
+        placeholder=(
+            "Exemple :\n"
+            "N° Boulon;Position;Ft,Ed [N];Fvx,Ed [N];Fvy,Ed [N]\n"
+            "1;Intérieure;1000,0;200,0;50,0\n"
+            "2;Rive;1200,0;180,0;60,0"
+        )
+    )
     
     but_col1, but_col2, but_col3 = st.columns([1,1,4])
-    indice_boulon = 1
-    with but_col1 :
-        # Bouton pour ajouter les données au DataFrame
-        if st.button('Ajouter', use_container_width = True) :
-            indice_boulon = st.session_state.efforts_ext.shape[0] + 1
-            new_data = pd.DataFrame({'N° Boulon': [indice_boulon], 'Position': [position], 'Ft,Ed [N]' : [float(FtEd)], 'Fvx,Ed [N]': [float(FvxEd)], 'Fvy,Ed [N]' : [float(FvyEd)]})
-            st.session_state.efforts_ext = pd.concat([st.session_state.efforts_ext, new_data], ignore_index=True)
+    
+    with but_col1:
+        if st.button('Ajouter', use_container_width=True):
+            try:
+                # Lecture du CSV collé
+                new_data = lire_csv_colle(csv_texte, separateur_csv, separateur_decimal)
+    
+                # Ajout au DataFrame existant sans changer sa structure finale
+                st.session_state.efforts_ext = pd.concat(
+                    [st.session_state.efforts_ext, new_data],
+                    ignore_index=True
+                )
+    
+                # Optionnel : suppression des doublons exacts si besoin
+                # st.session_state.efforts_ext = st.session_state.efforts_ext.drop_duplicates(ignore_index=True)
+    
+                st.success("Données ajoutées avec succès.")
+    
+            except Exception as e:
+                st.error(f"Erreur lors de l'import des données : {e}")
+    
     with but_col2:
-        if st.button('Effacer', use_container_width = True):
-            st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]'])
+        if st.button('Effacer', use_container_width=True):
+            st.session_state.efforts_ext = pd.DataFrame(
+                columns=['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
+            )
 
     # Afficher les données sous forme de tableau
     st.dataframe(st.session_state.efforts_ext)
@@ -1553,6 +1695,7 @@ def page_EUROCODE() :
 
 
     
+
 
 
 

@@ -227,58 +227,37 @@ def normaliser_nom_colonne(nom_colonne: str) -> str:
 # -----------------------------------------------------------------------------
 def lire_csv_colle(texte_csv: str, sep_col: str, sep_dec: str) -> pd.DataFrame:
     """
-    Lit le texte collé comme un CSV et renvoie un DataFrame mis au bon format :
-    colonnes finales = ['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
-
-    Le but est de préserver exactement la structure utilisée plus loin dans le code.
+    Lit le texte collé comme un CSV SANS en-tête.
+    Ordre attendu des colonnes :
+    N° Boulon ; Position ; Ft,Ed [N] ; Fvx,Ed [N] ; Fvy,Ed [N]
     """
     if not texte_csv.strip():
         raise ValueError("Aucune donnée collée.")
 
-    # Lecture brute du texte collé
-    df_brut = pd.read_csv(
+    colonnes_attendues = ['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
+
+    # Lecture brute sans ligne d'en-tête
+    df = pd.read_csv(
         io.StringIO(texte_csv.strip()),
         sep=sep_col,
-        dtype=str  # on lit d'abord tout en texte pour maîtriser la conversion
+        header=None,
+        names=colonnes_attendues,
+        dtype=str
     )
 
-    # Mapping robuste des colonnes entrantes vers les colonnes attendues
-    mapping_colonnes = {}
-    for col in df_brut.columns:
-        col_norm = normaliser_nom_colonne(col)
-
-        if col_norm in ["nboulon", "noboulon", "numeroboulon"]:
-            mapping_colonnes[col] = "N° Boulon"
-        elif col_norm in ["position", "positions"]:
-            mapping_colonnes[col] = "Position"
-        elif col_norm in ["ft,ed[n]", "ft,ed", "fted[n]", "fted"]:
-            mapping_colonnes[col] = "Ft,Ed [N]"
-        elif col_norm in ["fvx,ed[n]", "fvx,ed", "fvxed[n]", "fvxed"]:
-            mapping_colonnes[col] = "Fvx,Ed [N]"
-        elif col_norm in ["fvy,ed[n]", "fvy,ed", "fvyed[n]", "fvyed", "vy,ed[n]", "vyed"]:
-            mapping_colonnes[col] = "Fvy,Ed [N]"
-
-    df = df_brut.rename(columns=mapping_colonnes)
-
-    colonnes_attendues = ['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
-    colonnes_manquantes = [c for c in colonnes_attendues if c not in df.columns]
-
-    if colonnes_manquantes:
+    # Vérification simple du nombre de colonnes
+    if df.shape[1] != 5:
         raise ValueError(
-            f"Colonnes manquantes dans les données collées : {colonnes_manquantes}"
+            "Le tableau collé doit contenir exactement 5 colonnes dans l'ordre : "
+            "N° Boulon ; Position ; Ft,Ed [N] ; Fvx,Ed [N] ; Fvy,Ed [N]"
         )
-
-    # On ne conserve que les colonnes utiles et dans le bon ordre
-    df = df[colonnes_attendues].copy()
 
     # Suppression des lignes complètement vides
     df = df.dropna(how="all")
     df = df[df.astype(str).apply(lambda row: "".join(row).strip() != "", axis=1)]
 
-    # Conversion des colonnes numériques
+    # Nettoyage / conversion des colonnes numériques
     colonnes_numeriques = ['Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]']
-
-    # Si le séparateur décimal est la virgule, on convertit en point pour float()
     for col in colonnes_numeriques:
         df[col] = (
             df[col]
@@ -287,6 +266,7 @@ def lire_csv_colle(texte_csv: str, sep_col: str, sep_dec: str) -> pd.DataFrame:
             .str.replace(" ", "", regex=False)
         )
 
+        # Conversion du séparateur décimal si besoin
         if sep_dec == ",":
             df[col] = df[col].str.replace(",", ".", regex=False)
 
@@ -857,10 +837,9 @@ def page_EUROCODE() :
         "Coller ici les données CSV",
         height=220,
         placeholder=(
-            "Exemple :\n"
-            "N° Boulon;Position;Ft,Ed [N];Fvx,Ed [N];Fvy,Ed [N]\n"
-            "1;Intérieure;1000,0;200,0;50,0\n"
-            "2;Rive;1200,0;180,0;60,0"
+            "Exemple sans en-tête :\n"
+            "1;A;1000,0;200,0;50,0\n"
+            "2;B;1200,0;180,0;60,0"
         )
     )
     
@@ -1695,6 +1674,7 @@ def page_EUROCODE() :
 
 
     
+
 
 
 

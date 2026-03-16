@@ -13,12 +13,135 @@ import plotly.graph_objects as go
 import pandas as pd
 import os
 import io
-
+import streamlit.components.v1 as components
 
 from M_Manipulation_Donnees_Materiaux_2 import get_grandeur_T_quelconque, get_donnees_grandeur_fonction_T
 from M_Createur_Rapport_PDF_EUROCODE import create_pdf_eurocode
 
 
+
+
+# =============================
+# Blocs HTML de critère
+# =============================
+
+
+html_traction = """
+<h3>Résistance à la traction</h3>
+
+<p>
+F<sub>t,Ed</sub> ≤ F<sub>t,Rd</sub> =
+(k<sub>2</sub> × f<sub>ub</sub> × A<sub>s</sub>) / γ<sub>M2</sub>
+</p>
+
+<p>Avec :</p>
+<ul>
+    <li>F<sub>t,Ed</sub> : effort de traction vu par le boulon</li>
+    <li>k<sub>2</sub> : coefficient fonction de la dimension du trou</li>
+    <li>f<sub>ub</sub> : résistance à la rupture de l’élément de serrage</li>
+    <li>A<sub>s</sub> : section résistante</li>
+    <li>γ<sub>M2</sub> : coefficient partiel pour les assemblages dans le cas de la résistance des boulons</li>
+</ul>
+"""
+
+html_poinconnement = """
+<h3>Résistance au poinçonnement</h3>
+
+<p>
+F<sub>t,Ed</sub> ≤ B<sub>p,Rd</sub> =
+(0,6 × π × d<sub>m</sub> × t<sub>p</sub> × f<sub>u</sub>) / γ<sub>M2</sub>
+</p>
+
+<p>Avec :</p>
+<ul>
+    <li>d<sub>m</sub> : diamètre moyen sous tête</li>
+    <li>t<sub>p</sub> : épaisseur de plaque située sous la tête ou l’écrou</li>
+    <li>f<sub>u</sub> : résistance à la rupture de la pièce assemblée</li>
+</ul>
+"""
+
+html_cisaillement = """
+<h3>Résistance au cisaillement</h3>
+
+<p>
+F<sub>v,Ed</sub> ≤ F<sub>v,Rd</sub> =
+(α<sub>v</sub> × f<sub>ub</sub> × A<sub>s</sub>) / γ<sub>M2</sub>
+</p>
+
+<p>Avec :</p>
+<ul>
+    <li>F<sub>v,Ed</sub> : effort de cisaillement vu par l’assemblage</li>
+    <li>α<sub>v</sub> : coefficient dépendant de la position du plan de cisaillement par rapport aux filets ou au fût lisse</li>
+</ul>
+"""
+
+html_pression_diametrale = """
+<h3>Résistance à la pression diamétrale</h3>
+
+<p>
+F<sub>v,Ed</sub> ≤ F<sub>b,Rd</sub> =
+(k<sub>1</sub> × α<sub>b</sub> × f<sub>u</sub> × d × t) / γ<sub>M2</sub>
+</p>
+
+<p>Avec :</p>
+<ul>
+    <li>d : diamètre nominal de l’élément de serrage</li>
+    <li>t : épaisseur de la plaque la plus mince parmi les pièces assemblées</li>
+    <li>
+        k<sub>1</sub> :
+        <ul>
+            <li>min[(2,8 × e<sub>2</sub> / d<sub>0</sub> − 1,7) ; (1,4 × p<sub>2</sub> / d<sub>0</sub> − 1,7) ; 2,5] pour les boulons de rive</li>
+            <li>min[(1,4 × p<sub>2</sub> / d<sub>0</sub> − 1,7) ; 2,5] pour les boulons intérieurs</li>
+        </ul>
+    </li>
+    <li>
+        α<sub>b</sub> = min(α<sub>d</sub> ; f<sub>ub</sub>/f<sub>u</sub> ; 1)
+    </li>
+    <li>
+        α<sub>d</sub> :
+        <ul>
+            <li>e<sub>1</sub> / (3 d<sub>0</sub>) pour les boulons de rive</li>
+            <li>p<sub>1</sub> / (3 d<sub>0</sub>) − 1/4 pour les boulons intérieurs</li>
+        </ul>
+    </li>
+    <li>d<sub>0</sub> : diamètre du perçage</li>
+    <li>e<sub>1</sub> : pince longitudinale entre le centre d’un trou de fixation et le bord adjacent de la pièce</li>
+    <li>e<sub>2</sub> : pince transversale entre le centre d’un trou de fixation et le bord adjacent de la pièce</li>
+    <li>p<sub>1</sub> : entraxe longitudinal des fixations</li>
+    <li>p<sub>2</sub> : entraxe transversal des fixations</li>
+</ul>
+"""
+
+
+html_glissement = """
+<h3>Résistance au glissement</h3>
+
+<p>
+F<sub>v,Ed</sub> ≤ F<sub>s,Rd</sub> =
+(k<sub>s</sub> × n × μ × (F<sub>0</sub> − 0,8 × F<sub>t,Ed</sub>)) / γ<sub>M3</sub>
+</p>
+
+<p>Avec :</p>
+<ul>
+    <li>k<sub>s</sub> : coefficient fonction de la dimension du trou</li>
+    <li>n : nombre de surfaces de frottement</li>
+    <li>μ : coefficient de frottement</li>
+    <li>F<sub>0</sub> : force de précontrainte induite par le couple de serrage par surface de contact</li>
+    <li>γ<sub>M3</sub> : coefficient partiel pour les assemblages dans le cas de la résistance au glissement à l’ELU</li>
+</ul>
+"""
+
+html_combinaison = """
+<h3>Résistance au cisaillement et à la traction combinés</h3>
+
+<p>
+F<sub>v,Ed</sub> / F<sub>v,Rd</sub> + F<sub>t,Ed</sub> / (1,4 × F<sub>t,Rd</sub>) ≤ 1
+</p>
+"""
+
+# =============================
+# Fonctions
+# =============================
 
 def calculer_marge(valeur, critere) :
     """
@@ -1456,6 +1579,32 @@ def page_EUROCODE() :
     # =======================================
     
     st.subheader("Résultats")
+
+    st.markdown("### Critères évalués à coller dans la note")
+
+    if check_cat_A :
+        st.markdown(html_cisaillement, unsafe_allow_html=True)
+        st.markdown(html_pression_diametrale, unsafe_allow_html=True)
+    
+    if check_cat_B :
+        st.markdown(html_cisaillement, unsafe_allow_html=True)
+        st.markdown(html_pression_diametrale, unsafe_allow_html=True)
+        st.markdown(html_glissement, unsafe_allow_html=True)
+        
+    if check_cat_C :
+        st.markdown(html_pression_diametrale, unsafe_allow_html=True)
+        st.markdown(html_glissement, unsafe_allow_html=True)
+        
+    if check_cat_D :
+        st.markdown(html_traction, unsafe_allow_html=True)
+        st.markdown(html_poinconnement, unsafe_allow_html=True)
+        
+    if check_cat_E :
+        st.markdown(html_traction, unsafe_allow_html=True)
+        st.markdown(html_poinconnement, unsafe_allow_html=True)
+    
+    if check_combine :
+        st.markdown(html_combinaison, unsafe_allow_html=True)
 
     marge_min_A = 1000.0
     marge_min_B = 1000.0

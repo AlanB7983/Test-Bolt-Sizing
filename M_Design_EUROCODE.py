@@ -692,6 +692,7 @@ def page_EUROCODE() :
     S = np.pi*d*d/4               # Section du fût
     As = (((d3+d2)/2)**2)*np.pi/4 # Section résistante
     GammaM2 = 1.25                # Coefficient partiel pour la résistance des boulons
+    GammaM3 = 1.25                # Coefficient partiel pour la résistance des boulons
     GammaM4 = 1.0                 # Coefficient partiel pour la résistance en pression diamétrale des boulons injectés
     GammaM3ser = 1.1              # Coefficient partiel
     

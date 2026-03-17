@@ -1551,16 +1551,13 @@ def page_EUROCODE() :
                 alpha_v = 0.6
                 
             else :
-                if plan_cisaillement == "filet" :
-                    A = As
-                    if classe == "4.6" or classe == "5.6" or classe == "8.8" :
-                        alpha_v = 0.6
-                    else :
-                        alpha_v = 0.5
-                else :
-                    A = S
+                # plan_cisaillement == "filet" de façon conservtive
+                A = As
+                if classe == "4.6" or classe == "5.6" or classe == "8.8" :
                     alpha_v = 0.6
-                
+                else :
+                    alpha_v = 0.5
+            
             FvRd = alpha_v*fub*A/GammaM2
 
             # Prise en compte de l'épaisseur totale de calage, notée tp dans la norme.

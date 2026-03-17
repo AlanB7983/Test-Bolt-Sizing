@@ -1688,8 +1688,13 @@ def page_EUROCODE() :
             #if check_preload :
             st.write("FtEd = " + str(FtEd))
             st.write("FvEd = " + str(FvEd))
+            st.write("FtRd = " + str(FtRd))
+            st.write("FvRd = " + str(FvRd))
+            
             effort = FvEd/FvRd + FtEd/(1.4*FtRd)
+            
             marge = round(calculer_marge(effort, 1.0), 2)
+            
             #else :
             #    effort = FvEd/FvRd + FtEd/(1.4*FtRd)
             #    marge = round(calculer_marge(effort, 1.0), 2)

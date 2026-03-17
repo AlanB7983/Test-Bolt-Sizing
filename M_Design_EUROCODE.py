@@ -1312,8 +1312,8 @@ def page_EUROCODE() :
         position = torseur_effort_full_final[i][1]
         FtEd = float(torseur_effort_full_final[i][2])
         FvEd = float(torseur_effort_full_final[i][3])
-        st.write("FtEd = " + str(FtEd))
-        st.write("FvEd = " + str(FvEd))
+        # st.write("FtEd = " + str(FtEd))
+        # st.write("FvEd = " + str(FvEd))
         if check_cat_B : 
             FtEdser = float(torseur_effort_full_final[i][4])
             FvEdser = float(torseur_effort_full_final[i][5])
@@ -1685,12 +1685,14 @@ def page_EUROCODE() :
         
         if check_combine :
             # st.write("Catégorie Combinés")
-            if check_preload :
-                effort = FvEd/FvRd + FtEd/(1.4*FtRd)
-                marge = round(calculer_marge(effort, 1.0), 2)
-            else :
-                effort = FvEd/FvRd + FtEd/(1.4*FtRd)
-                marge = round(calculer_marge(effort, 1.0), 2)
+            #if check_preload :
+            st.write("FtEd = " + str(FtEd))
+            st.write("FvEd = " + str(FvEd))
+            effort = FvEd/FvRd + FtEd/(1.4*FtRd)
+            marge = round(calculer_marge(effort, 1.0), 2)
+            #else :
+            #    effort = FvEd/FvRd + FtEd/(1.4*FtRd)
+            #    marge = round(calculer_marge(effort, 1.0), 2)
                 
             Result_Cat_Combine.append([nom_boulon, "Résistance combinée", round(effort,2), 1.0, marge])
     

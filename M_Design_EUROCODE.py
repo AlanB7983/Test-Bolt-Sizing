@@ -1312,6 +1312,8 @@ def page_EUROCODE() :
         position = torseur_effort_full_final[i][1]
         FtEd = float(torseur_effort_full_final[i][2])
         FvEd = float(torseur_effort_full_final[i][3])
+        st.write("FtEd = " + str(FtEd))
+        st.write("FvEd = " + str(FvEd))
         if check_cat_B : 
             FtEdser = float(torseur_effort_full_final[i][4])
             FvEdser = float(torseur_effort_full_final[i][5])

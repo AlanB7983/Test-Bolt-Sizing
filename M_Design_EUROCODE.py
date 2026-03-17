@@ -1302,7 +1302,7 @@ def page_EUROCODE() :
 
     # On parcourt l'ensemble des valeurs des efforts
     for i in range(1, len(torseur_effort_full_final)) :
-
+        nom_boulon = torseur_effort_full_final[i][0]
         position = torseur_effort_full_final[i][1]
         FtEd = float(torseur_effort_full_final[i][2])
         FvEd = float(torseur_effort_full_final[i][3])
@@ -1367,7 +1367,7 @@ def page_EUROCODE() :
 
             marge = round(calculer_marge(FvEd, FvRd), 2)
 
-            Result_Cat_A.append(["Boulon n°" + str(i), "Résistance au cisaillement", round(FvEd,2), round(FvRd, 2), marge])
+            Result_Cat_A.append([nom_boulon, "Résistance au cisaillement", round(FvEd,2), round(FvRd, 2), marge])
 
 
 
@@ -1414,7 +1414,7 @@ def page_EUROCODE() :
                     FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
 
             marge = round(calculer_marge(FvEd, FbRd), 2)
-            Result_Cat_A.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2), marge])
+            Result_Cat_A.append([nom_boulon, "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2), marge])
 
         
         ###############
@@ -1459,7 +1459,7 @@ def page_EUROCODE() :
 
             marge = round(calculer_marge(FvEd, FvRd), 2)
 
-            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance au cisaillement", round(FvEd,2), round(FvRd, 2), marge])
+            Result_Cat_B.append([nom_boulon, "Résistance au cisaillement", round(FvEd,2), round(FvRd, 2), marge])
 
 
             # Résistance à la pression diamétrale
@@ -1500,7 +1500,7 @@ def page_EUROCODE() :
                     FbRd = kb*1.2*ksresine*d*tb_resine*Beta*fbresine/GammaM4
 
             marge = round(calculer_marge(FvEd, FbRd), 2)
-            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2), marge])
+            Result_Cat_B.append([nom_boulon, "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2), marge])
 
 
 
@@ -1523,7 +1523,7 @@ def page_EUROCODE() :
                 FsRd = FsRdser
 
             marge = round(calculer_marge(FvEdser, FsRd), 2)
-            Result_Cat_B.append(["Boulon n°" + str(i), "Résistance au glissement à l'ELS", round(FvEdser,2), round(FsRd, 2), marge])
+            Result_Cat_B.append([nom_boulon, "Résistance au glissement à l'ELS", round(FvEdser,2), round(FsRd, 2), marge])
 
 
 
@@ -1575,7 +1575,7 @@ def page_EUROCODE() :
                 
 
             marge = round(calculer_marge(FvEd, FbRd), 2)
-            Result_Cat_C.append(["Boulon n°" + str(i), "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2), marge])
+            Result_Cat_C.append([nom_boulon, "Résistance à la pression diamétrale", round(FvEd,2), round(FbRd, 2), marge])
 
 
 
@@ -1597,7 +1597,7 @@ def page_EUROCODE() :
                 FsRd = FsRdser
 
             marge = round(calculer_marge(FvEd, FsRd), 2)
-            Result_Cat_C.append(["Boulon n°" + str(i), "Résistance au glissement à l'ELU", round(FvEd,2), round(FsRd, 2), marge])
+            Result_Cat_C.append([nom_boulon, "Résistance au glissement à l'ELU", round(FvEd,2), round(FsRd, 2), marge])
             
             
 
@@ -1622,7 +1622,7 @@ def page_EUROCODE() :
 
             FtRd = k2*fub*As/GammaM2
             marge = round(calculer_marge(FtEd, FtRd), 2)
-            Result_Cat_D.append(["Boulon n°" + str(i), "Résistance à la traction", round(FtEd,2), round(FtRd, 2), marge])
+            Result_Cat_D.append([nom_boulon, "Résistance à la traction", round(FtEd,2), round(FtRd, 2), marge])
 
 
 
@@ -1632,7 +1632,7 @@ def page_EUROCODE() :
             if type_boulonnerie == "Boulon" :
                 BpRd = 0.6*np.pi*dm*tp*fu/GammaM2
                 marge = round(calculer_marge(FtEd, BpRd), 2)
-                Result_Cat_D.append(["Boulon n°" + str(i), "Résistance au poinçonnement", round(FtEd,2), round(BpRd, 2), marge])
+                Result_Cat_D.append([nom_boulon, "Résistance au poinçonnement", round(FtEd,2), round(BpRd, 2), marge])
 
 
 
@@ -1654,7 +1654,7 @@ def page_EUROCODE() :
 
             FtRd = k2*fub*As/GammaM2
             marge = round(calculer_marge(FtEd, FtRd), 2)
-            Result_Cat_E.append(["Boulon n°" + str(i), "Résistance à la traction", round(FtEd,2), round(FtRd, 2), marge])
+            Result_Cat_E.append([nom_boulon, "Résistance à la traction", round(FtEd,2), round(FtRd, 2), marge])
 
 
 
@@ -1664,7 +1664,7 @@ def page_EUROCODE() :
             if type_boulonnerie == "Boulon" :
                 BpRd = 0.6*np.pi*dm*tp*fu/GammaM2
                 marge = round(calculer_marge(FtEd, BpRd), 2)
-                Result_Cat_E.append(["Boulon n°" + str(i), "Résistance au poinçonnement", round(FtEd,2), round(BpRd, 2), marge])
+                Result_Cat_E.append([nom_boulon, "Résistance au poinçonnement", round(FtEd,2), round(BpRd, 2), marge])
 
 
 
@@ -1684,7 +1684,7 @@ def page_EUROCODE() :
                 effort = FvEd/FvRd + FtEd/(1.4*FtRd)
                 marge = round(calculer_marge(effort, 1.0), 2)
                 
-            Result_Cat_Combine.append(["Boulon n°" + str(i), "Résistance combinée", round(effort,2), 1.0, marge])
+            Result_Cat_Combine.append([nom_boulon, "Résistance combinée", round(effort,2), 1.0, marge])
     
 
     

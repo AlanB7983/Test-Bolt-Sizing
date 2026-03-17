@@ -1279,6 +1279,9 @@ def page_EUROCODE() :
     else :
         # On ne l'affiche pas mais on le convertie en dataframe pour l'afficher dans le rapport
         df_torseur_full = pd.DataFrame(torseur_effort_full_final[1:], columns=torseur_effort_full_final[0])
+
+        # Afficher le DataFrame dans Streamlit
+        st.dataframe(df_torseur_full)
     
     # saut de ligne
     st.write("\n")

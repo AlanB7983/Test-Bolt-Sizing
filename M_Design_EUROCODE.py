@@ -1028,6 +1028,7 @@ def page_EUROCODE() :
         # saut de ligne
         st.write("\n")
         st.write("Préciser la localisation du ou des plans de cisaillements.")
+        st.info("Si l'informaiton n'est pas connue, cocher 'Plan de cisaillement dans les filets' pour être conservatif.")
         plan_cisaillement_col1, plan_cisaillement_col2 = st.columns([1, 1])
         with plan_cisaillement_col1 :
             plan_cisaill_fut_lisse_check = st.checkbox("Plan de cisaillement dans le fût lisse")

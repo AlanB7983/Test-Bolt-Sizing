@@ -1505,13 +1505,13 @@ def page_EUROCODE() :
 
             # Résistance au glissement à l'ELS
             
-            FpC = 0.7*fub*As
+            # FpC = 0.7*fub*As
             # st.write(FpC)
             # Si il y a des efforts combinés
             if check_combine :
-                FsRdser = ksp*n*mu*(FpC - 0.8*FtEdser)/GammaM3ser
+                FsRdser = ksp*n*mu*(F0 - 0.8*FtEdser)/GammaM3ser
             else : 
-                FsRdser = ksp*n*mu*FpC/GammaM3ser
+                FsRdser = ksp*n*mu*F0/GammaM3ser
             
             # Si c'est un boulon injecté
             if resine_check :
@@ -1583,9 +1583,9 @@ def page_EUROCODE() :
             # FpC = 0.7*fub*As
             # Si il y a des efforts combinés
             if check_combine :
-                FsRdser = ksp*n*mu*(F0 - 0.8*FtEd)/GammaM4
+                FsRdser = ksp*n*mu*(F0 - 0.8*FtEd)/GammaM3
             else : 
-                FsRdser = ksp*n*mu*F0/GammaM4
+                FsRdser = ksp*n*mu*F0/GammaM3
 
             # Si c'est un boulon injecté
             if resine_check :

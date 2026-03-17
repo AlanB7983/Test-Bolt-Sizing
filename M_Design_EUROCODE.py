@@ -800,6 +800,7 @@ def page_EUROCODE() :
             L_Symbole.append("p1")
             L_Valeur.append(p1)
             L_Unite.append("[mm]")
+            peff = p1
         else : # Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
             p1 = 100000.0
             
@@ -811,13 +812,17 @@ def page_EUROCODE() :
             L_Symbole.append("p2")
             L_Valeur.append(p2)
             L_Unite.append("[mm]")
+            peff = p2
         else :# Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
             p2 = 100000.0
 
         if p1_check and p2_check :
+            peff = min(p1, p2)
             if quinconce_check :
                 L = st.text_input("Distance minimale entre 2 perçages, $L [mm]$ :", placeholder = "0.0")
                 L = float(L) if L else 0.0
+                peff = min(L, p1, p2)
+                
                 # On ajoute dans le tableau des données d'entrée
                 L_Designation.append("Distance minimale entre 2 perçages")
                 L_Symbole.append("L")
@@ -843,6 +848,7 @@ def page_EUROCODE() :
 
     e1 = float(e1) if e1 else 1.0
     e2 = float(e2) if e2 else 1.0
+    eeff = min(e1, e2)
     t = float(t) if t else 1.0
     tp = float(tp) if tp else 1.0
     Lj = float(Lj) if Lj else 1.0
@@ -1387,15 +1393,15 @@ def page_EUROCODE() :
                 else :
                     # Pour les boulons intérieurs
                     if position == "Intérieure" :
-                        alpha_d = (p1/(3*d0)) - 1/4
+                        alpha_d = (peff/(3*d0)) - 1/4
                         alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                        k1 = min((1.4*p2/d0 - 1.7), 2.5)
+                        k1 = min((1.4*peff/d0 - 1.7), 2.5)
         
                     # Pour les boulons de rive
                     else :
-                        alpha_d = e1/(3*d0)
+                        alpha_d = eeff/(3*d0)
                         alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                        k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
+                        k1 = min((2.8*eeff/d0 - 1.7), (1.4*peff/d0 - 1.7), 2.5)
     
                     # st.write("alpha_d = " + str(alpha_d))
                     # st.write("alpha_b = " + str(alpha_b))
@@ -1476,15 +1482,15 @@ def page_EUROCODE() :
                 else :
                     # Pour les boulons intérieurs
                     if position == "Intérieure" :
-                        alpha_d = (p1/(3*d0)) - 1/4
+                        alpha_d = (peff/(3*d0)) - 1/4
                         alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                        k1 = min((1.4*p2/d0 - 1.7), 2.5)
+                        k1 = min((1.4*peff/d0 - 1.7), 2.5)
         
                     # Pour les boulons de rive
                     else :
-                        alpha_d = e1/(3*d0)
+                        alpha_d = eeff/(3*d0)
                         alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                        k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
+                        k1 = min((2.8*eeff/d0 - 1.7), (1.4*peff/d0 - 1.7), 2.5)
                     if "Parallèle" in type_trou :
                         FbRd = k1*alpha_b*fu*d*t/GammaM2
                     else :
@@ -1550,15 +1556,15 @@ def page_EUROCODE() :
                 else :
                     # Pour les boulons intérieurs
                     if position == "Intérieure" :
-                        alpha_d = (p1/(3*d0)) - 1/4
+                        alpha_d = (peff/(3*d0)) - 1/4
                         alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                        k1 = min((1.4*p2/d0 - 1.7), 2.5)
+                        k1 = min((1.4*peff/d0 - 1.7), 2.5)
         
                     # Pour les boulons de rive
                     else :
-                        alpha_d = e1/(3*d0)
+                        alpha_d = eeff/(3*d0)
                         alpha_b = min(alpha_d, float(fub)/float(fu), 1)
-                        k1 = min((2.8*e2/d0 - 1.7), (1.4*p2/d0 - 1.7), 2.5)
+                        k1 = min((2.8*eeff/d0 - 1.7), (1.4*peff/d0 - 1.7), 2.5)
         
                     if "Parallèle" in type_trou :
                         FbRd = k1*alpha_b*fu*d*t/GammaM2

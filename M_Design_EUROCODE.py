@@ -1718,10 +1718,10 @@ def page_EUROCODE() :
         if check_combine :
             # st.write("Catégorie Combinés")
             #if check_preload :
-            st.write("FtEd = " + str(FtEd))
-            st.write("FvEd = " + str(FvEd))
-            st.write("FtRd = " + str(FtRd))
-            st.write("FvRd = " + str(FvRd))
+            # st.write("FtEd = " + str(FtEd))
+            # st.write("FvEd = " + str(FvEd))
+            # st.write("FtRd = " + str(FtRd))
+            # st.write("FvRd = " + str(FvRd))
             
             effort = FvEd/FvRd + FtEd/(1.4*FtRd)
             

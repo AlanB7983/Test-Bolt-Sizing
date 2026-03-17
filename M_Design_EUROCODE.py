@@ -1200,7 +1200,7 @@ def page_EUROCODE() :
             # Si F0 n'a pas été pris en compte dans les résultats saisis
             if F0_selection == "non" :
                 # On ajoute une colonne pour noter F0 dans le tableau 
-                st.write("non")
+                # st.write("non")
                 for index, ligne in enumerate(torseur_effort_full) :
                     if index == 0 :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
@@ -1583,9 +1583,9 @@ def page_EUROCODE() :
             FpC = 0.7*fub*As
             # Si il y a des efforts combinés
             if check_combine :
-                FsRdser = ksp*n*mu*(FpC - 0.8*FtEd)/GammaM3ser
+                FsRdser = ksp*n*mu*(F0 - 0.8*FtEd)/GammaM3ser
             else : 
-                FsRdser = ksp*n*mu*FpC/GammaM3ser
+                FsRdser = ksp*n*mu*F0/GammaM3ser
 
             # Si c'est un boulon injecté
             if resine_check :
@@ -1960,30 +1960,33 @@ def page_EUROCODE() :
     
     # saut de ligne
     st.write("\n")
-    
+
+    # ======================
     # RAPPORT PDF
-    st.subheader("Export des résultats")
+    # ======================
     
-    # On récupère les données nécessaires
-    L_cat = [check_cat_A, check_cat_B, check_cat_C, check_cat_D, check_cat_E, check_combine]
-    df_assembly_geom_data = df_geom_data.loc[12:len(df_geom_data)-1]
-    
-    # On crée le rapport pdf
-    pdf_buffer = create_pdf_eurocode(type_boulonnerie, d, classe, tete_fraisee_check, resine_check, df_bolt_geom_data, df_assembly_geom_data, simple_recouvrement_check, plan_cisaillement, df_torseur_full, L_cat, tp , Lj, Result_Cat_A, Result_Cat_B, Result_Cat_C, Result_Cat_D, Result_Cat_E, Result_Cat_Combine, marge_min_A, marge_min_B, marge_min_C, marge_min_D, marge_min_E, marge_min_combine)
-    
-    
-    # Proposer le téléchargement
-    file_name = st.text_input("Nom du fichier PDF", placeholder="Rapport.pdf")
-    
-    if ".pdf" not in file_name :
-        file_name = file_name + ".pdf"
+    # st.subheader("Export des résultats")
         
-    st.download_button(
-      label="Télécharger le rapport PDF",
-      data=pdf_buffer,
-      file_name = file_name,
-      mime="application/pdf" # utilisé pour spécifier le type de fichier que l'utilisateur peut télécharger. Ici, application/pdf signifie qu'il s'agit d'un document pdf
-    )
+    # # On récupère les données nécessaires
+    # L_cat = [check_cat_A, check_cat_B, check_cat_C, check_cat_D, check_cat_E, check_combine]
+    # df_assembly_geom_data = df_geom_data.loc[12:len(df_geom_data)-1]
+    
+    # # On crée le rapport pdf
+    # pdf_buffer = create_pdf_eurocode(type_boulonnerie, d, classe, tete_fraisee_check, resine_check, df_bolt_geom_data, df_assembly_geom_data, simple_recouvrement_check, plan_cisaillement, df_torseur_full, L_cat, tp , Lj, Result_Cat_A, Result_Cat_B, Result_Cat_C, Result_Cat_D, Result_Cat_E, Result_Cat_Combine, marge_min_A, marge_min_B, marge_min_C, marge_min_D, marge_min_E, marge_min_combine)
+    
+    
+    # # Proposer le téléchargement
+    # file_name = st.text_input("Nom du fichier PDF", placeholder="Rapport.pdf")
+    
+    # if ".pdf" not in file_name :
+    #     file_name = file_name + ".pdf"
+        
+    # st.download_button(
+    #   label="Télécharger le rapport PDF",
+    #   data=pdf_buffer,
+    #   file_name = file_name,
+    #   mime="application/pdf" # utilisé pour spécifier le type de fichier que l'utilisateur peut télécharger. Ici, application/pdf signifie qu'il s'agit d'un document pdf
+    # )
 
 
     

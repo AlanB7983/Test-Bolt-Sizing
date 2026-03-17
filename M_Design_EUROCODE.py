@@ -1580,12 +1580,12 @@ def page_EUROCODE() :
 
             # Résistance au glissement à l'ELU
             
-            FpC = 0.7*fub*As
+            # FpC = 0.7*fub*As
             # Si il y a des efforts combinés
             if check_combine :
-                FsRdser = ksp*n*mu*(F0 - 0.8*FtEd)/GammaM3ser
+                FsRdser = ksp*n*mu*(F0 - 0.8*FtEd)/GammaM4
             else : 
-                FsRdser = ksp*n*mu*F0/GammaM3ser
+                FsRdser = ksp*n*mu*F0/GammaM4
 
             # Si c'est un boulon injecté
             if resine_check :

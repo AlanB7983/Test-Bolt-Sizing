@@ -1544,6 +1544,41 @@ def page_EUROCODE() :
         if check_cat_C :
             # st.write("Catégorie C")
 
+            # Résistance au cisaillement uniquement pour vérifier le critère combiné
+
+            if type_boulonnerie == "Rivet" :
+                A = As
+                alpha_v = 0.6
+                
+            else :
+                if plan_cisaillement == "filet" :
+                    A = As
+                    if classe == "4.6" or classe == "5.6" or classe == "8.8" :
+                        alpha_v = 0.6
+                    else :
+                        alpha_v = 0.5
+                else :
+                    A = S
+                    alpha_v = 0.6
+                
+            FvRd = alpha_v*fub*A/GammaM2
+
+            # Prise en compte de l'épaisseur totale de calage, notée tp dans la norme.
+            # A intégrer dans une évolution future
+            #if tcal > d/3 :
+            #    Betap = 9*d/(8*d+3*tcal)
+            #    # st.write("Betap = " + str(Betap))
+            #    
+            #    FvRd = Betap*FvRd
+                
+            # Si c'est un assemblage long, on applique un coefficient supplémentaire
+            if check_assemblage_long :
+                BetaLf = 1 - (Lj - 15*d)/(200*d)
+                if BetaLf <= 0.75 :
+                    BetaLf = 0.75
+                FvRd = BetaLf*FvRd
+                
+
             # Résistance à la pression diamétrale
             
             # Si ce n'est pas un boulon injecté (avec résine)

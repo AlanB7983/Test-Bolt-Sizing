@@ -436,15 +436,31 @@ def lire_csv_colle(texte_csv: str, sep_col: str, sep_dec: str) -> pd.DataFrame:
 
 def Generate_Tableau_Bilan_Resultats(Result_Cat_A, Result_Cat_B, Result_Cat_C, Result_Cat_D, Result_Cat_E, Result_Cat_Combine) :
     """
-    Génère un tableau bilan des résultats de dimensionnement.
+    Génère un tableau bilan des résultats de dimensionnement de la boulonnerie.
 
-    Cas général :
-    - regroupement par (Nom du critère, Effort de résistance [N])
+    Chaque tableau d'entrée doit avoir la structure :
+    [
+        ["N° Boulon", "Nom du critère", "Effort de calcul [N]", "Effort de résistance [N]", "Marge [%]"],
+        ...
+    ]
 
-    Exception :
-    - pour la résistance au glissement, regroupement uniquement par Nom du critère
+    La fonction :
+    - parcourt toutes les listes de résultats,
+    - regroupe les lignes par (Nom du critère, Effort de résistance [N]),
+      ce qui permet de distinguer deux critères portant le même nom mais
+      ayant des résistances différentes (ex. pression diamétrale rive / intérieur),
+    - conserve la ligne correspondant à la marge minimale pour chaque groupe,
+    - calcule le taux de travail maximal = Effort de calcul / Effort de résistance.
+
+    Structure de sortie :
+    [
+        ["Nom du critère", "N° Boulon le plus sollicité", "Effort de calcul [N]",
+         "Effort de résistance [N]", "Taux de travail maximal [-]", "Marge minimale [%]"],
+        ...
+    ]
     """
 
+    # Liste des tableaux à parcourir
     listes_resultats = [
         Result_Cat_A,
         Result_Cat_B,
@@ -454,61 +470,60 @@ def Generate_Tableau_Bilan_Resultats(Result_Cat_A, Result_Cat_B, Result_Cat_C, R
         Result_Cat_Combine
     ]
 
+    # Dictionnaire qui stockera, pour chaque critère, la ligne la plus défavorable
+    # Clé = (nom_critere, effort_resistance)
+    # Valeur = dictionnaire contenant la ligne la plus critique
     resultats_critiques = {}
 
-    def construire_cle(nom_critere, effort_resistance):
-        """
-        Construit la clé de regroupement.
-
-        - Pour le glissement : regroupement uniquement par nom du critère
-        - Pour tous les autres critères : regroupement par nom + résistance
-        """
-        nom_normalise = str(nom_critere).strip().lower()
-
-        # Adapter ici si ton libellé exact change
-        if "glissement" in nom_normalise:
-            return nom_critere
-
-        return (nom_critere, effort_resistance)
-
+    # Parcours de tous les tableaux de résultats
     for resultats in listes_resultats:
+        # Sécurité : on ignore les tableaux vides ou ne contenant que l'en-tête
         if not resultats or len(resultats) <= 1:
             continue
 
+        # On saute la première ligne car c'est l'en-tête
         for ligne in resultats[1:]:
-            valeur_colonne_numero_boulon = ligne[0]
+            # Déballage des colonnes
+            numero_boulon = ligne[0]
             nom_critere = ligne[1]
             effort_calcul = float(ligne[2])
             effort_resistance = float(ligne[3])
             marge = float(ligne[4])
 
+            # Calcul du taux de travail
             if effort_resistance != 0:
                 taux_travail = effort_calcul / effort_resistance
             else:
                 taux_travail = float("inf")
 
-            cle = construire_cle(nom_critere, round(effort_resistance,0))
+            # Clé de regroupement :
+            # on distingue les critères de même nom si leur effort admissible diffère
+            cle = (nom_critere, round(effort_resistance,0))
 
+            # Si le critère n'existe pas encore, on l'ajoute
             if cle not in resultats_critiques:
                 resultats_critiques[cle] = {
                     "Nom du critère": nom_critere,
-                    "N° Boulon le plus sollicité": valeur_colonne_numero_boulon,
+                    "N° Boulon le plus sollicité": numero_boulon,
                     "Effort de calcul [N]": effort_calcul,
                     "Effort de résistance [N]": effort_resistance,
                     "Taux de travail maximal [-]": taux_travail,
                     "Marge minimale [%]": marge
                 }
             else:
+                # On ne garde que la ligne la plus défavorable :
+                # ici celle qui a la marge la plus faible
                 if marge < resultats_critiques[cle]["Marge minimale [%]"]:
                     resultats_critiques[cle] = {
                         "Nom du critère": nom_critere,
-                        "N° Boulon le plus sollicité": valeur_colonne_numero_boulon,
+                        "N° Boulon le plus sollicité": numero_boulon,
                         "Effort de calcul [N]": effort_calcul,
                         "Effort de résistance [N]": effort_resistance,
                         "Taux de travail maximal [-]": taux_travail,
                         "Marge minimale [%]": marge
                     }
 
+    # Construction de la liste de listes de sortie
     tableau_bilan = [[
         "Nom du critère",
         "N° Boulon le plus sollicité",
@@ -518,6 +533,7 @@ def Generate_Tableau_Bilan_Resultats(Result_Cat_A, Result_Cat_B, Result_Cat_C, R
         "Marge minimale [%]"
     ]]
 
+    # Ajout des résultats dans le tableau final
     for _, valeurs in resultats_critiques.items():
         tableau_bilan.append([
             valeurs["Nom du critère"],

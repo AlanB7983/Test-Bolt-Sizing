@@ -776,8 +776,8 @@ def page_EUROCODE() :
                                      
 
     with bolt_goem_data_col2 :
-        Lj1 = st.text_input("Entraxe extrême dans la direction 1, $L_j1 [mm]$ :", placeholder = "0.0")
-        Lj2 = st.text_input("Entraxe extrême dans la direction 2, $L_j2 [mm]$ :", placeholder = "0.0")
+        Lj1 = st.text_input("Entraxe extrême dans la direction 1, $L_{j1} [mm]$ :", placeholder = "0.0")
+        Lj2 = st.text_input("Entraxe extrême dans la direction 2, $L_{j2} [mm]$ :", placeholder = "0.0")
         if p1_check :
             p1 = st.text_input("Entraxe longitudinal, $p_1 [mm]$ :", placeholder = "0.0")
             p1 = float(p1) if p1 else 1.0
@@ -869,7 +869,7 @@ def page_EUROCODE() :
     L_Unite.append("[mm]")
     L_Unite.append("[mm]")
 
-    st.infos("La direction de l’effort n’étant pas connue, $L_{j}$ est déterminé de manière conservative à partir de $L_{j1}$ et $L_{j2}$, en retenant la valeur la plus défavorable.")
+    st.info("La direction de l’effort n’étant pas connue, $L_{j}$ est déterminé de manière conservative à partir de $L_{j1}$ et $L_{j2}$, en retenant la valeur la plus défavorable.")
     if forme_trou == "Rond" :
         st.image("Pictures/definition_donnee_assemblage_full_circulaire.PNG", use_container_width=True, caption="Définition des données d'assemblage")
     else :

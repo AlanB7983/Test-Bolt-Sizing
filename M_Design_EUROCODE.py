@@ -1182,7 +1182,7 @@ def page_EUROCODE() :
         
             # Si F0 a été pris en compte dans les résultats saisis
             else :
-                st.write("oui")
+                # st.write("oui")
                 # On ajoute une colonne pour noter F0 dans le tableau 
                 for index, ligne in enumerate(torseur_effort_full) :
                     if index == 0 :

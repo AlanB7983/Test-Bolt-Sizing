@@ -839,7 +839,7 @@ def page_EUROCODE() :
     tp = float(tp) if tp else 1.0
     Lj1 = float(Lj1) if Lj1 else 1.0
     Lj2 = float(Lj1) if Lj2 else 1.0
-    Lj = sqrt(Lj1*Lj1 + Lj2*Lj2)
+    Lj = (Lj1*Lj1 + Lj2*Lj2)**(0.5)
 
     # On teste la valeur de Lj pour savoir s'il s'agit d'un assemblage long
     if Lj > 15*d :

@@ -1247,6 +1247,8 @@ def page_EUROCODE() :
         FtEd = float(torseur_effort_full_final[i][2])
         if F0_selection == "non" :
             FtEd_without_preload = (float(torseur_effort_full_final[i][2]) - F0)/Lambda # Nécessaire pour le calcul de la résistance au glissement
+        else :
+            FtEd_without_preload = FtEd
         FvEd = float(torseur_effort_full_final[i][3])
         # st.write("FtEd = " + str(FtEd))
         # st.write("FvEd = " + str(FvEd))

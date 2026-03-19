@@ -1129,6 +1129,12 @@ def page_EUROCODE() :
 
     # Afficher les données sous forme de tableau
     st.dataframe(st.session_state.efforts_ext)
+    st.markdown(
+        "<p style='text-align: center; font-size:15px; color:darkgray; font-style:italic;'>"
+        "Bilan des torseurs d'effort utilisés pour le dimensionnement de la boulonnerie"
+        "</p>",
+        unsafe_allow_html=True
+    )
 
     # On crée une liste de listes à partir de ce tableau dataframe
     torseur_effort = [st.session_state.efforts_ext.columns.tolist()] + st.session_state.efforts_ext.values.tolist()  
@@ -1218,6 +1224,12 @@ def page_EUROCODE() :
         
         # Afficher le DataFrame dans Streamlit
         st.dataframe(df_torseur_full)
+        st.markdown(
+            "<p style='text-align: center; font-size:15px; color:darkgray; font-style:italic;'>"
+            "Bilan des torseurs d'effort utilisés, intégrant la précontrainte, pour le dimensionnement de la boulonnerie"
+            "</p>",
+            unsafe_allow_html=True
+        )
     else :
         # On ne l'affiche pas mais on le convertie en dataframe pour l'afficher dans le rapport
         df_torseur_full = pd.DataFrame(torseur_effort_full_final[1:], columns=torseur_effort_full_final[0])

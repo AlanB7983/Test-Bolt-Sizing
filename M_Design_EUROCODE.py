@@ -1667,8 +1667,10 @@ def page_EUROCODE() :
     # =======================================
     # Résultats
     # =======================================
+
+    st.divider()
+    st.header("RÉSULTATS")
     
-    st.subheader("Résultats")
 
     with st.expander("Détail des critères évalués à coller dans la note") :
 

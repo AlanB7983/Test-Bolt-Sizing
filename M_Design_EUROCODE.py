@@ -1300,18 +1300,11 @@ def page_EUROCODE() :
         nom_boulon = torseur_effort_full_final[i][0]
         position = torseur_effort_full_final[i][1]
         FtEd = float(torseur_effort_full_final[i][2])
+        FtEd_without_preload = (float(torseur_effort_full_final[i][2]) - F0)/Lambda # Nécessaire pour le calcul de la résistance au glissement
         FvEd = float(torseur_effort_full_final[i][3])
         # st.write("FtEd = " + str(FtEd))
         # st.write("FvEd = " + str(FvEd))
-        #if check_cat_B : 
-        #    FtEdser = float(torseur_effort_full_final[i][4])
-        #    FvEdser = float(torseur_effort_full_final[i][5])
-        
-        # if check_preload :
-            # FtEdp = float(torseur_effort_full_final[i][6])
-            # st.write("FtEdp = " + str(FtEdp))
-                     
-        #FvEd = (FvxEd**2 + FvyEd**2)**(0.5)
+                
 
         # st.write("FtEd = " + str(FtEd))
         # st.write("FvxEd = " + str(FvxEd))

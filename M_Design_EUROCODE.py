@@ -1500,7 +1500,7 @@ def page_EUROCODE() :
             # st.write(FpC)
             # Si il y a des efforts combinés
             if check_combine :
-                FsRdser = ksp*n*mu*(F0 - 0.8*FtEd)/GammaM3ser
+                FsRdser = ksp*n*mu*(F0 - 0.8*FtEd_without_preload)/GammaM3ser
             else : 
                 FsRdser = ksp*n*mu*F0/GammaM3ser
             
@@ -1606,7 +1606,7 @@ def page_EUROCODE() :
             # FpC = 0.7*fub*As
             # Si il y a des efforts combinés
             if check_combine :
-                FsRdser = ksp*n*mu*(F0 - 0.8*FtEd)/GammaM3
+                FsRdser = ksp*n*mu*(F0 - 0.8*FtEd_without_preload)/GammaM3
             else : 
                 FsRdser = ksp*n*mu*F0/GammaM3
 

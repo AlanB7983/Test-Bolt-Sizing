@@ -770,12 +770,14 @@ def page_EUROCODE() :
         t = st.text_input("Épaisseur minimale des pièces assemblées extérieures, $t [mm]$ :", placeholder = "0.0")
         e1 = st.text_input("Pince longitudinale, $e_1 [mm]$ :", placeholder = "0.0")
         e2 = st.text_input("Pince transversale, $e_2 [mm]$ :", placeholder = "0.0")
-        Lj = st.text_input("Entraxe extrême dans la direction des efforts, $L_j [mm]$ :", placeholder = "0.0")
+        
         
 
                                      
 
     with bolt_goem_data_col2 :
+        Lj1 = st.text_input("Entraxe extrême dans la direction 1, $L_j1 [mm]$ :", placeholder = "0.0")
+        Lj2 = st.text_input("Entraxe extrême dans la direction 2, $L_j2 [mm]$ :", placeholder = "0.0")
         if p1_check :
             p1 = st.text_input("Entraxe longitudinal, $p_1 [mm]$ :", placeholder = "0.0")
             p1 = float(p1) if p1 else 1.0
@@ -835,7 +837,9 @@ def page_EUROCODE() :
     eeff = min(e1, e2)
     t = float(t) if t else 1.0
     tp = float(tp) if tp else 1.0
-    Lj = float(Lj) if Lj else 1.0
+    Lj1 = float(Lj1) if Lj1 else 1.0
+    Lj2 = float(Lj1) if Lj2 else 1.0
+    Lj = sqrt(Lj1*Lj1 + Lj2*Lj2)
 
     # On teste la valeur de Lj pour savoir s'il s'agit d'un assemblage long
     if Lj > 15*d :
@@ -865,6 +869,7 @@ def page_EUROCODE() :
     L_Unite.append("[mm]")
     L_Unite.append("[mm]")
 
+    st.infos("La direction de l’effort n’étant pas connue, $L_{j}$ est déterminé de manière conservative à partir de $L_{j1}$ et $L_{j2}$, en retenant la valeur la plus défavorable.")
     if forme_trou == "Rond" :
         st.image("Pictures/definition_donnee_assemblage_full_circulaire.PNG", use_container_width=True, caption="Définition des données d'assemblage")
     else :
@@ -1128,48 +1133,6 @@ def page_EUROCODE() :
     # On crée une liste de listes à partir de ce tableau dataframe
     torseur_effort = [st.session_state.efforts_ext.columns.tolist()] + st.session_state.efforts_ext.values.tolist()  
 
-    # Si on est en catégorie B on demande les efforts à l'état limite de service
-    # if check_cat_B :
-#         # saut de ligne
-#         st.write("\n")
-#         st.write("- ##### *Effort à l'état limite de service*") #Sous-Partie
-
-#         if 'efforts_ext_ser' not in st.session_state:
-#             st.session_state.efforts_ext_ser = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed,ser [N]', 'Fvx,Ed,ser [N]', 'Fvy,Ed,ser [N]'])
-            
-#         # Saisies utilisateur pour ajouter des données
-#         saisie_effort_ser_col1, saisie_effort_ser_col2 = st.columns([1, 1])
-#         with saisie_effort_ser_col1 :
-#             FtEdser = st.text_input("Effort de traction à l'ELS, $F_{t,Ed,ser}$ [N]", placeholder = 0.0)
-#         with saisie_effort_ser_col2 :
-#             FvxEdser = st.text_input("Effort de cisaillement à l'ELS selon x, $F_{vx,Ed,ser}$ [N]", placeholder = 0.0)
-            
-#         st.write("") # Saut de ligne    
-#         saisie_effort_ser_col3, saisie_position_ser_col4 = st.columns([1, 1])
-#         with saisie_effort_ser_col3 :
-#             FvyEdser = st.text_input("Effort de cisaillement à l'ELS selon y, $F_{vy,Ed,ser}$ [N]", placeholder = 0.0)
-#         with saisie_position_ser_col4 :
-#             position_ser = st.selectbox('Position', liste_position, key = "position ELS")
-        
-#         but_col1_ser, but_col2_ser, but_col3_ser = st.columns([1,1,4])
-#         indice_boulon_ser = 1
-#         with but_col1_ser :
-#             # Bouton pour ajouter les données au DataFrame
-#             if st.button('Ajouter', use_container_width = True, key = "Ajouter ELS") :
-#                 indice_boulon_ser = st.session_state.efforts_ext_ser.shape[0] + 1
-#                 new_data = pd.DataFrame({'N° Boulon': [indice_boulon_ser], 'Position': [position_ser], 'Ft,Ed,ser [N]' : [float(FtEdser)], 'Fvx,Ed,ser [N]': [float(FvxEdser)], 'Fvy,Ed,ser [N]' : [float(FvyEdser)]})
-#                 st.session_state.efforts_ext_ser = pd.concat([st.session_state.efforts_ext_ser, new_data], ignore_index=True)
-#         with but_col2_ser:
-#             if st.button('Effacer', use_container_width = True, key = "Effacer ELS"):
-#                 st.session_state.efforts_ext_ser = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed,ser [N]', 'Fvx,Ed,ser [N]', 'Fvy,Ed,ser [N]'])
-    
-#         # Afficher les données sous forme de tableau
-#         st.dataframe(st.session_state.efforts_ext_ser)
-    
-#         # On crée une liste de listes à partir de ce tableau dataframe
-#         torseur_effort_ser = [st.session_state.efforts_ext_ser.columns.tolist()] + st.session_state.efforts_ext_ser.values.tolist() 
-
-
 
     
     
@@ -1202,24 +1165,6 @@ def page_EUROCODE() :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
                         nouvelle_ligne = ligne + ["Fp,Cd [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
                     else :
-                        #if check_cat_B :
-                        #    # Convertir les valeurs numériques de Col1
-                        #    FtEd = float(ligne[2])
-                        #    FtEdser = float(ligne[4])
-            
-                            # Calcul pour la nouvelle colonne Ft,Ed,p 
-                        #    FtpEd = F0 + float(Lambda)*FtEd
-                        #    FtpEdser = F0 + float(Lambda)*FtEdser
-            
-                            # Ajouter la nouvelle colonne 6 (F0) 
-                        #    nouvelle_ligne = ligne + [float(F0)]
-                            
-                            # On modifie les valeurs des efforts de tractions pour qu'ils prennent en compte la précontrainte
-                        #    nouvelle_ligne[2] = FtpEd
-                        #    nouvelle_ligne[4] = FtpEdser
-                        
-                        
-                        #else :
                         # Convertir les valeurs numériques de Col1
                         FtEd = float(ligne[2])
         

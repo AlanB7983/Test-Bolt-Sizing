@@ -1053,8 +1053,8 @@ def page_EUROCODE() :
     st.subheader("Efforts sollicitant la liaison")
 
     # On crée un tableau de saisie vide
-    if check_cat_B :
-        st.write("- ##### *Effort à l'état limite ultime*") #Sous-Partie
+    # if check_cat_B :
+    #     st.write("- ##### *Effort à l'état limite ultime*") #Sous-Partie
         
     if 'efforts_ext' not in st.session_state:
         st.session_state.efforts_ext = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fvx,Ed [N]', 'Fvy,Ed [N]'])
@@ -1129,45 +1129,45 @@ def page_EUROCODE() :
     torseur_effort = [st.session_state.efforts_ext.columns.tolist()] + st.session_state.efforts_ext.values.tolist()  
 
     # Si on est en catégorie B on demande les efforts à l'état limite de service
-    if check_cat_B :
-        # saut de ligne
-        st.write("\n")
-        st.write("- ##### *Effort à l'état limite de service*") #Sous-Partie
+    # if check_cat_B :
+#         # saut de ligne
+#         st.write("\n")
+#         st.write("- ##### *Effort à l'état limite de service*") #Sous-Partie
 
-        if 'efforts_ext_ser' not in st.session_state:
-            st.session_state.efforts_ext_ser = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed,ser [N]', 'Fvx,Ed,ser [N]', 'Fvy,Ed,ser [N]'])
+#         if 'efforts_ext_ser' not in st.session_state:
+#             st.session_state.efforts_ext_ser = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed,ser [N]', 'Fvx,Ed,ser [N]', 'Fvy,Ed,ser [N]'])
             
-        # Saisies utilisateur pour ajouter des données
-        saisie_effort_ser_col1, saisie_effort_ser_col2 = st.columns([1, 1])
-        with saisie_effort_ser_col1 :
-            FtEdser = st.text_input("Effort de traction à l'ELS, $F_{t,Ed,ser}$ [N]", placeholder = 0.0)
-        with saisie_effort_ser_col2 :
-            FvxEdser = st.text_input("Effort de cisaillement à l'ELS selon x, $F_{vx,Ed,ser}$ [N]", placeholder = 0.0)
+#         # Saisies utilisateur pour ajouter des données
+#         saisie_effort_ser_col1, saisie_effort_ser_col2 = st.columns([1, 1])
+#         with saisie_effort_ser_col1 :
+#             FtEdser = st.text_input("Effort de traction à l'ELS, $F_{t,Ed,ser}$ [N]", placeholder = 0.0)
+#         with saisie_effort_ser_col2 :
+#             FvxEdser = st.text_input("Effort de cisaillement à l'ELS selon x, $F_{vx,Ed,ser}$ [N]", placeholder = 0.0)
             
-        st.write("") # Saut de ligne    
-        saisie_effort_ser_col3, saisie_position_ser_col4 = st.columns([1, 1])
-        with saisie_effort_ser_col3 :
-            FvyEdser = st.text_input("Effort de cisaillement à l'ELS selon y, $F_{vy,Ed,ser}$ [N]", placeholder = 0.0)
-        with saisie_position_ser_col4 :
-            position_ser = st.selectbox('Position', liste_position, key = "position ELS")
+#         st.write("") # Saut de ligne    
+#         saisie_effort_ser_col3, saisie_position_ser_col4 = st.columns([1, 1])
+#         with saisie_effort_ser_col3 :
+#             FvyEdser = st.text_input("Effort de cisaillement à l'ELS selon y, $F_{vy,Ed,ser}$ [N]", placeholder = 0.0)
+#         with saisie_position_ser_col4 :
+#             position_ser = st.selectbox('Position', liste_position, key = "position ELS")
         
-        but_col1_ser, but_col2_ser, but_col3_ser = st.columns([1,1,4])
-        indice_boulon_ser = 1
-        with but_col1_ser :
-            # Bouton pour ajouter les données au DataFrame
-            if st.button('Ajouter', use_container_width = True, key = "Ajouter ELS") :
-                indice_boulon_ser = st.session_state.efforts_ext_ser.shape[0] + 1
-                new_data = pd.DataFrame({'N° Boulon': [indice_boulon_ser], 'Position': [position_ser], 'Ft,Ed,ser [N]' : [float(FtEdser)], 'Fvx,Ed,ser [N]': [float(FvxEdser)], 'Fvy,Ed,ser [N]' : [float(FvyEdser)]})
-                st.session_state.efforts_ext_ser = pd.concat([st.session_state.efforts_ext_ser, new_data], ignore_index=True)
-        with but_col2_ser:
-            if st.button('Effacer', use_container_width = True, key = "Effacer ELS"):
-                st.session_state.efforts_ext_ser = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed,ser [N]', 'Fvx,Ed,ser [N]', 'Fvy,Ed,ser [N]'])
+#         but_col1_ser, but_col2_ser, but_col3_ser = st.columns([1,1,4])
+#         indice_boulon_ser = 1
+#         with but_col1_ser :
+#             # Bouton pour ajouter les données au DataFrame
+#             if st.button('Ajouter', use_container_width = True, key = "Ajouter ELS") :
+#                 indice_boulon_ser = st.session_state.efforts_ext_ser.shape[0] + 1
+#                 new_data = pd.DataFrame({'N° Boulon': [indice_boulon_ser], 'Position': [position_ser], 'Ft,Ed,ser [N]' : [float(FtEdser)], 'Fvx,Ed,ser [N]': [float(FvxEdser)], 'Fvy,Ed,ser [N]' : [float(FvyEdser)]})
+#                 st.session_state.efforts_ext_ser = pd.concat([st.session_state.efforts_ext_ser, new_data], ignore_index=True)
+#         with but_col2_ser:
+#             if st.button('Effacer', use_container_width = True, key = "Effacer ELS"):
+#                 st.session_state.efforts_ext_ser = pd.DataFrame(columns=['N° Boulon', 'Position', 'Ft,Ed,ser [N]', 'Fvx,Ed,ser [N]', 'Fvy,Ed,ser [N]'])
     
-        # Afficher les données sous forme de tableau
-        st.dataframe(st.session_state.efforts_ext_ser)
+#         # Afficher les données sous forme de tableau
+#         st.dataframe(st.session_state.efforts_ext_ser)
     
-        # On crée une liste de listes à partir de ce tableau dataframe
-        torseur_effort_ser = [st.session_state.efforts_ext_ser.columns.tolist()] + st.session_state.efforts_ext_ser.values.tolist()  
+#         # On crée une liste de listes à partir de ce tableau dataframe
+#         torseur_effort_ser = [st.session_state.efforts_ext_ser.columns.tolist()] + st.session_state.efforts_ext_ser.values.tolist() 
 
 
 
@@ -1178,15 +1178,20 @@ def page_EUROCODE() :
     if classe == "8.8" or classe == "10.9" :
         if check_preload :
             
-            if check_cat_B :
-                torseur_effort_full = [['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fv,Ed [N]', 'Ft,Ed,ser [N]', 'Fv,Ed,ser [N]']]
-                for i in range(1, len(torseur_effort)) : # On commence à 1 car on n'a pas besoin de l'entête
-                    torseur_effort_full.append([torseur_effort[i][0], torseur_effort[i][1], torseur_effort[i][2], (torseur_effort[i][3]**2 + torseur_effort[i][4]**2)**(0.5), torseur_effort_ser[i][2], (torseur_effort_ser[i][3]**2 + torseur_effort_ser[i][4]**2)**(0.5)])
+            #if check_cat_B :
+            #    torseur_effort_full = [['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fv,Ed [N]', 'Ft,Ed,ser [N]', 'Fv,Ed,ser [N]']]
+            #    for i in range(1, len(torseur_effort)) : # On commence à 1 car on n'a pas besoin de l'entête
+            #        torseur_effort_full.append([torseur_effort[i][0], torseur_effort[i][1], torseur_effort[i][2], (torseur_effort[i][3]**2 + torseur_effort[i][4]**2)**(0.5), torseur_effort_ser[i][2], (torseur_effort_ser[i][3]**2 + torseur_effort_ser[i][4]**2)**(0.5)])
 
-            else :
-                torseur_effort_full = [['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fv,Ed [N]']]
-                for i in range(1, len(torseur_effort)) : # On commence à 1 car on n'a pas besoin de l'entête
-                    torseur_effort_full.append([torseur_effort[i][0], torseur_effort[i][1], torseur_effort[i][2], (torseur_effort[i][3]**2 + torseur_effort[i][4]**2)**(0.5)])
+            #else :
+            #    torseur_effort_full = [['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fv,Ed [N]']]
+            #    for i in range(1, len(torseur_effort)) : # On commence à 1 car on n'a pas besoin de l'entête
+            #        torseur_effort_full.append([torseur_effort[i][0], torseur_effort[i][1], torseur_effort[i][2], (torseur_effort[i][3]**2 + torseur_effort[i][4]**2)**(0.5)])
+            
+            
+            torseur_effort_full = [['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fv,Ed [N]']]
+            for i in range(1, len(torseur_effort)) : # On commence à 1 car on n'a pas besoin de l'entête
+                torseur_effort_full.append([torseur_effort[i][0], torseur_effort[i][1], torseur_effort[i][2], (torseur_effort[i][3]**2 + torseur_effort[i][4]**2)**(0.5)])
                     
             # Si F0 n'a pas été pris en compte dans les résultats saisis
             if F0_selection == "non" :
@@ -1197,35 +1202,35 @@ def page_EUROCODE() :
                         # Si c'est la première ligne (entête), ajouter le nom des nouvelles colonnes
                         nouvelle_ligne = ligne + ["Fp,Cd [N]"]  # Ajout des en-têtes pour les nouvelles colonnes
                     else :
-                        if check_cat_B :
-                            # Convertir les valeurs numériques de Col1
-                            FtEd = float(ligne[2])
-                            FtEdser = float(ligne[4])
+                        #if check_cat_B :
+                        #    # Convertir les valeurs numériques de Col1
+                        #    FtEd = float(ligne[2])
+                        #    FtEdser = float(ligne[4])
             
                             # Calcul pour la nouvelle colonne Ft,Ed,p 
-                            FtpEd = F0 + float(Lambda)*FtEd
-                            FtpEdser = F0 + float(Lambda)*FtEdser
+                        #    FtpEd = F0 + float(Lambda)*FtEd
+                        #    FtpEdser = F0 + float(Lambda)*FtEdser
             
                             # Ajouter la nouvelle colonne 6 (F0) 
-                            nouvelle_ligne = ligne + [float(F0)]
+                        #    nouvelle_ligne = ligne + [float(F0)]
                             
                             # On modifie les valeurs des efforts de tractions pour qu'ils prennent en compte la précontrainte
-                            nouvelle_ligne[2] = FtpEd
-                            nouvelle_ligne[4] = FtpEdser
+                        #    nouvelle_ligne[2] = FtpEd
+                        #    nouvelle_ligne[4] = FtpEdser
                         
                         
-                        else :
-                            # Convertir les valeurs numériques de Col1
-                            FtEd = float(ligne[2])
-            
-                            # Calcul pour la nouvelle colonne Ft,Ed,p 
-                            FtpEd = F0 + float(Lambda)*FtEd
-            
-                            # Ajouter la nouvelle colonne 6 (F0) 
-                            nouvelle_ligne = ligne + [float(F0)]
+                        #else :
+                        # Convertir les valeurs numériques de Col1
+                        FtEd = float(ligne[2])
+        
+                        # Calcul pour la nouvelle colonne Ft,Ed,p 
+                        FtpEd = F0 + float(Lambda)*FtEd
+        
+                        # Ajouter la nouvelle colonne 6 (F0) 
+                        nouvelle_ligne = ligne + [float(F0)]
 
-                            # On modifie les valeurs des efforts de tractions pour qu'ils prennent en compte la précontrainte
-                            nouvelle_ligne[2] = FtpEd
+                        # On modifie les valeurs des efforts de tractions pour qu'ils prennent en compte la précontrainte
+                        nouvelle_ligne[2] = FtpEd
                     
                     # Ajouter la nouvelle ligne modifiée à la liste finale
                     torseur_effort_full_final.append(nouvelle_ligne)
@@ -1298,9 +1303,9 @@ def page_EUROCODE() :
         FvEd = float(torseur_effort_full_final[i][3])
         # st.write("FtEd = " + str(FtEd))
         # st.write("FvEd = " + str(FvEd))
-        if check_cat_B : 
-            FtEdser = float(torseur_effort_full_final[i][4])
-            FvEdser = float(torseur_effort_full_final[i][5])
+        #if check_cat_B : 
+        #    FtEdser = float(torseur_effort_full_final[i][4])
+        #    FvEdser = float(torseur_effort_full_final[i][5])
         
         # if check_preload :
             # FtEdp = float(torseur_effort_full_final[i][6])
@@ -1502,7 +1507,7 @@ def page_EUROCODE() :
             # st.write(FpC)
             # Si il y a des efforts combinés
             if check_combine :
-                FsRdser = ksp*n*mu*(F0 - 0.8*FtEdser)/GammaM3ser
+                FsRdser = ksp*n*mu*(F0 - 0.8*FtEd)/GammaM3ser
             else : 
                 FsRdser = ksp*n*mu*F0/GammaM3ser
             
@@ -1514,8 +1519,8 @@ def page_EUROCODE() :
             else :
                 FsRd = FsRdser
 
-            marge = round(calculer_marge(FvEdser, FsRd), 2)
-            Result_Cat_B.append([nom_boulon, "Résistance au glissement à l'ELS", round(FvEdser,2), round(FsRd, 2), marge])
+            marge = round(calculer_marge(FvEd, FsRd), 2)
+            Result_Cat_B.append([nom_boulon, "Résistance au glissement à l'ELS", round(FvEd,2), round(FsRd, 2), marge])
 
 
 

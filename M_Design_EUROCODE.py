@@ -888,7 +888,7 @@ def page_EUROCODE() :
     L_Valeur.append(t)
     L_Valeur.append(e1)
     L_Valeur.append(e2)
-    L_Symbole.append(eeff)
+    L_Valeur.append(eeff)
     L_Valeur.append(Lj)
     L_Unite.append("[mm]")
     L_Unite.append("[mm]")

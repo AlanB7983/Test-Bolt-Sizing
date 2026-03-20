@@ -787,6 +787,10 @@ def page_EUROCODE() :
             L_Valeur.append(p1)
             L_Unite.append("[mm]")
             peff = p1
+            L_Designation.append("Entraxe effective")
+            L_Symbole.append("peff")
+            L_Valeur.append(peff)
+            L_Unite.append("[mm]")
         else : # Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
             p1 = 100000.0
             
@@ -799,6 +803,10 @@ def page_EUROCODE() :
             L_Valeur.append(p2)
             L_Unite.append("[mm]")
             peff = p2
+            L_Designation.append("Entraxe effective")
+            L_Symbole.append("peff")
+            L_Valeur.append(peff)
+            L_Unite.append("[mm]")
         else :# Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
             p2 = 100000.0
 
@@ -814,6 +822,22 @@ def page_EUROCODE() :
                 L_Symbole.append("L")
                 L_Valeur.append(L)
                 L_Unite.append("[mm]")
+                L_Designation.append("Entraxe effective")
+                L_Symbole.append("peff")
+                L_Valeur.append(peff)
+                L_Unite.append("[mm]")
+            L_Designation.append("Entraxe longitudinal")
+            L_Symbole.append("p1")
+            L_Valeur.append(p1)
+            L_Unite.append("[mm]")
+            L_Designation.append("Entraxe transversal")
+            L_Symbole.append("p2")
+            L_Valeur.append(p2)
+            L_Unite.append("[mm]")
+            L_Designation.append("Entraxe effective")
+            L_Symbole.append("peff")
+            L_Valeur.append(peff)
+            L_Unite.append("[mm]")
             
         if tete_fraisee_check :
             pf = st.text_input("Profondeur du fraisage, $p_f [mm]$ :", placeholder = "0.0")
@@ -852,17 +876,21 @@ def page_EUROCODE() :
     L_Designation.append("Épaisseur minimale des pièces assemblées extérieures")
     L_Designation.append("Pince longitudinale")
     L_Designation.append("Pince transversale")
+    L_Designation.append("Pince effective")
     L_Designation.append("Entraxe extrême dans la direction des efforts")
     L_Symbole.append("tp")
     L_Symbole.append("t")
     L_Symbole.append("e1")
     L_Symbole.append("e2")
+    L_Symbole.append("eeff")
     L_Symbole.append("Lj")
     L_Valeur.append(tp)
     L_Valeur.append(t)
     L_Valeur.append(e1)
     L_Valeur.append(e2)
+    L_Symbole.append(eeff)
     L_Valeur.append(Lj)
+    L_Unite.append("[mm]")
     L_Unite.append("[mm]")
     L_Unite.append("[mm]")
     L_Unite.append("[mm]")
@@ -900,7 +928,46 @@ def page_EUROCODE() :
             L_Valeur.append(fbresine)
             L_Unite.append("[MPa]")
     
+    if check_assemblage_long :
+        BetaLf = 1 - (Lj - 15*d)/(200*d)
+        if BetaLf <= 0.75 :
+            BetaLf = 0.75
+        L_Designation.append("Coefficient assemblages longs")
+        L_Symbole.append("BetaLf")
+        L_Valeur.append(BetaLf)
+        L_Unite.append("[-]")
 
+    L_Designation.append("Coefficient trou")
+    L_Symbole.append("kb")
+    L_Valeur.append(kb)
+    L_Unite.append("[-]")
+
+    L_Designation.append("Coefficient trou pour le grlissement")
+    L_Symbole.append("ksp")
+    L_Valeur.append(ksp)
+    L_Unite.append("[-]")
+
+    L_Designation.append("Coefficient partiel pour les assemblages")
+    L_Symbole.append("GammaM2")
+    L_Valeur.append(GammaM2)
+    L_Unite.append("[-]")
+
+    L_Designation.append("Coefficient partiel pour les assemblages")
+    L_Symbole.append("GammaM3")
+    L_Valeur.append(GammaM3)
+    L_Unite.append("[-]")
+
+    L_Designation.append("Coefficient partiel pour les assemblages")
+    L_Symbole.append("GammaM3ser")
+    L_Valeur.append(GammaM3ser)
+    L_Unite.append("[-]")
+
+    L_Designation.append("Coefficient partiel pour les assemblages")
+    L_Symbole.append("GammaM4")
+    L_Valeur.append(GammaM4)
+    L_Unite.append("[-]")
+
+    
     # Création d'un dictionnaire
     D_geom_data = {
         'Désignation' : L_Designation,
@@ -1147,17 +1214,6 @@ def page_EUROCODE() :
     if classe == "8.8" or classe == "10.9" :
         if check_preload :
             
-            #if check_cat_B :
-            #    torseur_effort_full = [['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fv,Ed [N]', 'Ft,Ed,ser [N]', 'Fv,Ed,ser [N]']]
-            #    for i in range(1, len(torseur_effort)) : # On commence à 1 car on n'a pas besoin de l'entête
-            #        torseur_effort_full.append([torseur_effort[i][0], torseur_effort[i][1], torseur_effort[i][2], (torseur_effort[i][3]**2 + torseur_effort[i][4]**2)**(0.5), torseur_effort_ser[i][2], (torseur_effort_ser[i][3]**2 + torseur_effort_ser[i][4]**2)**(0.5)])
-
-            #else :
-            #    torseur_effort_full = [['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fv,Ed [N]']]
-            #    for i in range(1, len(torseur_effort)) : # On commence à 1 car on n'a pas besoin de l'entête
-            #        torseur_effort_full.append([torseur_effort[i][0], torseur_effort[i][1], torseur_effort[i][2], (torseur_effort[i][3]**2 + torseur_effort[i][4]**2)**(0.5)])
-            
-            
             torseur_effort_full = [['N° Boulon', 'Position', 'Ft,Ed [N]', 'Fv,Ed [N]']]
             for i in range(1, len(torseur_effort)) : # On commence à 1 car on n'a pas besoin de l'entête
                 torseur_effort_full.append([torseur_effort[i][0], torseur_effort[i][1], torseur_effort[i][2], (torseur_effort[i][3]**2 + torseur_effort[i][4]**2)**(0.5)])
@@ -1294,9 +1350,6 @@ def page_EUROCODE() :
                 else :
                     A = S
                     alpha_v = 0.6
-
-            # st.write("alpha_v = " + str(alpha_v))
-            # st.write("A = " + str(A))
                 
             FvRd = alpha_v*fub*A/GammaM2
 

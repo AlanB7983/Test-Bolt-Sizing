@@ -27,51 +27,75 @@ from M_Createur_Rapport_PDF_EUROCODE import create_pdf_eurocode
 
 
 html_traction = """
-<h3>Résistance à la traction</h3>
+<h3>Résistance en traction</h3>
 
-<p>
-F<sub>t,Ed</sub> ≤ F<sub>t,Rd</sub> =
-(k<sub>2</sub> × f<sub>ub</sub> × A<sub>s</sub>) / γ<sub>M2</sub>
+<p>Condition :</p>
+<p style="margin-left:30px;">
+F<sub>t,Ed</sub> ≤ F<sub>t,Rd</sub>
+</p>
+
+<p>Résistance :</p>
+<p style="margin-left:30px;">
+F<sub>t,Rd</sub> = k<sub>2</sub> × f<sub>ub</sub> × A<sub>s</sub> / γ<sub>M2</sub>
 </p>
 
 <p>Avec :</p>
 <ul>
-    <li>F<sub>t,Ed</sub> : effort de traction vu par le boulon</li>
-    <li>k<sub>2</sub> : coefficient fonction de la dimension du trou</li>
-    <li>f<sub>ub</sub> : résistance à la rupture de l’élément de serrage</li>
-    <li>A<sub>s</sub> : section résistante</li>
-    <li>γ<sub>M2</sub> : coefficient partiel pour les assemblages dans le cas de la résistance des boulons</li>
+<li>F<sub>t,Ed</sub> : effort de traction dans le boulon</li>
+<li>k<sub>2</sub> : coefficient fonction de la dimension du trou</li>
+<li>f<sub>ub</sub> : résistance à la rupture du boulon</li>
+<li>A<sub>s</sub> : section résistante</li>
+<li>γ<sub>M2</sub> : coefficient partiel</li>
 </ul>
 """
 
 html_poinconnement = """
 <h3>Résistance au poinçonnement</h3>
 
-<p>
-F<sub>t,Ed</sub> ≤ B<sub>p,Rd</sub> =
-(0,6 × π × d<sub>m</sub> × t<sub>p</sub> × f<sub>u</sub>) / γ<sub>M2</sub>
+<p>Condition :</p>
+<p style="margin-left:30px;">
+F<sub>t,Ed</sub> ≤ B<sub>p,Rd</sub>
+</p>
+
+<p>Résistance :</p>
+<p style="margin-left:30px;">
+B<sub>p,Rd</sub> = 0.6 × π × d<sub>m</sub> × t<sub>p</sub> × f<sub>u</sub> / γ<sub>M2</sub>
 </p>
 
 <p>Avec :</p>
 <ul>
-    <li>d<sub>m</sub> : diamètre moyen sous tête</li>
-    <li>t<sub>p</sub> : épaisseur de plaque située sous la tête ou l’écrou</li>
-    <li>f<sub>u</sub> : résistance à la rupture de la pièce assemblée</li>
+<li>d<sub>m</sub> : diamètre moyen sous tête</li>
+<li>t<sub>p</sub> : épaisseur de la plaque</li>
+<li>f<sub>u</sub> : résistance de la pièce</li>
+<li>γ<sub>M2</sub> : coefficient partiel</li>
 </ul>
 """
 
 html_cisaillement = """
 <h3>Résistance au cisaillement</h3>
 
-<p>
-F<sub>v,Ed</sub> ≤ F<sub>v,Rd</sub> =
-(α<sub>v</sub> × f<sub>ub</sub> × A<sub>s</sub>) / γ<sub>M2</sub>
+<p>Condition :</p>
+<p style="margin-left:30px;">
+F<sub>v,Ed</sub> ≤ F<sub>v,Rd</sub>
+</p>
+
+<p>Résistance :</p>
+<p style="margin-left:30px;">
+F<sub>v,Rd</sub> = β<sub>Lf</sub> × α<sub>v</sub> × f<sub>ub</sub> × A<sub>s</sub> / γ<sub>M2</sub>
+</p>
+
+<p>Coefficient pour assemblages longs :</p>
+<p style="margin-left:30px;">
+0.75 ≤ β<sub>Lf</sub> = 1 − (L<sub>j</sub> − 15d) / (200d)
 </p>
 
 <p>Avec :</p>
 <ul>
-    <li>F<sub>v,Ed</sub> : effort de cisaillement vu par l’assemblage</li>
-    <li>α<sub>v</sub> : coefficient dépendant de la position du plan de cisaillement par rapport aux filets ou au fût lisse</li>
+<li>F<sub>v,Ed</sub> : effort de cisaillement</li>
+<li>α<sub>v</sub> : coefficient selon plan de cisaillement</li>
+<li>β<sub>Lf</sub> : coefficient assemblage long</li>
+<li>d : diamètre du boulon</li>
+<li>L<sub>j</sub> : longueur entre fixations extrêmes</li>
 </ul>
 """
 
@@ -80,7 +104,7 @@ html_pression_diametrale = """
 
 <p>
 F<sub>v,Ed</sub> ≤ F<sub>b,Rd</sub> =
-(k<sub>1</sub> × α<sub>b</sub> × f<sub>u</sub> × d × t) / γ<sub>M2</sub>
+k<sub>b</sub> × (k<sub>1</sub> × α<sub>b</sub> × f<sub>u</sub> × d × t) / γ<sub>M2</sub>
 </p>
 
 <p>Avec :</p>
@@ -109,27 +133,83 @@ F<sub>v,Ed</sub> ≤ F<sub>b,Rd</sub> =
     <li>e<sub>2</sub> : pince transversale entre le centre d’un trou de fixation et le bord adjacent de la pièce</li>
     <li>p<sub>1</sub> : entraxe longitudinal des fixations</li>
     <li>p<sub>2</sub> : entraxe transversal des fixations</li>
+    <li>k<sub>b</sub> : coefficient en fonction du type de trou</li>
 </ul>
 """
 
 
-html_glissement = """
-<h3>Résistance au glissement</h3>
+html_resine = """
+<h3>Pression diamétrale – boulons injectés</h3>
 
-<p>
-F<sub>v,Ed</sub> ≤ F<sub>s,Rd</sub> =
-(k<sub>s</sub> × n × μ × (F<sub>0</sub> − 0,8 × F<sub>t,Ed</sub>)) / γ<sub>M3</sub>
+<p>Condition :</p>
+<p style="margin-left:30px;">
+F<sub>v,Ed</sub> ≤ F<sub>b,Rd,resin</sub>
+</p>
+
+<p>Résistance :</p>
+<p style="margin-left:30px;">
+F<sub>b,Rd,resin</sub> = 1.2 × k<sub>s</sub> × d × t<sub>b,resin</sub> × β × f<sub>b,resin</sub> / γ<sub>M4</sub>
 </p>
 
 <p>Avec :</p>
 <ul>
-    <li>k<sub>s</sub> : coefficient fonction de la dimension du trou</li>
-    <li>n : nombre de surfaces de frottement</li>
-    <li>μ : coefficient de frottement</li>
-    <li>F<sub>0</sub> : force de précontrainte induite par le couple de serrage par surface de contact</li>
-    <li>γ<sub>M3</sub> : coefficient partiel pour les assemblages dans le cas de la résistance au glissement à l’ELU</li>
+<li>f<sub>b,resin</sub> : résistance de la résine</li>
+<li>t<sub>b,resin</sub> : épaisseur efficace</li>
+<li>k<sub>s</sub> : coefficient selon type de trou</li>
+<li>γ<sub>M4</sub> : coefficient partiel</li>
 </ul>
 """
+
+
+html_glissement_elu = """
+<h3>Résistance au glissement (ELU)</h3>
+
+<p>Condition :</p>
+<p style="margin-left:30px;">
+F<sub>v,Ed</sub> ≤ F<sub>s,Rd</sub>
+</p>
+
+<p>Résistance :</p>
+<p style="margin-left:30px;">
+F<sub>s,Rd</sub> = k<sub>sp</sub> × n × μ × (F<sub>0</sub> − 0.8 × F<sub>t,Ed</sub>) / γ<sub>M3</sub>
+</p>
+
+<p>Avec :</p>
+<ul>
+<li>k<sub>sp</sub> : coefficient lié au trou</li>
+<li>n : nombre de surfaces de frottement</li>
+<li>μ : coefficient de frottement</li>
+<li>F<sub>0</sub> : effort de précontrainte</li>
+<li>γ<sub>M3</sub> : coefficient partiel</li>
+</ul>
+"""
+
+
+
+html_glissement_els = """
+<h3>Résistance au glissement (ELS)</h3>
+
+<p>Condition :</p>
+<p style="margin-left:30px;">
+F<sub>v,Ed</sub> ≤ F<sub>s,Rd,ser</sub>
+</p>
+
+<p>Résistance :</p>
+<p style="margin-left:30px;">
+F<sub>s,Rd,ser</sub> = k<sub>sp</sub> × n × μ × (F<sub>0</sub> − 0.8 × F<sub>t,Ed</sub>) / γ<sub>M3,ser</sub>
+</p>
+
+<p>Avec :</p>
+<ul>
+<li>k<sub>sp</sub> : coefficient lié au trou</li>
+<li>n : nombre de surfaces de frottement</li>
+<li>μ : coefficient de frottement</li>
+<li>F<sub>0</sub> : effort de précontrainte</li>
+<li>γ<sub>M3,ser</sub> : coefficient partiel</li>
+</ul>
+"""
+
+
 
 html_combinaison = """
 <h3>Résistance au cisaillement et à la traction combinés</h3>
@@ -138,6 +218,11 @@ html_combinaison = """
 F<sub>v,Ed</sub> / F<sub>v,Rd</sub> + F<sub>t,Ed</sub> / (1,4 × F<sub>t,Rd</sub>) ≤ 1
 </p>
 """
+
+
+
+
+
 
 # =============================
 # Fonctions
@@ -1743,17 +1828,27 @@ def page_EUROCODE() :
     with st.expander("Détail des critères évalués à coller dans la note") :
 
         if check_cat_A :
+            # Si c'est un boulon injecté
+            if resine_check :
+                st.markdown(html_resine, unsafe_allow_html=True)
+            else :
+                st.markdown(html_pression_diametrale, unsafe_allow_html=True)
             st.markdown(html_cisaillement, unsafe_allow_html=True)
-            st.markdown(html_pression_diametrale, unsafe_allow_html=True)
         
         if check_cat_B :
             st.markdown(html_cisaillement, unsafe_allow_html=True)
             st.markdown(html_pression_diametrale, unsafe_allow_html=True)
-            st.markdown(html_glissement, unsafe_allow_html=True)
+            if resine_check :
+                st.markdown(html_resine, unsafe_allow_html=True)
+                # Faire un html de résistance au glissement avec resine
+            st.markdown(html_glissement_els, unsafe_allow_html=True)
             
         if check_cat_C :
             st.markdown(html_pression_diametrale, unsafe_allow_html=True)
-            st.markdown(html_glissement, unsafe_allow_html=True)
+            if resine_check :
+                st.markdown(html_resine, unsafe_allow_html=True)
+                # Faire un html de résistance au glissement avec resine
+            st.markdown(html_glissement_elu, unsafe_allow_html=True)
             
         if check_cat_D :
             st.markdown(html_traction, unsafe_allow_html=True)

@@ -667,6 +667,27 @@ def page_EUROCODE() :
     # =============================================================================
     # DONNEES D'ENTREE    
     # =============================================================================
+    pdf_url = "https://github.com/AlanB7983/Test-Bolt-Sizing/blob/main/PDF/Fiche%20dimensionnement%20boulonnerie%20Eurocode%201993.pdf"
+    st.markdown(
+        f"""
+        <a href="{pdf_url}" target="_blank" style="text-decoration:none;">
+            <div style="
+                width:32px;
+                height:32px;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                border-radius:6px;
+                background-color:#eee;
+                font-weight:bold;
+                font-size:18px;
+            ">
+                ?
+            </div>
+        </a>
+        """,
+        unsafe_allow_html=True
+    )
 
     st.header("SAISIE DES DONNÉES D'ENTRÉE") # Partie
 

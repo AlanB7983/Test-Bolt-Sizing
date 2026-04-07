@@ -1042,11 +1042,6 @@ def page_EUROCODE() :
     L_Unite.append("[-]")
 
     L_Designation.append("Coefficient partiel pour les assemblages")
-    L_Symbole.append("GammaM2")
-    L_Valeur.append(GammaM2)
-    L_Unite.append("[-]")
-
-    L_Designation.append("Coefficient partiel pour les assemblages")
     L_Symbole.append("GammaM3")
     L_Valeur.append(GammaM3)
     L_Unite.append("[-]")
@@ -1063,15 +1058,15 @@ def page_EUROCODE() :
 
     
     # Création d'un dictionnaire
-    D_geom_data = {
-        'Désignation' : L_Designation,
-        'Symbole' : L_Symbole,
-        'Valeur' : L_Valeur,
-        'Unité' : L_Unite
-        }
+    # D_geom_data = {
+    #     'Désignation' : L_Designation,
+    #     'Symbole' : L_Symbole,
+    #     'Valeur' : L_Valeur,
+    #     'Unité' : L_Unite
+    #     }
     
     # Création du DataFrame pandas à partir du dictionnaire
-    df_geom_data = pd.DataFrame(D_geom_data)
+    # df_geom_data = pd.DataFrame(D_geom_data)
     st.write("") # Saut de ligne
 
     # saut de ligne
@@ -1878,6 +1873,40 @@ def page_EUROCODE() :
     marge_min_combine = 1000.0
 
     rappel_geom_data_check_box = st.checkbox("Afficher les données géométriques utilisées pour le calcul")
+    
+    # Ajout des données manquantes
+    L_Designation.append("Coefficient")
+    L_Symbole.append("alpha_v")
+    L_Valeur.append(alpha_v)
+    L_Unite.append("[-]")
+
+    L_Designation.append("Coefficient")
+    L_Symbole.append("alpha_d")
+    L_Valeur.append(alpha_d)
+    L_Unite.append("[-]")
+
+    L_Designation.append("Coefficient")
+    L_Symbole.append("alpha_b")
+    L_Valeur.append(alpha_b)
+    L_Unite.append("[-]")
+
+    L_Designation.append("Coefficient")
+    L_Symbole.append("k_1")
+    L_Valeur.append(k1)
+    L_Unite.append("[-]")
+
+
+    # Création d'un dictionnaire
+    D_geom_data = {
+        'Désignation' : L_Designation,
+        'Symbole' : L_Symbole,
+        'Valeur' : L_Valeur,
+        'Unité' : L_Unite
+        }
+    
+    # Création du DataFrame pandas à partir du dictionnaire
+    df_geom_data = pd.DataFrame(D_geom_data)
+    
     if rappel_geom_data_check_box :
         st.dataframe(df_geom_data)
     

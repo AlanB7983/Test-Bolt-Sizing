@@ -872,7 +872,7 @@ def page_EUROCODE() :
     with bolt_goem_data_col2 :
         Lj1 = st.text_input("Entraxe extrême dans la direction 1, $L_{j1} [mm]$ :", placeholder = "0.0")
         Lj2 = st.text_input("Entraxe extrême dans la direction 2, $L_{j2} [mm]$ :", placeholder = "0.0")
-        if p1_check :
+        if p1_check and not p2_check :
             p1 = st.text_input("Entraxe longitudinal, $p_1 [mm]$ :", placeholder = "0.0")
             p1 = float(p1) if p1 else 1.0
             # On ajoute dans le tableau des données d'entrée
@@ -1036,7 +1036,7 @@ def page_EUROCODE() :
     L_Valeur.append(kb)
     L_Unite.append("[-]")
 
-    L_Designation.append("Coefficient trou pour le grlissement")
+    L_Designation.append("Coefficient trou pour le glissement")
     L_Symbole.append("ksp")
     L_Valeur.append(ksp)
     L_Unite.append("[-]")

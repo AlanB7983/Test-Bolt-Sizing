@@ -905,6 +905,10 @@ def page_EUROCODE() :
             p2 = 100000.0
 
         if p1_check and p2_check :
+            p1 = st.text_input("Entraxe longitudinal, $p_1 [mm]$ :", placeholder = "0.0")
+            p1 = float(p1) if p1 else 1.0
+            p2 = st.text_input("Entraxe transversal, $p_2 [mm]$ :", placeholder = "0.0")
+            p2 = float(p2) if p2 else 1.0
             peff = min(p1, p2)
             if quinconce_check :
                 L = st.text_input("Distance minimale entre 2 perçages, $L [mm]$ :", placeholder = "0.0")

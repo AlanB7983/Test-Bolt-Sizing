@@ -888,7 +888,7 @@ def page_EUROCODE() :
         else : # Si p1 et p2 ne sont pas définis, on met une valeur infinie pour pas qu'elle soit utilisée dans le calcul des critères
             p1 = 100000.0
             
-        if p2_check :
+        if p2_check and not p1_check :
             p2 = st.text_input("Entraxe transversal, $p_2 [mm]$ :", placeholder = "0.0")
             p2 = float(p2) if p2 else 1.0
             # On ajoute dans le tableau des données d'entrée

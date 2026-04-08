@@ -818,7 +818,7 @@ def page_EUROCODE() :
     L_Designation = ["Diamètre nominal", "Pas", "Diamètre du trou", "Diamètre en sommet d'écrou", "Diamètre moyen", "Diamètre à fond de filet", "Section résistante à la traction", 
                      "Section brute ou du fût lisse", "Résistance ultime à la traction (à 20°C)", "Coefficient de trou", "Coefficient de trou en précontrainte",
                      "Coefficient partiel pour la résistance des boulons"]
-    L_Symbole = ["d", "p", "d0", "d1", "d2", "d3", "As", "S", "fub", "kb", "ks", "GammaM2"]
+    L_Symbole = ["d", "p", "d0", "d1", "d2", "d3", "As", "S", "fub", "kb", "ks", "γM2"]
     L_Valeur = [d, p, d0, round(d1,2), round(d2,2), round(d3,2), round(As, 2), round(S, 2), fub, kb, ksp, GammaM2]
     L_Unite = ["[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm]", "[mm²]", "[mm²]", "[MPa]", "[-]", "[-]", "[-]"]
 
@@ -1046,17 +1046,17 @@ def page_EUROCODE() :
     L_Unite.append("[-]")
 
     L_Designation.append("Coefficient partiel pour les assemblages")
-    L_Symbole.append("GammaM3")
+    L_Symbole.append("γ_M3")
     L_Valeur.append(GammaM3)
     L_Unite.append("[-]")
 
     L_Designation.append("Coefficient partiel pour les assemblages")
-    L_Symbole.append("GammaM3ser")
+    L_Symbole.append("γ_M3ser")
     L_Valeur.append(GammaM3ser)
     L_Unite.append("[-]")
 
     L_Designation.append("Coefficient partiel pour les assemblages")
-    L_Symbole.append("GammaM4")
+    L_Symbole.append("γ_M4")
     L_Valeur.append(GammaM4)
     L_Unite.append("[-]")
 

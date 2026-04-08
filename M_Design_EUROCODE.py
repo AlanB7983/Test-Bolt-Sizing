@@ -1371,10 +1371,10 @@ def page_EUROCODE() :
 
         # Si on est de classe 8.8 ou 10.9 mais qu'on n'est pas précontraint
         else :
-            st.write("balise")
+            # st.write("balise")
             # check_preload = False
             torseur_effort_full_final = torseur_effort
-            st.write(torseur_effort_full_final)
+            # st.write(torseur_effort_full_final)
             
     # Si la boulonnerie n'est pas de classe 8.8 ou 10.9                 
     else :
@@ -1426,10 +1426,11 @@ def page_EUROCODE() :
         nom_boulon = torseur_effort_full_final[i][0]
         position = torseur_effort_full_final[i][1]
         FtEd = float(torseur_effort_full_final[i][2])
-        if F0_selection == "non" :
-            FtEd_without_preload = (float(torseur_effort_full_final[i][2]) - F0)/Lambda # Nécessaire pour le calcul de la résistance au glissement
-        else :
-            FtEd_without_preload = FtEd
+        if check_preload :
+            if F0_selection == "non" :
+                FtEd_without_preload = (float(torseur_effort_full_final[i][2]) - F0)/Lambda # Nécessaire pour le calcul de la résistance au glissement
+            else :
+                FtEd_without_preload = FtEd
         FvEd = float(torseur_effort_full_final[i][3])
         # st.write("FtEd = " + str(FtEd))
         # st.write("FvEd = " + str(FvEd))

@@ -1031,7 +1031,7 @@ def page_EUROCODE() :
         if BetaLf <= 0.75 :
             BetaLf = 0.75
         L_Designation.append("Coefficient assemblages longs")
-        L_Symbole.append("BetaLf")
+        L_Symbole.append("β<sub>Lf</sub>")
         L_Valeur.append(BetaLf)
         L_Unite.append("[-]")
 

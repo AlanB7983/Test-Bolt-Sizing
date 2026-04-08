@@ -1374,7 +1374,7 @@ def page_EUROCODE() :
             st.write("balise")
             # check_preload = False
             torseur_effort_full_final = torseur_effort
-            st.write("torseur_effort_full_final")
+            st.write(torseur_effort_full_final)
             
     # Si la boulonnerie n'est pas de classe 8.8 ou 10.9                 
     else :

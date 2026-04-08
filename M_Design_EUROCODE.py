@@ -1117,6 +1117,12 @@ def page_EUROCODE() :
                 Lambda = float(Lambda) if Lambda else 0.0
                 st.info("Prendre $\Lambda$ = 0 revient à prendre l'hypothèse d'une liaison infiniment rigide.")
 
+                # On ajoute Lambda dans le tableau des données d'entrée
+                L_Designation.append("Coefficient de rigidité")
+                L_Symbole.append("Lambda")
+                L_Valeur.append(Lambda)
+                L_Unite.append("[-]")
+
             # saut de ligne
             st.write("\n")
 
@@ -1125,6 +1131,12 @@ def page_EUROCODE() :
             st.write("Nombre de pièces assemblées (hors rondelles)")
             nb_piece = st.number_input("Nombre de pièces assemblées (hors rondelles)", min_value = 2, step = 1, label_visibility="collapsed")
             n = nb_piece - 1
+
+            # On ajoute n dans le tableau des données d'entrée
+            L_Designation.append("Nombre de surface de frottement")
+            L_Symbole.append("n")
+            L_Valeur.append(n)
+            L_Unite.append("[-]")
     
             # On demande de choisir le coefficient de frottement mu
             st.write("Sélectionner le coefficient de frottement $\mu$ en fonction du traitement de surface détaillé dans le tableau ci-dessous")
@@ -1136,6 +1148,12 @@ def page_EUROCODE() :
                  ["0.20", "D", "Surfaces brutes de laminage."]]
             df_T_mu_Data = pd.DataFrame(T_mu_Data[1:], columns=T_mu_Data[0])
             st.write(df_T_mu_Data)
+
+            # On ajoute mu dans le tableau des données d'entrée
+            L_Designation.append("Coefficeint de frottement")
+            L_Symbole.append("µ")
+            L_Valeur.append(mu)
+            L_Unite.append("[-]")
 
             # saut de ligne
             st.write("\n")
